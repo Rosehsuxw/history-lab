@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【历史实验室第1期】沃尔克时刻1979</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', 'Segoe UI', sans-serif;
+            background: #fafafa;
+            color: #2c2c2c;
+            line-height: 1.8;
+        }
+        
+        .serif {
+            font-family: 'Noto Serif SC', Georgia, serif;
+        }
+        
+        /* 首字下沉 */
+        .first-letter::first-letter {
+            float: left;
+            font-size: 3.5em;
+            font-weight: 700;
+            line-height: 1;
+            margin-right: 0.1em;
+            color: #667eea;
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        /* 引用框样式 */
+        .quote-box {
+            border-left: 4px solid #667eea;
+            background: linear-gradient(90deg, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
+            padding: 1.2rem 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        /* 场景卡片 */
+        .scene-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        /* 选项卡片 */
+        .option-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+        
+        .option-card:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.03);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+        }
+        
+        .option-card.selected {
+            border-color: #07c160;
+            background: rgba(7, 193, 96, 0.05);
+            box-shadow: 0 4px 20px rgba(7, 193, 96, 0.2);
+        }
+        
+        .option-card.voted {
+            cursor: default;
+        }
+        
+        /* 实验选项卡片 */
+        .exp-option {
+            border: 2px solid transparent;
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.75rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .exp-option:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .exp-option.selected {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+        
+        /* 诊断标签 */
+        .diagnosis-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* 实验室标签 */
+        .lab-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 0.25rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        /* 分割线 */
+        .divider {
+            text-align: center;
+            margin: 3rem 0;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            display: inline-block;
+            width: 30%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ddd, transparent);
+            vertical-align: middle;
+            margin: 0 1rem;
+        }
+        
+        /* 笔记卡片 */
+        .note-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            color: #5c3d2e;
+        }
+        
+        /* 实验框 */
+        .experiment-box {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+        
+        /* 标题装饰 */
+        .section-title {
+            position: relative;
+            padding-left: 1rem;
+            margin: 2.5rem 0 1.5rem;
+        }
+        
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部封面 -->
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center py-16 px-4">
+        <div class="lab-tag mb-4">历史实验室 · 定期刊第1期</div>
+        <h1 class="text-3xl md:text-4xl font-bold serif leading-tight mb-4">
+            沃尔克时刻1979
+        </h1>
+        <p class="text-xl md:text-2xl opacity-90 serif italic">
+            通胀失控vs经济衰退，如果你是美联储主席你会怎么选？
+        </p>
+        <div class="mt-8 flex justify-center gap-6 text-sm opacity-80">
+            <span>📅 2026.05.06</span>
+            <span>⏱️ 阅读约12分钟</span>
+            <span>🧪 含互动投票</span>
+        </div>
+    </div>
+
+    <!-- 正文内容区 -->
+    <div class="max-w-3xl mx-auto py-8 px-4 md:px-8 bg-white min-h-screen">
+        
+        <!-- 导语 -->
+        <p class="first-letter text-lg leading-relaxed text-gray-700">
+            历史不会简单重复，但会押韵。当2026年全球再次面临通胀压力、央行政策左右为难时，我们不妨回到1979年那个决定美国经济未来的夏天——当时，一位名叫保罗·沃尔克的新上任美联储主席，面临着和今天几乎一模一样的困境。
+        </p>
+        
+        <p class="mt-4 leading-relaxed text-gray-700">
+            这不仅仅是货币政策的抉择，更是一场关于"短期痛苦"与"长期稳定"的哲学思辨。
+        </p>
+
+        <div class="divider">✦ ✦ ✦</div>
+
+        <!-- 场景设定 -->
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            01 那个炎热的夏天
+        </h2>
+
+        <div class="scene-card">
+            <p class="text-lg font-medium mb-4 text-blue-300">📍 1979年8月6日，华盛顿</p>
+            <p class="leading-relaxed mb-4">
+                你是保罗·沃尔克，三天前刚刚被卡特总统任命为美联储主席。你的办公室窗外，华盛顿纪念碑在35度的高温中显得有些扭曲。
+            </p>
+            <p class="leading-relaxed mb-4">桌上的报告让你冷汗直流：</p>
+            <ul class="space-y-2 ml-4 text-yellow-300">
+                <li>• 美国通胀率：<strong>11.2%</strong>（且还在攀升）</li>
+                <li>• 联邦基金利率：<strong>10.5%</strong></li>
+                <li>• 失业率：<strong>5.7%</strong></li>
+                <li>• 美元正在经历自由落体式贬值</li>
+                <li>• 黄金价格刚刚突破了300美元/盎司（10年前才35美元）</li>
+            </ul>
+            <p class="leading-relaxed mt-4">
+                你的货币政策委员会成员们分成两派，争论不休。
+            </p>
+            <p class="leading-relaxed mt-2 text-lg font-medium text-green-300">
+                现在，你必须做出选择。
+            </p>
+        </div>
+
+        <div class="divider">你的选择</div>
+
+        <!-- 四个选择 -->
+        <div id="voting-area">
+            <div class="option-card" data-option="A">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-lg shrink-0">A</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">激进加息，不惜一切代价压制通胀</h3>
+                        <p class="text-gray-600 mt-1">立即将利率提高到史无前例的水平，即使这意味着经济衰退、失业率飙升、银行破产潮。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-card" data-option="B">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg shrink-0">B</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">渐进加息，尝试软着陆</h3>
+                        <p class="text-gray-600 mt-1">温和地逐步提高利率，希望在不引发严重衰退的情况下逐步控制通胀。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-card" data-option="C">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-lg shrink-0">C</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">暂时按兵不动，观察数据后再决定</h3>
+                        <p class="text-gray-600 mt-1">通胀可能是暂时的（石油危机、粮食价格），再等几个季度看看数据再行动。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-card" data-option="D">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-lg shrink-0">D</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">转向宽松，优先保增长和就业</h3>
+                        <p class="text-gray-600 mt-1">通胀虽然高，但失业率也在上升，不能让经济陷入衰退。降息刺激经济。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="vote-result-area" style="display:none;">
+            <div class="text-center mt-6 mb-4">
+                <span class="text-green-600 font-medium">✓ 你的选择已记录！</span>
+                <span class="text-gray-500 text-sm ml-2">继续阅读，文末还有一次预测投票</span>
+            </div>
+        </div>
+
+        <div class="divider">决策风格诊断</div>
+
+        <!-- 决策风格诊断 -->
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            02 你是哪种决策者？
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-4 mt-6">
+            <div class="quote-box">
+                <span class="diagnosis-tag">A选项 · 外科医生型</span>
+                <p class="text-gray-700 leading-relaxed">
+                    你相信，面对顽疾必须下猛药，即使过程痛苦。这种风格的优势是能够快速建立信誉、根治问题；风险是可能造成不必要的附带伤害，甚至引发系统性危机。
+                </p>
+                <p class="text-sm text-gray-500 mt-2 italic">你就是市场上的"沃尔克型"投资者——宁愿忍受短期回撤，也要换取长期的结构性机会。</p>
+            </div>
+            
+            <div class="quote-box">
+                <span class="diagnosis-tag">B选项 · 领航员型</span>
+                <p class="text-gray-700 leading-relaxed">
+                    你倾向于在多个目标之间寻找平衡，通过微调来校准方向。这种风格的优势是平稳、可预测；风险是可能因为动作太慢而错失最佳时机，让问题恶化。
+                </p>
+                <p class="text-sm text-gray-500 mt-2 italic">你属于"鲍威尔型"——数据依赖、沟通透明、行动谨慎。</p>
+            </div>
+            
+            <div class="quote-box">
+                <span class="diagnosis-tag">C选项 · 观望者型</span>
+                <p class="text-gray-700 leading-relaxed">
+                    你极度厌恶在信息不完整时做出不可逆的决策。你相信，许多问题会自行解决，过度干预反而制造新问题。这种风格的优势是避免"好心办坏事"。
+                </p>
+                <p class="text-sm text-gray-500 mt-2 italic">风险是在真正的危机面前反应迟钝。</p>
+            </div>
+            
+            <div class="quote-box">
+                <span class="diagnosis-tag">D选项 · 救生员型</span>
+                <p class="text-gray-700 leading-relaxed">
+                    你的第一优先级是"不能死人"，所有其他考虑都要让位于防止系统性崩溃。这种风格的优势是人道主义；风险是道德风险和长期的结构性扭曲。
+                </p>
+                <p class="text-sm text-gray-500 mt-2 italic">你更像"格林斯潘型"——永远在市场最需要的时候提供流动性。</p>
+            </div>
+        </div>
+
+        <div class="divider">历史真相</div>
+
+        <!-- 历史真相 -->
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            03 沃尔克的选择与代价
+        </h2>
+
+        <div class="quote-box">
+            <p class="text-xl font-bold text-purple-700 serif">
+                "我知道会很痛苦。但如果你告诉人们'这药很苦，但能治病'，他们最终会理解的。"
+            </p>
+            <p class="text-sm text-gray-500 mt-2">—— 保罗·沃尔克</p>
+        </div>
+
+        <p class="leading-relaxed text-gray-700 mt-6">
+            <strong>1979年8月6日，沃尔克上任第一天。</strong>他没有选择渐进主义。
+        </p>
+
+        <p class="leading-relaxed text-gray-700 mt-4">
+            <strong>1979年10月6日，一个星期六。</strong>沃尔克召集紧急会议，宣布了被称为"星期六之夜大屠杀"的激进政策：
+        </p>
+
+        <ul class="mt-4 space-y-2 ml-6 text-gray-700">
+            <li>• 联邦基金利率从11%直接飙升到<strong class="text-red-600">17%</strong></li>
+            <li>• 随后在1980年底达到<strong class="text-red-600">20%</strong>的历史峰值</li>
+            <li>• 货币供应量增长率被严格限制</li>
+        </ul>
+
+        <p class="leading-relaxed text-gray-700 mt-6 font-medium">代价是惨烈的：</p>
+
+        <div class="grid md:grid-cols-2 gap-4 mt-4">
+            <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                <p class="text-red-700 font-bold mb-2">📉 经济衰退</p>
+                <p class="text-red-600 text-sm">1980-1982年，美国经历了大萧条以来最严重的衰退</p>
+            </div>
+            <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                <p class="text-red-700 font-bold mb-2">👥 失业率飙升</p>
+                <p class="text-red-600 text-sm">从6%飙升到10.8%，数百万家庭失去收入</p>
+            </div>
+            <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                <p class="text-red-700 font-bold mb-2">🏦 银行破产潮</p>
+                <p class="text-red-600 text-sm">超过3000家银行破产或被救助</p>
+            </div>
+            <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                <p class="text-red-700 font-bold mb-2">🚜 农民抗议</p>
+                <p class="text-red-600 text-sm">建筑业、汽车业几乎停摆，农民开拖拉机到美联储门口抗议</p>
+            </div>
+        </div>
+
+        <p class="leading-relaxed text-gray-700 mt-6 font-medium">但结果是历史性的：</p>
+
+        <div class="bg-green-50 p-6 rounded-lg border border-green-100 mt-4">
+            <p class="text-green-700">到1983年，通胀率从13.5%降到了<strong>3.2%</strong>；美元恢复强势；开启了美国历史上最长的"大稳健"时期（Great Moderation）；为里根时代的经济繁荣奠定了基础。</p>
+        </div>
+
+        <div class="divider">当代镜鉴</div>
+
+        <!-- 当代镜鉴 -->
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            04 从沃尔克时刻看2026年
+        </h2>
+
+        <div class="bg-blue-50 p-5 rounded-lg border border-blue-100 mt-4">
+            <p class="font-bold text-blue-800 mb-2">📰 【本周新闻】美联储5月FOMC会议释放信号：高利率可能持续更久</p>
+            <ul class="text-blue-700 text-sm space-y-1">
+                <li>• 市场原本预期今年会降息2-3次</li>
+                <li>• 但核心PCE通胀连续三个月高于预期</li>
+                <li>• 鲍威尔在发布会上暗示"降息时间可能比预期更晚"</li>
+                <li>• 市场开始重新定价"更高更久"的利率环境</li>
+            </ul>
+        </div>
+
+        <div class="mt-6 space-y-6">
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">1</span>
+                <div>
+                    <h4 class="font-bold text-gray-800">市场总是低估央行的决心</h4>
+                    <p class="text-gray-600 mt-1 text-sm">1979年，没有人相信沃尔克真的会把利率加到20%。同样，2022-2023年，也没有人相信鲍威尔会在一年内加息500bp。市场天生倾向于相信"央行会心软"，但这往往是误判。</p>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">2</span>
+                <div>
+                    <h4 class="font-bold text-gray-800">"暂时论"的陷阱</h4>
+                    <p class="text-gray-600 mt-1 text-sm">1970年代，美联储一次次认为通胀是"暂时的"（石油、粮食、越南战争），结果酿成了"大通胀"。2021年，我们又一次听到了"通胀暂时论"——历史不会简单重复，但决策者的认知偏差却惊人地相似。</p>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">3</span>
+                <div>
+                    <h4 class="font-bold text-gray-800">信誉是央行最宝贵的资产</h4>
+                    <p class="text-gray-600 mt-1 text-sm">沃尔克最伟大的遗产不是战胜了通胀，而是重建了美联储的信誉。一旦市场相信央行会不惜一切代价控制通胀，通胀预期就会自我实现下降。反之，如果市场怀疑决心，通胀就会根深蒂固。</p>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">4</span>
+                <div>
+                    <h4 class="font-bold text-gray-800">没有无痛的退出</h4>
+                    <p class="text-gray-600 mt-1 text-sm">每一次宽松政策的退出，都没有软着陆的先例。沃尔克制造了衰退，格林斯潘刺破了互联网泡沫，伯南克的加息引发了次贷危机。2026年的我们，能够创造历史吗？</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 实验室笔记 -->
+        <div class="note-card mt-8">
+            <h3 class="font-bold text-xl mb-4 serif">📌 实验室笔记</h3>
+            <ol class="space-y-3 text-sm">
+                <li><strong>1.</strong> 所有重大决策，本质上都是"短期痛苦"与"长期收益"的权衡。历史证明，那些愿意承受短期痛苦的决策者，最终会被历史铭记。</li>
+                <li><strong>2.</strong> 市场的记忆是短暂的。每一代人都需要重新学习"沃尔克教训"——通胀一旦失控，再想制服它，代价会大到难以想象。</li>
+                <li><strong>3.</strong> 2026年的我们，正在重演1979年的剧本吗？唯一的区别是，今天的债务水平是1979年的数倍，高利率的杀伤力可能远超当年。</li>
+                <li><strong>4.</strong> 作为投资者，你的"沃尔克时刻"是什么？是面对泡沫时忍住不追高的定力，还是面对下跌时忍住不抄底的耐心？</li>
+            </ol>
+        </div>
+
+        <div class="divider">🧪 样本外检验</div>
+
+        <!-- 样本外检验投票区 -->
+        <div class="experiment-box">
+            <h3 class="font-bold text-xl mb-4 serif text-center">沃尔克规律的2026复测</h3>
+            
+            <div class="bg-white/70 p-4 rounded-lg mb-6">
+                <h4 class="font-bold text-gray-700 mb-2">【实验原理】</h4>
+                <p class="text-gray-600 text-sm">
+                    我们从1979-1982年沃尔克抗通胀的历史案例中，提炼出了<span class="text-purple-600 font-medium">"通胀粘性→央行强硬→市场误判→超预期紧缩"</span>的规律。现在，我们把这个规律作为"理论模型"，用2026年正在发生的现实作为"样本外数据"，来检验这个历史规律是否仍然有效。
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h4 class="font-bold text-gray-800 text-lg mb-2">【实验问题】</h4>
+                <p class="text-gray-700">基于沃尔克时代的历史镜鉴，你认为6月FOMC会议上，鲍威尔会释放什么信号？</p>
+            </div>
+
+            <div class="space-y-3" id="experiment-voting">
+                <div class="exp-option" data-exp="A">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-sm shrink-0">A</span>
+                        <div>
+                            <p class="font-medium">鹰派信号（明确今年不降息，甚至保留加息选项）</p>
+                            <p class="text-sm text-green-600 mt-1">→ 验证结论：<strong>沃尔克规律成立</strong>，央行对抗通胀的决心总是被市场低估</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="exp-option" data-exp="B">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm shrink-0">B</span>
+                        <div>
+                            <p class="font-medium">中性偏鸽（维持利率不变，暗示下半年可能降息1-2次）</p>
+                            <p class="text-sm text-blue-600 mt-1">→ 验证结论：<strong>沃尔克规律部分成立</strong>，通胀仍是首要矛盾，但紧缩力度已过峰</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="exp-option" data-exp="C">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-sm shrink-0">C</span>
+                        <div>
+                            <p class="font-medium">明确鸽派（宣布开启降息周期，7月首次降息）</p>
+                            <p class="text-sm text-yellow-600 mt-1">→ 验证结论：<strong>沃尔克规律失效</strong>，这轮周期与70年代有本质不同，通胀是暂时的</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="exp-option" data-exp="D">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-sm shrink-0">D</span>
+                        <div>
+                            <p class="font-medium">意外转向（暗示可能需要再次加息）</p>
+                            <p class="text-sm text-red-600 mt-1">→ 验证结论：<strong>沃尔克规律超预期成立</strong>，历史正在以更极端的方式重演</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <div class="text-gray-500 text-sm mb-2">
+                    📅 实验揭榜时间：<strong class="text-purple-600">2026年6月18日 FOMC会议后</strong>
+                </div>
+                <div class="mt-4 p-3 bg-gradient-to-r from-yellow-100 to-amber-100 rounded-lg inline-block">
+                    <span class="text-amber-700 text-sm">🔓 完成两次投票，解锁你的专属"决策风格人物画像"</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 人物画像结果区域 -->
+        <div id="personality-result"></div>
+        <div id="personality-card" style="display:none; margin: 3rem 0;">
+            <div class="bg-gradient-to-r from-amber-100 via-yellow-50 to-orange-100 p-8 rounded-2xl text-center shadow-lg">
+                <div class="text-5xl mb-4">🎉</div>
+                <h3 id="personality-name" class="text-2xl md:text-3xl font-bold serif text-amber-800 mb-4"></h3>
+                <p id="personality-desc" class="text-gray-700 leading-relaxed text-lg"></p>
+                <div class="mt-6 text-sm text-amber-600">
+                    ✨ 感谢你参与本期历史实验室！我们下期再见
+                </div>
+            </div>
+        </div>
+
+        <!-- 下期预告 -->
+        <div class="divider">下一期预告</div>
+
+        <div class="bg-gradient-to-r from-purple-100 to-pink-100 p-6 rounded-xl text-center">
+            <h3 class="font-bold text-xl text-purple-800 serif mb-3">5月11日（周日刊）</h3>
+            <p class="text-purple-700 text-lg">穿越到1997年的香港金融保卫战</p>
+            <p class="text-purple-600 mt-2">如果你是时任香港金管局总裁任志刚，面对索罗斯的量子基金猛攻港币联系汇率，你会选择：加息保汇率？还是降息保楼市？</p>
+        </div>
+
+    </div>
+
+    <!-- 底部 -->
+    <div class="bg-gray-800 text-white text-center py-8 px-4">
+        <p class="text-lg serif font-medium mb-2">历史实验室</p>
+        <p class="text-gray-400 text-sm italic">在历史的十字路口寻找答案</p>
+        <div class="mt-4 text-gray-500 text-xs">
+            每周三 · 综合热点 | 每周日 · 财经投资
+        </div>
+    </div>
+
+    <script>
+        // 数据存储
+        const STORAGE_KEY = 'history_lab_volcker_1979';
+        
+        // 模拟初始数据
+        let voteData = {
+            choice: { A: 24, B: 38, C: 12, D: 6 },
+            experiment: { A: 18, B: 42, C: 15, D: 5 },
+            hasVotedChoice: false,
+            hasVotedExperiment: false,
+            userChoice: null,
+            userExperiment: null
+        };
+        
+        // 从localStorage加载
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+            voteData = JSON.parse(saved);
+        }
+        
+        function saveData() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(voteData));
+        }
+        
+        // 场景选择投票
+        document.querySelectorAll('.option-card').forEach(card => {
+            card.addEventListener('click', function() {
+                if (voteData.hasVotedChoice) return;
+                
+                const option = this.dataset.option;
+                voteData.choice[option]++;
+                voteData.hasVotedChoice = true;
+                voteData.userChoice = option;
+                
+                document.querySelectorAll('.option-card').forEach(c => {
+                    c.classList.add('voted');
+                    c.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                
+                // 显示结果提示
+                document.getElementById('vote-result-area').style.display = 'block';
+                
+                saveData();
+                
+                // 如果已经投了实验票，直接显示人物画像
+                if (voteData.userExperiment) {
+                    setTimeout(() => showPersonality(voteData.userChoice, voteData.userExperiment), 500);
+                } else {
+                    // 引导用户继续阅读
+                    alert('你的历史选择已记录！继续阅读文章，文末还有一次预测投票，完成后解锁你的专属决策风格人物画像 🎯');
+                }
+            });
+        });
+        
+        // 实验投票
+        document.querySelectorAll('.exp-option').forEach(card => {
+            card.addEventListener('click', function() {
+                if (voteData.hasVotedExperiment) return;
+                
+                const option = this.dataset.exp;
+                voteData.experiment[option]++;
+                voteData.hasVotedExperiment = true;
+                voteData.userExperiment = option;
+                
+                document.querySelectorAll('.exp-option').forEach(c => {
+                    c.style.cursor = 'default';
+                    c.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                this.style.background = 'rgba(16, 185, 129, 0.1)';
+                
+                saveData();
+                
+                // 如果已经投了历史选择票，显示人物画像
+                if (voteData.userChoice) {
+                    setTimeout(() => showPersonality(voteData.userChoice, voteData.userExperiment), 300);
+                } else {
+                    alert('你的预测已记录！回到文章开头，完成历史场景选择投票后，解锁你的决策风格人物画像 🔓');
+                }
+            });
+        });
+        
+        // 决策风格人物画像
+        function showPersonality(choice, exp) {
+            const personalities = {
+                'AA': { 
+                    name: '保罗·沃尔克', 
+                    desc: '你是真正的"通胀斗士"！意志坚定、行动果敢，为了长期目标不惜承受短期痛苦。你相信原则重于权宜，在压力面前从不退缩。历史证明，这样的人最终会被铭记。', 
+                    emoji: '🦅' 
+                },
+                'AB': { 
+                    name: '朱镕基', 
+                    desc: '你既有大刀阔斧改革的魄力，又懂务实平衡的艺术。面对复杂局面，你能在坚定方向的同时，灵活把握节奏。这是顶尖决策者的稀有品质！', 
+                    emoji: '🐯' 
+                },
+                'AC': { 
+                    name: '富兰克林·罗斯福', 
+                    desc: '你有改革的魄力，更有审时度势的智慧。"大胆试验，错了就改"是你的信条。这种既敢闯又灵活的风格，往往能在危局中开创新局面！', 
+                    emoji: '🦁' 
+                },
+                'AD': { 
+                    name: '撒切尔夫人', 
+                    desc: '你是"铁娘子"型人物——目标明确，意志如钢，该转向时毫不犹豫。你不害怕争议，只在乎做正确的事。这种强大的内心力量，注定你不会随波逐流！', 
+                    emoji: '👑' 
+                },
+                'BA': { 
+                    name: '马里奥·德拉吉', 
+                    desc: '你外表温和内敛，内心却有"不惜一切代价"的坚定。平时步步为营，关键时刻能爆发出惊人的魄力。这种"静水流深"的风格，往往是成大事者的特质！', 
+                    emoji: '🌊' 
+                },
+                'BB': { 
+                    name: '格林斯潘', 
+                    desc: '你是天生的"平衡大师"。在各种矛盾的目标之间，你总能找到微妙的平衡点。语焉不详、行动审慎不是缺点，而是你驾驭复杂局面的智慧。', 
+                    emoji: '⚖️' 
+                },
+                'BC': { 
+                    name: '伯南克', 
+                    desc: '你是学者型决策者——数据驱动，逻辑优先，不预设立场，随时准备修正观点。这种开放务实的态度，让你在快速变化的世界中总能做出最优选择。', 
+                    emoji: '📚' 
+                },
+                'BD': { 
+                    name: '周小川', 
+                    desc: '你是"渐进式改革"的高手。平时稳扎稳打，该突破时绝不手软。这种"静如处子、动如脱兔"的节奏把控能力，是长期主义者的制胜法宝。', 
+                    emoji: '🐉' 
+                },
+                'CA': { 
+                    name: '罗伯特·蒙代尔', 
+                    desc: '你是理论派与行动派的完美结合。不轻易表态，但一旦认定方向就坚定不移。这种深思熟虑后的果断，往往能一击即中！', 
+                    emoji: '🎯' 
+                },
+                'CB': { 
+                    name: '约翰·梅纳德·凯恩斯', 
+                    desc: '你相信"形势变了，我的观点也随之改变"。观察、等待、相机抉择是你的风格。这种务实主义让你很少犯大错，总能在合适的时间出现在合适的位置。', 
+                    emoji: '🧠' 
+                },
+                'CC': { 
+                    name: '易纲', 
+                    desc: '你是学者型官员的典范——低调、务实、专业、稳健。你不追求轰动效应，只做正确的事。这种"润物细无声"的力量，往往比轰轰烈烈更持久、更可靠。', 
+                    emoji: '🌿' 
+                },
+                'CD': { 
+                    name: '耶伦', 
+                    desc: '你是"鸽派中的鹰派"——平时温和耐心，该强硬时也绝不手软。你用学者的严谨看待每一个决策，用女性的细腻感知每一个数据。这种刚柔并济的风格，是这个时代最稀缺的智慧！', 
+                    emoji: '💎' 
+                },
+                'DA': { 
+                    name: '彭德怀', 
+                    desc: '你是"谁敢横刀立马"的勇将！平时宽厚待人，关键时刻雷霆出击。你不惹事，但绝不怕事。这种外柔内刚的性格，在关键时刻往往能成为团队的定海神针！', 
+                    emoji: '⚔️' 
+                },
+                'DB': { 
+                    name: '里根', 
+                    desc: '你相信"市场的智慧"，也懂政府的边界。你是自由市场的信徒，但也知道何时该出手。这种"有所为有所不为"的分寸感，是顶级政治家的标志。', 
+                    emoji: '🌟' 
+                },
+                'DC': { 
+                    name: '克林顿', 
+                    desc: '你是天生的"政治动物"——实用主义至上，没有什么教条不能打破。你关心的只有"什么有效"。这种灵活应变的能力，让你总能在任何环境中找到机会。', 
+                    emoji: '🎭' 
+                },
+                'DD': { 
+                    name: '安倍晋三', 
+                    desc: '你是"大胆实验"的倡导者。敢于突破常规，勇于尝试新思路。虽然可能会有争议，但历史往往是由这些敢于第一个吃螃蟹的人书写的！', 
+                    emoji: '🚀' 
+                }
+            };
+            
+            const p = personalities[choice + exp];
+            if (p) {
+                // 滚动到结果区域
+                document.getElementById('personality-result').scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => {
+                    document.getElementById('personality-name').textContent = p.emoji + ' 你的决策风格最像：' + p.name;
+                    document.getElementById('personality-desc').textContent = p.desc;
+                    document.getElementById('personality-card').style.display = 'block';
+                }, 600);
+            }
+        }
+        
+        // 页面加载时检查是否已投票
+        window.addEventListener('load', function() {
+            // 恢复历史选择状态
+            if (voteData.hasVotedChoice) {
+                const card = document.querySelector(`.option-card[data-option="${voteData.userChoice}"]`);
+                if (card) {
+                    card.classList.add('selected');
+                    document.querySelectorAll('.option-card').forEach(c => c.classList.add('voted'));
+                    document.getElementById('vote-result-area').style.display = 'block';
+                }
+            }
+            
+            // 恢复实验投票状态
+            if (voteData.hasVotedExperiment) {
+                const card = document.querySelector(`.exp-option[data-exp="${voteData.userExperiment}"]`);
+                if (card) {
+                    card.classList.add('selected');
+                    card.style.background = 'rgba(16, 185, 129, 0.1)';
+                    document.querySelectorAll('.exp-option').forEach(c => c.style.cursor = 'default');
+                }
+            }
+            
+            // 如果两次都投了，显示人物画像
+            if (voteData.userChoice && voteData.userExperiment) {
+                setTimeout(() => showPersonality(voteData.userChoice, voteData.userExperiment), 800);
+            }
+        });
+    </script>
+</body>
+</html>
