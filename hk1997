@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【历史实验室第2期】香港金融保卫战1997</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', 'Segoe UI', sans-serif;
+            background: #fafafa;
+            color: #2c2c2c;
+            line-height: 1.8;
+        }
+        
+        .serif {
+            font-family: 'Noto Serif SC', Georgia, serif;
+        }
+        
+        /* 首字下沉 */
+        .first-letter::first-letter {
+            float: left;
+            font-size: 3.5em;
+            font-weight: 700;
+            line-height: 1;
+            margin-right: 0.1em;
+            color: #e11d48;
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        /* 引用框样式 */
+        .quote-box {
+            border-left: 4px solid #e11d48;
+            background: linear-gradient(90deg, rgba(225, 29, 72, 0.08) 0%, transparent 100%);
+            padding: 1.2rem 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        /* 场景卡片 */
+        .scene-card {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: #e0e0e0;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        /* 选项卡片 */
+        .option-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+        
+        .option-card:hover {
+            border-color: #e11d48;
+            background: rgba(225, 29, 72, 0.03);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(225, 29, 72, 0.15);
+        }
+        
+        .option-card.selected {
+            border-color: #07c160;
+            background: rgba(7, 193, 96, 0.05);
+            box-shadow: 0 4px 20px rgba(7, 193, 96, 0.2);
+        }
+        
+        .option-card.voted {
+            cursor: default;
+        }
+        
+        /* 实验选项卡片 */
+        .exp-option {
+            border: 2px solid transparent;
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.75rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .exp-option:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .exp-option.selected {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+        
+        /* 诊断标签 */
+        .diagnosis-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* 实验室标签 */
+        .lab-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+            color: white;
+            padding: 0.25rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        /* 分割线 */
+        .divider {
+            text-align: center;
+            margin: 3rem 0;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            display: inline-block;
+            width: 30%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ddd, transparent);
+            vertical-align: middle;
+            margin: 0 1rem;
+        }
+        
+        /* 笔记卡片 */
+        .note-card {
+            background: linear-gradient(135deg, #ffe4e6 0%, #fecdd3 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            color: #881337;
+        }
+        
+        /* 实验框 */
+        .experiment-box {
+            background: linear-gradient(135deg, #ddd6fe 0%, #fae8ff 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+        
+        /* 标题装饰 */
+        .section-title {
+            position: relative;
+            padding-left: 1rem;
+            margin: 2.5rem 0 1.5rem;
+        }
+        
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #e11d48 0%, #be123c 100%);
+            border-radius: 2px;
+        }
+        
+        /* 投票统计样式 */
+        .vote-stats-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+        }
+        .vote-bar-bg {
+            background: #f3f4f6;
+            border-radius: 999px;
+            height: 10px;
+            overflow: hidden;
+        }
+        .vote-bar-fill {
+            height: 10px;
+            border-radius: 999px;
+            transition: width 0.8s ease;
+        }
+        .option-card.voted:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: #e5e7eb;
+            background: #fff;
+        }
+        .option-card.voted.selected:hover {
+            border-color: #07c160;
+            background: rgba(7, 193, 96, 0.05);
+            box-shadow: 0 4px 20px rgba(7, 193, 96, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部封面 -->
+    <div class="bg-gradient-to-r from-rose-600 to-red-700 text-white text-center py-16 px-4">
+        <div class="lab-tag mb-4">历史实验室 · 定期刊第2期</div>
+        <h1 class="text-3xl md:text-4xl font-bold serif leading-tight mb-4">
+            香港金融保卫战1997
+        </h1>
+        <p class="text-xl md:text-2xl opacity-90 serif italic">
+            联系汇率vs楼市崩溃，如果你是任志刚你会怎么选？
+        </p>
+        <div class="mt-8 flex justify-center gap-6 text-sm opacity-80">
+            <span>📅 2026.05.11</span>
+            <span>⏱️ 阅读约15分钟</span>
+            <span>🧪 含互动投票</span>
+        </div>
+    </div>
+
+    <!-- 正文内容区 -->
+    <div class="max-w-3xl mx-auto py-8 px-4 md:px-8 bg-white min-h-screen">
+        
+        <!-- 导语 -->
+        <p class="first-letter text-lg leading-relaxed text-gray-700">
+            1997年10月，索罗斯的量子基金携东南亚胜利余威，猛攻港币联系汇率。香港金管局总裁任志刚面临每个央行行长的终极噩梦：保汇率还是保经济？
+        </p>
+        
+        <p class="mt-4 leading-relaxed text-gray-700">
+            29年后的2026年，港币再次面临7.85的弱方兑换保证，美联储"更高更久"的利率政策让联系汇率制度的承压再次成为市场焦点。历史是在重复，还是在押韵？
+        </p>
+
+        <div class="divider">✦ ✦ ✦</div>
+
+        <!-- 场景设定 -->
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            01 那个黑色星期四的深夜
+        </h2>
+
+        <div class="scene-card">
+            <p class="text-lg font-medium mb-4 text-indigo-300">📍 1997年10月23日，凌晨2点，香港中环</p>
+            <p class="leading-relaxed mb-4">
+                你是任志刚，香港金融管理局总裁。办公室的咖啡机已经煮第五壶了。桌上的电话一直在响，那头是焦急的银行家们。
+            </p>
+            <p class="leading-relaxed mb-4">情况比你想象的更糟：</p>
+            <ul class="space-y-2 ml-4 text-yellow-300">
+                <li>• 港币兑美元汇率被打到<strong>7.75</strong>的强方兑换保证边缘</li>
+                <li>• 对冲基金在股票市场囤积了超过<strong>300亿港币</strong>的空单</li>
+                <li>• 银行同业拆借利率在一天内飙升到<strong>280%</strong></li>
+                <li>• 恒生指数当天暴跌<strong>10.4%</strong>，市值蒸发超过1万亿</li>
+                <li>• 你的幕僚们分成了两派，声音都在发抖</li>
+            </ul>
+            <p class="leading-relaxed mt-4 text-lg font-medium text-green-300">
+                现在是凌晨2点15分，你必须在开盘前做出决定。
+            </p>
+        </div>
+
+        <div class="divider">你的选择</div>
+
+        <!-- 四个选择 -->
+        <div id="voting-area">
+            <div class="option-card" data-option="A">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-lg shrink-0">A</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">加息捍卫联系汇率</h3>
+                        <p class="text-gray-600 mt-1">大幅提高利率，让做空港币的成本飙升，展示死守7.8的决心。但这会让楼市崩盘、企业破产、失业率飙升。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-card" data-option="B">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg shrink-0">B</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">放弃联系汇率，一次性贬值</h3>
+                        <p class="text-gray-600 mt-1">长痛不如短痛，像英国1992年退出ERM一样，主动贬值后重建货币信用。但这可能动摇香港国际金融中心地位。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-card" data-option="C">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-lg shrink-0">C</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">入市干预+资本管制</h3>
+                        <p class="text-gray-600 mt-1">动用外汇储备直接在市场买入港币，同时实施临时资本管制，限制对冲基金的杠杆和做空渠道。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-card" data-option="D">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-lg shrink-0">D</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">谈判妥协，寻求"有序调整"</h3>
+                        <p class="text-gray-600 mt-1">私下与索罗斯等对冲基金接触，寻求某种"不打脸"的和解方案，避免正面硬刚的巨大代价。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="vote-result-area" style="display:none;">
+            <div class="text-center mt-6 mb-4">
+                <span class="text-green-600 font-medium">✓ 你的选择已记录！</span>
+                <span class="text-gray-500 text-sm ml-2">继续阅读，文末还有一次预测投票</span>
+            </div>
+            <div class="vote-stats-card">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="font-bold text-gray-700">📊 全员投票统计</span>
+                    <span id="choice-total" class="text-sm text-gray-500">加载中...</span>
+                </div>
+                <div id="choice-stats"></div>
+            </div>
+        </div>
+
+        <div class="divider">决策者画像</div>
+
+        <!-- 决策风格诊断 -->
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            02 你是哪种金融决策者？
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-4 mt-6">
+            <div class="quote-box">
+                <span class="diagnosis-tag">A选项 · 央行正统派</span>
+                <p class="text-gray-700 leading-relaxed">
+                    你相信制度信誉高于一切，短期的阵痛是长期信用必须付出的代价。这种风格的好处是一旦成功，会建立坚不可摧的市场信心；风险是经济硬着陆的代价可能远超预期。
+                </p>
+                <p class="text-sm text-gray-500 mt-2 italic">你属于"沃尔克型"——宁愿忍受衰退，也要捍卫制度的神圣性。</p>
+            </div>
+            
+            <div class="quote-box">
+                <span class="diagnosis-tag">B选项 · 现实主义者</span>
+                <p class="text-gray-700 leading-relaxed">
+                    你不相信"不惜一切代价"这种说法，认为所有选择都要算成本收益比。你承认市场的力量，选择顺势而为而非螳臂当车。这种风格的优势是避免无谓消耗；风险是自我实现的恐慌可能比你预想的更严重。
+                </p>
+            </div>
+            
+            <div class="quote-box">
+                <span class="diagnosis-tag">C选项 · 实用创新者</span>
+                <p class="text-gray-700 leading-relaxed">
+                    你不喜欢在别人设定的框架里做选择题，你会跳出框架，用非常规手段改变游戏规则。这种风格的优势是可能出奇制胜；风险是破坏市场规则的长期后果难以估量。
+                </p>
+            </div>
+            
+            <div class="quote-box">
+                <span class="diagnosis-tag">D选项 · 博弈论高手</span>
+                <p class="text-gray-700 leading-relaxed">
+                    你相信所有市场冲突本质上都是利益博弈，没有什么是不能谈的。你追求的是"双赢"或"最小输"，而不是"全胜"。这种风格的优势是成本可控；风险是一旦泄密，市场信心可能瞬间崩溃。
+                </p>
+            </div>
+        </div>
+
+        <div class="divider">历史真相</div>
+
+        <!-- 历史真相 -->
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            03 任志刚的选择与代价
+        </h2>
+
+        <div class="quote-box">
+            <p class="text-xl font-bold text-rose-700 serif">
+                "那个凌晨3点的决定，我之后想了二十年。如果重来一次，我可能还是会做同样的选择——但我会更早就开始准备。"
+            </p>
+            <p class="text-sm text-gray-500 mt-2">—— 任志刚</p>
+        </div>
+
+        <p class="leading-relaxed text-gray-700 mt-6">
+            <strong>1997年10月23日凌晨3点，任志刚做出了选择。</strong>
+        </p>
+
+        <p class="leading-relaxed text-gray-700 mt-4">
+            他选择了 <strong>A选项 + C选项的混合版</strong>：大幅加息 + 入市干预，但<strong>没有实施资本管制</strong>（这是香港作为自由港的底线）。
+        </p>
+
+        <div class="bg-rose-50 p-6 rounded-lg border border-rose-200 mt-6">
+            <p class="font-bold text-rose-800 mb-3">🏆 第一回合（1997年10月）：惨胜</p>
+            <ul class="text-rose-700 text-sm space-y-2">
+                <li>✓ 港币守住了7.8的联系汇率</li>
+                <li>✗ 恒生指数从16000点跌到8000点</li>
+                <li>✗ 香港楼市开始了长达6年的下跌，最大跌幅70%</li>
+                <li>✗ 失业率从2%飙升到8.5%</li>
+            </ul>
+        </div>
+
+        <div class="bg-green-50 p-6 rounded-lg border border-green-200 mt-6">
+            <p class="font-bold text-green-800 mb-3">⚔️ 第二回合（1998年8月）：终极一战</p>
+            <ul class="text-green-700 text-sm space-y-2">
+                <li>索罗斯卷土重来，"双市夹击"策略更加凶猛</li>
+                <li>任志刚打出了震惊全球的底牌：<strong>直接入市买入股票</strong></li>
+                <li>香港政府动用1200亿外汇基金，成为港股最大买家</li>
+                <li>最终恒生指数从6600点反弹回到10000点以上</li>
+                <li>索罗斯的量子基金亏损约10亿美元，黯然离场</li>
+            </ul>
+        </div>
+
+        <p class="leading-relaxed text-gray-700 mt-6 font-medium">历史评价至今仍然两极分化：</p>
+
+        <div class="grid md:grid-cols-2 gap-4 mt-4">
+            <div class="bg-green-50 p-4 rounded-lg border border-green-100">
+                <p class="text-green-700 font-bold mb-2">✅ 正方</p>
+                <p class="text-green-600 text-sm">联系汇率保住了，香港国际金融中心的地位得以维系。如果当时放任贬值，后果不堪设想。</p>
+            </div>
+            <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                <p class="text-red-700 font-bold mb-2">❌ 反方</p>
+                <p class="text-red-600 text-sm">代价太惨烈！一代人的财富灰飞烟灭，中产阶级资产腰斩，香港经济失去了十年。</p>
+            </div>
+        </div>
+
+        <div class="divider">当代镜鉴</div>
+
+        <!-- 当代镜鉴 -->
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            04 2026年的港币困境
+        </h2>
+
+        <div class="bg-blue-50 p-5 rounded-lg border border-blue-100 mt-4">
+            <p class="font-bold text-blue-800 mb-2">📰 【本周新闻】港币再次触及7.85弱方兑换保证</p>
+            <ul class="text-blue-700 text-sm space-y-1">
+                <li>• 港币汇率连续三周在7.84-7.85区间徘徊</li>
+                <li>• 香港金管局已经入市承接超过500亿港币沽盘</li>
+                <li>• 银行体系总结余下降至约4000亿港币</li>
+                <li>• 市场开始讨论：联系汇率制度还能撑多久？</li>
+            </ul>
+        </div>
+
+        <div class="mt-6 space-y-6">
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold shrink-0">1</span>
+                <div>
+                    <h4 class="font-bold text-gray-800">没有免费的汇率锚</h4>
+                    <p class="text-gray-600 mt-1 text-sm">1997年香港用"楼市崩盘+经济衰退"换来了联系汇率的存续。2026年的今天，每一次金管局入市承接沽盘，都是在消耗外汇储备，同时收紧本地流动性。这个"锚"不是免费的，代价正在默默累积。</p>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold shrink-0">2</span>
+                <div>
+                    <h4 class="font-bold text-gray-800">利差是万有引力</h4>
+                    <p class="text-gray-600 mt-1 text-sm">联系汇率的本质是"香港利率跟随美国利率"。当美联储利率维持在5.5%，而香港经济需要降息时，利差就会产生资本外流的压力。1997年是这样，2026年还是这样——制度设计决定了香港没有独立的货币政策。</p>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold shrink-0">3</span>
+                <div>
+                    <h4 class="font-bold text-gray-800">信心比黄金更重要</h4>
+                    <p class="text-gray-600 mt-1 text-sm">1998年香港政府入市成功的关键，不是花了多少钱，而是改变了市场预期。当市场相信"政府会不惜一切代价"时，做空者自然会退散。反之，如果市场开始怀疑决心，那么再多的外汇储备也不够。</p>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold shrink-0">4</span>
+                <div>
+                    <h4 class="font-bold text-gray-800">所有选择都有代价</h4>
+                    <p class="text-gray-600 mt-1 text-sm">1997年捍卫汇率的代价是楼市崩盘；如果今天放弃汇率，代价可能是香港国际金融中心地位的动摇。没有完美的选择，只有你愿意承受哪种代价。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 实验室笔记 -->
+        <div class="note-card mt-8">
+            <h3 class="font-bold text-xl mb-4 serif">📌 实验室笔记</h3>
+            <ol class="space-y-3 text-sm">
+                <li><strong>1.</strong> 联系汇率制度是一个"承诺装置"。它的本质不是"能不能守住"，而是"愿意为守住付出什么代价"。1997年香港付了这个代价，2026年呢？</li>
+                <li><strong>2.</strong> 央行的信誉是一次性的。一旦市场怀疑你"不惜一切代价"的决心，那么即使你真的付出代价，效果也会大打折扣。</li>
+                <li><strong>3.</strong> 所有金融危机的剧本都是相似的：杠杆过高 + 期限错配 + 信心动摇。区别只是每次穿的外衣不同。</li>
+                <li><strong>4.</strong> "这次不一样"是投资中最危险的五个字。1997年有人说"香港不一样"，2007年有人说"美国楼市不一样"，2026年呢？</li>
+            </ol>
+        </div>
+
+        <div class="divider">🧪 样本外检验</div>
+
+        <!-- 样本外检验投票区 -->
+        <div class="experiment-box">
+            <h3 class="font-bold text-xl mb-4 serif text-center">联系汇率规律的2026复测</h3>
+            
+            <div class="bg-white/70 p-4 rounded-lg mb-6">
+                <h4 class="font-bold text-gray-700 mb-2">【实验原理】</h4>
+                <p class="text-gray-600 text-sm">
+                    我们从1997-1998年香港金融保卫战的历史案例中，提炼出了<span class="text-violet-600 font-medium">"利差倒挂→资本外流→汇率承压→央行干预→流动性收缩"</span>的联系汇率运行规律。现在，我们用2026年港币正在面临的压力作为"样本外数据"，来检验这个历史规律是否仍然有效。
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h4 class="font-bold text-gray-800 text-lg mb-2">【实验问题】</h4>
+                <p class="text-gray-700">基于1997年金融保卫战的历史镜鉴，你认为未来一个月（截至6月11日）内，港币兑美元汇率会如何演变？</p>
+            </div>
+
+            <div class="space-y-3" id="experiment-voting">
+                <div class="exp-option" data-exp="A">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-sm shrink-0">A</span>
+                        <div>
+                            <p class="font-medium">持续承压，多次触及甚至短暂突破7.85</p>
+                            <p class="text-sm text-green-600 mt-1">→ 验证结论：<strong>联系汇率规律成立</strong>，利差驱动的资本外流是刚性的，历史正在精确重演</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="exp-option" data-exp="B">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm shrink-0">B</span>
+                        <div>
+                            <p class="font-medium">保持稳定，在7.83-7.85区间波动</p>
+                            <p class="text-sm text-blue-600 mt-1">→ 验证结论：<strong>联系汇率规律部分成立</strong>，但市场预期已充分消化压力，进入稳态</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="exp-option" data-exp="C">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-sm shrink-0">C</span>
+                        <div>
+                            <p class="font-medium">明显反弹，回到7.80以上</p>
+                            <p class="text-sm text-yellow-600 mt-1">→ 验证结论：<strong>联系汇率规律失效</strong>，外部环境（美联储政策）的变化打破了历史模式</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="exp-option" data-exp="D">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-sm shrink-0">D</span>
+                        <div>
+                            <p class="font-medium">出现极端波动，测试7.85的有效性</p>
+                            <p class="text-sm text-red-600 mt-1">→ 验证结论：<strong>联系汇率规律超预期成立</strong>，市场信心的脆弱性与1997年如出一辙</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 text-center">
+                <div class="text-gray-500 text-sm mb-2">
+                    📅 实验揭榜时间：<strong class="text-violet-600">2026年6月11日</strong>
+                </div>
+                <div class="mt-4 p-3 bg-gradient-to-r from-amber-100 to-yellow-100 rounded-lg inline-block">
+                    <span class="text-amber-700 text-sm">🔓 完成两次投票，解锁你的专属"决策风格人物画像"</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 人物画像结果区域 -->
+        <div id="personality-result"></div>
+        
+        <!-- 实验投票结果区域 -->
+        <div id="exp-result-area" style="display:none;">
+            <div class="text-center mt-4 mb-2">
+                <span class="text-green-600 font-medium">✓ 你的预测已记录！</span>
+            </div>
+            <div class="vote-stats-card">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="font-bold text-gray-700">📊 预测投票统计</span>
+                    <span id="exp-total" class="text-sm text-gray-500">加载中...</span>
+                </div>
+                <div id="exp-stats"></div>
+            </div>
+        </div>
+        
+        <div id="personality-card" style="display:none; margin: 3rem 0;">
+            <div class="bg-gradient-to-r from-amber-100 via-yellow-50 to-orange-100 p-8 rounded-2xl text-center shadow-lg">
+                <div class="text-5xl mb-4">🎉</div>
+                <h3 id="personality-name" class="text-2xl md:text-3xl font-bold serif text-amber-800 mb-4"></h3>
+                <p id="personality-desc" class="text-gray-700 leading-relaxed text-lg"></p>
+                <div class="mt-6 text-sm text-amber-600">
+                    ✨ 感谢你参与本期历史实验室！我们下期再见
+                </div>
+            </div>
+        </div>
+
+        <!-- 下期预告 -->
+        <div class="divider">下一期预告</div>
+
+        <div class="bg-gradient-to-r from-violet-100 to-purple-100 p-6 rounded-xl text-center">
+            <h3 class="font-bold text-xl text-violet-800 serif mb-3">5月14日（周三刊）</h3>
+            <p class="text-violet-700 text-lg">穿越到2000年互联网泡沫顶峰时刻</p>
+            <p class="text-violet-600 mt-2">如果你是当时的美联储主席格林斯潘，面对非理性繁荣，你会选择：主动戳破泡沫？还是继续维持宽松？</p>
+        </div>
+
+    </div>
+
+    <!-- 底部 -->
+    <div class="bg-gray-800 text-white text-center py-8 px-4">
+        <p class="text-lg serif font-medium mb-2">历史实验室</p>
+        <p class="text-gray-400 text-sm italic">在历史的十字路口寻找答案</p>
+        <div class="mt-4 text-gray-500 text-xs">
+            每周三 · 综合热点 | 每周日 · 财经投资
+        </div>
+    </div>
+
+    <script>
+        // Supabase 配置
+        const SUPABASE_URL = 'https://vucpxdmipdxyhixofwkn.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_CgD0jiGAgl56bTfW0BBwfw_NIRtY2ZM';
+        const EPISODE_ID = 'hk_1997';
+        const STORAGE_KEY = 'history_lab_hk_1997';
+
+        // 初始化 Supabase 客户端
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // 选项标签映射
+        const choiceLabels = {
+            'A': '加息捍卫联系汇率',
+            'B': '放弃联系汇率，一次性贬值',
+            'C': '入市干预+资本管制',
+            'D': '谈判妥协，寻求"有序调整"'
+        };
+
+        const expLabels = {
+            'A': '持续承压，多次触及甚至短暂突破7.85',
+            'B': '保持稳定，在7.83-7.85区间波动',
+            'C': '明显反弹，回到7.80以上',
+            'D': '出现极端波动，测试7.85的有效性'
+        };
+
+        // 颜色映射
+        const choiceColors = {
+            'A': '#10b981',
+            'B': '#3b82f6',
+            'C': '#f59e0b',
+            'D': '#ef4444'
+        };
+
+        const expColors = {
+            'A': '#10b981',
+            'B': '#3b82f6',
+            'C': '#f59e0b',
+            'D': '#ef4444'
+        };
+
+        // 用户状态（仅本地存储）
+        let userState = {
+            hasVotedChoice: false,
+            hasVotedExperiment: false,
+            userChoice: null,
+            userExperiment: null
+        };
+
+        // 从localStorage加载用户状态
+        function loadUserState() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                userState = JSON.parse(saved);
+            }
+        }
+
+        // 保存用户状态到localStorage
+        function saveUserState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(userState));
+        }
+
+        // 渲染统计结果
+        function renderStats(containerId, total, counts, labels, colors) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            let html = '';
+            const options = ['A', 'B', 'C', 'D'];
+            
+            options.forEach(opt => {
+                const count = counts[opt] || 0;
+                const percentage = total > 0 ? Math.round((count / total) * 100) : 0;
+                const label = labels[opt] || opt;
+                const color = colors[opt] || '#6b7280';
+                
+                html += `
+                    <div class="mb-3 last:mb-0">
+                        <div class="flex items-center justify-between text-sm mb-1">
+                            <span class="font-medium text-gray-700">
+                                <span class="inline-block w-5 h-5 rounded-full text-white text-center leading-5 text-xs mr-1" style="background:${color}">${opt}</span>
+                                ${label.length > 20 ? label.substring(0, 20) + '...' : label}
+                            </span>
+                            <span class="text-gray-500">${count}票 (${percentage}%)</span>
+                        </div>
+                        <div class="vote-bar-bg">
+                            <div class="vote-bar-fill" style="width: ${percentage}%; background: ${color};"></div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // 从Supabase加载投票统计
+        async function loadVoteStats() {
+            try {
+                const { data, error } = await supabase
+                    .from('votes')
+                    .select('*')
+                    .eq('episode_id', EPISODE_ID);
+
+                if (error) throw error;
+
+                // 聚合统计
+                const choiceCounts = { A: 0, B: 0, C: 0, D: 0 };
+                const expCounts = { A: 0, B: 0, C: 0, D: 0 };
+                let choiceTotal = 0;
+                let expTotal = 0;
+
+                data.forEach(vote => {
+                    if (vote.vote_type === 'choice' && vote.vote_option) {
+                        choiceCounts[vote.vote_option]++;
+                        choiceTotal++;
+                    } else if (vote.vote_type === 'experiment' && vote.vote_option) {
+                        expCounts[vote.vote_option]++;
+                        expTotal++;
+                    }
+                });
+
+                // 渲染历史选择统计
+                const choiceTotalEl = document.getElementById('choice-total');
+                if (choiceTotalEl) {
+                    choiceTotalEl.textContent = `共 ${choiceTotal} 人参与`;
+                }
+                renderStats('choice-stats', choiceTotal, choiceCounts, choiceLabels, choiceColors);
+
+                // 渲染实验投票统计
+                const expTotalEl = document.getElementById('exp-total');
+                if (expTotalEl) {
+                    expTotalEl.textContent = `共 ${expTotal} 人参与`;
+                }
+                renderStats('exp-stats', expTotal, expCounts, expLabels, expColors);
+
+            } catch (error) {
+                console.error('加载投票统计失败:', error);
+                // 降级处理：显示默认数据
+                document.getElementById('choice-total').textContent = '加载失败';
+                document.getElementById('exp-total').textContent = '加载失败';
+            }
+        }
+
+        // 提交投票到Supabase
+        async function submitVote(voteType, option) {
+            try {
+                const { error } = await supabase
+                    .from('votes')
+                    .insert({
+                        episode_id: EPISODE_ID,
+                        vote_type: voteType,
+                        vote_option: option
+                    });
+
+                if (error) throw error;
+            } catch (error) {
+                console.error('提交投票失败:', error);
+                // 即使失败也不阻止用户继续操作
+            }
+        }
+
+        // 场景选择投票
+        document.querySelectorAll('.option-card').forEach(card => {
+            card.addEventListener('click', function() {
+                if (userState.hasVotedChoice) return;
+                
+                const option = this.dataset.option;
+                
+                // 立即更新本地状态
+                userState.hasVotedChoice = true;
+                userState.userChoice = option;
+                saveUserState();
+                
+                // 更新UI
+                document.querySelectorAll('.option-card').forEach(c => {
+                    c.classList.add('voted');
+                    c.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                
+                // 显示结果区域
+                document.getElementById('vote-result-area').style.display = 'block';
+                
+                // 异步提交到Supabase
+                submitVote('choice', option).then(() => {
+                    loadVoteStats();
+                });
+                
+                // 如果已经投了实验票，直接显示人物画像
+                if (userState.userExperiment) {
+                    setTimeout(() => showPersonality(userState.userChoice, userState.userExperiment), 500);
+                } else {
+                    alert('你的历史选择已记录！继续阅读文章，文末还有一次预测投票，完成后解锁你的专属决策风格人物画像 🎯');
+                }
+            });
+        });
+
+        // 实验投票
+        document.querySelectorAll('.exp-option').forEach(card => {
+            card.addEventListener('click', function() {
+                if (userState.hasVotedExperiment) return;
+                
+                const option = this.dataset.exp;
+                
+                // 立即更新本地状态
+                userState.hasVotedExperiment = true;
+                userState.userExperiment = option;
+                saveUserState();
+                
+                // 更新UI
+                document.querySelectorAll('.exp-option').forEach(c => {
+                    c.style.cursor = 'default';
+                    c.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                this.style.background = 'rgba(16, 185, 129, 0.1)';
+                
+                // 显示实验结果区域
+                document.getElementById('exp-result-area').style.display = 'block';
+                
+                // 异步提交到Supabase
+                submitVote('experiment', option).then(() => {
+                    loadVoteStats();
+                });
+                
+                // 如果已经投了历史选择票，显示人物画像
+                if (userState.userChoice) {
+                    setTimeout(() => showPersonality(userState.userChoice, userState.userExperiment), 300);
+                } else {
+                    alert('你的预测已记录！回到文章开头，完成历史场景选择投票后，解锁你的决策风格人物画像 🔓');
+                }
+            });
+        });
+
+        // 决策风格人物画像
+        function showPersonality(choice, exp) {
+            const personalities = {
+                'AA': { 
+                    name: '保罗·沃尔克', 
+                    desc: '你是真正的"通胀斗士"！意志坚定、行动果敢，为了长期目标不惜承受短期痛苦。你相信原则重于权宜，在压力面前从不退缩。历史证明，这样的人最终会被铭记。', 
+                    emoji: '🦅' 
+                },
+                'AB': { 
+                    name: '朱镕基', 
+                    desc: '你既有大刀阔斧改革的魄力，又懂务实平衡的艺术。面对复杂局面，你能在坚定方向的同时，灵活把握节奏。这是顶尖决策者的稀有品质！', 
+                    emoji: '🐯' 
+                },
+                'AC': { 
+                    name: '富兰克林·罗斯福', 
+                    desc: '你有改革的魄力，更有审时度势的智慧。"大胆试验，错了就改"是你的信条。这种既敢闯又灵活的风格，往往能在危局中开创新局面！', 
+                    emoji: '🦁' 
+                },
+                'AD': { 
+                    name: '撒切尔夫人', 
+                    desc: '你是"铁娘子"型人物——目标明确，意志如钢，该转向时毫不犹豫。你不害怕争议，只在乎做正确的事。这种强大的内心力量，注定你不会随波逐流！', 
+                    emoji: '👑' 
+                },
+                'BA': { 
+                    name: '马里奥·德拉吉', 
+                    desc: '你外表温和内敛，内心却有"不惜一切代价"的坚定。平时步步为营，关键时刻能爆发出惊人的魄力。这种"静水流深"的风格，往往是成大事者的特质！', 
+                    emoji: '🌊' 
+                },
+                'BB': { 
+                    name: '格林斯潘', 
+                    desc: '你是天生的"平衡大师"。在各种矛盾的目标之间，你总能找到微妙的平衡点。语焉不详、行动审慎不是缺点，而是你驾驭复杂局面的智慧。', 
+                    emoji: '⚖️' 
+                },
+                'BC': { 
+                    name: '伯南克', 
+                    desc: '你是学者型决策者——数据驱动，逻辑优先，不预设立场，随时准备修正观点。这种开放务实的态度，让你在快速变化的世界中总能做出最优选择。', 
+                    emoji: '📚' 
+                },
+                'BD': { 
+                    name: '周小川', 
+                    desc: '你是"渐进式改革"的高手。平时稳扎稳打，该突破时绝不手软。这种"静如处子、动如脱兔"的节奏把控能力，是长期主义者的制胜法宝。', 
+                    emoji: '🐉' 
+                },
+                'CA': { 
+                    name: '罗伯特·蒙代尔', 
+                    desc: '你是理论派与行动派的完美结合。不轻易表态，但一旦认定方向就坚定不移。这种深思熟虑后的果断，往往能一击即中！', 
+                    emoji: '🎯' 
+                },
+                'CB': { 
+                    name: '约翰·梅纳德·凯恩斯', 
+                    desc: '你相信"形势变了，我的观点也随之改变"。观察、等待、相机抉择是你的风格。这种务实主义让你很少犯大错，总能在合适的时间出现在合适的位置。', 
+                    emoji: '🧠' 
+                },
+                'CC': { 
+                    name: '易纲', 
+                    desc: '你是学者型官员的典范——低调、务实、专业、稳健。你不追求轰动效应，只做正确的事。这种"润物细无声"的力量，往往比轰轰烈烈更持久、更可靠。', 
+                    emoji: '🌿' 
+                },
+                'CD': { 
+                    name: '耶伦', 
+                    desc: '你是"鸽派中的鹰派"——平时温和耐心，该强硬时也绝不手软。你用学者的严谨看待每一个决策，用女性的细腻感知每一个数据。这种刚柔并济的风格，是这个时代最稀缺的智慧！', 
+                    emoji: '💎' 
+                },
+                'DA': { 
+                    name: '彭德怀', 
+                    desc: '你是"谁敢横刀立马"的勇将！平时宽厚待人，关键时刻雷霆出击。你不惹事，但绝不怕事。这种外柔内刚的性格，在关键时刻往往能成为团队的定海神针！', 
+                    emoji: '⚔️' 
+                },
+                'DB': { 
+                    name: '里根', 
+                    desc: '你相信"市场的智慧"，也懂政府的边界。你是自由市场的信徒，但也知道何时该出手。这种"有所为有所不为"的分寸感，是顶级政治家的标志。', 
+                    emoji: '🌟' 
+                },
+                'DC': { 
+                    name: '克林顿', 
+                    desc: '你是天生的"政治动物"——实用主义至上，没有什么教条不能打破。你关心的只有"什么有效"。这种灵活应变的能力，让你总能在任何环境中找到机会。', 
+                    emoji: '🎭' 
+                },
+                'DD': { 
+                    name: '安倍晋三', 
+                    desc: '你是"大胆实验"的倡导者。敢于突破常规，勇于尝试新思路。虽然可能会有争议，但历史往往是由这些敢于第一个吃螃蟹的人书写的！', 
+                    emoji: '🚀' 
+                }
+            };
+            
+            const p = personalities[choice + exp];
+            if (p) {
+                // 滚动到结果区域
+                document.getElementById('personality-result').scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => {
+                    document.getElementById('personality-name').textContent = p.emoji + ' 你的决策风格最像：' + p.name;
+                    document.getElementById('personality-desc').textContent = p.desc;
+                    document.getElementById('personality-card').style.display = 'block';
+                }, 600);
+            }
+        }
+
+        // 页面加载时初始化
+        window.addEventListener('load', function() {
+            // 加载用户状态
+            loadUserState();
+            
+            // 加载远程投票统计
+            loadVoteStats();
+            
+            // 恢复历史选择状态
+            if (userState.hasVotedChoice) {
+                const card = document.querySelector(`.option-card[data-option="${userState.userChoice}"]`);
+                if (card) {
+                    card.classList.add('selected');
+                    document.querySelectorAll('.option-card').forEach(c => c.classList.add('voted'));
+                    document.getElementById('vote-result-area').style.display = 'block';
+                }
+            }
+            
+            // 恢复实验投票状态
+            if (userState.hasVotedExperiment) {
+                const card = document.querySelector(`.exp-option[data-exp="${userState.userExperiment}"]`);
+                if (card) {
+                    card.classList.add('selected');
+                    card.style.background = 'rgba(16, 185, 129, 0.1)';
+                    document.querySelectorAll('.exp-option').forEach(c => c.style.cursor = 'default');
+                }
+                document.getElementById('exp-result-area').style.display = 'block';
+            }
+            
+            // 如果两次都投了，显示人物画像
+            if (userState.userChoice && userState.userExperiment) {
+                setTimeout(() => showPersonality(userState.userChoice, userState.userExperiment), 800);
+            }
+        });
+    </script>
+</body>
+</html>
