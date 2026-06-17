@@ -176,6 +176,38 @@
         }
     </style>
 </head>
+    <script>
+  // ↓↓↓ 把这里换成你第二步复制的 exec 网址 ↓↓↓
+  const SHEET_URL = "https://script.google.com/macros/s/AKfycbxLDQeZHzHS9UkXSWr5pJMZz0Xma0c3m5iPPH_PdhBrnptXDAzK_N1VAK28RENGN7fHuA/exec";
+
+  // 四个选项的含义（对应你截图）
+  const EXP_MEANING = {
+    A: "鹰派信号",
+    B: "中性偏鸽",
+    C: "明确鸽派",
+    D: "意外转向"
+  };
+
+  // 监听整个投票区域，谁被点了就上报
+  document.getElementById("experiment-voting").addEventListener("click", function (e) {
+    // 找到被点击的那个选项（即使点的是里面的文字也能识别）
+    const option = e.target.closest(".exp-option");
+    if (!option) return;
+
+    const choice = option.getAttribute("data-exp");  // 拿到 A/B/C/D
+    if (!choice) return;
+
+    // 悄悄发送到 Google 表格
+    fetch(SHEET_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify({
+        option: choice,
+        meaning: EXP_MEANING[choice]
+      })
+    });
+  });
+</script>
 <body>
     <!-- 顶部封面 -->
     <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center py-16 px-4">
