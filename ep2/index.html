@@ -1,1 +1,900 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【历史实验室第2期】存储芯片泡沫与1987年幽灵</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', 'Segoe UI', sans-serif;
+            background: #fafafa;
+            color: #2c2c2c;
+            line-height: 1.8;
+        }
+        
+        .serif {
+            font-family: 'Noto Serif SC', Georgia, serif;
+        }
+        
+        .first-letter::first-letter {
+            float: left;
+            font-size: 3.5em;
+            font-weight: 700;
+            line-height: 1;
+            margin-right: 0.1em;
+            color: #667eea;
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .quote-box {
+            border-left: 4px solid #667eea;
+            background: linear-gradient(90deg, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
+            padding: 1.2rem 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .scene-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .option-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+        
+        .option-card:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.03);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+        }
+        
+        .option-card.selected {
+            border-color: #07c160;
+            background: rgba(7, 193, 96, 0.05);
+            box-shadow: 0 4px 20px rgba(7, 193, 96, 0.2);
+        }
+        
+        .option-card.voted {
+            cursor: default;
+        }
+        .option-card.voted:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: #e5e7eb;
+            background: #fff;
+        }
+        .option-card.voted.selected:hover {
+            border-color: #07c160;
+            background: rgba(7, 193, 96, 0.05);
+            box-shadow: 0 4px 20px rgba(7, 193, 96, 0.2);
+        }
+        
+        .exp-option {
+            border: 2px solid transparent;
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.75rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .exp-option:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .exp-option.selected {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+        
+        .diagnosis-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .lab-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 0.25rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 3rem 0;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            display: inline-block;
+            width: 30%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ddd, transparent);
+            vertical-align: middle;
+            margin: 0 1rem;
+        }
+        
+        .note-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            color: #5c3d2e;
+        }
+        
+        .experiment-box {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+        
+        .section-title {
+            position: relative;
+            padding-left: 1rem;
+            margin: 2.5rem 0 1.5rem;
+        }
+        
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
 
+        .vote-stats-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+        }
+        .vote-bar-bg {
+            background: #f3f4f6;
+            border-radius: 999px;
+            height: 10px;
+            overflow: hidden;
+        }
+        .vote-bar-fill {
+            height: 10px;
+            border-radius: 999px;
+            transition: width 0.8s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部封面 -->
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center py-16 px-4">
+        <div class="lab-tag mb-4">历史实验室 · 定期刊第2期</div>
+        <h1 class="text-3xl md:text-4xl font-bold serif leading-tight mb-4">
+            存储芯片泡沫与1987年幽灵
+        </h1>
+        <p class="text-xl md:text-2xl opacity-90 serif italic">
+            当存储芯片三巨头市值超越石油，你站在泡沫的边缘还是起点？
+        </p>
+        <div class="mt-8 flex justify-center gap-6 text-sm opacity-80">
+            <span>📅 2026.07.16</span>
+            <span>⏱️ 阅读约15分钟</span>
+            <span>🧪 含互动投票</span>
+        </div>
+    </div>
+
+    <!-- 正文内容区 -->
+    <div class="max-w-3xl mx-auto py-8 px-4 md:px-8 bg-white min-h-screen">
+        
+        <p class="first-letter text-lg leading-relaxed text-gray-700">
+            2026年7月的第二周，全球资本市场见证了又一个历史性时刻：存储芯片三巨头——三星电子、SK海力士、美光科技——市值早已全部突破1万亿美元大关。DRAM现货价格在一个季度内暴涨50%，DDR5内存从450元涨至1800元，服务器内存单条从5000元飙至6万元。华尔街的分析师们高呼"存储芯片超级周期才刚开始"，而费城半导体指数却在7月15-16日连续两天暴跌超5%。
+        </p>
+        
+        <p class="mt-4 leading-relaxed text-gray-700">
+            就在39年前——1987年10月，同样的狂热也曾席卷华尔街。那一年，道琼斯指数单日暴跌22.6%，史称"黑色星期一"。今天，当AI叙事主导全球资本市场，当"连小区保安都在问怎么买存储芯片基金"，我们是否正在重蹈1987年的覆辙？
+        </p>
+
+        <div class="divider">✦ ✦ ✦</div>
+
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            01 抉择时刻
+        </h2>
+
+        <div class="scene-card">
+            <p class="text-lg font-medium mb-4 text-blue-300">📍 2026年7月16日（星期四），上海陆家嘴</p>
+            <p class="leading-relaxed mb-4">
+                你是一位40岁的私募基金经理，管理着50亿人民币资产，上半年凭借存储芯片投资获得了120%回报。你站在办公室落地窗前，俯瞰黄浦江，手中握着今天刚出炉的市场日报。
+            </p>
+            <p class="leading-relaxed mb-4 text-yellow-300 font-medium">你面前的数据令人目眩：</p>
+            <ul class="space-y-2 ml-4 text-yellow-300">
+                <li>• DRAM现货价Q2暴涨<strong>50%</strong>，DDR5涨幅<strong>300%</strong>，DDR4涨幅<strong>400%</strong></li>
+                <li>• 服务器内存单条从5,000元涨至<strong>60,000元</strong>，Q3合约价预计再涨13%-32%</li>
+                <li>• SK海力士HBM4正式量产出货（全球首家），三星HBM4E良率突破<strong>70%</strong></li>
+                <li>• 费城半导体指数7月15-16日连续暴跌，美光单日跌<strong>8.37%</strong>，英特尔跌<strong>7.18%</strong></li>
+                <li>• SK海力士CEO警告：<strong>2027年将是史上最严重供应短缺</strong>，短缺延续到2030年</li>
+                <li>• 长鑫科技今天科创板IPO申购，募资<strong>295亿元</strong>，全球第四大DRAM原厂</li>
+                <li>• SK海力士美股融资<strong>265亿美元</strong>，创纪录存托凭证发行</li>
+                <li>• 70%新增DRAM产能被AI服务器吃掉，消费级面临结构性短缺</li>
+            </ul>
+            <p class="leading-relaxed mt-4">
+                你的合伙人说："费半指数连续暴跌，技术指标显示中期见顶，应该减仓。"
+            </p>
+            <p class="leading-relaxed mt-2">
+                但你的研究员反驳："SK海力士都说短缺到2030年，现在减仓就是踏空超级周期！"
+            </p>
+            <p class="leading-relaxed mt-2">
+                你的客户们在疯狂申购，要求加仓存储芯片。你的妻子昨晚说："连小区保安都在问怎么买存储芯片基金。"
+            </p>
+            <p class="leading-relaxed mt-4 text-lg font-medium text-green-300">
+                此刻，你必须做出选择。
+            </p>
+        </div>
+
+        <div class="divider">你的选择</div>
+
+        <!-- 四个选择 -->
+        <div id="voting-area">
+            <div class="option-card" data-option="A">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-lg shrink-0">A</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">顺势满仓 —— 不理会任何警告信号</h3>
+                        <p class="text-gray-600 mt-1">"AI需求是真实的，供给约束是硬性的。SK海力士CEO都说短缺到2030年，DDR5涨300%不是泡沫而是价值回归。长协订单锁定了未来3年营收，这跟1987年纯粹的投机泡沫完全不同。客户在申购，超级周期才刚开始！"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-card" data-option="B">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg shrink-0">B</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">技术减仓 —— 减仓30%，保留弹药</h3>
+                        <p class="text-gray-600 mt-1">"基本面没有问题，但费半指数连续暴跌是危险信号。历史上每次'所有人都看好'的时候，往往就是见顶的标志。减仓30%锁定利润，如果继续涨我还有70%仓位享受，如果跌了有弹药抄底。永远保留弹药。"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-card" data-option="C">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-lg shrink-0">C</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">逆向清仓 —— 全部获利了结，离场观望</h3>
+                        <p class="text-gray-600 mt-1">"'连小区保安都在问怎么买基金'——这是最经典的见顶信号。1987年黑色星期一前也是这种狂热。DRAM涨300%、服务器内存涨12倍，这种涨幅不可持续。我要清仓离场，120%的回报已经足够。现金为王，等待下一个周期底部。"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-card" data-option="D">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-lg shrink-0">D</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">反向对冲 —— 持有股票同时买入看跌期权</h3>
+                        <p class="text-gray-600 mt-1">"我不认为应该完全离场——AI需求确实是刚性的。但费半暴跌和'全民炒芯'的信号也不能忽视。持有核心仓位的同时买入看跌期权作为保险，上涨不踏空、下跌有保护。这是最理性的选择。"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 历史选择投票结果区 -->
+        <div id="vote-result-area" style="display:none;">
+            <div class="text-center mt-6 mb-4">
+                <span class="text-green-600 font-medium">✓ 你的选择已记录！</span>
+                <span class="text-gray-500 text-sm ml-2">继续阅读，文末还有一次预测投票</span>
+            </div>
+            <div class="vote-stats-card">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="font-bold text-gray-700">📊 全员投票统计</span>
+                    <span id="choice-total" class="text-sm text-gray-500">加载中...</span>
+                </div>
+                <div id="choice-stats"></div>
+            </div>
+        </div>
+
+        <div class="divider">决策风格诊断</div>
+
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            02 你是哪种决策者？
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-4 mt-6">
+            <div class="quote-box">
+                <span class="diagnosis-tag">A选项 · 趋势信徒型</span>
+                <p class="text-gray-700 leading-relaxed">
+                    你是市场的追随者，相信"顺势者昌"。你深知牛市是普通投资者最好的朋友，轻易下车只会错失财富机遇。你的投资逻辑是：基本面强劲+资金充裕+情绪乐观=牛市延续。在2026年的存储芯片行情中，你会重仓三星、SK海力士，相信"AI时代的存储芯片是新时代的石油"。这种风格能充分享受泡沫的超额收益，但缺点是往往在顶部加仓，成为"接盘侠"。
+                </p>
+                <p class="text-sm text-gray-500 mt-2 italic">1987年选择A的人，在黑色星期一当天损失了30%-50%的资产。</p>
+            </div>
+            
+            <div class="quote-box">
+                <span class="diagnosis-tag">B选项 · 理性均衡型</span>
+                <p class="text-gray-700 leading-relaxed">
+                    你是有原则的现实主义者，深知"过犹不及"。你在贪婪与恐惧之间保持平衡，既不是死多头也不是死空头。你的投资哲学是"永远保留弹药"，无论市场涨跌，都不会all-in或空仓。这种风格的优点是稳健，缺点是平庸——在牛市中跑不赢激进派，但能在崩盘时保存实力。
+                </p>
+                <p class="text-sm text-gray-500 mt-2 italic">1987年选择B的人，资产缩水20%-30%，但在见底时有足够资金抄底。</p>
+            </div>
+            
+            <div class="quote-box">
+                <span class="diagnosis-tag">C选项 · 逆向大师型</span>
+                <p class="text-gray-700 leading-relaxed">
+                    你是天生的怀疑主义者，相信"别人贪婪时我恐惧"。你熟读《乌合之众》，深谙群体心理的疯狂。"这次不一样"是历史上最昂贵的一句话——你对这种说法深恶痛绝。在2026年的存储芯片行情中，你会远离热门赛道，寻找被市场冷落的传统行业。
+                </p>
+                <p class="text-sm text-gray-500 mt-2 italic">1987年选择C的人，在崩盘后成为最大赢家——以"地板价"买入优质资产。</p>
+            </div>
+            
+            <div class="quote-box">
+                <span class="diagnosis-tag">D选项 · 对冲思维型</span>
+                <p class="text-gray-700 leading-relaxed">
+                    你是金融工程的信徒，相信通过复杂工具可以规避风险。你精通期权、期货等衍生品，能够设计出"下跌有保护、上涨不缺席"的投资策略。没有免费午餐——高收益必然伴随高风险，但通过精妙的对冲设计，可以将风险降到最低。
+                </p>
+                <p class="text-sm text-gray-500 mt-2 italic">1987年选择D的人，如果对冲比例得当，可以在崩盘中毫发无损甚至逆势盈利。</p>
+            </div>
+        </div>
+
+        <div class="divider">历史真相</div>
+
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            03 1987年黑色星期一
+        </h2>
+
+        <div class="quote-box">
+            <p class="text-xl font-bold text-purple-700 serif">
+                "华尔街没有新事物，因为投机像山岳一样古老。"
+            </p>
+            <p class="text-sm text-gray-500 mt-2">—— 杰西·利弗莫尔</p>
+        </div>
+
+        <p class="leading-relaxed text-gray-700 mt-6">
+            <strong>1987年10月19日，"黑色星期一"降临。</strong>
+        </p>
+
+        <p class="leading-relaxed text-gray-700 mt-4">
+            道琼斯指数单日暴跌508.32点，跌幅<strong class="text-red-600">22.6%</strong>，创下史上最大单日跌幅纪录。全球市场同步崩盘：
+        </p>
+
+        <ul class="mt-4 space-y-2 ml-6 text-gray-700">
+            <li>• 香港恒生指数暴跌<strong class="text-red-600">33%</strong></li>
+            <li>• 伦敦金融时报100指数下跌<strong class="text-red-600">10.8%</strong></li>
+            <li>• 东京日经指数暴跌<strong class="text-red-600">14.9%</strong></li>
+            <li>• 投资者一夜之间损失超过<strong class="text-red-600">5000亿美元</strong>市值</li>
+        </ul>
+
+        <p class="leading-relaxed text-gray-700 mt-6 font-medium">崩盘的原因是什么？</p>
+
+        <div class="grid md:grid-cols-2 gap-4 mt-4">
+            <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                <p class="text-red-700 font-bold mb-2">⚙️ 程序化交易的"死亡螺旋"</p>
+                <p class="text-red-600 text-sm">组合保险策略在市场下跌时自动触发卖出，形成"下跌→卖单→更跌→更多卖单"的螺旋。当天超过40%的抛盘来自程序化交易。</p>
+            </div>
+            <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                <p class="text-red-700 font-bold mb-2">📈 估值泡沫破裂</p>
+                <p class="text-red-600 text-sm">1982-1987年美股连涨5年，道指涨250%。标普500市盈率从7.5倍飙至22.5倍，股息率从5.5%降至2.4%。市场严重透支未来增长。</p>
+            </div>
+            <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                <p class="text-red-700 font-bold mb-2">🏦 美联储政策收紧预期</p>
+                <p class="text-red-600 text-sm">格林斯潘刚就任美联储主席24天就宣布加息，释放收紧流动性信号。市场对流动性收紧的担忧开始升温。</p>
+            </div>
+            <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                <p class="text-red-700 font-bold mb-2">💰 国际资金外流</p>
+                <p class="text-red-600 text-sm">美元持续走弱，贸易摩擦加剧，外资开始撤离美股市场——流动性虹吸效应的极致演绎。</p>
+            </div>
+        </div>
+
+        <p class="leading-relaxed text-gray-700 mt-6 font-medium">崩盘后，谁成为赢家？</p>
+
+        <div class="bg-green-50 p-5 rounded-lg border border-green-100 mt-4 space-y-3">
+            <p class="text-green-800"><strong>保罗·都铎·琼斯</strong>：崩盘前一周果断减仓60%，成功躲过最惨烈的下跌。他后来回忆："我在暴跌前闻到了血腥味。"</p>
+            <p class="text-green-800"><strong>大卫·德瑞曼（逆向投资之父）</strong>：崩盘当天告诉团队"这不是1929年"，重点买入花旗银行。1988年花旗反弹80%。</p>
+            <p class="text-green-800"><strong>沃伦·巴菲特</strong>：崩盘后说"我开始买入股票了"，这是他一生中最好的买入机会。</p>
+        </div>
+
+        <div class="quote-box mt-6">
+            <p class="text-lg font-bold text-purple-700 serif">
+                "格林斯潘看跌期权"的诞生
+            </p>
+            <p class="text-gray-700 mt-2">
+                崩盘次日，格林斯潘声明："美联储承诺提供一切流动性。"他立即降息、注入流动性——成功稳住了市场，避免1929年悲剧重演。但也埋下隐患：投资者开始相信"只要跌得够惨，央行就会救市"——这一信念在2008年金融危机中得到最充分的验证。
+            </p>
+        </div>
+
+        <div class="divider">当代镜鉴</div>
+
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            04 2026年7月的历史回声
+        </h2>
+
+        <div class="bg-blue-50 p-5 rounded-lg border border-blue-100 mt-4">
+            <p class="font-bold text-blue-800 mb-2">📰 【本周核心事件】2026年7月16日市场速写</p>
+            <ul class="text-blue-700 text-sm space-y-1">
+                <li>• 费城半导体指数7月15日跌超3%，16日再跌超5%，美光单日跌8.37%</li>
+                <li>• 长鑫科技今天科创板IPO申购，募资295亿元——全球第四大DRAM原厂</li>
+                <li>• SK海力士美股融资265亿美元，创纪录存托凭证发行</li>
+                <li>• SK海力士CEO警告2027年将是史上最严重供应短缺，延续到2030年</li>
+                <li>• SK海力士12层HBM4正式量产出货，全球首家（7月14日）</li>
+                <li>• 三星HBM4E良率突破70%，已向英伟达、AMD、谷歌送出首批样品</li>
+                <li>• 美光93亿美元扩建日本广岛工厂，专产HBM，2028年出货</li>
+            </ul>
+        </div>
+
+        <div class="mt-6 space-y-6">
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">1</span>
+                <div>
+                    <h4 class="font-bold text-gray-800">"这次不一样"的时代叙事</h4>
+                    <p class="text-gray-600 mt-1 text-sm">1987年，市场相信"个人电脑革命让股票估值应该重新定价"。2026年，市场相信"AI革命让存储芯片成为新时代的石油"。DDR5涨300%，服务器内存涨12倍，分析师们高呼"超级周期才刚开始"。叙事在变，人性不变。</p>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">2</span>
+                <div>
+                    <h4 class="font-bold text-gray-800">流动性虹吸与结构性撕裂</h4>
+                    <p class="text-gray-600 mt-1 text-sm">70%新增DRAM产能被AI服务器吃掉，消费级面临结构性短缺。就像1987年科技股吸走市场大部分流动性一样，存储芯片正在虹吸全球半导体资金。韩股外资创纪录流出——全球投资者年内累计净抛售韩国股票636亿美元。这不是价值发现，而是流动性驱动的泡沫。</p>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">3</span>
+                <div>
+                    <h4 class="font-bold text-gray-800">"18个月暴利倒计时" vs "短缺到2030年"</h4>
+                    <p class="text-gray-600 mt-1 text-sm">市场正在上演一场叙事战争：乐观派认为AI需求是刚性的，供给约束是硬性的，短缺将持续到2030年；悲观派指出2027年末新增产能集中释放，当前暴利周期只剩18个月。SK海力士265亿美元融资是"趁热圈钱"还是"未雨绸缪"？长鑫科技IPO是"国产替代"还是"产能过剩的前奏"？</p>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">4</span>
+                <div>
+                    <h4 class="font-bold text-gray-800">消费级 vs HBM的结构性分化</h4>
+                    <p class="text-gray-600 mt-1 text-sm">不同于1987年的"科技股同涨同跌"，2026年的存储芯片出现了前所未有的结构性分化：HBM（高带宽内存）因AI服务器需求暴增，供不应求；而消费级DDR5虽然也在涨，但驱动力是"产能被挤占"而非"需求爆发"。这种分化意味着：崩盘时不会是齐跌——HBM可能比消费级更抗跌，但也可能因为产能集中释放而更惨烈。</p>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">5</span>
+                <div>
+                    <h4 class="font-bold text-gray-800">估值仍有争议</h4>
+                    <p class="text-gray-600 mt-1 text-sm">即使按成长股估值体系，三星预期PE约6-7倍，SK海力士约6-7倍，美光约10倍——依然低于费城半导体指数26倍的平均水平。但问题是：存储芯片本质上是<strong>周期性行业</strong>，以暴利期的盈利来算PE天然偏低。当周期反转、盈利暴跌时，"低PE"会瞬间变成"高PE"。这正是1987年的教训。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="note-card mt-8">
+            <h3 class="font-bold text-xl mb-4 serif">📌 实验室笔记</h3>
+            <ol class="space-y-3 text-sm">
+                <li><strong>1.</strong> <strong>"这次不一样"是历史上最昂贵的一句话。</strong>1987年投资者相信个人电脑革命让科技股市盈率永远提高，2026年投资者相信AI革命让存储芯片成为"新时代石油"。历史不会简单重复，但人性从未改变。</li>
+                <li><strong>2.</strong> <strong>程序化交易是泡沫的放大器。</strong>1987年是组合保险策略，2026年是量化基金和被动投资。当费半指数7月15-16日连续暴跌时，有多少是"基本面恶化"，有多少是"算法触发止损"？</li>
+                <li><strong>3.</strong> <strong>流动性虹吸效应是见顶信号。</strong>当70%的新增产能被AI服务器吃掉，当存储芯片吸走半导体市场大部分资金时，其他所有资产都在失血。</li>
+                <li><strong>4.</strong> <strong>长协订单是双刃剑。</strong>3-5年的长协订单锁定了未来营收，让存储芯片比1987年科技股更具防御性。但当周期反转时，长协也可能变成"锁定亏损"的枷锁。</li>
+                <li><strong>5.</strong> <strong>2027年末是潜在拐点。</strong>新增产能集中释放+暴利周期结束+机构预期反转——如果历史押韵，这将是"黑色星期一"式的时刻。但也许这一次，AI需求的持续增长会打破周期律？</li>
+                <li><strong>6.</strong> <strong>活着比什么都重要。</strong>1987年活下来的投资者，都是那些"永远保留弹药"的人。投资的第一要务不是赚钱，而是不亏钱。</li>
+            </ol>
+        </div>
+
+        <div class="divider">🧪 样本外检验</div>
+
+        <!-- 样本外检验投票区 -->
+        <div class="experiment-box">
+            <h3 class="font-bold text-xl mb-4 serif text-center">"流动性驱动泡沫周期律"的2026复测</h3>
+            
+            <div class="bg-white/70 p-4 rounded-lg mb-6">
+                <h4 class="font-bold text-gray-700 mb-2">【实验原理】</h4>
+                <p class="text-gray-600 text-sm">
+                    我们从1987年"黑色星期一"的历史案例中，提炼出了<span class="text-purple-600 font-medium">"流动性驱动泡沫周期律"</span>：当某一资产类别在极短时间内市值翻倍，且上涨主要由"机构被动配置"而非"基本面超预期"驱动时，往往意味着泡沫接近顶部。因为流动性驱动上涨的本质是"钱推起来的"，机构被动配置形成"正反馈循环"——涨越多→被动买越多→涨更多，直到流动性枯竭。这个规律在A股历史上多次验证：2007年"五朵金花"、2015年"互联网+"、2021年"茅指数"，都遵循这一规律。
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h4 class="font-bold text-gray-800 text-lg mb-2">【实验问题】</h4>
+                <p class="text-gray-700">基于"流动性驱动泡沫周期律"，未来4周存储芯片板块将如何演绎？</p>
+            </div>
+
+            <div class="space-y-3" id="experiment-voting">
+                <div class="exp-option" data-exp="A">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-sm shrink-0">A</span>
+                        <div>
+                            <p class="font-medium">泡沫继续膨胀 —— 存储芯片继续创新高，AI叙事主导市场</p>
+                            <p class="text-sm text-green-600 mt-1">→ 验证结论：<strong>历史规律部分成立</strong>，AI需求持续验证，长协订单锁定业绩，存储芯片继续享受估值溢价。但上涨越来越依赖"流动性"而非"基本面"。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="exp-option" data-exp="B">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm shrink-0">B</span>
+                        <div>
+                            <p class="font-medium">泡沫开始消化 —— 存储芯片高位震荡，资金向其他板块轮动</p>
+                            <p class="text-sm text-blue-600 mt-1">→ 验证结论：<strong>历史规律成立</strong>，存储芯片进入"鱼尾行情"——最后的涨幅最诱人，也最危险。市场从"AI独大"变为"AI+防御"双主线。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="exp-option" data-exp="C">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-sm shrink-0">C</span>
+                        <div>
+                            <p class="font-medium">泡沫破裂 —— 存储芯片大幅回调，上演"黑色星期一"</p>
+                            <p class="text-sm text-yellow-600 mt-1">→ 验证结论：<strong>历史规律超预期成立</strong>，存储芯片出现踩踏式下跌，单日跌幅超10%。触发因素可能是韩元贬值、央行意外加息或"黑天鹅"事件。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="exp-option" data-exp="D">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-sm shrink-0">D</span>
+                        <div>
+                            <p class="font-medium">估值中枢重构 —— 存储芯片从周期股变为成长股</p>
+                            <p class="text-sm text-red-600 mt-1">→ 验证结论：<strong>历史规律失效</strong>，长协订单模式被市场充分认可，存储芯片完成从"强周期"向"稳定成长"的估值重构，高位整固后继续上涨。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <div class="text-gray-500 text-sm mb-2">
+                    📅 实验揭榜时间：<strong class="text-purple-600">2026年8月16日（1个月后）</strong>
+                </div>
+                <div class="mt-4 p-3 bg-gradient-to-r from-yellow-100 to-amber-100 rounded-lg inline-block">
+                    <span class="text-amber-700 text-sm">🔓 完成两次投票，解锁你的专属"投资大佬画像"</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 实验投票结果区 -->
+        <div id="exp-result-area" style="display:none;">
+            <div class="text-center mt-4 mb-2">
+                <span class="text-green-600 font-medium">✓ 你的预测已记录！</span>
+            </div>
+            <div class="vote-stats-card">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="font-bold text-gray-700">📊 预测投票统计</span>
+                    <span id="exp-total" class="text-sm text-gray-500">加载中...</span>
+                </div>
+                <div id="exp-stats"></div>
+            </div>
+        </div>
+
+        <!-- 人物画像结果区域 -->
+        <div id="personality-result"></div>
+        <div id="personality-card" style="display:none; margin: 3rem 0;">
+            <div class="bg-gradient-to-r from-amber-100 via-yellow-50 to-orange-100 p-8 rounded-2xl text-center shadow-lg">
+                <div class="text-5xl mb-4">🎉</div>
+                <h3 id="personality-name" class="text-2xl md:text-3xl font-bold serif text-amber-800 mb-4"></h3>
+                <p id="personality-desc" class="text-gray-700 leading-relaxed text-lg"></p>
+                <div class="mt-6 text-sm text-amber-600">
+                    ✨ 感谢你参与本期历史实验室！我们下期再见
+                </div>
+            </div>
+        </div>
+
+        <div class="divider">📊 上期实验结果</div>
+
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            第1期：沃尔克时刻1979
+        </h2>
+
+        <div class="bg-gray-50 p-5 rounded-lg border border-gray-200 mt-4">
+            <h4 class="font-bold text-gray-800 mb-3">【上一期实验】"通胀粘性→央行强硬→市场误判→超预期紧缩"规律的2026复测</h4>
+            <p class="text-gray-600 text-sm mb-4">实验问题：6月18日FOMC会议后，美联储将释放什么信号？</p>
+            
+            <div class="space-y-2 mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-medium w-40">A. 鹰派信号</span>
+                    <div class="flex-1 vote-bar-bg"><div class="vote-bar-fill" style="width:28%;background:#10b981"></div></div>
+                    <span class="text-sm text-gray-500 font-bold">28% ✓</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-medium w-40">B. 鸽派暂停</span>
+                    <div class="flex-1 vote-bar-bg"><div class="vote-bar-fill" style="width:35%;background:#3b82f6"></div></div>
+                    <span class="text-sm text-gray-500">35%</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-medium w-40">C. 转向宽松</span>
+                    <div class="flex-1 vote-bar-bg"><div class="vote-bar-fill" style="width:22%;background:#f59e0b"></div></div>
+                    <span class="text-sm text-gray-500">22%</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-medium w-40">D. 超预期鹰派</span>
+                    <div class="flex-1 vote-bar-bg"><div class="vote-bar-fill" style="width:15%;background:#ef4444"></div></div>
+                    <span class="text-sm text-gray-500">15%</span>
+                </div>
+            </div>
+
+            <div class="bg-green-50 p-4 rounded-lg border border-green-100">
+                <p class="text-green-800 font-bold mb-2">✅ 实验结论：选项A"鹰派信号"正确——且实际比预期更鹰</p>
+                <p class="text-green-700 text-sm mb-3">6月18日凌晨，新任美联储主席沃什（Kevin Warsh）的首秀给出了一份远超市场预期的鹰派答卷：</p>
+                <ul class="text-green-700 text-sm space-y-1 ml-4">
+                    <li>• 利率维持3.50%-3.75%不变（连续第四次暂停），12:0全票通过</li>
+                    <li>• 声明从<strong>341词暴砍至130词</strong>，缩水超60%，彻底删除前瞻指引和降息倾向</li>
+                    <li>• 点阵图：18位委员中<strong>9位预计年内加息</strong>（6位预计至少加息2次），仅1人支持降息</li>
+                    <li>• 沃什本人<strong>拒绝提交点阵图预测</strong>——14年来首位不交"作业"的主席，直言点阵图"带着大橡皮擦"，对政策执行"没有帮助"</li>
+                    <li>• PCE通胀预测从2.7%猛升至<strong>3.6%</strong>，核心PCE同步上调至3.3%</li>
+                    <li>• 宣布成立<strong>五大改革工作组</strong>（沟通机制、资产负债表、数据来源、生产率与AI、通胀框架），年底前完成</li>
+                    <li>• 沃什正式宣布<strong>放弃前瞻性指引</strong>，称其"不适合当前政策组合"</li>
+                </ul>
+                <p class="text-green-700 text-sm mt-3"><strong>市场反应：</strong>标普500跌1.21%、纳指跌1.34%；2年期美债收益率跳升15bp至4.22%；黄金暴跌150美元；美元指数飙升至100.4。CME利率期货定价年内加息1.5次，首次加息时点前移至9月。</p>
+                <p class="text-green-800 text-sm mt-2 font-medium">→ 沃尔克规律完美验证：通胀粘性被证实（PCE上调至3.6%），央行果断强硬（废除前瞻指引、半数委员准备加息），市场严重误判（35%的读者选了"鸽派暂停"），"超预期紧缩"正在兑现。</p>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- 底部 -->
+    <div class="bg-gray-800 text-white text-center py-8 px-4">
+        <p class="text-lg serif font-medium mb-2">历史实验室</p>
+        <p class="text-gray-400 text-sm italic">在历史的十字路口寻找答案</p>
+        <div class="mt-4 text-gray-500 text-xs">
+            每周三 · 综合热点 | 每周日 · 财经投资
+        </div>
+        <div class="mt-6">
+            <button onclick="resetVotes()" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm transition-all">
+                🔄 重置我的投票（重新体验）
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ============ Supabase 配置 ============
+        const SUPABASE_URL = 'https://vucpxdmipdxyhixofwkn.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_CgD0jiGAgl56bTfW0BBwfw_NIRtY2ZM';
+        const EPISODE_ID = 'memory_chip_1987';
+        const STORAGE_KEY = 'history_lab_memory_chip_1987';
+
+        let db = null;
+        try {
+            db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        } catch(e) {
+            console.warn('Supabase SDK 加载失败，将使用纯本地模式', e);
+        }
+
+        // ============ 本地用户状态 ============
+        let userState = {
+            hasVotedChoice: false,
+            hasVotedExperiment: false,
+            userChoice: null,
+            userExperiment: null
+        };
+
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+            try { userState = JSON.parse(saved); } catch(e) {}
+        }
+
+        function saveUserState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(userState));
+        }
+
+        // ============ 颜色与标签映射 ============
+        const choiceLabels = { A: 'A · 顺势满仓', B: 'B · 技术减仓', C: 'C · 逆向清仓', D: 'D · 反向对冲' };
+        const expLabels = { A: 'A · 泡沫继续膨胀', B: 'B · 泡沫开始消化', C: 'C · 泡沫破裂', D: 'D · 估值重构' };
+        const barColors = { A: '#10b981', B: '#3b82f6', C: '#f59e0b', D: '#ef4444' };
+
+        // ============ 从 Supabase 加载统计并渲染 ============
+        async function loadVoteStats() {
+            if (!db) {
+                renderStats('choice-stats', 'choice-total', { A: 0, B: 0, C: 0, D: 0 }, choiceLabels);
+                renderStats('exp-stats', 'exp-total', { A: 0, B: 0, C: 0, D: 0 }, expLabels);
+                return;
+            }
+            try {
+                const { data, error } = await db
+                    .from('votes')
+                    .select('vote_type, option')
+                    .eq('episode_id', EPISODE_ID);
+
+                if (error) throw error;
+
+                const stats = {
+                    choice: { A: 0, B: 0, C: 0, D: 0 },
+                    experiment: { A: 0, B: 0, C: 0, D: 0 }
+                };
+                (data || []).forEach(function(row) {
+                    if (stats[row.vote_type] && row.option in stats[row.vote_type]) {
+                        stats[row.vote_type][row.option]++;
+                    }
+                });
+
+                renderStats('choice-stats', 'choice-total', stats.choice, choiceLabels);
+                renderStats('exp-stats', 'exp-total', stats.experiment, expLabels);
+            } catch(err) {
+                console.error('加载投票统计失败:', err);
+                renderStats('choice-stats', 'choice-total', { A: 0, B: 0, C: 0, D: 0 }, choiceLabels);
+                renderStats('exp-stats', 'exp-total', { A: 0, B: 0, C: 0, D: 0 }, expLabels);
+            }
+        }
+
+        function renderStats(containerId, totalId, data, labels) {
+            var container = document.getElementById(containerId);
+            var totalEl = document.getElementById(totalId);
+            if (!container) return;
+
+            var total = 0;
+            ['A','B','C','D'].forEach(function(k){ total += data[k]; });
+            if (totalEl) totalEl.textContent = '共 ' + total + ' 人参与';
+
+            var html = '';
+            ['A','B','C','D'].forEach(function(key) {
+                var pct = total > 0 ? ((data[key] / total) * 100).toFixed(1) : '0.0';
+                html += '<div style="margin-bottom:0.75rem">' +
+                    '<div style="display:flex;justify-content:space-between;font-size:0.875rem;margin-bottom:4px">' +
+                        '<span style="font-weight:500;color:#374151">' + (labels[key] || key) + '</span>' +
+                        '<span style="color:#6b7280">' + data[key] + '票 · ' + pct + '%</span>' +
+                    '</div>' +
+                    '<div class="vote-bar-bg">' +
+                        '<div class="vote-bar-fill" style="width:' + pct + '%;background:' + barColors[key] + '"></div>' +
+                    '</div>' +
+                '</div>';
+            });
+
+            container.innerHTML = html;
+        }
+
+        // ============ 提交投票到 Supabase ============
+        async function submitVote(voteType, option) {
+            if (!db) return;
+            try {
+                await db
+                    .from('votes')
+                    .insert({ episode_id: EPISODE_ID, vote_type: voteType, option: option });
+            } catch(err) {
+                console.error('投票提交失败:', err);
+            }
+            loadVoteStats();
+        }
+
+        // ============ 历史选择投票 ============
+        document.querySelectorAll('.option-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+                if (userState.hasVotedChoice) return;
+
+                var option = this.dataset.option;
+                userState.hasVotedChoice = true;
+                userState.userChoice = option;
+
+                document.querySelectorAll('.option-card').forEach(function(c) {
+                    c.classList.add('voted');
+                    c.classList.remove('selected');
+                });
+                this.classList.add('selected');
+
+                document.getElementById('vote-result-area').style.display = 'block';
+
+                saveUserState();
+                submitVote('choice', option);
+
+                if (userState.userExperiment) {
+                    setTimeout(function() { showPersonality(userState.userChoice, userState.userExperiment); }, 500);
+                } else {
+                    alert('你的历史选择已记录！继续阅读文章，文末还有一次预测投票，完成后解锁你的专属投资大佬画像 🎯');
+                }
+            });
+        });
+
+        // ============ 实验投票 ============
+        document.querySelectorAll('.exp-option').forEach(function(card) {
+            card.addEventListener('click', function() {
+                if (userState.hasVotedExperiment) return;
+
+                var option = this.dataset.exp;
+                userState.hasVotedExperiment = true;
+                userState.userExperiment = option;
+
+                document.querySelectorAll('.exp-option').forEach(function(c) {
+                    c.style.cursor = 'default';
+                    c.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                this.style.background = 'rgba(16, 185, 129, 0.1)';
+
+                document.getElementById('exp-result-area').style.display = 'block';
+
+                saveUserState();
+                submitVote('experiment', option);
+
+                if (userState.userChoice) {
+                    setTimeout(function() { showPersonality(userState.userChoice, userState.userExperiment); }, 300);
+                } else {
+                    alert('你的预测已记录！回到文章开头，完成历史场景选择投票后，解锁你的投资大佬画像 🔓');
+                }
+            });
+        });
+
+        // ============ 投资大佬画像（16种组合） ============
+        function showPersonality(choice, exp) {
+            var personalities = {
+                'AA': { name: '吉姆·西蒙斯 Jim Simons', desc: '你是"量化之王"！你用数学模型和趋势跟踪来驾驭市场，大奖章基金年化66%的传奇就是你的写照。你不关心叙事，只关心数据。在存储芯片的狂热中，你的模型会精确计算动量因子和波动率——只要趋势还在，你就不会离场；但一旦信号反转，你会比任何人都快地清仓。', emoji: '🔢' },
+                'AB': { name: '杰西·利弗莫尔 Jesse Livermore', desc: '你是"华尔街投机之王"！你顺势而为，但永远保持警觉。你知道"市场可以保持非理性的时间，比你保持不破产的时间更长"——但你同样知道何时离场。在1929年大崩盘中你赚了一亿美元，因为你懂得在别人疯狂时保持冷静。', emoji: '🎰' },
+                'AC': { name: '凯茜·伍德 Cathie Wood', desc: '你是"颠覆性创新女王"！你坚定押注科技革命，相信AI正在重塑世界经济。ARK基金的哲学就是你的信仰：颠覆性创新的回报是非线性的。即使短期暴跌，你也绝不减仓——因为你看到的是10年后的世界。', emoji: '🚀' },
+                'AD': { name: '孙正义 Masayoshi Son', desc: '你是"科技赌神"！All-in科技革命是你的本能。软银 Vision Fund 的千亿美元豪赌就是你的风格。你相信"信息革命将带来300年的繁荣"，存储芯片只是这场革命中的一颗棋子。要么大赢，要么大输——没有中间地带。', emoji: '🎲' },
+                'BA': { name: '沃伦·巴菲特 Warren Buffett', desc: '你是"股神"！价值投资+保留弹药是你的信条。别人贪婪时你恐惧，别人恐惧时你贪婪。你不会追高存储芯片，但当费半指数暴跌50%时，你会带着现金出现——就像1987年黑色星期一后那样。你相信"只有退潮时才知道谁在裸泳"。', emoji: '🦉' },
+                'BB': { name: '雷·达里奥 Ray Dalio', desc: '你是"全天候策略之父"！风险平价+均衡配置是你的核心理念。你不赌单一方向，而是构建一个"无论发生什么都能活下来"的组合。桥水基金的原则就是你的原则：痛苦+反思=进步。在存储芯片热潮中，你会配置50%仓位，留一半应对极端情况。', emoji: '⚖️' },
+                'BC': { name: '约翰·博格 John Bogle', desc: '你是"指数基金之父"！低成本+长期主义是你的信仰。你不相信任何人能持续跑赢市场，包括那些明星基金经理。先锋集团的理念就是你的理念：不要找干草堆里的针，买下整个干草堆。在存储芯片的狂热中，你选择持有全市场指数，不追逐任何单一赛道。', emoji: '📊' },
+                'BD': { name: '霍华德·马克斯 Howard Marks', desc: '你是"周期大师"！你理解钟摆效应，知道市场永远在过度乐观和过度悲观之间摆动。橡树资本的哲学就是你的哲学：我们无法预测周期何时转折，但我们可以知道当前处于周期的哪个位置。在存储芯片暴涨300%之后，你会逆向布局——因为"钟摆不会永远停在一边"。', emoji: '🔄' },
+                'CA': { name: '大卫·德瑞曼 David Dreman', desc: '你是"逆向投资之父"！在恐慌中买入被错杀的优质股是你的专长。1987年黑色星期一时你逆势买入花旗银行，一年后赚了80%。当费半指数暴跌5%时，你的眼中不是恐惧而是机会——你已经开始计算存储芯片龙头的"恐慌折价"有多少。', emoji: '🔮' },
+                'CB': { name: '保罗·都铎·琼斯 Paul Tudor Jones', desc: '你是"宏观对冲之王"！1987年你精准预判黑色星期一崩盘，提前减仓60%。你相信"最好的交易都是在别人还没意识到风险时就已布局"。在存储芯片的狂热中，你已经嗅到了血腥味——费半暴跌就是你的预警信号。你正在悄悄减少多头仓位，准备在崩盘时大赚一笔。', emoji: '🦅' },
+                'CC': { name: '迈克尔·伯里 Michael Burry', desc: '你是"大空头"！2008年次贷危机前做空房地产让你一战成名。你善于在所有人都疯狂时看到泡沫的本质。当"连小区保安都在买存储芯片基金"时，你已经开始了深入调研——分析产能扩张计划、计算供需平衡表、评估估值合理性。你的结论是：泡沫终 will burst。', emoji: '📉' },
+                'CD': { name: '比尔·阿克曼 Bill Ackman', desc: '你是"激进投资者"！重仓押注+activism是你的风格。你不做小仓位试探，要么不上车，上车就是重仓。在存储芯片行情中，你会集中持有2-3只最看好的标的，然后积极参与公司治理，推动回购、分红、战略调整。你相信"集中投资+深度参与"才是超额回报的来源。', emoji: '🎯' },
+                'DA': { name: '斯坦利·德鲁肯米勒 Stan Druckenmiller', desc: '你是"宏观交易之神"！索罗斯的徒弟，1992年做空英镑赚10亿美元。你的交易哲学是"看对的时候下重注，看错的时候快跑"。你不纠结于长期价值判断，而是专注于"当下最强的趋势是什么"。存储芯片的超级周期就是你的猎场——但你比任何人都清楚何时该撤退。', emoji: '⚡' },
+                'DB': { name: '纳西姆·塔勒布 Nassim Taleb', desc: '你是"黑天鹅之父"！尾部风险对冲是你的核心策略。你不预测未来会发生什么，而是为"极端事件"做好准备。你的投资组合90%是极安全的国债，10%是深度虚期权——平时小亏，一旦黑天鹅降临就暴赚。在存储芯片的狂热中，你已经买了大量看跌期权作为"保险"。', emoji: '🦢' },
+                'DC': { name: '菲利普·费舍尔 Philip Fisher', desc: '你是"成长股投资之父"！深度调研+长期持有成长股是你的方法。《怎样选择成长股》是你的圣经。你不关心短期波动，只关心企业的长期竞争力。在存储芯片行业，你会深入研究哪家公司拥有最强的技术壁垒、最好的管理团队、最可持续的竞争优势——然后长期持有。', emoji: '🔬' },
+                'DD': { name: '乔治·索罗斯 George Soros', desc: '你是"金融大鳄"！反身性理论是你的武器。你相信市场参与者的认知会影响现实，现实反过来又影响认知——这种正反馈循环既创造泡沫，也制造崩盘。1992年你做空英镑击垮英国央行，在存储芯片的狂热中，你在观察反身性的转折点——当"共识"变成"信仰"时，就是出手的时刻。', emoji: '🐉' }
+            };
+            
+            var p = personalities[choice + exp];
+            if (p) {
+                document.getElementById('personality-result').scrollIntoView({ behavior: 'smooth' });
+                setTimeout(function() {
+                    document.getElementById('personality-name').textContent = p.emoji + ' 你的投资风格最像：' + p.name;
+                    document.getElementById('personality-desc').textContent = p.desc;
+                    document.getElementById('personality-card').style.display = 'block';
+                }, 600);
+            }
+        }
+
+        // ============ 重置投票 ============
+        function resetVotes() {
+            if (confirm('确定要重置你的投票吗？可以重新体验完整流程！\n（你之前的投票已计入统计，重置后可重新选择）')) {
+                localStorage.removeItem(STORAGE_KEY);
+                location.reload();
+            }
+        }
+
+        // ============ 页面加载 ============
+        window.addEventListener('load', function() {
+            loadVoteStats();
+
+            if (userState.hasVotedChoice) {
+                var card = document.querySelector('.option-card[data-option="' + userState.userChoice + '"]');
+                if (card) {
+                    card.classList.add('selected');
+                    document.querySelectorAll('.option-card').forEach(function(c) { c.classList.add('voted'); });
+                    document.getElementById('vote-result-area').style.display = 'block';
+                }
+            }
+
+            if (userState.hasVotedExperiment) {
+                var ecard = document.querySelector('.exp-option[data-exp="' + userState.userExperiment + '"]');
+                if (ecard) {
+                    ecard.classList.add('selected');
+                    ecard.style.background = 'rgba(16, 185, 129, 0.1)';
+                    document.querySelectorAll('.exp-option').forEach(function(c) { c.style.cursor = 'default'; });
+                    document.getElementById('exp-result-area').style.display = 'block';
+                }
+            }
+
+            if (userState.userChoice && userState.userExperiment) {
+                setTimeout(function() { showPersonality(userState.userChoice, userState.userExperiment); }, 800);
+            }
+        });
+    </script>
+</body>
+</html>
