@@ -1,10 +1,10 @@
-<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>【历史实验室第1期】沃尔克时刻1979</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
         
@@ -19,7 +19,6 @@
             font-family: 'Noto Serif SC', Georgia, serif;
         }
         
-        /* 首字下沉 */
         .first-letter::first-letter {
             float: left;
             font-size: 3.5em;
@@ -30,7 +29,6 @@
             font-family: 'Noto Serif SC', serif;
         }
         
-        /* 引用框样式 */
         .quote-box {
             border-left: 4px solid #667eea;
             background: linear-gradient(90deg, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
@@ -39,7 +37,6 @@
             border-radius: 0 8px 8px 0;
         }
         
-        /* 场景卡片 */
         .scene-card {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #e0e0e0;
@@ -49,7 +46,6 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
         
-        /* 选项卡片 */
         .option-card {
             border: 2px solid #e5e7eb;
             border-radius: 12px;
@@ -76,8 +72,18 @@
         .option-card.voted {
             cursor: default;
         }
+        .option-card.voted:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: #e5e7eb;
+            background: #fff;
+        }
+        .option-card.voted.selected:hover {
+            border-color: #07c160;
+            background: rgba(7, 193, 96, 0.05);
+            box-shadow: 0 4px 20px rgba(7, 193, 96, 0.2);
+        }
         
-        /* 实验选项卡片 */
         .exp-option {
             border: 2px solid transparent;
             background: white;
@@ -97,7 +103,6 @@
             background: rgba(16, 185, 129, 0.05);
         }
         
-        /* 诊断标签 */
         .diagnosis-tag {
             display: inline-block;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -109,7 +114,6 @@
             margin-bottom: 0.5rem;
         }
         
-        /* 实验室标签 */
         .lab-tag {
             display: inline-block;
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
@@ -121,7 +125,6 @@
             letter-spacing: 1px;
         }
         
-        /* 分割线 */
         .divider {
             text-align: center;
             margin: 3rem 0;
@@ -140,7 +143,6 @@
             margin: 0 1rem;
         }
         
-        /* 笔记卡片 */
         .note-card {
             background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
             padding: 1.5rem;
@@ -149,7 +151,6 @@
             color: #5c3d2e;
         }
         
-        /* 实验框 */
         .experiment-box {
             background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
             padding: 2rem;
@@ -157,7 +158,6 @@
             margin: 2rem 0;
         }
         
-        /* 标题装饰 */
         .section-title {
             position: relative;
             padding-left: 1rem;
@@ -174,38 +174,28 @@
             background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
             border-radius: 2px;
         }
+
+        /* 投票统计样式 */
+        .vote-stats-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+        }
+        .vote-bar-bg {
+            background: #f3f4f6;
+            border-radius: 999px;
+            height: 10px;
+            overflow: hidden;
+        }
+        .vote-bar-fill {
+            height: 10px;
+            border-radius: 999px;
+            transition: width 0.8s ease;
+        }
     </style>
 </head>
-     <script>
-  // ↓↓↓ 你的 exec 网址（已帮你填好）↓↓↓
-  const SHEET_URL = "https://script.google.com/macros/s/AKfycbwqvCUxWqqOQnxp0urX9_AcOhw0lzhszzonglZ4ATzjrar_1nHvC3UAciieKJx1tbuCvA/exec";
-
-  // 四个选项的含义
-  const EXP_MEANING = {
-    A: "鹰派信号",
-    B: "中性偏鸽",
-    C: "明确鸽派",
-    D: "意外转向"
-  };
-
-  // 监听整个投票区域，谁被点了就上报
-  document.getElementById("experiment-voting").addEventListener("click", function (e) {
-    const option = e.target.closest(".exp-option");
-    if (!option) return;
-
-    const choice = option.getAttribute("data-exp");
-    if (!choice) return;
-
-    fetch(SHEET_URL, {
-      method: "POST",
-      mode: "no-cors",
-      body: JSON.stringify({
-        option: choice,
-        meaning: EXP_MEANING[choice]
-      })
-    });
-  });
-</script>
 <body>
     <!-- 顶部封面 -->
     <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center py-16 px-4">
@@ -226,7 +216,6 @@
     <!-- 正文内容区 -->
     <div class="max-w-3xl mx-auto py-8 px-4 md:px-8 bg-white min-h-screen">
         
-        <!-- 导语 -->
         <p class="first-letter text-lg leading-relaxed text-gray-700">
             历史不会简单重复，但会押韵。当2026年全球再次面临通胀压力、央行政策左右为难时，我们不妨回到1979年那个决定美国经济未来的夏天——当时，一位名叫保罗·沃尔克的新上任美联储主席，面临着和今天几乎一模一样的困境。
         </p>
@@ -237,7 +226,6 @@
 
         <div class="divider">✦ ✦ ✦</div>
 
-        <!-- 场景设定 -->
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
             01 那个炎热的夏天
         </h2>
@@ -308,16 +296,23 @@
             </div>
         </div>
 
+        <!-- 历史选择投票结果区 -->
         <div id="vote-result-area" style="display:none;">
             <div class="text-center mt-6 mb-4">
                 <span class="text-green-600 font-medium">✓ 你的选择已记录！</span>
                 <span class="text-gray-500 text-sm ml-2">继续阅读，文末还有一次预测投票</span>
             </div>
+            <div class="vote-stats-card">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="font-bold text-gray-700">📊 全员投票统计</span>
+                    <span id="choice-total" class="text-sm text-gray-500">加载中...</span>
+                </div>
+                <div id="choice-stats"></div>
+            </div>
         </div>
 
         <div class="divider">决策风格诊断</div>
 
-        <!-- 决策风格诊断 -->
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
             02 你是哪种决策者？
         </h2>
@@ -358,7 +353,6 @@
 
         <div class="divider">历史真相</div>
 
-        <!-- 历史真相 -->
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
             03 沃尔克的选择与代价
         </h2>
@@ -413,7 +407,6 @@
 
         <div class="divider">当代镜鉴</div>
 
-        <!-- 当代镜鉴 -->
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
             04 从沃尔克时刻看2026年
         </h2>
@@ -462,7 +455,6 @@
             </div>
         </div>
 
-        <!-- 实验室笔记 -->
         <div class="note-card mt-8">
             <h3 class="font-bold text-xl mb-4 serif">📌 实验室笔记</h3>
             <ol class="space-y-3 text-sm">
@@ -543,6 +535,20 @@
             </div>
         </div>
 
+        <!-- 实验投票结果区 -->
+        <div id="exp-result-area" style="display:none;">
+            <div class="text-center mt-4 mb-2">
+                <span class="text-green-600 font-medium">✓ 你的预测已记录！</span>
+            </div>
+            <div class="vote-stats-card">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="font-bold text-gray-700">📊 预测投票统计</span>
+                    <span id="exp-total" class="text-sm text-gray-500">加载中...</span>
+                </div>
+                <div id="exp-stats"></div>
+            </div>
+        </div>
+
         <!-- 人物画像结果区域 -->
         <div id="personality-result"></div>
         <div id="personality-card" style="display:none; margin: 3rem 0;">
@@ -560,9 +566,9 @@
         <div class="divider">下一期预告</div>
 
         <div class="bg-gradient-to-r from-purple-100 to-pink-100 p-6 rounded-xl text-center">
-            <h3 class="font-bold text-xl text-purple-800 serif mb-3">5月11日（周日刊）</h3>
-            <p class="text-purple-700 text-lg">穿越到1997年的香港金融保卫战</p>
-            <p class="text-purple-600 mt-2">如果你是时任香港金管局总裁任志刚，面对索罗斯的量子基金猛攻港币联系汇率，你会选择：加息保汇率？还是降息保楼市？</p>
+            <h3 class="font-bold text-xl text-purple-800 serif mb-3">第2期</h3>
+            <p class="text-purple-700 text-lg">存储芯片泡沫与1987年幽灵</p>
+            <p class="text-purple-600 mt-2">1987年，DRAM价格暴跌70%，一家巨头一夜崩塌。今天，存储芯片股创下历史新高，HBM成为AI淘金热的核心赛道。历史会不会重演？你站在泡沫的哪一侧？</p>
         </div>
 
     </div>
@@ -571,216 +577,250 @@
     <div class="bg-gray-800 text-white text-center py-8 px-4">
         <p class="text-lg serif font-medium mb-2">历史实验室</p>
         <p class="text-gray-400 text-sm italic">在历史的十字路口寻找答案</p>
-        <div class="mt-4 text-gray-500 text-xs">
-            每周三 · 综合热点 | 每周日 · 财经投资
+        <div class="mt-6">
+            <button onclick="resetVotes()" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm transition-all">
+                🔄 重置我的投票（重新体验）
+            </button>
         </div>
     </div>
 
     <script>
-        // 数据存储
+        // ============ Supabase 配置 ============
+        const SUPABASE_URL = 'https://vucpxdmipdxyhixofwkn.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_CgD0jiGAgl56bTfW0BBwfw_NIRtY2ZM';
+        const EPISODE_ID = 'volcker_1979';
         const STORAGE_KEY = 'history_lab_volcker_1979';
-        
-        // 模拟初始数据
-        let voteData = {
-            choice: { A: 24, B: 38, C: 12, D: 6 },
-            experiment: { A: 18, B: 42, C: 15, D: 5 },
+
+        let db = null;
+        try {
+            db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        } catch(e) {
+            console.warn('Supabase SDK 加载失败，将使用纯本地模式', e);
+        }
+
+        // ============ 本地用户状态（只存"我投了什么"，不存统计数字） ============
+        let userState = {
             hasVotedChoice: false,
             hasVotedExperiment: false,
             userChoice: null,
             userExperiment: null
         };
-        
-        // 从localStorage加载
+
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
-            voteData = JSON.parse(saved);
+            try { userState = JSON.parse(saved); } catch(e) {}
         }
-        
-        function saveData() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(voteData));
+
+        function saveUserState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(userState));
         }
-        
-        // 场景选择投票
-        document.querySelectorAll('.option-card').forEach(card => {
+
+        // ============ 颜色与标签映射 ============
+        const choiceLabels = { A: 'A · 激进加息', B: 'B · 渐进加息', C: 'C · 按兵不动', D: 'D · 转向宽松' };
+        const expLabels = { A: 'A · 鹰派信号', B: 'B · 中性偏鸽', C: 'C · 明确鸽派', D: 'D · 意外转向' };
+        const barColors = { A: '#10b981', B: '#3b82f6', C: '#f59e0b', D: '#ef4444' };
+
+        // ============ 从 Supabase 加载统计并渲染 ============
+        async function loadVoteStats() {
+            if (!db) {
+                renderStats('choice-stats', 'choice-total', { A: 0, B: 0, C: 0, D: 0 }, choiceLabels);
+                renderStats('exp-stats', 'exp-total', { A: 0, B: 0, C: 0, D: 0 }, expLabels);
+                return;
+            }
+            try {
+                const { data, error } = await db
+                    .from('votes')
+                    .select('vote_type, option')
+                    .eq('episode_id', EPISODE_ID);
+
+                if (error) throw error;
+
+                const stats = {
+                    choice: { A: 0, B: 0, C: 0, D: 0 },
+                    experiment: { A: 0, B: 0, C: 0, D: 0 }
+                };
+                (data || []).forEach(function(row) {
+                    if (stats[row.vote_type] && row.option in stats[row.vote_type]) {
+                        stats[row.vote_type][row.option]++;
+                    }
+                });
+
+                renderStats('choice-stats', 'choice-total', stats.choice, choiceLabels);
+                renderStats('exp-stats', 'exp-total', stats.experiment, expLabels);
+            } catch(err) {
+                console.error('加载投票统计失败:', err);
+                renderStats('choice-stats', 'choice-total', { A: 0, B: 0, C: 0, D: 0 }, choiceLabels);
+                renderStats('exp-stats', 'exp-total', { A: 0, B: 0, C: 0, D: 0 }, expLabels);
+            }
+        }
+
+        function renderStats(containerId, totalId, data, labels) {
+            var container = document.getElementById(containerId);
+            var totalEl = document.getElementById(totalId);
+            if (!container) return;
+
+            var total = 0;
+            ['A','B','C','D'].forEach(function(k){ total += data[k]; });
+            if (totalEl) totalEl.textContent = '共 ' + total + ' 人参与';
+
+            var html = '';
+            ['A','B','C','D'].forEach(function(key) {
+                var pct = total > 0 ? ((data[key] / total) * 100).toFixed(1) : '0.0';
+                html += '<div style="margin-bottom:0.75rem">' +
+                    '<div style="display:flex;justify-content:space-between;font-size:0.875rem;margin-bottom:4px">' +
+                        '<span style="font-weight:500;color:#374151">' + (labels[key] || key) + '</span>' +
+                        '<span style="color:#6b7280">' + data[key] + '票 · ' + pct + '%</span>' +
+                    '</div>' +
+                    '<div class="vote-bar-bg">' +
+                        '<div class="vote-bar-fill" style="width:' + pct + '%;background:' + barColors[key] + '"></div>' +
+                    '</div>' +
+                '</div>';
+            });
+
+            container.innerHTML = html;
+        }
+
+        // ============ 提交投票到 Supabase ============
+        async function submitVote(voteType, option) {
+            if (!db) return;
+            try {
+                var result = await db
+                    .from('votes')
+                    .insert({ episode_id: EPISODE_ID, vote_type: voteType, option: option });
+                // 无论成功失败都刷新统计
+            } catch(err) {
+                console.error('投票提交失败:', err);
+            }
+            // 刷新统计
+            loadVoteStats();
+        }
+
+        // ============ 历史选择投票 ============
+        document.querySelectorAll('.option-card').forEach(function(card) {
             card.addEventListener('click', function() {
-                if (voteData.hasVotedChoice) return;
-                
-                const option = this.dataset.option;
-                voteData.choice[option]++;
-                voteData.hasVotedChoice = true;
-                voteData.userChoice = option;
-                
-                document.querySelectorAll('.option-card').forEach(c => {
+                if (userState.hasVotedChoice) return;
+
+                var option = this.dataset.option;
+                userState.hasVotedChoice = true;
+                userState.userChoice = option;
+
+                document.querySelectorAll('.option-card').forEach(function(c) {
                     c.classList.add('voted');
                     c.classList.remove('selected');
                 });
                 this.classList.add('selected');
-                
-                // 显示结果提示
+
                 document.getElementById('vote-result-area').style.display = 'block';
-                
-                saveData();
-                
-                // 如果已经投了实验票，直接显示人物画像
-                if (voteData.userExperiment) {
-                    setTimeout(() => showPersonality(voteData.userChoice, voteData.userExperiment), 500);
+
+                saveUserState();
+                submitVote('choice', option);
+
+                if (userState.userExperiment) {
+                    setTimeout(function() { showPersonality(userState.userChoice, userState.userExperiment); }, 500);
                 } else {
-                    // 引导用户继续阅读
                     alert('你的历史选择已记录！继续阅读文章，文末还有一次预测投票，完成后解锁你的专属决策风格人物画像 🎯');
                 }
             });
         });
-        
-        // 实验投票
-        document.querySelectorAll('.exp-option').forEach(card => {
+
+        // ============ 实验投票 ============
+        document.querySelectorAll('.exp-option').forEach(function(card) {
             card.addEventListener('click', function() {
-                if (voteData.hasVotedExperiment) return;
-                
-                const option = this.dataset.exp;
-                voteData.experiment[option]++;
-                voteData.hasVotedExperiment = true;
-                voteData.userExperiment = option;
-                
-                document.querySelectorAll('.exp-option').forEach(c => {
+                if (userState.hasVotedExperiment) return;
+
+                var option = this.dataset.exp;
+                userState.hasVotedExperiment = true;
+                userState.userExperiment = option;
+
+                document.querySelectorAll('.exp-option').forEach(function(c) {
                     c.style.cursor = 'default';
                     c.classList.remove('selected');
                 });
                 this.classList.add('selected');
                 this.style.background = 'rgba(16, 185, 129, 0.1)';
-                
-                saveData();
-                
-                // 如果已经投了历史选择票，显示人物画像
-                if (voteData.userChoice) {
-                    setTimeout(() => showPersonality(voteData.userChoice, voteData.userExperiment), 300);
+
+                document.getElementById('exp-result-area').style.display = 'block';
+
+                saveUserState();
+                submitVote('experiment', option);
+
+                if (userState.userChoice) {
+                    setTimeout(function() { showPersonality(userState.userChoice, userState.userExperiment); }, 300);
                 } else {
                     alert('你的预测已记录！回到文章开头，完成历史场景选择投票后，解锁你的决策风格人物画像 🔓');
                 }
             });
         });
-        
-        // 决策风格人物画像
+
+        // ============ 决策风格人物画像 ============
         function showPersonality(choice, exp) {
-            const personalities = {
-                'AA': { 
-                    name: '保罗·沃尔克', 
-                    desc: '你是真正的"通胀斗士"！意志坚定、行动果敢，为了长期目标不惜承受短期痛苦。你相信原则重于权宜，在压力面前从不退缩。历史证明，这样的人最终会被铭记。', 
-                    emoji: '🦅' 
-                },
-                'AB': { 
-                    name: '朱镕基', 
-                    desc: '你既有大刀阔斧改革的魄力，又懂务实平衡的艺术。面对复杂局面，你能在坚定方向的同时，灵活把握节奏。这是顶尖决策者的稀有品质！', 
-                    emoji: '🐯' 
-                },
-                'AC': { 
-                    name: '富兰克林·罗斯福', 
-                    desc: '你有改革的魄力，更有审时度势的智慧。"大胆试验，错了就改"是你的信条。这种既敢闯又灵活的风格，往往能在危局中开创新局面！', 
-                    emoji: '🦁' 
-                },
-                'AD': { 
-                    name: '撒切尔夫人', 
-                    desc: '你是"铁娘子"型人物——目标明确，意志如钢，该转向时毫不犹豫。你不害怕争议，只在乎做正确的事。这种强大的内心力量，注定你不会随波逐流！', 
-                    emoji: '👑' 
-                },
-                'BA': { 
-                    name: '马里奥·德拉吉', 
-                    desc: '你外表温和内敛，内心却有"不惜一切代价"的坚定。平时步步为营，关键时刻能爆发出惊人的魄力。这种"静水流深"的风格，往往是成大事者的特质！', 
-                    emoji: '🌊' 
-                },
-                'BB': { 
-                    name: '格林斯潘', 
-                    desc: '你是天生的"平衡大师"。在各种矛盾的目标之间，你总能找到微妙的平衡点。语焉不详、行动审慎不是缺点，而是你驾驭复杂局面的智慧。', 
-                    emoji: '⚖️' 
-                },
-                'BC': { 
-                    name: '伯南克', 
-                    desc: '你是学者型决策者——数据驱动，逻辑优先，不预设立场，随时准备修正观点。这种开放务实的态度，让你在快速变化的世界中总能做出最优选择。', 
-                    emoji: '📚' 
-                },
-                'BD': { 
-                    name: '周小川', 
-                    desc: '你是"渐进式改革"的高手。平时稳扎稳打，该突破时绝不手软。这种"静如处子、动如脱兔"的节奏把控能力，是长期主义者的制胜法宝。', 
-                    emoji: '🐉' 
-                },
-                'CA': { 
-                    name: '罗伯特·蒙代尔', 
-                    desc: '你是理论派与行动派的完美结合。不轻易表态，但一旦认定方向就坚定不移。这种深思熟虑后的果断，往往能一击即中！', 
-                    emoji: '🎯' 
-                },
-                'CB': { 
-                    name: '约翰·梅纳德·凯恩斯', 
-                    desc: '你相信"形势变了，我的观点也随之改变"。观察、等待、相机抉择是你的风格。这种务实主义让你很少犯大错，总能在合适的时间出现在合适的位置。', 
-                    emoji: '🧠' 
-                },
-                'CC': { 
-                    name: '易纲', 
-                    desc: '你是学者型官员的典范——低调、务实、专业、稳健。你不追求轰动效应，只做正确的事。这种"润物细无声"的力量，往往比轰轰烈烈更持久、更可靠。', 
-                    emoji: '🌿' 
-                },
-                'CD': { 
-                    name: '耶伦', 
-                    desc: '你是"鸽派中的鹰派"——平时温和耐心，该强硬时也绝不手软。你用学者的严谨看待每一个决策，用女性的细腻感知每一个数据。这种刚柔并济的风格，是这个时代最稀缺的智慧！', 
-                    emoji: '💎' 
-                },
-                'DA': { 
-                    name: '彭德怀', 
-                    desc: '你是"谁敢横刀立马"的勇将！平时宽厚待人，关键时刻雷霆出击。你不惹事，但绝不怕事。这种外柔内刚的性格，在关键时刻往往能成为团队的定海神针！', 
-                    emoji: '⚔️' 
-                },
-                'DB': { 
-                    name: '里根', 
-                    desc: '你相信"市场的智慧"，也懂政府的边界。你是自由市场的信徒，但也知道何时该出手。这种"有所为有所不为"的分寸感，是顶级政治家的标志。', 
-                    emoji: '🌟' 
-                },
-                'DC': { 
-                    name: '克林顿', 
-                    desc: '你是天生的"政治动物"——实用主义至上，没有什么教条不能打破。你关心的只有"什么有效"。这种灵活应变的能力，让你总能在任何环境中找到机会。', 
-                    emoji: '🎭' 
-                },
-                'DD': { 
-                    name: '安倍晋三', 
-                    desc: '你是"大胆实验"的倡导者。敢于突破常规，勇于尝试新思路。虽然可能会有争议，但历史往往是由这些敢于第一个吃螃蟹的人书写的！', 
-                    emoji: '🚀' 
-                }
+            var personalities = {
+                'AA': { name: '保罗·沃尔克', desc: '你是真正的"通胀斗士"！意志坚定、行动果敢，为了长期目标不惜承受短期痛苦。你相信原则重于权宜，在压力面前从不退缩。历史证明，这样的人最终会被铭记。', emoji: '🦅' },
+                'AB': { name: '朱镕基', desc: '你既有大刀阔斧改革的魄力，又懂务实平衡的艺术。面对复杂局面，你能在坚定方向的同时，灵活把握节奏。这是顶尖决策者的稀有品质！', emoji: '🐯' },
+                'AC': { name: '富兰克林·罗斯福', desc: '你有改革的魄力，更有审时度势的智慧。"大胆试验，错了就改"是你的信条。这种既敢闯又灵活的风格，往往能在危局中开创新局面！', emoji: '🦁' },
+                'AD': { name: '撒切尔夫人', desc: '你是"铁娘子"型人物——目标明确，意志如钢，该转向时毫不犹豫。你不害怕争议，只在乎做正确的事。这种强大的内心力量，注定你不会随波逐流！', emoji: '👑' },
+                'BA': { name: '马里奥·德拉吉', desc: '你外表温和内敛，内心却有"不惜一切代价"的坚定。平时步步为营，关键时刻能爆发出惊人的魄力。这种"静水流深"的风格，往往是成大事者的特质！', emoji: '🌊' },
+                'BB': { name: '格林斯潘', desc: '你是天生的"平衡大师"。在各种矛盾的目标之间，你总能找到微妙的平衡点。语焉不详、行动审慎不是缺点，而是你驾驭复杂局面的智慧。', emoji: '⚖️' },
+                'BC': { name: '伯南克', desc: '你是学者型决策者——数据驱动，逻辑优先，不预设立场，随时准备修正观点。这种开放务实的态度，让你在快速变化的世界中总能做出最优选择。', emoji: '📚' },
+                'BD': { name: '周小川', desc: '你是"渐进式改革"的高手。平时稳扎稳打，该突破时绝不手软。这种"静如处子、动如脱兔"的节奏把控能力，是长期主义者的制胜法宝。', emoji: '🐉' },
+                'CA': { name: '罗伯特·蒙代尔', desc: '你是理论派与行动派的完美结合。不轻易表态，但一旦认定方向就坚定不移。这种深思熟虑后的果断，往往能一击即中！', emoji: '🎯' },
+                'CB': { name: '约翰·梅纳德·凯恩斯', desc: '你相信"形势变了，我的观点也随之改变"。观察、等待、相机抉择是你的风格。这种务实主义让你很少犯大错，总能在合适的时间出现在合适的位置。', emoji: '🧠' },
+                'CC': { name: '易纲', desc: '你是学者型官员的典范——低调、务实、专业、稳健。你不追求轰动效应，只做正确的事。这种"润物细无声"的力量，往往比轰轰烈烈更持久、更可靠。', emoji: '🌿' },
+                'CD': { name: '耶伦', desc: '你是"鸽派中的鹰派"——平时温和耐心，该强硬时也绝不手软。你用学者的严谨看待每一个决策，用女性的细腻感知每一个数据。这种刚柔并济的风格，是这个时代最稀缺的智慧！', emoji: '💎' },
+                'DA': { name: '彭德怀', desc: '你是"谁敢横刀立马"的勇将！平时宽厚待人，关键时刻雷霆出击。你不惹事，但绝不怕事。这种外柔内刚的性格，在关键时刻往往能成为团队的定海神针！', emoji: '⚔️' },
+                'DB': { name: '里根', desc: '你相信"市场的智慧"，也懂政府的边界。你是自由市场的信徒，但也知道何时该出手。这种"有所为有所不为"的分寸感，是顶级政治家的标志。', emoji: '🌟' },
+                'DC': { name: '克林顿', desc: '你是天生的"政治动物"——实用主义至上，没有什么教条不能打破。你关心的只有"什么有效"。这种灵活应变的能力，让你总能在任何环境中找到机会。', emoji: '🎭' },
+                'DD': { name: '安倍晋三', desc: '你是"大胆实验"的倡导者。敢于突破常规，勇于尝试新思路。虽然可能会有争议，但历史往往是由这些敢于第一个吃螃蟹的人书写的！', emoji: '🚀' }
             };
             
-            const p = personalities[choice + exp];
+            var p = personalities[choice + exp];
             if (p) {
-                // 滚动到结果区域
                 document.getElementById('personality-result').scrollIntoView({ behavior: 'smooth' });
-                setTimeout(() => {
+                setTimeout(function() {
                     document.getElementById('personality-name').textContent = p.emoji + ' 你的决策风格最像：' + p.name;
                     document.getElementById('personality-desc').textContent = p.desc;
                     document.getElementById('personality-card').style.display = 'block';
                 }, 600);
             }
         }
-        
-        // 页面加载时检查是否已投票
+
+        // ============ 重置投票（只清本地状态，不清远程数据） ============
+        function resetVotes() {
+            if (confirm('确定要重置你的投票吗？可以重新体验完整流程！\n（你之前的投票已计入统计，重置后可重新选择）')) {
+                localStorage.removeItem(STORAGE_KEY);
+                location.reload();
+            }
+        }
+
+        // ============ 页面加载 ============
         window.addEventListener('load', function() {
+            // 加载远程统计
+            loadVoteStats();
+
             // 恢复历史选择状态
-            if (voteData.hasVotedChoice) {
-                const card = document.querySelector(`.option-card[data-option="${voteData.userChoice}"]`);
+            if (userState.hasVotedChoice) {
+                var card = document.querySelector('.option-card[data-option="' + userState.userChoice + '"]');
                 if (card) {
                     card.classList.add('selected');
-                    document.querySelectorAll('.option-card').forEach(c => c.classList.add('voted'));
+                    document.querySelectorAll('.option-card').forEach(function(c) { c.classList.add('voted'); });
                     document.getElementById('vote-result-area').style.display = 'block';
                 }
             }
-            
+
             // 恢复实验投票状态
-            if (voteData.hasVotedExperiment) {
-                const card = document.querySelector(`.exp-option[data-exp="${voteData.userExperiment}"]`);
-                if (card) {
-                    card.classList.add('selected');
-                    card.style.background = 'rgba(16, 185, 129, 0.1)';
-                    document.querySelectorAll('.exp-option').forEach(c => c.style.cursor = 'default');
+            if (userState.hasVotedExperiment) {
+                var ecard = document.querySelector('.exp-option[data-exp="' + userState.userExperiment + '"]');
+                if (ecard) {
+                    ecard.classList.add('selected');
+                    ecard.style.background = 'rgba(16, 185, 129, 0.1)';
+                    document.querySelectorAll('.exp-option').forEach(function(c) { c.style.cursor = 'default'; });
+                    document.getElementById('exp-result-area').style.display = 'block';
                 }
             }
-            
+
             // 如果两次都投了，显示人物画像
-            if (voteData.userChoice && voteData.userExperiment) {
-                setTimeout(() => showPersonality(voteData.userChoice, voteData.userExperiment), 800);
+            if (userState.userChoice && userState.userExperiment) {
+                setTimeout(function() { showPersonality(userState.userChoice, userState.userExperiment); }, 800);
             }
         });
     </script>
