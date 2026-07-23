@@ -193,6 +193,118 @@
             border-radius: 999px;
             transition: width 0.8s ease;
         }
+
+        /* ===== 反事实路径树样式 ===== */
+        .counterfactual-tree {
+            position: relative;
+        }
+        .branch-node {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .branch-node:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .branch-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .branch-header:hover {
+            background: rgba(102, 126, 234, 0.04);
+        }
+        .branch-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .branch-content {
+            flex: 1;
+        }
+        .branch-toggle {
+            color: #9ca3af;
+            font-size: 0.8rem;
+            transition: transform 0.3s;
+        }
+        .branch-node.open .branch-toggle {
+            transform: rotate(180deg);
+        }
+        .branch-connector {
+            width: 3px;
+            height: 24px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+        .branch-details {
+            padding: 0 1.5rem 1.5rem;
+        }
+        .branch-real, .branch-alt {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 0.75rem;
+        }
+        .branch-real {
+            background: rgba(16, 185, 129, 0.06);
+            border-left: 3px solid #10b981;
+        }
+        .branch-alt {
+            background: rgba(239, 68, 68, 0.06);
+            border-left: 3px solid #ef4444;
+            border: 1px dashed #ef4444;
+            border-left: 3px solid #ef4444;
+        }
+        .branch-label {
+            display: inline-block;
+            padding: 0.15rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .branch-label.real { background: #d1fae5; color: #065f46; }
+        .branch-label.alt { background: #fee2e2; color: #991b1b; }
+
+        /* ===== 决策落地卡样式 ===== */
+        .decision-card {
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .decision-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        .decision-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+        }
+        .decision-card-toggle {
+            font-size: 0.8rem;
+            color: #6b7280;
+            white-space: nowrap;
+        }
+        .decision-card-body {
+            padding: 0 1.5rem 1.5rem;
+        }
     </style>
 </head>
 <body>
@@ -359,6 +471,8 @@
             </div>
         </div>
 
+
+
         <div class="divider">历史真相</div>
 
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
@@ -423,6 +537,91 @@
             <p class="text-gray-700 mt-2">
                 崩盘次日，格林斯潘声明："美联储承诺提供一切流动性。"他立即降息、注入流动性——成功稳住了市场，避免1929年悲剧重演。但也埋下隐患：投资者开始相信"只要跌得够惨，央行就会救市"——这一信念在2008年金融危机中得到最充分的验证。
             </p>
+        </div>
+
+
+        <div class="divider">✦ ✦ ✦</div>
+
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            🌳 反事实路径树：如果历史走了另一条路？
+        </h2>
+
+        <p class="text-gray-600 mb-6">历史从来不是必然的。1987年黑色星期一之所以没有演变成1929年大萧条，是因为三个关键的"分岔点"。如果它们走了另一条路，世界将完全不同。</p>
+
+        <div class="counterfactual-tree">
+            <!-- 分岔点1 -->
+            <div class="branch-node">
+                <div class="branch-header" onclick="toggleBranch(this)">
+                    <div class="branch-icon">①</div>
+                    <div class="branch-content">
+                        <h4 class="font-bold text-gray-800">如果格林斯潘没有立即注入流动性？</h4>
+                        <p class="text-xs text-gray-500 mt-1">分岔点：1987年10月20日，美联储声明</p>
+                    </div>
+                    <div class="branch-toggle">▼</div>
+                </div>
+                <div class="branch-details" style="display:none">
+                    <div class="branch-real">
+                        <span class="branch-label real">✅ 真实路径</span>
+                        <p class="text-sm text-green-700"><strong>格林斯潘在崩盘次日即发表声明</strong>："美联储承诺提供一切流动性。"立即降息、注入流动性——市场在两周内企稳，S&P 500在6个月内完全收复失地。美国避免了一场系统性金融危机。</p>
+                    </div>
+                    <div class="branch-alt">
+                        <span class="branch-label alt">⚠️ 假设路径</span>
+                        <p class="text-sm text-red-700"><strong>如果格林斯潘犹豫不决</strong>（毕竟他刚就任仅24天，尚未建立信誉），市场可能重演1929-1933年的连锁崩溃：银行挤兑→信贷冻结→实体企业资金链断裂→大规模失业。估计GDP将萎缩15-20%，失业率飙升至25%以上。全球可能陷入第二次大萧条。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="branch-connector"></div>
+
+            <!-- 分岔点2 -->
+            <div class="branch-node">
+                <div class="branch-header" onclick="toggleBranch(this)">
+                    <div class="branch-icon">②</div>
+                    <div class="branch-content">
+                        <h4 class="font-bold text-gray-800">如果程序化交易在1987年不存在？</h4>
+                        <p class="text-xs text-gray-500 mt-1">分岔点：组合保险策略与"死亡螺旋"</p>
+                    </div>
+                    <div class="branch-toggle">▼</div>
+                </div>
+                <div class="branch-details" style="display:none">
+                    <div class="branch-real">
+                        <span class="branch-label real">✅ 真实路径</span>
+                        <p class="text-sm text-green-700"><strong>程序化交易是崩盘的"放大器"</strong>。组合保险策略在市场下跌时自动触发卖出，形成"下跌→卖单→更跌→更多卖单"的死亡螺旋。当天超过40%的抛盘来自算法交易。道指单日暴跌22.6%。</p>
+                    </div>
+                    <div class="branch-alt">
+                        <span class="branch-label alt">⚠️ 假设路径</span>
+                        <p class="text-sm text-red-700"><strong>如果没有程序化交易</strong>，当天的抛压将主要由人类交易员执行。考虑到当时的市场情绪虽然恐慌但并非绝望（没有银行倒闭、没有经济衰退数据），跌幅可能只有8-10%——类似1989年的旧金山地震跌幅。不会有"死亡螺旋"，市场可能在1-2周内企稳。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="branch-connector"></div>
+
+            <!-- 分岔点3 -->
+            <div class="branch-node">
+                <div class="branch-header" onclick="toggleBranch(this)">
+                    <div class="branch-icon">③</div>
+                    <div class="branch-content">
+                        <h4 class="font-bold text-gray-800">如果1987年没有美元贬值+贸易摩擦？</h4>
+                        <p class="text-xs text-gray-500 mt-1">分岔点：卢浮宫协议与国际贸易格局</p>
+                    </div>
+                    <div class="branch-toggle">▼</div>
+                </div>
+                <div class="branch-details" style="display:none">
+                    <div class="branch-real">
+                        <span class="branch-label real">✅ 真实路径</span>
+                        <p class="text-sm text-green-700"><strong>美元持续走弱+美日贸易摩擦加剧</strong>，外国投资者恐慌性抛售美股。1987年10月，外国投资者持有的美国国债被大规模抛售，美元汇率急跌。国际资金的"流动性虹吸"加速了崩盘。</p>
+                    </div>
+                    <div class="branch-alt">
+                        <span class="branch-label alt">⚠️ 假设路径</span>
+                        <p class="text-sm text-red-700"><strong>如果美元保持稳定+贸易关系缓和</strong>，外资不会恐慌性外逃。美国财政部长贝克在崩盘前威胁对日本加征关税的言论，是压垮市场信心的最后一根稻草。如果卢浮宫协议成功维持汇率稳定，外资持股占比不会骤降，跌幅可能收窄至5-8%——只是一次普通的"市场调整"而非"黑色星期一"。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quote-box mt-6">
+            <p class="text-sm text-gray-600 italic">💡 点击每个分岔点，展开详细的"what if"推演。历史从来不是必然的——理解"如果"，才能理解"为什么"。</p>
         </div>
 
         <div class="divider">当代镜鉴</div>
@@ -496,6 +695,226 @@
                 <li><strong>5.</strong> <strong>2027年末是潜在拐点。</strong>新增产能集中释放+暴利周期结束+机构预期反转——如果历史押韵，这将是"黑色星期一"式的时刻。但也许这一次，AI需求的持续增长会打破周期律？</li>
                 <li><strong>6.</strong> <strong>活着比什么都重要。</strong>1987年活下来的投资者，都是那些"永远保留弹药"的人。投资的第一要务不是赚钱，而是不亏钱。</li>
             </ol>
+        </div>
+
+
+        <div class="divider">✦ ✦ ✦</div>
+
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            📋 决策落地卡：从历史到行动
+        </h2>
+
+        <p class="text-gray-600 mb-6">读完历史，回到现实。以下四张决策卡片，帮你把1987年的教训转化为2026年的行动。点击展开每张卡片。</p>
+
+        <div class="decision-cards">
+            <!-- 卡片1: 泡沫识别清单 -->
+            <div class="decision-card" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                <div class="decision-card-header" onclick="toggleDecisionCard(this)">
+                    <div>
+                        <h4 class="font-bold text-lg text-gray-800">🔍 泡沫识别清单</h4>
+                        <p class="text-xs text-gray-600 mt-1">8个量化指标，帮你判断泡沫是否已经形成</p>
+                    </div>
+                    <span class="decision-card-toggle">展开 ↓</span>
+                </div>
+                <div class="decision-card-body" style="display:none">
+                    <div class="space-y-3 mt-4">
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>散户开户数激增</strong> —— 近3个月新增开户数超过过去12个月均值2倍以上</span></label>
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>融资余额增速异常</strong> —— 两融余额月增速超过15%，或融资买入额占成交额比超过12%</span></label>
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>分析师一致预期过度乐观</strong> —— 覆盖该板块的分析师90%以上给出"买入/增持"评级</span></label>
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>估值脱离地心引力</strong> —— 板块PE超过历史均值2个标准差以上</span></label>
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>"这次不一样"叙事盛行</strong> —— 媒体频繁出现"新时代""超级周期"等措辞</span></label>
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>非相关人士参与投机</strong> —— 出租车司机、小区保安、不炒股的亲友开始问你怎么买</span></label>
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>产业资本大规模减持</strong> —— 行业龙头高管/大股东密集减持或IPO募资创纪录</span></label>
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>价格涨速远超基本面</strong> —— 产品价格季度涨幅超过50%，但需求增速不到20%</span></label>
+                    </div>
+                    <div class="mt-4 p-3 bg-white/50 rounded-lg">
+                        <p class="text-xs text-gray-600"><strong>判断标准：</strong>勾选4个以上 → 泡沫已形成，应开始防守；勾选6个以上 → 泡沫严重，应果断减仓。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 卡片2: 减仓纪律卡 -->
+            <div class="decision-card" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">
+                <div class="decision-card-header" onclick="toggleDecisionCard(this)">
+                    <div>
+                        <h4 class="font-bold text-lg text-gray-800">🚦 减仓纪律卡</h4>
+                        <p class="text-xs text-gray-600 mt-1">红黄绿三色信号灯，量化你的减仓触发条件</p>
+                    </div>
+                    <span class="decision-card-toggle">展开 ↓</span>
+                </div>
+                <div class="decision-card-body" style="display:none">
+                    <div class="space-y-4 mt-4">
+                        <div class="p-3 bg-white/60 rounded-lg">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="w-4 h-4 rounded-full bg-green-500"></span>
+                                <span class="font-bold text-green-800 text-sm">🟢 绿灯 —— 持仓观望</span>
+                            </div>
+                            <ul class="text-sm text-gray-700 space-y-1 ml-6">
+                                <li>• 费半指数站稳50日均线上方</li>
+                                <li>• 单只个股仓位 ≤ 20%</li>
+                                <li>• DRAM现货价格环比涨幅 &lt; 20%</li>
+                                <li>• 融资余额月增速 &lt; 10%</li>
+                            </ul>
+                        </div>
+                        <div class="p-3 bg-white/60 rounded-lg">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="w-4 h-4 rounded-full bg-yellow-500"></span>
+                                <span class="font-bold text-yellow-800 text-sm">🟡 黄灯 —— 减仓20-30%</span>
+                            </div>
+                            <ul class="text-sm text-gray-700 space-y-1 ml-6">
+                                <li>• 费半指数跌破20日均线</li>
+                                <li>• 单只个股仓位超过30%</li>
+                                <li>• DRAM现货价月涨幅超过30%</li>
+                                <li>• 融资余额月增速超过15%</li>
+                                <li>• 行业龙头高管开始减持</li>
+                            </ul>
+                        </div>
+                        <div class="p-3 bg-white/60 rounded-lg">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="w-4 h-4 rounded-full bg-red-500"></span>
+                                <span class="font-bold text-red-800 text-sm">🔴 红灯 —— 减仓50%以上</span>
+                            </div>
+                            <ul class="text-sm text-gray-700 space-y-1 ml-6">
+                                <li>• 费半指数跌破50日均线且放量</li>
+                                <li>• DRAM现货价格单周下跌超过10%</li>
+                                <li>• 融资余额开始下降（资金撤退）</li>
+                                <li>• "全民炒芯"——非投资者入场</li>
+                                <li>• 主要央行释放加息/收紧信号</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 卡片3: 情绪温度计 -->
+            <div class="decision-card" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
+                <div class="decision-card-header" onclick="toggleDecisionCard(this)">
+                    <div>
+                        <h4 class="font-bold text-lg text-gray-800">🌡️ 情绪温度计</h4>
+                        <p class="text-xs text-gray-600 mt-1">5个自检问题，测量你当前的情绪"体温"</p>
+                    </div>
+                    <span class="decision-card-toggle">展开 ↓</span>
+                </div>
+                <div class="decision-card-body" style="display:none">
+                    <div class="space-y-3 mt-4">
+                        <div class="p-3 bg-white/60 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>1.</strong> 你最近是否因为"没有买"而感到焦虑或FOMO？</p>
+                            <div class="flex gap-2 mt-2">
+                                <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded">完全不会</span>
+                                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">偶尔</span>
+                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded">每天都焦虑</span>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-white/60 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>2.</strong> 你是否在向不炒股的朋友/家人推荐买入存储芯片？</p>
+                            <div class="flex gap-2 mt-2">
+                                <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded">不会</span>
+                                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">偶尔提起</span>
+                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded">逢人就推荐</span>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-white/60 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>3.</strong> 当持仓下跌5%时，你能否安然入睡？</p>
+                            <div class="flex gap-2 mt-2">
+                                <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded">完全不影响</span>
+                                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">有点不安</span>
+                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded">失眠焦虑</span>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-white/60 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>4.</strong> 你是否觉得"存储芯片不可能跌"——对此深信不疑？</p>
+                            <div class="flex gap-2 mt-2">
+                                <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded">保持怀疑</span>
+                                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">比较乐观</span>
+                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded">绝对信仰</span>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-white/60 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>5.</strong> 你是否已经用杠杆（融资融券/期权）加仓？</p>
+                            <div class="flex gap-2 mt-2">
+                                <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded">没有</span>
+                                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">少量</span>
+                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded">大比例杠杆</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-white/50 rounded-lg">
+                        <p class="text-xs text-gray-600"><strong>解读：</strong>如果5题中有3题以上选了红色选项 → 你的情绪已经"过热"，这本身就是最危险的信号。历史告诉我们：当所有人都觉得"不可能跌"的时候，往往就是最接近下跌的时刻。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 卡片4: 历史对照速查表 -->
+            <div class="decision-card" style="background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);">
+                <div class="decision-card-header" onclick="toggleDecisionCard(this)">
+                    <div>
+                        <h4 class="font-bold text-lg text-gray-800">📊 历史对照速查表</h4>
+                        <p class="text-xs text-gray-600 mt-1">1987年 vs 2026年：关键指标横向对比</p>
+                    </div>
+                    <span class="decision-card-toggle">展开 ↓</span>
+                </div>
+                <div class="decision-card-body" style="display:none">
+                    <div class="mt-4 overflow-x-auto">
+                        <table class="w-full text-sm border-collapse">
+                            <thead>
+                                <tr class="bg-white/50">
+                                    <th class="text-left p-2 font-bold text-gray-800 border-b">指标</th>
+                                    <th class="text-center p-2 font-bold text-gray-800 border-b">1987年</th>
+                                    <th class="text-center p-2 font-bold text-gray-800 border-b">2026年</th>
+                                    <th class="text-center p-2 font-bold text-gray-800 border-b">相似度</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white/30">
+                                    <td class="p-2 text-gray-700 border-b">市场PE</td>
+                                    <td class="p-2 text-center border-b">S&P 500 PE 22.5x</td>
+                                    <td class="p-2 text-center border-b">费半指数 26x</td>
+                                    <td class="p-2 text-center border-b"><span class="text-red-600 font-bold">🔴 高</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 text-gray-700 border-b">散户参与度</td>
+                                    <td class="p-2 text-center border-b">"全民炒股"热潮</td>
+                                    <td class="p-2 text-center border-b">"全民炒芯"热潮</td>
+                                    <td class="p-2 text-center border-b"><span class="text-red-600 font-bold">🔴 高</span></td>
+                                </tr>
+                                <tr class="bg-white/30">
+                                    <td class="p-2 text-gray-700 border-b">程序化交易占比</td>
+                                    <td class="p-2 text-center border-b">~40%抛盘来自算法</td>
+                                    <td class="p-2 text-center border-b">量化+被动基金占60%+</td>
+                                    <td class="p-2 text-center border-b"><span class="text-red-600 font-bold">🔴 更高</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 text-gray-700 border-b">央行动作</td>
+                                    <td class="p-2 text-center border-b">格林斯潘立即注入流动性</td>
+                                    <td class="p-2 text-center border-b">沃什激进鹰派，拒绝降息</td>
+                                    <td class="p-2 text-center border-b"><span class="text-yellow-600 font-bold">🟡 不同</span></td>
+                                </tr>
+                                <tr class="bg-white/30">
+                                    <td class="p-2 text-gray-700 border-b">国际资金流向</td>
+                                    <td class="p-2 text-center border-b">外资因美元贬值而撤离</td>
+                                    <td class="p-2 text-center border-b">韩股外资净流出636亿美元</td>
+                                    <td class="p-2 text-center border-b"><span class="text-red-600 font-bold">🔴 高</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 text-gray-700 border-b">行业集中度</td>
+                                    <td class="p-2 text-center border-b">科技股占市值40%+</td>
+                                    <td class="p-2 text-center border-b">AI+存储占半导体70%+</td>
+                                    <td class="p-2 text-center border-b"><span class="text-red-600 font-bold">🔴 更高</span></td>
+                                </tr>
+                                <tr class="bg-white/30">
+                                    <td class="p-2 text-gray-700 border-b">长协订单保护</td>
+                                    <td class="p-2 text-center border-b">无长协锁定</td>
+                                    <td class="p-2 text-center border-b">3-5年长协锁定营收</td>
+                                    <td class="p-2 text-center border-b"><span class="text-green-600 font-bold">🟢 2026更优</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-3 bg-white/50 rounded-lg">
+                        <p class="text-xs text-gray-600"><strong>结论：</strong>7项指标中，5项高度相似或更严重，1项不同（央行态度更鹰），1项2026年更优（长协保护）。综合评分：泡沫风险 <strong class="text-red-600">7/10</strong>。</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="divider">🧪 样本外检验</div>
@@ -648,13 +1067,31 @@
 
     </div>
 
+
+        <div class="divider">✦ ✦ ✦</div>
+
+        <div class="bg-gradient-to-br from-indigo-900 via-purple-900 to-indigo-800 text-white p-8 md:p-12 rounded-2xl shadow-2xl">
+            <div class="text-center max-w-2xl mx-auto">
+                <h3 class="text-2xl md:text-3xl font-bold serif mb-4 leading-tight">在历史的十字路口，<br>做一个清醒的决策者</h3>
+                <p class="text-purple-200 text-sm mb-8">用历史的光芒，照亮当下的迷雾。不贩卖焦虑，不预测未来——只提供思考的框架。</p>
+
+                <div class="bg-white/10 backdrop-blur p-5 rounded-xl mb-8">
+                    <p class="font-bold text-purple-200 text-sm mb-3">📚 往期精选</p>
+                    <a href="https://rosehsuxw.github.io/history-lab/" target="_blank" class="flex items-center gap-4 no-underline group hover:bg-white/10 rounded-lg p-2 -m-2 transition-all duration-300" style="text-decoration:none;">
+                        <div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg flex items-center justify-center text-xl font-bold shrink-0 group-hover:scale-110 transition-transform">1</div>
+                        <div>
+                            <p class="font-bold text-white group-hover:text-amber-300 transition-colors">第1期：沃尔克时刻1979 ↗</p>
+                            <p class="text-purple-200 text-xs mt-1">当新任美联储主席沃什的首秀震惊全球——通胀粘性、央行强硬、市场误判的三角博弈</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
     <!-- 底部 -->
     <div class="bg-gray-800 text-white text-center py-8 px-4">
         <p class="text-lg serif font-medium mb-2">历史实验室</p>
         <p class="text-gray-400 text-sm italic">在历史的十字路口寻找答案</p>
-        <div class="mt-4 text-gray-500 text-xs">
-            每周三 · 综合热点 | 每周日 · 财经投资
-        </div>
         <div class="mt-6">
             <button onclick="resetVotes()" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm transition-all">
                 🔄 重置我的投票（重新体验）
@@ -857,6 +1294,38 @@
                     document.getElementById('personality-desc').textContent = p.desc;
                     document.getElementById('personality-card').style.display = 'block';
                 }, 600);
+            }
+        }
+
+
+
+        // ============ 反事实路径树交互 ============
+        function toggleBranch(header) {
+            var node = header.closest('.branch-node');
+            var details = node.querySelector('.branch-details');
+            var isOpen = node.classList.contains('open');
+
+            if (isOpen) {
+                details.style.display = 'none';
+                node.classList.remove('open');
+            } else {
+                details.style.display = 'block';
+                node.classList.add('open');
+            }
+        }
+
+        // ============ 决策落地卡交互 ============
+        function toggleDecisionCard(header) {
+            var card = header.closest('.decision-card');
+            var body = card.querySelector('.decision-card-body');
+            var toggle = card.querySelector('.decision-card-toggle');
+
+            if (body.style.display === 'none') {
+                body.style.display = 'block';
+                toggle.textContent = '收起 ↑';
+            } else {
+                body.style.display = 'none';
+                toggle.textContent = '展开 ↓';
             }
         }
 
