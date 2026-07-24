@@ -6,381 +6,219 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
+        /* ===== Language Switching ===== */
+        .en { display: none !important; }
+        .zh { display: inline !important; }
+        body.lang-en .zh { display: none !important; }
+        body.lang-en .en { display: inline !important; }
+        body.lang-en p.en, body.lang-en h1.en, body.lang-en h2.en, body.lang-en h3.en,
+        body.lang-en h4.en, body.lang-en li.en, body.lang-en div.en,
+        body.lang-en td.en, body.lang-en th.en { display: block !important; }
+        body.lang-en span.en { display: inline !important; }
+        body.lang-en strong.en { display: inline !important; }
+        body.lang-en .en.block { display: block !important; }
+        body.lang-en .en.inline-block { display: inline-block !important; }
+        body.lang-en .en.flex { display: flex !important; }
+        body.lang-en .en.grid { display: grid !important; }
+
+        #langToggle {
+            position: fixed; top: 16px; right: 16px; z-index: 10000;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(102,126,234,0.3); border-radius: 20px;
+            padding: 6px 14px; font-size: 13px; font-weight: 600; color: #667eea;
+            cursor: pointer; transition: all 0.25s ease;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08); user-select: none; letter-spacing: 0.3px;
+        }
+        #langToggle:hover { background: #667eea; color: #fff; border-color: #667eea; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(102,126,234,0.3); }
+        #langToggle.active { background: #667eea; color: #fff; border-color: #667eea; }
+
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', 'Segoe UI', sans-serif;
-            background: #fafafa;
-            color: #2c2c2c;
-            line-height: 1.8;
-        }
-        
-        .serif {
-            font-family: 'Noto Serif SC', Georgia, serif;
-        }
-        
-        .first-letter::first-letter {
-            float: left;
-            font-size: 3.5em;
-            font-weight: 700;
-            line-height: 1;
-            margin-right: 0.1em;
-            color: #667eea;
-            font-family: 'Noto Serif SC', serif;
-        }
-        
-        .quote-box {
-            border-left: 4px solid #667eea;
-            background: linear-gradient(90deg, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
-            padding: 1.2rem 1.5rem;
-            margin: 2rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .scene-card {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #e0e0e0;
-            padding: 2rem;
-            border-radius: 12px;
-            margin: 2rem 0;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
-        
-        .option-card {
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 1.2rem;
-            margin: 1rem 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: #fff;
-        }
-        
-        .option-card:hover {
-            border-color: #667eea;
-            background: rgba(102, 126, 234, 0.03);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
-        }
-        
-        .option-card.selected {
-            border-color: #07c160;
-            background: rgba(7, 193, 96, 0.05);
-            box-shadow: 0 4px 20px rgba(7, 193, 96, 0.2);
-        }
-        
-        .option-card.voted {
-            cursor: default;
-        }
-        .option-card.voted:hover {
-            transform: none;
-            box-shadow: none;
-            border-color: #e5e7eb;
-            background: #fff;
-        }
-        .option-card.voted.selected:hover {
-            border-color: #07c160;
-            background: rgba(7, 193, 96, 0.05);
-            box-shadow: 0 4px 20px rgba(7, 193, 96, 0.2);
-        }
-        
-        .exp-option {
-            border: 2px solid transparent;
-            background: white;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 0.75rem 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .exp-option:hover {
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        
-        .exp-option.selected {
-            border-color: #10b981;
-            background: rgba(16, 185, 129, 0.05);
-        }
-        
-        .diagnosis-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-        
-        .lab-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 0.25rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-        
-        .divider {
-            text-align: center;
-            margin: 3rem 0;
-            color: #999;
-            font-size: 0.9rem;
-        }
-        
-        .divider::before,
-        .divider::after {
-            content: '';
-            display: inline-block;
-            width: 30%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #ddd, transparent);
-            vertical-align: middle;
-            margin: 0 1rem;
-        }
-        
-        .note-card {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin: 2rem 0;
-            color: #5c3d2e;
-        }
-        
-        .experiment-box {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            padding: 2rem;
-            border-radius: 16px;
-            margin: 2rem 0;
-        }
-        
-        .section-title {
-            position: relative;
-            padding-left: 1rem;
-            margin: 2.5rem 0 1.5rem;
-        }
-        
-        .section-title::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
-            border-radius: 2px;
-        }
-
-        .vote-stats-card {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 1.2rem;
-            margin-top: 1rem;
-        }
-        .vote-bar-bg {
-            background: #f3f4f6;
-            border-radius: 999px;
-            height: 10px;
-            overflow: hidden;
-        }
-        .vote-bar-fill {
-            height: 10px;
-            border-radius: 999px;
-            transition: width 0.8s ease;
-        }
-
-        /* ===== 反事实路径树样式 ===== */
-        .counterfactual-tree {
-            position: relative;
-        }
-        .branch-node {
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .branch-node:hover {
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-        .branch-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.2rem 1.5rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .branch-header:hover {
-            background: rgba(102, 126, 234, 0.04);
-        }
-        .branch-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-        .branch-content {
-            flex: 1;
-        }
-        .branch-toggle {
-            color: #9ca3af;
-            font-size: 0.8rem;
-            transition: transform 0.3s;
-        }
-        .branch-node.open .branch-toggle {
-            transform: rotate(180deg);
-        }
-        .branch-connector {
-            width: 3px;
-            height: 24px;
-            background: linear-gradient(180deg, #667eea, #764ba2);
-            margin: 0 auto;
-            border-radius: 2px;
-        }
-        .branch-details {
-            padding: 0 1.5rem 1.5rem;
-        }
-        .branch-real, .branch-alt {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 0.75rem;
-        }
-        .branch-real {
-            background: rgba(16, 185, 129, 0.06);
-            border-left: 3px solid #10b981;
-        }
-        .branch-alt {
-            background: rgba(239, 68, 68, 0.06);
-            border-left: 3px solid #ef4444;
-            border: 1px dashed #ef4444;
-            border-left: 3px solid #ef4444;
-        }
-        .branch-label {
-            display: inline-block;
-            padding: 0.15rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', 'Segoe UI', sans-serif; background: #fafafa; color: #2c2c2c; line-height: 1.8; }
+        .serif { font-family: 'Noto Serif SC', Georgia, serif; }
+        .first-letter::first-letter { float: left; font-size: 3.5em; font-weight: 700; line-height: 1; margin-right: 0.1em; color: #667eea; font-family: 'Noto Serif SC', serif; }
+        .quote-box { border-left: 4px solid #667eea; background: linear-gradient(90deg, rgba(102,126,234,0.08) 0%, transparent 100%); padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
+        .scene-card { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #e0e0e0; padding: 2rem; border-radius: 12px; margin: 2rem 0; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+        .option-card { border: 2px solid #e5e7eb; border-radius: 12px; padding: 1.2rem; margin: 1rem 0; cursor: pointer; transition: all 0.3s ease; background: #fff; }
+        .option-card:hover { border-color: #667eea; background: rgba(102,126,234,0.03); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(102,126,234,0.15); }
+        .option-card.selected { border-color: #07c160; background: rgba(7,193,96,0.05); box-shadow: 0 4px 20px rgba(7,193,96,0.2); }
+        .option-card.voted { cursor: default; }
+        .option-card.voted:hover { transform: none; box-shadow: none; border-color: #e5e7eb; background: #fff; }
+        .option-card.voted.selected:hover { border-color: #07c160; background: rgba(7,193,96,0.05); box-shadow: 0 4px 20px rgba(7,193,96,0.2); }
+        .exp-option { border: 2px solid transparent; background: white; border-radius: 8px; padding: 1rem; margin: 0.75rem 0; cursor: pointer; transition: all 0.3s ease; }
+        .exp-option:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .exp-option.selected { border-color: #10b981; background: rgba(16,185,129,0.05); }
+        .diagnosis-tag { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.5rem; }
+        .lab-tag { display: inline-block; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 0.25rem 0.8rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; }
+        .divider { text-align: center; margin: 3rem 0; color: #999; font-size: 0.9rem; }
+        .divider::before, .divider::after { content: ''; display: inline-block; width: 30%; height: 1px; background: linear-gradient(90deg, transparent, #ddd, transparent); vertical-align: middle; margin: 0 1rem; }
+        .note-card { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; color: #5c3d2e; }
+        .experiment-box { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 2rem; border-radius: 16px; margin: 2rem 0; }
+        .section-title { position: relative; padding-left: 1rem; margin: 2.5rem 0 1.5rem; }
+        .section-title::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, #667eea 0%, #764ba2 100%); border-radius: 2px; }
+        .vote-stats-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px; padding: 1.2rem; margin-top: 1rem; }
+        .vote-bar-bg { background: #f3f4f6; border-radius: 999px; height: 10px; overflow: hidden; }
+        .vote-bar-fill { height: 10px; border-radius: 999px; transition: width 0.8s ease; }
+        .counterfactual-tree { position: relative; }
+        .branch-node { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; transition: all 0.3s ease; }
+        .branch-node:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .branch-header { display: flex; align-items: center; gap: 1rem; padding: 1.2rem 1.5rem; cursor: pointer; transition: background 0.2s; }
+        .branch-header:hover { background: rgba(102,126,234,0.04); }
+        .branch-icon { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+        .branch-content { flex: 1; }
+        .branch-toggle { color: #9ca3af; font-size: 0.8rem; transition: transform 0.3s; }
+        .branch-node.open .branch-toggle { transform: rotate(180deg); }
+        .branch-connector { width: 3px; height: 24px; background: linear-gradient(180deg, #667eea, #764ba2); margin: 0 auto; border-radius: 2px; }
+        .branch-details { padding: 0 1.5rem 1.5rem; }
+        .branch-real, .branch-alt { padding: 1rem; border-radius: 8px; margin-top: 0.75rem; }
+        .branch-real { background: rgba(16,185,129,0.06); border-left: 3px solid #10b981; }
+        .branch-alt { background: rgba(239,68,68,0.06); border: 1px dashed #ef4444; border-left: 3px solid #ef4444; }
+        .branch-label { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem; }
         .branch-label.real { background: #d1fae5; color: #065f46; }
         .branch-label.alt { background: #fee2e2; color: #991b1b; }
-
-        /* ===== 决策落地卡样式 ===== */
-        .decision-card {
-            border-radius: 16px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .decision-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-        }
-        .decision-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 1.5rem;
-            cursor: pointer;
-        }
-        .decision-card-toggle {
-            font-size: 0.8rem;
-            color: #6b7280;
-            white-space: nowrap;
-        }
-        .decision-card-body {
-            padding: 0 1.5rem 1.5rem;
-        }
+        .decision-card { border-radius: 16px; margin-bottom: 1rem; overflow: hidden; transition: all 0.3s ease; }
+        .decision-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+        .decision-card-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; cursor: pointer; }
+        .decision-card-toggle { font-size: 0.8rem; color: #6b7280; white-space: nowrap; }
+        .decision-card-body { padding: 0 1.5rem 1.5rem; }
     </style>
 </head>
 <body>
-    <!-- 顶部封面 -->
+    <div id="langToggle" onclick="toggleLang()">EN</div>
+
+    <!-- Cover -->
     <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center py-16 px-4">
-        <div class="lab-tag mb-4">历史实验室 · 定期刊第2期</div>
+        <div class="lab-tag mb-4">
+            <span class="zh">历史实验室 · 定期刊第2期</span>
+            <span class="en">History Lab · Periodical Issue No.2</span>
+        </div>
         <h1 class="text-3xl md:text-4xl font-bold serif leading-tight mb-4">
-            存储芯片泡沫与1987年幽灵
+            <span class="zh">存储芯片泡沫与1987年幽灵</span>
+            <span class="en">The Memory Chip Bubble and the Ghost of 1987</span>
         </h1>
         <p class="text-xl md:text-2xl opacity-90 serif italic">
-            当存储芯片三巨头市值超越石油，你站在泡沫的边缘还是起点？
+            <span class="zh">当存储芯片三巨头市值超越石油，你站在泡沫的边缘还是起点？</span>
+            <span class="en">When the Big Three memory chip makers surpass oil giants in market cap — are you standing at the edge of a bubble, or the beginning of one?</span>
         </p>
         <div class="mt-8 flex justify-center gap-6 text-sm opacity-80">
             <span>📅 2026.07.16</span>
-            <span>⏱️ 阅读约15分钟</span>
-            <span>🧪 含互动投票</span>
+            <span>
+                <span class="zh">⏱️ 阅读约15分钟</span>
+                <span class="en">⏱️ 15 min read</span>
+            </span>
+            <span>
+                <span class="zh">🧪 含互动投票</span>
+                <span class="en">🧪 Interactive Polls</span>
+            </span>
         </div>
     </div>
 
-    <!-- 正文内容区 -->
+    <!-- Main Content -->
     <div class="max-w-3xl mx-auto py-8 px-4 md:px-8 bg-white min-h-screen">
-        
+
         <p class="first-letter text-lg leading-relaxed text-gray-700">
-            2026年7月的第二周，全球资本市场见证了又一个历史性时刻：存储芯片三巨头——三星电子、SK海力士、美光科技——市值早已全部突破1万亿美元大关。DRAM现货价格在一个季度内暴涨50%，DDR5内存从450元涨至1800元，服务器内存单条从5000元飙至6万元。华尔街的分析师们高呼"存储芯片超级周期才刚开始"，而费城半导体指数却在7月15-16日连续两天暴跌超5%。
+            <span class="zh">2026年7月的第二周，全球资本市场见证了又一个历史性时刻：存储芯片三巨头——三星电子、SK海力士、美光科技——市值早已全部突破1万亿美元大关。DRAM现货价格在一个季度内暴涨50%，DDR5内存从450元涨至1800元，服务器内存单条从5000元飙至6万元。华尔街的分析师们高呼"存储芯片超级周期才刚开始"，而费城半导体指数却在7月15-16日连续两天暴跌超5%。</span>
+            <span class="en">In the second week of July 2026, global capital markets witnessed yet another historic moment: the Big Three memory chipmakers — Samsung Electronics, SK Hynix, and Micron Technology — had all surpassed the $1 trillion market capitalization milestone. DRAM spot prices surged 50% in a single quarter; DDR5 memory jumped from ¥450 to ¥1,800, while a single server memory module rocketed from ¥5,000 to ¥60,000. Wall Street analysts were proclaiming "the memory chip super cycle has only just begun," even as the Philadelphia Semiconductor Index plunged over 5% for two consecutive days on July 15–16.</span>
         </p>
         
         <p class="mt-4 leading-relaxed text-gray-700">
-            就在39年前——1987年10月，同样的狂热也曾席卷华尔街。那一年，道琼斯指数单日暴跌22.6%，史称"黑色星期一"。今天，当AI叙事主导全球资本市场，当"连小区保安都在问怎么买存储芯片基金"，我们是否正在重蹈1987年的覆辙？
+            <span class="zh">就在39年前——1987年10月，同样的狂热也曾席卷华尔街。那一年，道琼斯指数单日暴跌22.6%，史称"黑色星期一"。今天，当AI叙事主导全球资本市场，当"连小区保安都在问怎么买存储芯片基金"，我们是否正在重蹈1987年的覆辙？</span>
+            <span class="en">Thirty-nine years earlier — in October 1987 — the same euphoria had swept Wall Street. That year, the Dow Jones Industrial Average plunged 22.6% in a single day, an event etched into history as "Black Monday." Today, as AI narratives dominate global capital markets and "even the neighborhood security guard is asking how to buy memory chip funds," are we about to repeat the mistakes of 1987?</span>
         </p>
 
-        <div class="divider">✦ ✦ ✦</div>
+        <div class="divider">
+            <span class="zh">✦ ✦ ✦</span>
+            <span class="en">✦ ✦ ✦</span>
+        </div>
 
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
-            01 抉择时刻
+            <span class="zh">01 抉择时刻</span>
+            <span class="en">01 The Moment of Decision</span>
         </h2>
 
         <div class="scene-card">
-            <p class="text-lg font-medium mb-4 text-blue-300">📍 2026年7月16日（星期四），上海陆家嘴</p>
-            <p class="leading-relaxed mb-4">
-                你是一位40岁的私募基金经理，管理着50亿人民币资产，上半年凭借存储芯片投资获得了120%回报。你站在办公室落地窗前，俯瞰黄浦江，手中握着今天刚出炉的市场日报。
+            <p class="text-lg font-medium mb-4 text-blue-300">
+                <span class="zh">📍 2026年7月16日（星期四），上海陆家嘴</span>
+                <span class="en">📍 July 16, 2026 (Thursday), Lujiazui, Shanghai</span>
             </p>
-            <p class="leading-relaxed mb-4 text-yellow-300 font-medium">你面前的数据令人目眩：</p>
+            <p class="leading-relaxed mb-4">
+                <span class="zh">你是一位40岁的私募基金经理，管理着50亿人民币资产，上半年凭借存储芯片投资获得了120%回报。你站在办公室落地窗前，俯瞰黄浦江，手中握着今天刚出炉的市场日报。</span>
+                <span class="en">You are a 40-year-old private fund manager overseeing ¥5 billion in assets, having earned a 120% return in the first half of the year through memory chip investments. You stand by the floor-to-ceiling window of your office, gazing down at the Huangpu River, holding today's freshly printed market daily report.</span>
+            </p>
+            <p class="leading-relaxed mb-4 text-yellow-300 font-medium">
+                <span class="zh">你面前的数据令人目眩：</span>
+                <span class="en">The data before you is dazzling:</span>
+            </p>
             <ul class="space-y-2 ml-4 text-yellow-300">
-                <li>• DRAM现货价Q2暴涨<strong>50%</strong>，DDR5涨幅<strong>300%</strong>，DDR4涨幅<strong>400%</strong></li>
-                <li>• 服务器内存单条从5,000元涨至<strong>60,000元</strong>，Q3合约价预计再涨13%-32%</li>
-                <li>• SK海力士HBM4正式量产出货（全球首家），三星HBM4E良率突破<strong>70%</strong></li>
-                <li>• 费城半导体指数7月15-16日连续暴跌，美光单日跌<strong>8.37%</strong>，英特尔跌<strong>7.18%</strong></li>
-                <li>• SK海力士CEO警告：<strong>2027年将是史上最严重供应短缺</strong>，短缺延续到2030年</li>
-                <li>• 长鑫科技今天科创板IPO申购，募资<strong>295亿元</strong>，全球第四大DRAM原厂</li>
-                <li>• SK海力士美股融资<strong>265亿美元</strong>，创纪录存托凭证发行</li>
-                <li>• 70%新增DRAM产能被AI服务器吃掉，消费级面临结构性短缺</li>
+                <li>
+                    <span class="zh">• DRAM现货价Q2暴涨<strong>50%</strong>，DDR5涨幅<strong>300%</strong>，DDR4涨幅<strong>400%</strong></span>
+                    <span class="en">• DRAM spot prices surged <strong>50%</strong> in Q2; DDR5 up <strong>300%</strong>, DDR4 up <strong>400%</strong></span>
+                </li>
+                <li>
+                    <span class="zh">• 服务器内存单条从5,000元涨至<strong>60,000元</strong>，Q3合约价预计再涨13%-32%</span>
+                    <span class="en">• Server memory modules rose from ¥5,000 to <strong>¥60,000</strong>; Q3 contract prices expected to rise another 13%–32%</span>
+                </li>
+                <li>
+                    <span class="zh">• SK海力士HBM4正式量产出货（全球首家），三星HBM4E良率突破<strong>70%</strong></span>
+                    <span class="en">• SK Hynix HBM4 entered mass production (world's first); Samsung HBM4E yield exceeded <strong>70%</strong></span>
+                </li>
+                <li>
+                    <span class="zh">• 费城半导体指数7月15-16日连续暴跌，美光单日跌<strong>8.37%</strong>，英特尔跌<strong>7.18%</strong></span>
+                    <span class="en">• Philadelphia Semiconductor Index plunged for two straight days on July 15–16; Micron fell <strong>8.37%</strong> in a single day, Intel dropped <strong>7.18%</strong></span>
+                </li>
+                <li>
+                    <span class="zh">• SK海力士CEO警告：<strong>2027年将是史上最严重供应短缺</strong>，短缺延续到2030年</span>
+                    <span class="en">• SK Hynix CEO warned: <strong>2027 will see the worst supply shortage in history</strong>, lasting through 2030</span>
+                </li>
+                <li>
+                    <span class="zh">• 长鑫科技今天科创板IPO申购，募资<strong>295亿元</strong>，全球第四大DRAM原厂</span>
+                    <span class="en">• CXMT Technology opened its STAR Market IPO subscription today, raising <strong>¥29.5 billion</strong> — the world's 4th largest DRAM manufacturer</span>
+                </li>
+                <li>
+                    <span class="zh">• SK海力士美股融资<strong>265亿美元</strong>，创纪录存托凭证发行</span>
+                    <span class="en">• SK Hynix raised <strong>$26.5 billion</strong> on U.S. markets in a record-breaking depositary receipt issuance</span>
+                </li>
+                <li>
+                    <span class="zh">• 70%新增DRAM产能被AI服务器吃掉，消费级面临结构性短缺</span>
+                    <span class="en">• 70% of new DRAM capacity consumed by AI servers; consumer-grade facing structural shortage</span>
+                </li>
             </ul>
             <p class="leading-relaxed mt-4">
-                你的合伙人说："费半指数连续暴跌，技术指标显示中期见顶，应该减仓。"
+                <span class="zh">你的合伙人说："费半指数连续暴跌，技术指标显示中期见顶，应该减仓。"</span>
+                <span class="en">Your partner says: "The SOX has been plunging for days — technical indicators point to an intermediate-term top. We should reduce our positions."</span>
             </p>
             <p class="leading-relaxed mt-2">
-                但你的研究员反驳："SK海力士都说短缺到2030年，现在减仓就是踏空超级周期！"
+                <span class="zh">但你的研究员反驳："SK海力士都说短缺到2030年，现在减仓就是踏空超级周期！"</span>
+                <span class="en">But your analyst counters: "SK Hynix says the shortage lasts until 2030 — reducing now means missing the super cycle entirely!"</span>
             </p>
             <p class="leading-relaxed mt-2">
-                你的客户们在疯狂申购，要求加仓存储芯片。你的妻子昨晚说："连小区保安都在问怎么买存储芯片基金。"
+                <span class="zh">你的客户们在疯狂申购，要求加仓存储芯片。你的妻子昨晚说："连小区保安都在问怎么买存储芯片基金。"</span>
+                <span class="en">Your clients are frantically subscribing, demanding more memory chip exposure. Your wife said last night: "Even the building security guard is asking how to invest in memory chip funds."</span>
             </p>
             <p class="leading-relaxed mt-4 text-lg font-medium text-green-300">
-                此刻，你必须做出选择。
+                <span class="zh">此刻，你必须做出选择。</span>
+                <span class="en">At this moment, you must make a choice.</span>
             </p>
         </div>
 
-        <div class="divider">你的选择</div>
+        <div class="divider">
+            <span class="zh">你的选择</span>
+            <span class="en">Your Choice</span>
+        </div>
 
-        <!-- 四个选择 -->
+        <!-- Four choices -->
         <div id="voting-area">
             <div class="option-card" data-option="A">
                 <div class="flex items-start gap-4">
                     <span class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-lg shrink-0">A</span>
                     <div class="flex-1">
-                        <h3 class="font-bold text-lg text-gray-800">顺势满仓 —— 不理会任何警告信号</h3>
-                        <p class="text-gray-600 mt-1">"AI需求是真实的，供给约束是硬性的。SK海力士CEO都说短缺到2030年，DDR5涨300%不是泡沫而是价值回归。长协订单锁定了未来3年营收，这跟1987年纯粹的投机泡沫完全不同。客户在申购，超级周期才刚开始！"</p>
+                        <h3 class="font-bold text-lg text-gray-800">
+                            <span class="zh">顺势满仓 —— 不理会任何警告信号</span>
+                            <span class="en">Full Position with the Trend — Ignore All Warning Signals</span>
+                        </h3>
+                        <p class="text-gray-600 mt-1">
+                            <span class="zh">"AI需求是真实的，供给约束是硬性的。SK海力士CEO都说短缺到2030年，DDR5涨300%不是泡沫而是价值回归。长协订单锁定了未来3年营收，这跟1987年纯粹的投机泡沫完全不同。客户在申购，超级周期才刚开始！"</span>
+                            <span class="en">"AI demand is real, supply constraints are hard. The SK Hynix CEO says the shortage lasts until 2030 — DDR5 up 300% isn't a bubble, it's a repricing of value. Long-term contracts lock in revenue for the next three years. This is nothing like the purely speculative bubble of 1987. Clients are subscribing, and the super cycle has just begun!"</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -389,8 +227,14 @@
                 <div class="flex items-start gap-4">
                     <span class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg shrink-0">B</span>
                     <div class="flex-1">
-                        <h3 class="font-bold text-lg text-gray-800">技术减仓 —— 减仓30%，保留弹药</h3>
-                        <p class="text-gray-600 mt-1">"基本面没有问题，但费半指数连续暴跌是危险信号。历史上每次'所有人都看好'的时候，往往就是见顶的标志。减仓30%锁定利润，如果继续涨我还有70%仓位享受，如果跌了有弹药抄底。永远保留弹药。"</p>
+                        <h3 class="font-bold text-lg text-gray-800">
+                            <span class="zh">技术减仓 —— 减仓30%，保留弹药</span>
+                            <span class="en">Tactical Reduction — Trim 30%, Keep Powder Dry</span>
+                        </h3>
+                        <p class="text-gray-600 mt-1">
+                            <span class="zh">"基本面没有问题，但费半指数连续暴跌是危险信号。历史上每次'所有人都看好'的时候，往往就是见顶的标志。减仓30%锁定利润，如果继续涨我还有70%仓位享受，如果跌了有弹药抄底。永远保留弹药。"</span>
+                            <span class="en">"The fundamentals are fine, but the SOX's consecutive plunges are a danger signal. Historically, every time 'everyone is bullish,' it tends to mark the top. Trim 30% to lock in profits — if it keeps rising, I still have 70% to ride; if it falls, I have dry powder to buy the dip. Always keep your powder dry."</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -399,8 +243,14 @@
                 <div class="flex items-start gap-4">
                     <span class="w-10 h-10 rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-lg shrink-0">C</span>
                     <div class="flex-1">
-                        <h3 class="font-bold text-lg text-gray-800">逆向清仓 —— 全部获利了结，离场观望</h3>
-                        <p class="text-gray-600 mt-1">"'连小区保安都在问怎么买基金'——这是最经典的见顶信号。1987年黑色星期一前也是这种狂热。DRAM涨300%、服务器内存涨12倍，这种涨幅不可持续。我要清仓离场，120%的回报已经足够。现金为王，等待下一个周期底部。"</p>
+                        <h3 class="font-bold text-lg text-gray-800">
+                            <span class="zh">逆向清仓 —— 全部获利了结，离场观望</span>
+                            <span class="en">Contrarian Exit — Cash Out Everything, Step Aside</span>
+                        </h3>
+                        <p class="text-gray-600 mt-1">
+                            <span class="zh">"'连小区保安都在问怎么买基金'——这是最经典的见顶信号。1987年黑色星期一前也是这种狂热。DRAM涨300%、服务器内存涨12倍，这种涨幅不可持续。我要清仓离场，120%的回报已经足够。现金为王，等待下一个周期底部。"</span>
+                            <span class="en">"'Even the security guard is asking how to buy funds' — that's the most classic topping signal. The same frenzy preceded Black Monday in 1987. DRAM up 300%, server memory up 12x — this kind of gain is unsustainable. I'm liquidating everything and stepping out. A 120% return is more than enough. Cash is king; wait for the next cycle bottom."</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -409,237 +259,439 @@
                 <div class="flex items-start gap-4">
                     <span class="w-10 h-10 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-lg shrink-0">D</span>
                     <div class="flex-1">
-                        <h3 class="font-bold text-lg text-gray-800">反向对冲 —— 持有股票同时买入看跌期权</h3>
-                        <p class="text-gray-600 mt-1">"我不认为应该完全离场——AI需求确实是刚性的。但费半暴跌和'全民炒芯'的信号也不能忽视。持有核心仓位的同时买入看跌期权作为保险，上涨不踏空、下跌有保护。这是最理性的选择。"</p>
+                        <h3 class="font-bold text-lg text-gray-800">
+                            <span class="zh">反向对冲 —— 持有股票同时买入看跌期权</span>
+                            <span class="en">Protective Hedge — Hold Shares While Buying Put Options</span>
+                        </h3>
+                        <p class="text-gray-600 mt-1">
+                            <span class="zh">"我不认为应该完全离场——AI需求确实是刚性的。但费半暴跌和'全民炒芯'的信号也不能忽视。持有核心仓位的同时买入看跌期权作为保险，上涨不踏空、下跌有保护。这是最理性的选择。"</span>
+                            <span class="en">"I don't think we should exit entirely — AI demand is genuinely inelastic. But the SOX crash and the 'everyone's trading chips' signals can't be ignored either. Hold the core position while buying put options as insurance: don't miss the upside, protect against the downside. This is the most rational choice."</span>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 历史选择投票结果区 -->
+        <!-- Historical vote results area -->
         <div id="vote-result-area" style="display:none;">
             <div class="text-center mt-6 mb-4">
-                <span class="text-green-600 font-medium">✓ 你的选择已记录！</span>
-                <span class="text-gray-500 text-sm ml-2">继续阅读，文末还有一次预测投票</span>
+                <span class="text-green-600 font-medium">
+                    <span class="zh">✓ 你的选择已记录！</span>
+                    <span class="en">✓ Your choice has been recorded!</span>
+                </span>
+                <span class="text-gray-500 text-sm ml-2">
+                    <span class="zh">继续阅读，文末还有一次预测投票</span>
+                    <span class="en">Keep reading — there's one more prediction poll at the end</span>
+                </span>
             </div>
             <div class="vote-stats-card">
                 <div class="flex items-center justify-between mb-3">
-                    <span class="font-bold text-gray-700">📊 全员投票统计</span>
-                    <span id="choice-total" class="text-sm text-gray-500">加载中...</span>
+                    <span class="font-bold text-gray-700">
+                        <span class="zh">📊 全员投票统计</span>
+                        <span class="en">📊 All-Vote Statistics</span>
+                    </span>
+                    <span id="choice-total" class="text-sm text-gray-500">
+                        <span class="zh">加载中...</span>
+                        <span class="en">Loading...</span>
+                    </span>
                 </div>
                 <div id="choice-stats"></div>
             </div>
         </div>
 
-        <div class="divider">决策风格诊断</div>
+        <div class="divider">
+            <span class="zh">决策风格诊断</span>
+            <span class="en">Decision-Making Style Diagnosis</span>
+        </div>
 
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
-            02 你是哪种决策者？
+            <span class="zh">02 你是哪种决策者？</span>
+            <span class="en">02 What Kind of Decision-Maker Are You?</span>
         </h2>
 
         <div class="grid md:grid-cols-2 gap-4 mt-6">
             <div class="quote-box">
-                <span class="diagnosis-tag">A选项 · 趋势信徒型</span>
+                <span class="diagnosis-tag">
+                    <span class="zh">A选项 · 趋势信徒型</span>
+                    <span class="en">Option A · Trend Believer</span>
+                </span>
                 <p class="text-gray-700 leading-relaxed">
-                    你是市场的追随者，相信"顺势者昌"。你深知牛市是普通投资者最好的朋友，轻易下车只会错失财富机遇。你的投资逻辑是：基本面强劲+资金充裕+情绪乐观=牛市延续。在2026年的存储芯片行情中，你会重仓三星、SK海力士，相信"AI时代的存储芯片是新时代的石油"。这种风格能充分享受泡沫的超额收益，但缺点是往往在顶部加仓，成为"接盘侠"。
+                    <span class="zh">你是市场的追随者，相信"顺势者昌"。你深知牛市是普通投资者最好的朋友，轻易下车只会错失财富机遇。你的投资逻辑是：基本面强劲+资金充裕+情绪乐观=牛市延续。在2026年的存储芯片行情中，你会重仓三星、SK海力士，相信"AI时代的存储芯片是新时代的石油"。这种风格能充分享受泡沫的超额收益，但缺点是往往在顶部加仓，成为"接盘侠"。</span>
+                    <span class="en">You are a follower of the market, believing that "the trend is your friend." You know well that bull markets are ordinary investors' best allies, and stepping off too early only means missing out on wealth. Your investment logic: strong fundamentals + abundant liquidity + optimistic sentiment = bull market continues. In the 2026 memory chip rally, you would go heavy on Samsung and SK Hynix, believing "memory chips in the AI era are the new oil." This style lets you fully enjoy the bubble's excess returns, but the downside is often adding positions at the top, becoming a "bag holder."</span>
                 </p>
-                <p class="text-sm text-gray-500 mt-2 italic">1987年选择A的人，在黑色星期一当天损失了30%-50%的资产。</p>
+                <p class="text-sm text-gray-500 mt-2 italic">
+                    <span class="zh">1987年选择A的人，在黑色星期一当天损失了30%-50%的资产。</span>
+                    <span class="en">Those who chose A in 1987 lost 30%–50% of their assets on Black Monday itself.</span>
+                </p>
             </div>
             
             <div class="quote-box">
-                <span class="diagnosis-tag">B选项 · 理性均衡型</span>
+                <span class="diagnosis-tag">
+                    <span class="zh">B选项 · 理性均衡型</span>
+                    <span class="en">Option B · Rational Balancer</span>
+                </span>
                 <p class="text-gray-700 leading-relaxed">
-                    你是有原则的现实主义者，深知"过犹不及"。你在贪婪与恐惧之间保持平衡，既不是死多头也不是死空头。你的投资哲学是"永远保留弹药"，无论市场涨跌，都不会all-in或空仓。这种风格的优点是稳健，缺点是平庸——在牛市中跑不赢激进派，但能在崩盘时保存实力。
+                    <span class="zh">你是有原则的现实主义者，深知"过犹不及"。你在贪婪与恐惧之间保持平衡，既不是死多头也不是死空头。你的投资哲学是"永远保留弹药"，无论市场涨跌，都不会all-in或空仓。这种风格的优点是稳健，缺点是平庸——在牛市中跑不赢激进派，但能在崩盘时保存实力。</span>
+                    <span class="en">You are a realist with principles, knowing well that "too much is as bad as too little." You maintain balance between greed and fear — neither a permabull nor a permabear. Your investment philosophy is "always keep powder dry"; whether the market rises or falls, you never go all-in or all-out. This style's strength is steadiness, its weakness is mediocrity — you can't beat the aggressors in a bull market, but you preserve strength when the crash comes.</span>
                 </p>
-                <p class="text-sm text-gray-500 mt-2 italic">1987年选择B的人，资产缩水20%-30%，但在见底时有足够资金抄底。</p>
+                <p class="text-sm text-gray-500 mt-2 italic">
+                    <span class="zh">1987年选择B的人，资产缩水20%-30%，但在见底时有足够资金抄底。</span>
+                    <span class="en">Those who chose B in 1987 saw assets shrink 20%–30%, but had enough capital to buy at the bottom.</span>
+                </p>
             </div>
             
             <div class="quote-box">
-                <span class="diagnosis-tag">C选项 · 逆向大师型</span>
+                <span class="diagnosis-tag">
+                    <span class="zh">C选项 · 逆向大师型</span>
+                    <span class="en">Option C · Contrarian Master</span>
+                </span>
                 <p class="text-gray-700 leading-relaxed">
-                    你是天生的怀疑主义者，相信"别人贪婪时我恐惧"。你熟读《乌合之众》，深谙群体心理的疯狂。"这次不一样"是历史上最昂贵的一句话——你对这种说法深恶痛绝。在2026年的存储芯片行情中，你会远离热门赛道，寻找被市场冷落的传统行业。
+                    <span class="zh">你是天生的怀疑主义者，相信"别人贪婪时我恐惧"。你熟读《乌合之众》，深谙群体心理的疯狂。"这次不一样"是历史上最昂贵的一句话——你对这种说法深恶痛绝。在2026年的存储芯片行情中，你会远离热门赛道，寻找被市场冷落的传统行业。</span>
+                    <span class="en">You are a born skeptic, believing "be fearful when others are greedy." You have thoroughly read The Crowd and understand the madness of mass psychology. "This time is different" is the most expensive phrase in history — you loathe such claims. In the 2026 memory chip rally, you would stay away from hot sectors and seek out traditional industries that the market has冷落.</span>
                 </p>
-                <p class="text-sm text-gray-500 mt-2 italic">1987年选择C的人，在崩盘后成为最大赢家——以"地板价"买入优质资产。</p>
+                <p class="text-sm text-gray-500 mt-2 italic">
+                    <span class="zh">1987年选择C的人，在崩盘后成为最大赢家——以"地板价"买入优质资产。</span>
+                    <span class="en">Those who chose C in 1987 became the biggest winners after the crash — buying quality assets at "floor prices."</span>
+                </p>
             </div>
             
             <div class="quote-box">
-                <span class="diagnosis-tag">D选项 · 对冲思维型</span>
+                <span class="diagnosis-tag">
+                    <span class="zh">D选项 · 对冲思维型</span>
+                    <span class="en">Option D · Hedging Mindset</span>
+                </span>
                 <p class="text-gray-700 leading-relaxed">
-                    你是金融工程的信徒，相信通过复杂工具可以规避风险。你精通期权、期货等衍生品，能够设计出"下跌有保护、上涨不缺席"的投资策略。没有免费午餐——高收益必然伴随高风险，但通过精妙的对冲设计，可以将风险降到最低。
+                    <span class="zh">你是金融工程的信徒，相信通过复杂工具可以规避风险。你精通期权、期货等衍生品，能够设计出"下跌有保护、上涨不缺席"的投资策略。没有免费午餐——高收益必然伴随高风险，但通过精妙的对冲设计，可以将风险降到最低。</span>
+                    <span class="en">You are a disciple of financial engineering, believing that sophisticated instruments can mitigate risk. You are proficient in options, futures, and other derivatives, capable of designing strategies that "protect against downside without missing upside." There is no free lunch — high returns inevitably come with high risk — but through elegant hedging, risk can be minimized.</span>
                 </p>
-                <p class="text-sm text-gray-500 mt-2 italic">1987年选择D的人，如果对冲比例得当，可以在崩盘中毫发无损甚至逆势盈利。</p>
+                <p class="text-sm text-gray-500 mt-2 italic">
+                    <span class="zh">1987年选择D的人，如果对冲比例得当，可以在崩盘中毫发无损甚至逆势盈利。</span>
+                    <span class="en">Those who chose D in 1987, if their hedge ratios were right, could emerge from the crash unscathed or even profit against the trend.</span>
+                </p>
             </div>
         </div>
 
-
-
-        <div class="divider">历史真相</div>
+        <div class="divider">
+            <span class="zh">历史真相</span>
+            <span class="en">Historical Truth</span>
+        </div>
 
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
-            03 1987年黑色星期一
+            <span class="zh">03 1987年黑色星期一</span>
+            <span class="en">03 Black Monday 1987</span>
         </h2>
 
         <div class="quote-box">
             <p class="text-xl font-bold text-purple-700 serif">
-                "华尔街没有新事物，因为投机像山岳一样古老。"
+                <span class="zh">"华尔街没有新事物，因为投机像山岳一样古老。"</span>
+                <span class="en">"There is nothing new on Wall Street, because speculation is as old as the hills."</span>
             </p>
-            <p class="text-sm text-gray-500 mt-2">—— 杰西·利弗莫尔</p>
+            <p class="text-sm text-gray-500 mt-2">
+                <span class="zh">—— 杰西·利弗莫尔</span>
+                <span class="en">— Jesse Livermore</span>
+            </p>
         </div>
 
         <p class="leading-relaxed text-gray-700 mt-6">
-            <strong>1987年10月19日，"黑色星期一"降临。</strong>
+            <span class="zh"><strong>1987年10月19日，"黑色星期一"降临。</strong></span>
+            <span class="en"><strong>October 19, 1987 — "Black Monday" descended.</strong></span>
         </p>
 
         <p class="leading-relaxed text-gray-700 mt-4">
-            道琼斯指数单日暴跌508.32点，跌幅<strong class="text-red-600">22.6%</strong>，创下史上最大单日跌幅纪录。全球市场同步崩盘：
+            <span class="zh">道琼斯指数单日暴跌508.32点，跌幅<strong class="text-red-600">22.6%</strong>，创下史上最大单日跌幅纪录。全球市场同步崩盘：</span>
+            <span class="en">The Dow Jones Industrial Average plunged 508.32 points in a single day, a drop of <strong class="text-red-600">22.6%</strong> — the largest single-day decline in history. Markets worldwide collapsed in unison:</span>
         </p>
 
         <ul class="mt-4 space-y-2 ml-6 text-gray-700">
-            <li>• 香港恒生指数暴跌<strong class="text-red-600">33%</strong></li>
-            <li>• 伦敦金融时报100指数下跌<strong class="text-red-600">10.8%</strong></li>
-            <li>• 东京日经指数暴跌<strong class="text-red-600">14.9%</strong></li>
-            <li>• 投资者一夜之间损失超过<strong class="text-red-600">5000亿美元</strong>市值</li>
+            <li>
+                <span class="zh">• 香港恒生指数暴跌<strong class="text-red-600">33%</strong></span>
+                <span class="en">• Hong Kong Hang Seng Index plunged <strong class="text-red-600">33%</strong></span>
+            </li>
+            <li>
+                <span class="zh">• 伦敦金融时报100指数下跌<strong class="text-red-600">10.8%</strong></span>
+                <span class="en">• London FTSE 100 fell <strong class="text-red-600">10.8%</strong></span>
+            </li>
+            <li>
+                <span class="zh">• 东京日经指数暴跌<strong class="text-red-600">14.9%</strong></span>
+                <span class="en">• Tokyo Nikkei plunged <strong class="text-red-600">14.9%</strong></span>
+            </li>
+            <li>
+                <span class="zh">• 投资者一夜之间损失超过<strong class="text-red-600">5000亿美元</strong>市值</span>
+                <span class="en">• Investors lost over <strong class="text-red-600">$500 billion</strong> in market value overnight</span>
+            </li>
         </ul>
 
-        <p class="leading-relaxed text-gray-700 mt-6 font-medium">崩盘的原因是什么？</p>
+        <p class="leading-relaxed text-gray-700 mt-6 font-medium">
+            <span class="zh">崩盘的原因是什么？</span>
+            <span class="en">What caused the crash?</span>
+        </p>
 
         <div class="grid md:grid-cols-2 gap-4 mt-4">
             <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                <p class="text-red-700 font-bold mb-2">⚙️ 程序化交易的"死亡螺旋"</p>
-                <p class="text-red-600 text-sm">组合保险策略在市场下跌时自动触发卖出，形成"下跌→卖单→更跌→更多卖单"的螺旋。当天超过40%的抛盘来自程序化交易。</p>
+                <p class="text-red-700 font-bold mb-2">
+                    <span class="zh">⚙️ 程序化交易的"死亡螺旋"</span>
+                    <span class="en">⚙️ The "Death Spiral" of Program Trading</span>
+                </p>
+                <p class="text-red-600 text-sm">
+                    <span class="zh">组合保险策略在市场下跌时自动触发卖出，形成"下跌→卖单→更跌→更多卖单"的螺旋。当天超过40%的抛盘来自程序化交易。</span>
+                    <span class="en">Portfolio insurance strategies automatically triggered selling as markets declined, creating a spiral of "falling → sell orders → falling more → more sell orders." Over 40% of selling volume that day came from program trading.</span>
+                </p>
             </div>
             <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                <p class="text-red-700 font-bold mb-2">📈 估值泡沫破裂</p>
-                <p class="text-red-600 text-sm">1982-1987年美股连涨5年，道指涨250%。标普500市盈率从7.5倍飙至22.5倍，股息率从5.5%降至2.4%。市场严重透支未来增长。</p>
+                <p class="text-red-700 font-bold mb-2">
+                    <span class="zh">📈 估值泡沫破裂</span>
+                    <span class="en">📈 Valuation Bubble Burst</span>
+                </p>
+                <p class="text-red-600 text-sm">
+                    <span class="zh">1982-1987年美股连涨5年，道指涨250%。标普500市盈率从7.5倍飙至22.5倍，股息率从5.5%降至2.4%。市场严重透支未来增长。</span>
+                    <span class="en">U.S. stocks rose for 5 consecutive years from 1982–1987, with the DJIA gaining 250%. The S&P 500 P/E ratio surged from 7.5x to 22.5x; dividend yield fell from 5.5% to 2.4%. The market had severely透支 future growth.</span>
+                </p>
             </div>
             <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                <p class="text-red-700 font-bold mb-2">🏦 美联储政策收紧预期</p>
-                <p class="text-red-600 text-sm">格林斯潘刚就任美联储主席24天就宣布加息，释放收紧流动性信号。市场对流动性收紧的担忧开始升温。</p>
+                <p class="text-red-700 font-bold mb-2">
+                    <span class="zh">🏦 美联储政策收紧预期</span>
+                    <span class="en">🏦 Fed Tightening Expectations</span>
+                </p>
+                <p class="text-red-600 text-sm">
+                    <span class="zh">格林斯潘刚就任美联储主席24天就宣布加息，释放收紧流动性信号。市场对流动性收紧的担忧开始升温。</span>
+                    <span class="en">Greenspan, just 24 days into his tenure as Fed Chair, announced a rate hike, signaling a tightening of liquidity. Market concerns about liquidity tightening began to escalate.</span>
+                </p>
             </div>
             <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                <p class="text-red-700 font-bold mb-2">💰 国际资金外流</p>
-                <p class="text-red-600 text-sm">美元持续走弱，贸易摩擦加剧，外资开始撤离美股市场——流动性虹吸效应的极致演绎。</p>
+                <p class="text-red-700 font-bold mb-2">
+                    <span class="zh">💰 国际资金外流</span>
+                    <span class="en">💰 International Capital Outflows</span>
+                </p>
+                <p class="text-red-600 text-sm">
+                    <span class="zh">美元持续走弱，贸易摩擦加剧，外资开始撤离美股市场——流动性虹吸效应的极致演绎。</span>
+                    <span class="en">The dollar continued to weaken, trade friction intensified, and foreign capital began fleeing U.S. equities — the ultimate manifestation of the "liquidity siphon" effect.</span>
+                </p>
             </div>
         </div>
 
-        <p class="leading-relaxed text-gray-700 mt-6 font-medium">崩盘后，谁成为赢家？</p>
+        <p class="leading-relaxed text-gray-700 mt-6 font-medium">
+            <span class="zh">崩盘后，谁成为赢家？</span>
+            <span class="en">After the crash, who emerged as winners?</span>
+        </p>
 
         <div class="bg-green-50 p-5 rounded-lg border border-green-100 mt-4 space-y-3">
-            <p class="text-green-800"><strong>保罗·都铎·琼斯</strong>：崩盘前一周果断减仓60%，成功躲过最惨烈的下跌。他后来回忆："我在暴跌前闻到了血腥味。"</p>
-            <p class="text-green-800"><strong>大卫·德瑞曼（逆向投资之父）</strong>：崩盘当天告诉团队"这不是1929年"，重点买入花旗银行。1988年花旗反弹80%。</p>
-            <p class="text-green-800"><strong>沃伦·巴菲特</strong>：崩盘后说"我开始买入股票了"，这是他一生中最好的买入机会。</p>
+            <p class="text-green-800">
+                <span class="zh"><strong>保罗·都铎·琼斯</strong>：崩盘前一周果断减仓60%，成功躲过最惨烈的下跌。他后来回忆："我在暴跌前闻到了血腥味。"</span>
+                <span class="en"><strong>Paul Tudor Jones</strong>: Decisively reduced positions by 60% one week before the crash, successfully dodging the worst of the decline. He later recalled: "I smelled blood before the plunge."</span>
+            </p>
+            <p class="text-green-800">
+                <span class="zh"><strong>大卫·德瑞曼（逆向投资之父）</strong>：崩盘当天告诉团队"这不是1929年"，重点买入花旗银行。1988年花旗反弹80%。</span>
+                <span class="en"><strong>David Dreman (Father of Contrarian Investing)</strong>: On the day of the crash, told his team "This is not 1929" and focused on buying Citibank. Citibank rebounded 80% in 1988.</span>
+            </p>
+            <p class="text-green-800">
+                <span class="zh"><strong>沃伦·巴菲特</strong>：崩盘后说"我开始买入股票了"，这是他一生中最好的买入机会。</span>
+                <span class="en"><strong>Warren Buffett</strong>: Said after the crash, "I started buying stocks" — it was the best buying opportunity of his life.</span>
+            </p>
         </div>
 
         <div class="quote-box mt-6">
             <p class="text-lg font-bold text-purple-700 serif">
-                "格林斯潘看跌期权"的诞生
+                <span class="zh">"格林斯潘看跌期权"的诞生</span>
+                <span class="en">The Birth of the "Greenspan Put"</span>
             </p>
             <p class="text-gray-700 mt-2">
-                崩盘次日，格林斯潘声明："美联储承诺提供一切流动性。"他立即降息、注入流动性——成功稳住了市场，避免1929年悲剧重演。但也埋下隐患：投资者开始相信"只要跌得够惨，央行就会救市"——这一信念在2008年金融危机中得到最充分的验证。
+                <span class="zh">崩盘次日，格林斯潘声明："美联储承诺提供一切流动性。"他立即降息、注入流动性——成功稳住了市场，避免1929年悲剧重演。但也埋下隐患：投资者开始相信"只要跌得够惨，央行就会救市"——这一信念在2008年金融危机中得到最充分的验证。</span>
+                <span class="en">The day after the crash, Greenspan issued a statement: "The Federal Reserve stands ready to provide full liquidity." He immediately cut rates and injected liquidity — successfully stabilizing the market and averting a repeat of the 1929 tragedy. But it also planted a dangerous seed: investors began to believe "if the crash is bad enough, the central bank will bail out the market" — a belief most fully validated during the 2008 financial crisis.</span>
             </p>
         </div>
 
-
-        <div class="divider">✦ ✦ ✦</div>
+        <div class="divider">
+            <span class="zh">✦ ✦ ✦</span>
+            <span class="en">✦ ✦ ✦</span>
+        </div>
 
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
-            🌳 反事实路径树：如果历史走了另一条路？
+            <span class="zh">🌳 反事实路径树：如果历史走了另一条路？</span>
+            <span class="en">🌳 Counterfactual Path Tree: What If History Took a Different Turn?</span>
         </h2>
 
-        <p class="text-gray-600 mb-6">历史从来不是必然的。1987年黑色星期一之所以没有演变成1929年大萧条，是因为三个关键的"分岔点"。如果它们走了另一条路，世界将完全不同。</p>
+        <p class="text-gray-600 mb-6">
+            <span class="zh">历史从来不是必然的。1987年黑色星期一之所以没有演变成1929年大萧条，是因为三个关键的"分岔点"。如果它们走了另一条路，世界将完全不同。</span>
+            <span class="en">History is never inevitable. The reason Black Monday 1987 did not become the Great Depression of 1929 lies in three critical "forking points." Had they taken a different path, the world would be entirely different.</span>
+        </p>
 
         <div class="counterfactual-tree">
-            <!-- 分岔点1 -->
+            <!-- Branch 1 -->
             <div class="branch-node">
                 <div class="branch-header" onclick="toggleBranch(this)">
                     <div class="branch-icon">①</div>
                     <div class="branch-content">
-                        <h4 class="font-bold text-gray-800">如果格林斯潘没有立即注入流动性？</h4>
-                        <p class="text-xs text-gray-500 mt-1">分岔点：1987年10月20日，美联储声明</p>
+                        <h4 class="font-bold text-gray-800">
+                            <span class="zh">如果格林斯潘没有立即注入流动性？</span>
+                            <span class="en">What if Greenspan hadn't injected liquidity immediately?</span>
+                        </h4>
+                        <p class="text-xs text-gray-500 mt-1">
+                            <span class="zh">分岔点：1987年10月20日，美联储声明</span>
+                            <span class="en">Fork: October 20, 1987, Fed Statement</span>
+                        </p>
                     </div>
                     <div class="branch-toggle">▼</div>
                 </div>
                 <div class="branch-details" style="display:none">
                     <div class="branch-real">
-                        <span class="branch-label real">✅ 真实路径</span>
-                        <p class="text-sm text-green-700"><strong>格林斯潘在崩盘次日即发表声明</strong>："美联储承诺提供一切流动性。"立即降息、注入流动性——市场在两周内企稳，S&P 500在6个月内完全收复失地。美国避免了一场系统性金融危机。</p>
+                        <span class="branch-label real">
+                            <span class="zh">✅ 真实路径</span>
+                            <span class="en">✅ Actual Path</span>
+                        </span>
+                        <p class="text-sm text-green-700">
+                            <span class="zh"><strong>格林斯潘在崩盘次日即发表声明</strong>："美联储承诺提供一切流动性。"立即降息、注入流动性——市场在两周内企稳，S&P 500在6个月内完全收复失地。美国避免了一场系统性金融危机。</span>
+                            <span class="en"><strong>Greenspan issued a statement the day after the crash</strong>: "The Federal Reserve stands ready to provide full liquidity." He immediately cut rates and injected liquidity — the market stabilized within two weeks, and the S&P 500 fully recovered within six months. The U.S. avoided a systemic financial crisis.</span>
+                        </p>
                     </div>
                     <div class="branch-alt">
-                        <span class="branch-label alt">⚠️ 假设路径</span>
-                        <p class="text-sm text-red-700"><strong>如果格林斯潘犹豫不决</strong>（毕竟他刚就任仅24天，尚未建立信誉），市场可能重演1929-1933年的连锁崩溃：银行挤兑→信贷冻结→实体企业资金链断裂→大规模失业。估计GDP将萎缩15-20%，失业率飙升至25%以上。全球可能陷入第二次大萧条。</p>
+                        <span class="branch-label alt">
+                            <span class="zh">⚠️ 假设路径</span>
+                            <span class="en">⚠️ Hypothetical Path</span>
+                        </span>
+                        <p class="text-sm text-red-700">
+                            <span class="zh"><strong>如果格林斯潘犹豫不决</strong>（毕竟他刚就任仅24天，尚未建立信誉），市场可能重演1929-1933年的连锁崩溃：银行挤兑→信贷冻结→实体企业资金链断裂→大规模失业。估计GDP将萎缩15-20%，失业率飙升至25%以上。全球可能陷入第二次大萧条。</span>
+                            <span class="en"><strong>If Greenspan had hesitated</strong> (after all, he had been in office only 24 days and had not yet established credibility), the market might have replayed the cascading collapse of 1929–1933: bank runs → credit freeze → corporate liquidity crisis → mass unemployment. GDP would likely have contracted 15–20%, with unemployment surging above 25%. The world might have been plunged into a second Great Depression.</span>
+                        </p>
                     </div>
                 </div>
             </div>
 
             <div class="branch-connector"></div>
 
-            <!-- 分岔点2 -->
+            <!-- Branch 2 -->
             <div class="branch-node">
                 <div class="branch-header" onclick="toggleBranch(this)">
                     <div class="branch-icon">②</div>
                     <div class="branch-content">
-                        <h4 class="font-bold text-gray-800">如果程序化交易在1987年不存在？</h4>
-                        <p class="text-xs text-gray-500 mt-1">分岔点：组合保险策略与"死亡螺旋"</p>
+                        <h4 class="font-bold text-gray-800">
+                            <span class="zh">如果程序化交易在1987年不存在？</span>
+                            <span class="en">What if program trading hadn't existed in 1987?</span>
+                        </h4>
+                        <p class="text-xs text-gray-500 mt-1">
+                            <span class="zh">分岔点：组合保险策略与"死亡螺旋"</span>
+                            <span class="en">Fork: Portfolio Insurance Strategies and the "Death Spiral"</span>
+                        </p>
                     </div>
                     <div class="branch-toggle">▼</div>
                 </div>
                 <div class="branch-details" style="display:none">
                     <div class="branch-real">
-                        <span class="branch-label real">✅ 真实路径</span>
-                        <p class="text-sm text-green-700"><strong>程序化交易是崩盘的"放大器"</strong>。组合保险策略在市场下跌时自动触发卖出，形成"下跌→卖单→更跌→更多卖单"的死亡螺旋。当天超过40%的抛盘来自算法交易。道指单日暴跌22.6%。</p>
+                        <span class="branch-label real">
+                            <span class="zh">✅ 真实路径</span>
+                            <span class="en">✅ Actual Path</span>
+                        </span>
+                        <p class="text-sm text-green-700">
+                            <span class="zh"><strong>程序化交易是崩盘的"放大器"</strong>。组合保险策略在市场下跌时自动触发卖出，形成"下跌→卖单→更跌→更多卖单"的死亡螺旋。当天超过40%的抛盘来自算法交易。道指单日暴跌22.6%。</span>
+                            <span class="en"><strong>Program trading was the crash's "amplifier."</strong> Portfolio insurance strategies automatically triggered selling as markets declined, creating a death spiral of "falling → sell orders → falling more → more sell orders." Over 40% of selling volume that day came from algorithmic trading. The DJIA plunged 22.6% in a single day.</span>
+                        </p>
                     </div>
                     <div class="branch-alt">
-                        <span class="branch-label alt">⚠️ 假设路径</span>
-                        <p class="text-sm text-red-700"><strong>如果没有程序化交易</strong>，当天的抛压将主要由人类交易员执行。考虑到当时的市场情绪虽然恐慌但并非绝望（没有银行倒闭、没有经济衰退数据），跌幅可能只有8-10%——类似1989年的旧金山地震跌幅。不会有"死亡螺旋"，市场可能在1-2周内企稳。</p>
+                        <span class="branch-label alt">
+                            <span class="zh">⚠️ 假设路径</span>
+                            <span class="en">⚠️ Hypothetical Path</span>
+                        </span>
+                        <p class="text-sm text-red-700">
+                            <span class="zh"><strong>如果没有程序化交易</strong>，当天的抛压将主要由人类交易员执行。考虑到当时的市场情绪虽然恐慌但并非绝望（没有银行倒闭、没有经济衰退数据），跌幅可能只有8-10%——类似1989年的旧金山地震跌幅。不会有"死亡螺旋"，市场可能在1-2周内企稳。</span>
+                            <span class="en"><strong>Without program trading</strong>, the selling pressure that day would have been executed mainly by human traders. Given that market sentiment, while panicked, was not desperate (no bank failures, no recession data), the decline might have been only 8–10% — similar to the 1989 San Francisco earthquake drop. There would have been no "death spiral," and the market could have stabilized within 1–2 weeks.</span>
+                        </p>
                     </div>
                 </div>
             </div>
 
             <div class="branch-connector"></div>
 
-            <!-- 分岔点3 -->
+            <!-- Branch 3 -->
             <div class="branch-node">
                 <div class="branch-header" onclick="toggleBranch(this)">
                     <div class="branch-icon">③</div>
                     <div class="branch-content">
-                        <h4 class="font-bold text-gray-800">如果1987年没有美元贬值+贸易摩擦？</h4>
-                        <p class="text-xs text-gray-500 mt-1">分岔点：卢浮宫协议与国际贸易格局</p>
+                        <h4 class="font-bold text-gray-800">
+                            <span class="zh">如果1987年没有美元贬值+贸易摩擦？</span>
+                            <span class="en">What if there had been no dollar depreciation + trade friction in 1987?</span>
+                        </h4>
+                        <p class="text-xs text-gray-500 mt-1">
+                            <span class="zh">分岔点：卢浮宫协议与国际贸易格局</span>
+                            <span class="en">Fork: The Louvre Accord and International Trade Dynamics</span>
+                        </p>
                     </div>
                     <div class="branch-toggle">▼</div>
                 </div>
                 <div class="branch-details" style="display:none">
                     <div class="branch-real">
-                        <span class="branch-label real">✅ 真实路径</span>
-                        <p class="text-sm text-green-700"><strong>美元持续走弱+美日贸易摩擦加剧</strong>，外国投资者恐慌性抛售美股。1987年10月，外国投资者持有的美国国债被大规模抛售，美元汇率急跌。国际资金的"流动性虹吸"加速了崩盘。</p>
+                        <span class="branch-label real">
+                            <span class="zh">✅ 真实路径</span>
+                            <span class="en">✅ Actual Path</span>
+                        </span>
+                        <p class="text-sm text-green-700">
+                            <span class="zh"><strong>美元持续走弱+美日贸易摩擦加剧</strong>，外国投资者恐慌性抛售美股。1987年10月，外国投资者持有的美国国债被大规模抛售，美元汇率急跌。国际资金的"流动性虹吸"加速了崩盘。</span>
+                            <span class="en"><strong>A persistently weakening dollar + escalating U.S.–Japan trade friction</strong> triggered panic selling of U.S. equities by foreign investors. In October 1987, foreign holders of U.S. Treasuries engaged in mass selling, and the dollar plummeted. The "liquidity siphon" of international capital accelerated the crash.</span>
+                        </p>
                     </div>
                     <div class="branch-alt">
-                        <span class="branch-label alt">⚠️ 假设路径</span>
-                        <p class="text-sm text-red-700"><strong>如果美元保持稳定+贸易关系缓和</strong>，外资不会恐慌性外逃。美国财政部长贝克在崩盘前威胁对日本加征关税的言论，是压垮市场信心的最后一根稻草。如果卢浮宫协议成功维持汇率稳定，外资持股占比不会骤降，跌幅可能收窄至5-8%——只是一次普通的"市场调整"而非"黑色星期一"。</p>
+                        <span class="branch-label alt">
+                            <span class="zh">⚠️ 假设路径</span>
+                            <span class="en">⚠️ Hypothetical Path</span>
+                        </span>
+                        <p class="text-sm text-red-700">
+                            <span class="zh"><strong>如果美元保持稳定+贸易关系缓和</strong>，外资不会恐慌性外逃。美国财政部长贝克在崩盘前威胁对日本加征关税的言论，是压垮市场信心的最后一根稻草。如果卢浮宫协议成功维持汇率稳定，外资持股占比不会骤降，跌幅可能收窄至5-8%——只是一次普通的"市场调整"而非"黑色星期一"。</span>
+                            <span class="en"><strong>If the dollar had remained stable + trade relations eased</strong>, foreign capital would not have panicked and fled. U.S. Treasury Secretary Baker's pre-crash threat to impose tariffs on Japan was the final straw that broke market confidence. Had the Louvre Accord succeeded in maintaining exchange rate stability, foreign holdings ratios would not have plunged, and the decline might have been contained to 5–8% — just a routine "market correction" rather than "Black Monday."</span>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="quote-box mt-6">
-            <p class="text-sm text-gray-600 italic">💡 点击每个分岔点，展开详细的"what if"推演。历史从来不是必然的——理解"如果"，才能理解"为什么"。</p>
+            <p class="text-sm text-gray-600 italic">
+                <span class="zh">💡 点击每个分岔点，展开详细的"what if"推演。历史从来不是必然的——理解"如果"，才能理解"为什么"。</span>
+                <span class="en">💡 Click each fork to explore the detailed "what if" scenarios. History is never inevitable — understanding "what if" is the key to understanding "why."</span>
+            </p>
         </div>
 
-        <div class="divider">当代镜鉴</div>
+        <div class="divider">
+            <span class="zh">当代镜鉴</span>
+            <span class="en">Mirror to the Present</span>
+        </div>
 
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
-            04 2026年7月的历史回声
+            <span class="zh">04 2026年7月的历史回声</span>
+            <span class="en">04 Historical Echoes of July 2026</span>
         </h2>
 
         <div class="bg-blue-50 p-5 rounded-lg border border-blue-100 mt-4">
-            <p class="font-bold text-blue-800 mb-2">📰 【本周核心事件】2026年7月16日市场速写</p>
+            <p class="font-bold text-blue-800 mb-2">
+                <span class="zh">📰 【本周核心事件】2026年7月16日市场速写</span>
+                <span class="en">📰 [This Week's Key Events] Market Snapshot — July 16, 2026</span>
+            </p>
             <ul class="text-blue-700 text-sm space-y-1">
-                <li>• 费城半导体指数7月15日跌超3%，16日再跌超5%，美光单日跌8.37%</li>
-                <li>• 长鑫科技今天科创板IPO申购，募资295亿元——全球第四大DRAM原厂</li>
-                <li>• SK海力士美股融资265亿美元，创纪录存托凭证发行</li>
-                <li>• SK海力士CEO警告2027年将是史上最严重供应短缺，延续到2030年</li>
-                <li>• SK海力士12层HBM4正式量产出货，全球首家（7月14日）</li>
-                <li>• 三星HBM4E良率突破70%，已向英伟达、AMD、谷歌送出首批样品</li>
-                <li>• 美光93亿美元扩建日本广岛工厂，专产HBM，2028年出货</li>
+                <li>
+                    <span class="zh">• 费城半导体指数7月15日跌超3%，16日再跌超5%，美光单日跌8.37%</span>
+                    <span class="en">• Philadelphia Semiconductor Index fell over 3% on July 15, another 5%+ on July 16; Micron dropped 8.37% in a single day</span>
+                </li>
+                <li>
+                    <span class="zh">• 长鑫科技今天科创板IPO申购，募资295亿元——全球第四大DRAM原厂</span>
+                    <span class="en">• CXMT opened STAR Market IPO subscription today, raising ¥29.5 billion — world's 4th largest DRAM maker</span>
+                </li>
+                <li>
+                    <span class="zh">• SK海力士美股融资265亿美元，创纪录存托凭证发行</span>
+                    <span class="en">• SK Hynix raised $26.5 billion on U.S. markets in record-breaking DR issuance</span>
+                </li>
+                <li>
+                    <span class="zh">• SK海力士CEO警告2027年将是史上最严重供应短缺，延续到2030年</span>
+                    <span class="en">• SK Hynix CEO warns 2027 will see worst-ever supply shortage, lasting through 2030</span>
+                </li>
+                <li>
+                    <span class="zh">• SK海力士12层HBM4正式量产出货，全球首家（7月14日）</span>
+                    <span class="en">• SK Hynix 12-layer HBM4 entered mass production — world's first (July 14)</span>
+                </li>
+                <li>
+                    <span class="zh">• 三星HBM4E良率突破70%，已向英伟达、AMD、谷歌送出首批样品</span>
+                    <span class="en">• Samsung HBM4E yield exceeded 70%; first samples sent to NVIDIA, AMD, and Google</span>
+                </li>
+                <li>
+                    <span class="zh">• 美光93亿美元扩建日本广岛工厂，专产HBM，2028年出货</span>
+                    <span class="en">• Micron investing $9.3 billion to expand Hiroshima plant, dedicated to HBM production, shipping from 2028</span>
+                </li>
             </ul>
         </div>
 
@@ -647,292 +699,458 @@
             <div class="flex gap-4">
                 <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">1</span>
                 <div>
-                    <h4 class="font-bold text-gray-800">"这次不一样"的时代叙事</h4>
-                    <p class="text-gray-600 mt-1 text-sm">1987年，市场相信"个人电脑革命让股票估值应该重新定价"。2026年，市场相信"AI革命让存储芯片成为新时代的石油"。DDR5涨300%，服务器内存涨12倍，分析师们高呼"超级周期才刚开始"。叙事在变，人性不变。</p>
+                    <h4 class="font-bold text-gray-800">
+                        <span class="zh">"这次不一样"的时代叙事</span>
+                        <span class="en">"This Time Is Different" — The Era Narrative</span>
+                    </h4>
+                    <p class="text-gray-600 mt-1 text-sm">
+                        <span class="zh">1987年，市场相信"个人电脑革命让股票估值应该重新定价"。2026年，市场相信"AI革命让存储芯片成为新时代的石油"。DDR5涨300%，服务器内存涨12倍，分析师们高呼"超级周期才刚开始"。叙事在变，人性不变。</span>
+                        <span class="en">In 1987, the market believed "the PC revolution calls for stock revaluation." In 2026, the market believes "the AI revolution makes memory chips the new oil." DDR5 up 300%, server memory up 12x, analysts proclaiming "the super cycle has just begun." The narratives change; human nature does not.</span>
+                    </p>
                 </div>
             </div>
             
             <div class="flex gap-4">
                 <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">2</span>
                 <div>
-                    <h4 class="font-bold text-gray-800">流动性虹吸与结构性撕裂</h4>
-                    <p class="text-gray-600 mt-1 text-sm">70%新增DRAM产能被AI服务器吃掉，消费级面临结构性短缺。就像1987年科技股吸走市场大部分流动性一样，存储芯片正在虹吸全球半导体资金。韩股外资创纪录流出——全球投资者年内累计净抛售韩国股票636亿美元。这不是价值发现，而是流动性驱动的泡沫。</p>
+                    <h4 class="font-bold text-gray-800">
+                        <span class="zh">流动性虹吸与结构性撕裂</span>
+                        <span class="en">The Liquidity Siphon and Structural Fragmentation</span>
+                    </h4>
+                    <p class="text-gray-600 mt-1 text-sm">
+                        <span class="zh">70%新增DRAM产能被AI服务器吃掉，消费级面临结构性短缺。就像1987年科技股吸走市场大部分流动性一样，存储芯片正在虹吸全球半导体资金。韩股外资创纪录流出——全球投资者年内累计净抛售韩国股票636亿美元。这不是价值发现，而是流动性驱动的泡沫。</span>
+                        <span class="en">70% of new DRAM capacity is consumed by AI servers; consumer-grade faces structural shortage. Just as tech stocks absorbed most market liquidity in 1987, memory chips are now siphoning global semiconductor capital. Record foreign outflows from Korean equities — global investors have net sold a cumulative $63.6 billion in Korean stocks year-to-date. This is not value discovery; it is a liquidity-driven bubble.</span>
+                    </p>
                 </div>
             </div>
             
             <div class="flex gap-4">
                 <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">3</span>
                 <div>
-                    <h4 class="font-bold text-gray-800">"18个月暴利倒计时" vs "短缺到2030年"</h4>
-                    <p class="text-gray-600 mt-1 text-sm">市场正在上演一场叙事战争：乐观派认为AI需求是刚性的，供给约束是硬性的，短缺将持续到2030年；悲观派指出2027年末新增产能集中释放，当前暴利周期只剩18个月。SK海力士265亿美元融资是"趁热圈钱"还是"未雨绸缪"？长鑫科技IPO是"国产替代"还是"产能过剩的前奏"？</p>
+                    <h4 class="font-bold text-gray-800">
+                        <span class="zh">"18个月暴利倒计时" vs "短缺到2030年"</span>
+                        <span class="en">"18-Month Supercycle Countdown" vs "Shortage Through 2030"</span>
+                    </h4>
+                    <p class="text-gray-600 mt-1 text-sm">
+                        <span class="zh">市场正在上演一场叙事战争：乐观派认为AI需求是刚性的，供给约束是硬性的，短缺将持续到2030年；悲观派指出2027年末新增产能集中释放，当前暴利周期只剩18个月。SK海力士265亿美元融资是"趁热圈钱"还是"未雨绸缪"？长鑫科技IPO是"国产替代"还是"产能过剩的前奏"？</span>
+                        <span class="en">The market is staging a narrative war: bulls argue AI demand is inelastic and supply constraints are rigid, with shortages lasting through 2030; bears point to a concentrated wave of new capacity coming online in late 2027, leaving only 18 months of the current supernormal profit cycle. Is SK Hynix's $26.5 billion fundraising "striking while the iron's hot" or "preparing for a rainy day"? Is CXMT's IPO "domestic substitution" or "the overture to overcapacity"?</span>
+                    </p>
                 </div>
             </div>
             
             <div class="flex gap-4">
                 <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">4</span>
                 <div>
-                    <h4 class="font-bold text-gray-800">消费级 vs HBM的结构性分化</h4>
-                    <p class="text-gray-600 mt-1 text-sm">不同于1987年的"科技股同涨同跌"，2026年的存储芯片出现了前所未有的结构性分化：HBM（高带宽内存）因AI服务器需求暴增，供不应求；而消费级DDR5虽然也在涨，但驱动力是"产能被挤占"而非"需求爆发"。这种分化意味着：崩盘时不会是齐跌——HBM可能比消费级更抗跌，但也可能因为产能集中释放而更惨烈。</p>
+                    <h4 class="font-bold text-gray-800">
+                        <span class="zh">消费级 vs HBM的结构性分化</span>
+                        <span class="en">Consumer vs HBM — The Structural Divergence</span>
+                    </h4>
+                    <p class="text-gray-600 mt-1 text-sm">
+                        <span class="zh">不同于1987年的"科技股同涨同跌"，2026年的存储芯片出现了前所未有的结构性分化：HBM（高带宽内存）因AI服务器需求暴增，供不应求；而消费级DDR5虽然也在涨，但驱动力是"产能被挤占"而非"需求爆发"。这种分化意味着：崩盘时不会是齐跌——HBM可能比消费级更抗跌，但也可能因为产能集中释放而更惨烈。</span>
+                        <span class="en">Unlike the "tech stocks rise and fall together" dynamic of 1987, 2026's memory chip market has seen unprecedented structural divergence: HBM (High Bandwidth Memory) faces surging demand from AI servers with supply unable to keep up; consumer DDR5 is also rising, but driven by "capacity crowding-out" rather than "demand explosion." This divergence means: a crash won't be uniform — HBM may prove more resilient than consumer chips, but could also suffer more severely if concentrated capacity releases hit.</span>
+                    </p>
                 </div>
             </div>
             
             <div class="flex gap-4">
                 <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">5</span>
                 <div>
-                    <h4 class="font-bold text-gray-800">估值仍有争议</h4>
-                    <p class="text-gray-600 mt-1 text-sm">即使按成长股估值体系，三星预期PE约6-7倍，SK海力士约6-7倍，美光约10倍——依然低于费城半导体指数26倍的平均水平。但问题是：存储芯片本质上是<strong>周期性行业</strong>，以暴利期的盈利来算PE天然偏低。当周期反转、盈利暴跌时，"低PE"会瞬间变成"高PE"。这正是1987年的教训。</p>
+                    <h4 class="font-bold text-gray-800">
+                        <span class="zh">估值仍有争议</span>
+                        <span class="en">Valuation Remains Debated</span>
+                    </h4>
+                    <p class="text-gray-600 mt-1 text-sm">
+                        <span class="zh">即使按成长股估值体系，三星预期PE约6-7倍，SK海力士约6-7倍，美光约10倍——依然低于费城半导体指数26倍的平均水平。但问题是：存储芯片本质上是<strong>周期性行业</strong>，以暴利期的盈利来算PE天然偏低。当周期反转、盈利暴跌时，"低PE"会瞬间变成"高PE"。这正是1987年的教训。</span>
+                        <span class="en">Even by growth stock valuation metrics, Samsung's forward P/E is around 6–7x, SK Hynix about 6–7x, Micron about 10x — still below the Philadelphia Semiconductor Index average of 26x. But the problem is: memory chips are fundamentally a <strong>cyclical industry</strong>, and P/E ratios calculated at peak-profit periods are inherently low. When the cycle turns and earnings collapse, "low P/E" instantly becomes "high P/E." That is precisely the lesson of 1987.</span>
+                    </p>
                 </div>
             </div>
         </div>
 
         <div class="note-card mt-8">
-            <h3 class="font-bold text-xl mb-4 serif">📌 实验室笔记</h3>
+            <h3 class="font-bold text-xl mb-4 serif">
+                <span class="zh">📌 实验室笔记</span>
+                <span class="en">📌 Lab Notes</span>
+            </h3>
             <ol class="space-y-3 text-sm">
-                <li><strong>1.</strong> <strong>"这次不一样"是历史上最昂贵的一句话。</strong>1987年投资者相信个人电脑革命让科技股市盈率永远提高，2026年投资者相信AI革命让存储芯片成为"新时代石油"。历史不会简单重复，但人性从未改变。</li>
-                <li><strong>2.</strong> <strong>程序化交易是泡沫的放大器。</strong>1987年是组合保险策略，2026年是量化基金和被动投资。当费半指数7月15-16日连续暴跌时，有多少是"基本面恶化"，有多少是"算法触发止损"？</li>
-                <li><strong>3.</strong> <strong>流动性虹吸效应是见顶信号。</strong>当70%的新增产能被AI服务器吃掉，当存储芯片吸走半导体市场大部分资金时，其他所有资产都在失血。</li>
-                <li><strong>4.</strong> <strong>长协订单是双刃剑。</strong>3-5年的长协订单锁定了未来营收，让存储芯片比1987年科技股更具防御性。但当周期反转时，长协也可能变成"锁定亏损"的枷锁。</li>
-                <li><strong>5.</strong> <strong>2027年末是潜在拐点。</strong>新增产能集中释放+暴利周期结束+机构预期反转——如果历史押韵，这将是"黑色星期一"式的时刻。但也许这一次，AI需求的持续增长会打破周期律？</li>
-                <li><strong>6.</strong> <strong>活着比什么都重要。</strong>1987年活下来的投资者，都是那些"永远保留弹药"的人。投资的第一要务不是赚钱，而是不亏钱。</li>
+                <li>
+                    <span class="zh"><strong>1.</strong> <strong>"这次不一样"是历史上最昂贵的一句话。</strong>1987年投资者相信个人电脑革命让科技股市盈率永远提高，2026年投资者相信AI革命让存储芯片成为"新时代石油"。历史不会简单重复，但人性从未改变。</span>
+                    <span class="en"><strong>1.</strong> <strong>"This time is different" is the most expensive phrase in history.</strong> In 1987, investors believed the PC revolution justified permanently higher tech P/E ratios; in 2026, investors believe the AI revolution makes memory chips "the new oil." History doesn't repeat simply, but human nature never changes.</span>
+                </li>
+                <li>
+                    <span class="zh"><strong>2.</strong> <strong>程序化交易是泡沫的放大器。</strong>1987年是组合保险策略，2026年是量化基金和被动投资。当费半指数7月15-16日连续暴跌时，有多少是"基本面恶化"，有多少是"算法触发止损"？</span>
+                    <span class="en"><strong>2.</strong> <strong>Program trading amplifies bubbles.</strong> In 1987 it was portfolio insurance; in 2026 it is quant funds and passive investing. When the SOX plunged on July 15–16, how much was "fundamental deterioration" and how much was "algorithmic stop-losses triggered"?</span>
+                </li>
+                <li>
+                    <span class="zh"><strong>3.</strong> <strong>流动性虹吸效应是见顶信号。</strong>当70%的新增产能被AI服务器吃掉，当存储芯片吸走半导体市场大部分资金时，其他所有资产都在失血。</span>
+                    <span class="en"><strong>3.</strong> <strong>The liquidity siphon effect signals a market top.</strong> When 70% of new capacity is consumed by AI servers, when memory chips drain most semiconductor market capital, every other asset is bleeding.</span>
+                </li>
+                <li>
+                    <span class="zh"><strong>4.</strong> <strong>长协订单是双刃剑。</strong>3-5年的长协订单锁定了未来营收，让存储芯片比1987年科技股更具防御性。但当周期反转时，长协也可能变成"锁定亏损"的枷锁。</span>
+                    <span class="en"><strong>4.</strong> <strong>Long-term contracts are a double-edged sword.</strong> 3–5 year agreements lock in future revenue, making memory chips more defensive than 1987 tech stocks. But when the cycle turns, these contracts can become shackles of "locked-in losses."</span>
+                </li>
+                <li>
+                    <span class="zh"><strong>5.</strong> <strong>2027年末是潜在拐点。</strong>新增产能集中释放+暴利周期结束+机构预期反转——如果历史押韵，这将是"黑色星期一"式的时刻。但也许这一次，AI需求的持续增长会打破周期律？</span>
+                    <span class="en"><strong>5.</strong> <strong>Late 2027 is a potential inflection point.</strong> Concentrated capacity releases + end of supernormal profits + institutional expectation reversal — if history rhymes, this will be a "Black Monday" moment. But perhaps this time, sustained AI demand will break the cyclical pattern?</span>
+                </li>
+                <li>
+                    <span class="zh"><strong>6.</strong> <strong>活着比什么都重要。</strong>1987年活下来的投资者，都是那些"永远保留弹药"的人。投资的第一要务不是赚钱，而是不亏钱。</span>
+                    <span class="en"><strong>6.</strong> <strong>Survival matters above all.</strong> The investors who survived 1987 were those who "always kept powder dry." The first duty of investing is not to make money, but to avoid losing it.</span>
+                </li>
             </ol>
         </div>
 
-
-        <div class="divider">✦ ✦ ✦</div>
+        <div class="divider">
+            <span class="zh">✦ ✦ ✦</span>
+            <span class="en">✦ ✦ ✦</span>
+        </div>
 
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
-            📋 决策落地卡：从历史到行动
+            <span class="zh">📋 决策落地卡：从历史到行动</span>
+            <span class="en">📋 Decision Action Cards: From History to Action</span>
         </h2>
 
-        <p class="text-gray-600 mb-6">读完历史，回到现实。以下四张决策卡片，帮你把1987年的教训转化为2026年的行动。点击展开每张卡片。</p>
+        <p class="text-gray-600 mb-6">
+            <span class="zh">读完历史，回到现实。以下四张决策卡片，帮你把1987年的教训转化为2026年的行动。点击展开每张卡片。</span>
+            <span class="en">Having read history, let's return to the present. The following four decision cards will help you translate the lessons of 1987 into actions for 2026. Click to expand each card.</span>
+        </p>
 
         <div class="decision-cards">
-            <!-- 卡片1: 泡沫识别清单 -->
+            <!-- Card 1: Bubble Checklist -->
             <div class="decision-card" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
                 <div class="decision-card-header" onclick="toggleDecisionCard(this)">
                     <div>
-                        <h4 class="font-bold text-lg text-gray-800">🔍 泡沫识别清单</h4>
-                        <p class="text-xs text-gray-600 mt-1">8个量化指标，帮你判断泡沫是否已经形成</p>
+                        <h4 class="font-bold text-lg text-gray-800">
+                            <span class="zh">🔍 泡沫识别清单</span>
+                            <span class="en">🔍 Bubble Identification Checklist</span>
+                        </h4>
+                        <p class="text-xs text-gray-600 mt-1">
+                            <span class="zh">8个量化指标，帮你判断泡沫是否已经形成</span>
+                            <span class="en">8 quantitative indicators to help you judge whether a bubble has formed</span>
+                        </p>
                     </div>
-                    <span class="decision-card-toggle">展开 ↓</span>
+                    <span class="decision-card-toggle">
+                        <span class="zh">展开 ↓</span>
+                        <span class="en">Expand ↓</span>
+                    </span>
                 </div>
                 <div class="decision-card-body" style="display:none">
                     <div class="space-y-3 mt-4">
-                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>散户开户数激增</strong> —— 近3个月新增开户数超过过去12个月均值2倍以上</span></label>
-                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>融资余额增速异常</strong> —— 两融余额月增速超过15%，或融资买入额占成交额比超过12%</span></label>
-                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>分析师一致预期过度乐观</strong> —— 覆盖该板块的分析师90%以上给出"买入/增持"评级</span></label>
-                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>估值脱离地心引力</strong> —— 板块PE超过历史均值2个标准差以上</span></label>
-                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>"这次不一样"叙事盛行</strong> —— 媒体频繁出现"新时代""超级周期"等措辞</span></label>
-                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>非相关人士参与投机</strong> —— 出租车司机、小区保安、不炒股的亲友开始问你怎么买</span></label>
-                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>产业资本大规模减持</strong> —— 行业龙头高管/大股东密集减持或IPO募资创纪录</span></label>
-                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700"><strong>价格涨速远超基本面</strong> —— 产品价格季度涨幅超过50%，但需求增速不到20%</span></label>
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700">
+                            <span class="zh"><strong>散户开户数激增</strong> —— 近3个月新增开户数超过过去12个月均值2倍以上</span>
+                            <span class="en"><strong>Surge in retail accounts</strong> — New account openings in the last 3 months exceed 2x the 12-month average</span>
+                        </span></label>
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700">
+                            <span class="zh"><strong>融资余额增速异常</strong> —— 两融余额月增速超过15%，或融资买入额占成交额比超过12%</span>
+                            <span class="en"><strong>Abnormal margin growth</strong> — Monthly margin balance growth exceeds 15%, or margin buying exceeds 12% of total turnover</span>
+                        </span></label>
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700">
+                            <span class="zh"><strong>分析师一致预期过度乐观</strong> —— 覆盖该板块的分析师90%以上给出"买入/增持"评级</span>
+                            <span class="en"><strong>Overly optimistic analyst consensus</strong> — Over 90% of analysts covering the sector give "Buy/Overweight" ratings</span>
+                        </span></label>
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700">
+                            <span class="zh"><strong>估值脱离地心引力</strong> —— 板块PE超过历史均值2个标准差以上</span>
+                            <span class="en"><strong>Valuations defy gravity</strong> — Sector P/E exceeds historical mean by more than 2 standard deviations</span>
+                        </span></label>
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700">
+                            <span class="zh"><strong>"这次不一样"叙事盛行</strong> —— 媒体频繁出现"新时代""超级周期"等措辞</span>
+                            <span class="en"><strong>"This time is different" narrative prevails</strong> — Media frequently uses terms like "new era" and "super cycle"</span>
+                        </span></label>
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700">
+                            <span class="zh"><strong>非相关人士参与投机</strong> —— 出租车司机、小区保安、不炒股的亲友开始问你怎么买</span>
+                            <span class="en"><strong>Unrelated people join speculation</strong> — Taxi drivers, security guards, non-investing friends and family start asking how to buy</span>
+                        </span></label>
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700">
+                            <span class="zh"><strong>产业资本大规模减持</strong> —— 行业龙头高管/大股东密集减持或IPO募资创纪录</span>
+                            <span class="en"><strong>Massive insider selling</strong> — Industry leaders' executives/major shareholders sell heavily or IPO fundraising hits records</span>
+                        </span></label>
+                        <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 w-4 h-4 accent-red-500"><span class="text-sm text-gray-700">
+                            <span class="zh"><strong>价格涨速远超基本面</strong> —— 产品价格季度涨幅超过50%，但需求增速不到20%</span>
+                            <span class="en"><strong>Price acceleration far outpaces fundamentals</strong> — Product prices rise over 50% quarterly, but demand growth is under 20%</span>
+                        </span></label>
                     </div>
                     <div class="mt-4 p-3 bg-white/50 rounded-lg">
-                        <p class="text-xs text-gray-600"><strong>判断标准：</strong>勾选4个以上 → 泡沫已形成，应开始防守；勾选6个以上 → 泡沫严重，应果断减仓。</p>
+                        <p class="text-xs text-gray-600">
+                            <span class="zh"><strong>判断标准：</strong>勾选4个以上 → 泡沫已形成，应开始防守；勾选6个以上 → 泡沫严重，应果断减仓。</span>
+                            <span class="en"><strong>Criteria:</strong> Check 4+ → Bubble has formed, begin defensive positioning; Check 6+ → Severe bubble, decisively reduce exposure.</span>
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- 卡片2: 减仓纪律卡 -->
+            <!-- Card 2: Reduction Discipline -->
             <div class="decision-card" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">
                 <div class="decision-card-header" onclick="toggleDecisionCard(this)">
                     <div>
-                        <h4 class="font-bold text-lg text-gray-800">🚦 减仓纪律卡</h4>
-                        <p class="text-xs text-gray-600 mt-1">红黄绿三色信号灯，量化你的减仓触发条件</p>
+                        <h4 class="font-bold text-lg text-gray-800">
+                            <span class="zh">🚦 减仓纪律卡</span>
+                            <span class="en">🚦 Position Reduction Discipline Card</span>
+                        </h4>
+                        <p class="text-xs text-gray-600 mt-1">
+                            <span class="zh">红黄绿三色信号灯，量化你的减仓触发条件</span>
+                            <span class="en">Red-Yellow-Green signal lights — quantify your reduction triggers</span>
+                        </p>
                     </div>
-                    <span class="decision-card-toggle">展开 ↓</span>
+                    <span class="decision-card-toggle">
+                        <span class="zh">展开 ↓</span>
+                        <span class="en">Expand ↓</span>
+                    </span>
                 </div>
                 <div class="decision-card-body" style="display:none">
                     <div class="space-y-4 mt-4">
                         <div class="p-3 bg-white/60 rounded-lg">
                             <div class="flex items-center gap-2 mb-2">
                                 <span class="w-4 h-4 rounded-full bg-green-500"></span>
-                                <span class="font-bold text-green-800 text-sm">🟢 绿灯 —— 持仓观望</span>
+                                <span class="font-bold text-green-800 text-sm">
+                                    <span class="zh">🟢 绿灯 —— 持仓观望</span>
+                                    <span class="en">🟢 Green Light — Hold & Watch</span>
+                                </span>
                             </div>
                             <ul class="text-sm text-gray-700 space-y-1 ml-6">
-                                <li>• 费半指数站稳50日均线上方</li>
-                                <li>• 单只个股仓位 ≤ 20%</li>
-                                <li>• DRAM现货价格环比涨幅 &lt; 20%</li>
-                                <li>• 融资余额月增速 &lt; 10%</li>
+                                <li><span class="zh">• 费半指数站稳50日均线上方</span><span class="en">• SOX holds above 50-day moving average</span></li>
+                                <li><span class="zh">• 单只个股仓位 ≤ 20%</span><span class="en">• Single stock position ≤ 20%</span></li>
+                                <li><span class="zh">• DRAM现货价格环比涨幅 &lt; 20%</span><span class="en">• DRAM spot price QoQ increase &lt; 20%</span></li>
+                                <li><span class="zh">• 融资余额月增速 &lt; 10%</span><span class="en">• Margin balance monthly growth &lt; 10%</span></li>
                             </ul>
                         </div>
                         <div class="p-3 bg-white/60 rounded-lg">
                             <div class="flex items-center gap-2 mb-2">
                                 <span class="w-4 h-4 rounded-full bg-yellow-500"></span>
-                                <span class="font-bold text-yellow-800 text-sm">🟡 黄灯 —— 减仓20-30%</span>
+                                <span class="font-bold text-yellow-800 text-sm">
+                                    <span class="zh">🟡 黄灯 —— 减仓20-30%</span>
+                                    <span class="en">🟡 Yellow Light — Reduce 20–30%</span>
+                                </span>
                             </div>
                             <ul class="text-sm text-gray-700 space-y-1 ml-6">
-                                <li>• 费半指数跌破20日均线</li>
-                                <li>• 单只个股仓位超过30%</li>
-                                <li>• DRAM现货价月涨幅超过30%</li>
-                                <li>• 融资余额月增速超过15%</li>
-                                <li>• 行业龙头高管开始减持</li>
+                                <li><span class="zh">• 费半指数跌破20日均线</span><span class="en">• SOX breaks below 20-day moving average</span></li>
+                                <li><span class="zh">• 单只个股仓位超过30%</span><span class="en">• Single stock position exceeds 30%</span></li>
+                                <li><span class="zh">• DRAM现货价月涨幅超过30%</span><span class="en">• DRAM spot price monthly increase exceeds 30%</span></li>
+                                <li><span class="zh">• 融资余额月增速超过15%</span><span class="en">• Margin balance monthly growth exceeds 15%</span></li>
+                                <li><span class="zh">• 行业龙头高管开始减持</span><span class="en">• Industry leaders' executives begin selling</span></li>
                             </ul>
                         </div>
                         <div class="p-3 bg-white/60 rounded-lg">
                             <div class="flex items-center gap-2 mb-2">
                                 <span class="w-4 h-4 rounded-full bg-red-500"></span>
-                                <span class="font-bold text-red-800 text-sm">🔴 红灯 —— 减仓50%以上</span>
+                                <span class="font-bold text-red-800 text-sm">
+                                    <span class="zh">🔴 红灯 —— 减仓50%以上</span>
+                                    <span class="en">🔴 Red Light — Reduce 50%+</span>
+                                </span>
                             </div>
                             <ul class="text-sm text-gray-700 space-y-1 ml-6">
-                                <li>• 费半指数跌破50日均线且放量</li>
-                                <li>• DRAM现货价格单周下跌超过10%</li>
-                                <li>• 融资余额开始下降（资金撤退）</li>
-                                <li>• "全民炒芯"——非投资者入场</li>
-                                <li>• 主要央行释放加息/收紧信号</li>
+                                <li><span class="zh">• 费半指数跌破50日均线且放量</span><span class="en">• SOX breaks below 50-day MA on heavy volume</span></li>
+                                <li><span class="zh">• DRAM现货价格单周下跌超过10%</span><span class="en">• DRAM spot price drops over 10% in a single week</span></li>
+                                <li><span class="zh">• 融资余额开始下降（资金撤退）</span><span class="en">• Margin balance begins declining (capital retreat)</span></li>
+                                <li><span class="zh">• "全民炒芯"——非投资者入场</span><span class="en">• "Everyone's trading chips" — non-investors entering</span></li>
+                                <li><span class="zh">• 主要央行释放加息/收紧信号</span><span class="en">• Major central banks signal rate hikes / tightening</span></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 卡片3: 情绪温度计 -->
+            <!-- Card 3: Sentiment Thermometer -->
             <div class="decision-card" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
                 <div class="decision-card-header" onclick="toggleDecisionCard(this)">
                     <div>
-                        <h4 class="font-bold text-lg text-gray-800">🌡️ 情绪温度计</h4>
-                        <p class="text-xs text-gray-600 mt-1">5个自检问题，测量你当前的情绪"体温"</p>
+                        <h4 class="font-bold text-lg text-gray-800">
+                            <span class="zh">🌡️ 情绪温度计</span>
+                            <span class="en">🌡️ Sentiment Thermometer</span>
+                        </h4>
+                        <p class="text-xs text-gray-600 mt-1">
+                            <span class="zh">5个自检问题，测量你当前的情绪"体温"</span>
+                            <span class="en">5 self-check questions to measure your current emotional "temperature"</span>
+                        </p>
                     </div>
-                    <span class="decision-card-toggle">展开 ↓</span>
+                    <span class="decision-card-toggle">
+                        <span class="zh">展开 ↓</span>
+                        <span class="en">Expand ↓</span>
+                    </span>
                 </div>
                 <div class="decision-card-body" style="display:none">
                     <div class="space-y-3 mt-4">
                         <div class="p-3 bg-white/60 rounded-lg">
-                            <p class="text-sm text-gray-700"><strong>1.</strong> 你最近是否因为"没有买"而感到焦虑或FOMO？</p>
+                            <p class="text-sm text-gray-700">
+                                <span class="zh"><strong>1.</strong> 你最近是否因为"没有买"而感到焦虑或FOMO？</span>
+                                <span class="en"><strong>1.</strong> Have you recently felt anxious or FOMO about "not buying"?</span>
+                            </p>
                             <div class="flex gap-2 mt-2">
-                                <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded">完全不会</span>
-                                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">偶尔</span>
-                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded">每天都焦虑</span>
+                                <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded"><span class="zh">完全不会</span><span class="en">Not at all</span></span>
+                                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded"><span class="zh">偶尔</span><span class="en">Occasionally</span></span>
+                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded"><span class="zh">每天都焦虑</span><span class="en">Every day</span></span>
                             </div>
                         </div>
                         <div class="p-3 bg-white/60 rounded-lg">
-                            <p class="text-sm text-gray-700"><strong>2.</strong> 你是否在向不炒股的朋友/家人推荐买入存储芯片？</p>
+                            <p class="text-sm text-gray-700">
+                                <span class="zh"><strong>2.</strong> 你是否在向不炒股的朋友/家人推荐买入存储芯片？</span>
+                                <span class="en"><strong>2.</strong> Are you recommending memory chip purchases to non-investing friends/family?</span>
+                            </p>
                             <div class="flex gap-2 mt-2">
-                                <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded">不会</span>
-                                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">偶尔提起</span>
-                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded">逢人就推荐</span>
+                                <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded"><span class="zh">不会</span><span class="en">No</span></span>
+                                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded"><span class="zh">偶尔提起</span><span class="en">Occasionally</span></span>
+                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded"><span class="zh">逢人就推荐</span><span class="en">To everyone</span></span>
                             </div>
                         </div>
                         <div class="p-3 bg-white/60 rounded-lg">
-                            <p class="text-sm text-gray-700"><strong>3.</strong> 当持仓下跌5%时，你能否安然入睡？</p>
+                            <p class="text-sm text-gray-700">
+                                <span class="zh"><strong>3.</strong> 当持仓下跌5%时，你能否安然入睡？</span>
+                                <span class="en"><strong>3.</strong> Can you sleep soundly when your positions drop 5%?</span>
+                            </p>
                             <div class="flex gap-2 mt-2">
-                                <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded">完全不影响</span>
-                                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">有点不安</span>
-                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded">失眠焦虑</span>
+                                <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded"><span class="zh">完全不影响</span><span class="en">No effect at all</span></span>
+                                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded"><span class="zh">有点不安</span><span class="en">Somewhat uneasy</span></span>
+                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded"><span class="zh">失眠焦虑</span><span class="en">Insomnia & anxiety</span></span>
                             </div>
                         </div>
                         <div class="p-3 bg-white/60 rounded-lg">
-                            <p class="text-sm text-gray-700"><strong>4.</strong> 你是否觉得"存储芯片不可能跌"——对此深信不疑？</p>
+                            <p class="text-sm text-gray-700">
+                                <span class="zh"><strong>4.</strong> 你是否觉得"存储芯片不可能跌"——对此深信不疑？</span>
+                                <span class="en"><strong>4.</strong> Do you firmly believe "memory chips can't possibly fall"?</span>
+                            </p>
                             <div class="flex gap-2 mt-2">
-                                <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded">保持怀疑</span>
-                                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">比较乐观</span>
-                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded">绝对信仰</span>
+                                <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded"><span class="zh">保持怀疑</span><span class="en">Stay skeptical</span></span>
+                                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded"><span class="zh">比较乐观</span><span class="en">Fairly optimistic</span></span>
+                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded"><span class="zh">绝对信仰</span><span class="en">Absolute belief</span></span>
                             </div>
                         </div>
                         <div class="p-3 bg-white/60 rounded-lg">
-                            <p class="text-sm text-gray-700"><strong>5.</strong> 你是否已经用杠杆（融资融券/期权）加仓？</p>
+                            <p class="text-sm text-gray-700">
+                                <span class="zh"><strong>5.</strong> 你是否已经用杠杆（融资融券/期权）加仓？</span>
+                                <span class="en"><strong>5.</strong> Have you already added positions using leverage (margin/options)?</span>
+                            </p>
                             <div class="flex gap-2 mt-2">
-                                <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded">没有</span>
-                                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded">少量</span>
-                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded">大比例杠杆</span>
+                                <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded"><span class="zh">没有</span><span class="en">No</span></span>
+                                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded"><span class="zh">少量</span><span class="en">A little</span></span>
+                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded"><span class="zh">大比例杠杆</span><span class="en">Heavy leverage</span></span>
                             </div>
                         </div>
                     </div>
                     <div class="mt-4 p-3 bg-white/50 rounded-lg">
-                        <p class="text-xs text-gray-600"><strong>解读：</strong>如果5题中有3题以上选了红色选项 → 你的情绪已经"过热"，这本身就是最危险的信号。历史告诉我们：当所有人都觉得"不可能跌"的时候，往往就是最接近下跌的时刻。</p>
+                        <p class="text-xs text-gray-600">
+                            <span class="zh"><strong>解读：</strong>如果5题中有3题以上选了红色选项 → 你的情绪已经"过热"，这本身就是最危险的信号。历史告诉我们：当所有人都觉得"不可能跌"的时候，往往就是最接近下跌的时刻。</span>
+                            <span class="en"><strong>Interpretation:</strong> If 3+ out of 5 questions have red answers → your emotions are already "overheated," which in itself is the most dangerous signal. History tells us: when everyone feels "it can't possibly fall," that is often the moment closest to a decline.</span>
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- 卡片4: 历史对照速查表 -->
+            <!-- Card 4: Historical Comparison -->
             <div class="decision-card" style="background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);">
                 <div class="decision-card-header" onclick="toggleDecisionCard(this)">
                     <div>
-                        <h4 class="font-bold text-lg text-gray-800">📊 历史对照速查表</h4>
-                        <p class="text-xs text-gray-600 mt-1">1987年 vs 2026年：关键指标横向对比</p>
+                        <h4 class="font-bold text-lg text-gray-800">
+                            <span class="zh">📊 历史对照速查表</span>
+                            <span class="en">📊 Historical Comparison Quick Reference</span>
+                        </h4>
+                        <p class="text-xs text-gray-600 mt-1">
+                            <span class="zh">1987年 vs 2026年：关键指标横向对比</span>
+                            <span class="en">1987 vs 2026: Key Indicators Side by Side</span>
+                        </p>
                     </div>
-                    <span class="decision-card-toggle">展开 ↓</span>
+                    <span class="decision-card-toggle">
+                        <span class="zh">展开 ↓</span>
+                        <span class="en">Expand ↓</span>
+                    </span>
                 </div>
                 <div class="decision-card-body" style="display:none">
                     <div class="mt-4 overflow-x-auto">
                         <table class="w-full text-sm border-collapse">
                             <thead>
                                 <tr class="bg-white/50">
-                                    <th class="text-left p-2 font-bold text-gray-800 border-b">指标</th>
-                                    <th class="text-center p-2 font-bold text-gray-800 border-b">1987年</th>
-                                    <th class="text-center p-2 font-bold text-gray-800 border-b">2026年</th>
-                                    <th class="text-center p-2 font-bold text-gray-800 border-b">相似度</th>
+                                    <th class="text-left p-2 font-bold text-gray-800 border-b"><span class="zh">指标</span><span class="en">Indicator</span></th>
+                                    <th class="text-center p-2 font-bold text-gray-800 border-b">1987</th>
+                                    <th class="text-center p-2 font-bold text-gray-800 border-b">2026</th>
+                                    <th class="text-center p-2 font-bold text-gray-800 border-b"><span class="zh">相似度</span><span class="en">Similarity</span></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="bg-white/30">
-                                    <td class="p-2 text-gray-700 border-b">市场PE</td>
+                                    <td class="p-2 text-gray-700 border-b"><span class="zh">市场PE</span><span class="en">Market P/E</span></td>
                                     <td class="p-2 text-center border-b">S&P 500 PE 22.5x</td>
-                                    <td class="p-2 text-center border-b">费半指数 26x</td>
-                                    <td class="p-2 text-center border-b"><span class="text-red-600 font-bold">🔴 高</span></td>
+                                    <td class="p-2 text-center border-b">SOX 26x</td>
+                                    <td class="p-2 text-center border-b"><span class="text-red-600 font-bold"><span class="zh">🔴 高</span><span class="en">🔴 High</span></span></td>
                                 </tr>
                                 <tr>
-                                    <td class="p-2 text-gray-700 border-b">散户参与度</td>
-                                    <td class="p-2 text-center border-b">"全民炒股"热潮</td>
-                                    <td class="p-2 text-center border-b">"全民炒芯"热潮</td>
-                                    <td class="p-2 text-center border-b"><span class="text-red-600 font-bold">🔴 高</span></td>
+                                    <td class="p-2 text-gray-700 border-b"><span class="zh">散户参与度</span><span class="en">Retail Participation</span></td>
+                                    <td class="p-2 text-center border-b"><span class="zh">"全民炒股"热潮</span><span class="en">"Everyone trades stocks" frenzy</span></td>
+                                    <td class="p-2 text-center border-b"><span class="zh">"全民炒芯"热潮</span><span class="en">"Everyone trades chips" frenzy</span></td>
+                                    <td class="p-2 text-center border-b"><span class="text-red-600 font-bold"><span class="zh">🔴 高</span><span class="en">🔴 High</span></span></td>
                                 </tr>
                                 <tr class="bg-white/30">
-                                    <td class="p-2 text-gray-700 border-b">程序化交易占比</td>
-                                    <td class="p-2 text-center border-b">~40%抛盘来自算法</td>
-                                    <td class="p-2 text-center border-b">量化+被动基金占60%+</td>
-                                    <td class="p-2 text-center border-b"><span class="text-red-600 font-bold">🔴 更高</span></td>
+                                    <td class="p-2 text-gray-700 border-b"><span class="zh">程序化交易占比</span><span class="en">Algorithmic Trading Share</span></td>
+                                    <td class="p-2 text-center border-b"><span class="zh">~40%抛盘来自算法</span><span class="en">~40% of selling from algorithms</span></td>
+                                    <td class="p-2 text-center border-b"><span class="zh">量化+被动基金占60%+</span><span class="en">Quant + passive funds at 60%+</span></td>
+                                    <td class="p-2 text-center border-b"><span class="text-red-600 font-bold"><span class="zh">🔴 更高</span><span class="en">🔴 Even Higher</span></span></td>
                                 </tr>
                                 <tr>
-                                    <td class="p-2 text-gray-700 border-b">央行动作</td>
-                                    <td class="p-2 text-center border-b">格林斯潘立即注入流动性</td>
-                                    <td class="p-2 text-center border-b">沃什激进鹰派，拒绝降息</td>
-                                    <td class="p-2 text-center border-b"><span class="text-yellow-600 font-bold">🟡 不同</span></td>
+                                    <td class="p-2 text-gray-700 border-b"><span class="zh">央行动作</span><span class="en">Central Bank Action</span></td>
+                                    <td class="p-2 text-center border-b"><span class="zh">格林斯潘立即注入流动性</span><span class="en">Greenspan immediately injected liquidity</span></td>
+                                    <td class="p-2 text-center border-b"><span class="zh">沃什激进鹰派，拒绝降息</span><span class="en">Warsh aggressively hawkish, refuses to cut</span></td>
+                                    <td class="p-2 text-center border-b"><span class="text-yellow-600 font-bold"><span class="zh">🟡 不同</span><span class="en">🟡 Different</span></span></td>
                                 </tr>
                                 <tr class="bg-white/30">
-                                    <td class="p-2 text-gray-700 border-b">国际资金流向</td>
-                                    <td class="p-2 text-center border-b">外资因美元贬值而撤离</td>
-                                    <td class="p-2 text-center border-b">韩股外资净流出636亿美元</td>
-                                    <td class="p-2 text-center border-b"><span class="text-red-600 font-bold">🔴 高</span></td>
+                                    <td class="p-2 text-gray-700 border-b"><span class="zh">国际资金流向</span><span class="en">International Capital Flows</span></td>
+                                    <td class="p-2 text-center border-b"><span class="zh">外资因美元贬值而撤离</span><span class="en">Foreign capital fled due to dollar weakness</span></td>
+                                    <td class="p-2 text-center border-b"><span class="zh">韩股外资净流出636亿美元</span><span class="en">Korean stocks: $63.6B net foreign outflows</span></td>
+                                    <td class="p-2 text-center border-b"><span class="text-red-600 font-bold"><span class="zh">🔴 高</span><span class="en">🔴 High</span></span></td>
                                 </tr>
                                 <tr>
-                                    <td class="p-2 text-gray-700 border-b">行业集中度</td>
-                                    <td class="p-2 text-center border-b">科技股占市值40%+</td>
-                                    <td class="p-2 text-center border-b">AI+存储占半导体70%+</td>
-                                    <td class="p-2 text-center border-b"><span class="text-red-600 font-bold">🔴 更高</span></td>
+                                    <td class="p-2 text-gray-700 border-b"><span class="zh">行业集中度</span><span class="en">Sector Concentration</span></td>
+                                    <td class="p-2 text-center border-b"><span class="zh">科技股占市值40%+</span><span class="en">Tech stocks 40%+ of market cap</span></td>
+                                    <td class="p-2 text-center border-b"><span class="zh">AI+存储占半导体70%+</span><span class="en">AI+memory 70%+ of semiconductors</span></td>
+                                    <td class="p-2 text-center border-b"><span class="text-red-600 font-bold"><span class="zh">🔴 更高</span><span class="en">🔴 Even Higher</span></span></td>
                                 </tr>
                                 <tr class="bg-white/30">
-                                    <td class="p-2 text-gray-700 border-b">长协订单保护</td>
-                                    <td class="p-2 text-center border-b">无长协锁定</td>
-                                    <td class="p-2 text-center border-b">3-5年长协锁定营收</td>
-                                    <td class="p-2 text-center border-b"><span class="text-green-600 font-bold">🟢 2026更优</span></td>
+                                    <td class="p-2 text-gray-700 border-b"><span class="zh">长协订单保护</span><span class="en">Long-term Contract Protection</span></td>
+                                    <td class="p-2 text-center border-b"><span class="zh">无长协锁定</span><span class="en">No long-term contracts</span></td>
+                                    <td class="p-2 text-center border-b"><span class="zh">3-5年长协锁定营收</span><span class="en">3–5 year contracts lock revenue</span></td>
+                                    <td class="p-2 text-center border-b"><span class="text-green-600 font-bold"><span class="zh">🟢 2026更优</span><span class="en">🟢 Better in 2026</span></span></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="mt-4 p-3 bg-white/50 rounded-lg">
-                        <p class="text-xs text-gray-600"><strong>结论：</strong>7项指标中，5项高度相似或更严重，1项不同（央行态度更鹰），1项2026年更优（长协保护）。综合评分：泡沫风险 <strong class="text-red-600">7/10</strong>。</p>
+                        <p class="text-xs text-gray-600">
+                            <span class="zh"><strong>结论：</strong>7项指标中，5项高度相似或更严重，1项不同（央行态度更鹰），1项2026年更优（长协保护）。综合评分：泡沫风险 <strong class="text-red-600">7/10</strong>。</span>
+                            <span class="en"><strong>Conclusion:</strong> Of 7 indicators, 5 are highly similar or worse, 1 is different (central bank stance more hawkish), 1 is better in 2026 (long-term contract protection). Overall score: bubble risk <strong class="text-red-600">7/10</strong>.</span>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="divider">🧪 样本外检验</div>
+        <div class="divider">
+            <span class="zh">🧪 样本外检验</span>
+            <span class="en">🧪 Out-of-Sample Test</span>
+        </div>
 
-        <!-- 样本外检验投票区 -->
+        <!-- Experiment voting area -->
         <div class="experiment-box">
-            <h3 class="font-bold text-xl mb-4 serif text-center">"流动性驱动泡沫周期律"的2026复测</h3>
+            <h3 class="font-bold text-xl mb-4 serif text-center">
+                <span class="zh">"流动性驱动泡沫周期律"的2026复测</span>
+                <span class="en">2026 Retest of the "Liquidity-Driven Bubble Cycle Law"</span>
+            </h3>
             
             <div class="bg-white/70 p-4 rounded-lg mb-6">
-                <h4 class="font-bold text-gray-700 mb-2">【实验原理】</h4>
+                <h4 class="font-bold text-gray-700 mb-2">
+                    <span class="zh">【实验原理】</span>
+                    <span class="en">[Experimental Principle]</span>
+                </h4>
                 <p class="text-gray-600 text-sm">
-                    我们从1987年"黑色星期一"的历史案例中，提炼出了<span class="text-purple-600 font-medium">"流动性驱动泡沫周期律"</span>：当某一资产类别在极短时间内市值翻倍，且上涨主要由"机构被动配置"而非"基本面超预期"驱动时，往往意味着泡沫接近顶部。因为流动性驱动上涨的本质是"钱推起来的"，机构被动配置形成"正反馈循环"——涨越多→被动买越多→涨更多，直到流动性枯竭。这个规律在A股历史上多次验证：2007年"五朵金花"、2015年"互联网+"、2021年"茅指数"，都遵循这一规律。
+                    <span class="zh">我们从1987年"黑色星期一"的历史案例中，提炼出了<span class="text-purple-600 font-medium">"流动性驱动泡沫周期律"</span>：当某一资产类别在极短时间内市值翻倍，且上涨主要由"机构被动配置"而非"基本面超预期"驱动时，往往意味着泡沫接近顶部。因为流动性驱动上涨的本质是"钱推起来的"，机构被动配置形成"正反馈循环"——涨越多→被动买越多→涨更多，直到流动性枯竭。这个规律在A股历史上多次验证：2007年"五朵金花"、2015年"互联网+"、2021年"茅指数"，都遵循这一规律。</span>
+                    <span class="en">From the historical case of "Black Monday" 1987, we distilled the <span class="text-purple-600 font-medium">"Liquidity-Driven Bubble Cycle Law"</span>: when an asset class doubles in market value in a very short time, and the rally is driven primarily by "passive institutional allocation" rather than "fundamentals beating expectations," it typically signals an approaching bubble top. The essence of liquidity-driven rallies is "money pushing it up" — passive institutional allocation creates a "positive feedback loop" — the more it rises → the more passive buying → the more it rises — until liquidity runs dry. This pattern has been validated repeatedly in A-share history: the "Five Golden Flowers" of 2007, "Internet+" of 2015, and the "Moutai Index" of 2021 all followed this pattern.</span>
                 </p>
             </div>
 
             <div class="mb-4">
-                <h4 class="font-bold text-gray-800 text-lg mb-2">【实验问题】</h4>
-                <p class="text-gray-700">基于"流动性驱动泡沫周期律"，未来4周存储芯片板块将如何演绎？</p>
+                <h4 class="font-bold text-gray-800 text-lg mb-2">
+                    <span class="zh">【实验问题】</span>
+                    <span class="en">[Experimental Question]</span>
+                </h4>
+                <p class="text-gray-700">
+                    <span class="zh">基于"流动性驱动泡沫周期律"，未来4周存储芯片板块将如何演绎？</span>
+                    <span class="en">Based on the "Liquidity-Driven Bubble Cycle Law," how will the memory chip sector unfold over the next 4 weeks?</span>
+                </p>
             </div>
 
             <div class="space-y-3" id="experiment-voting">
@@ -940,8 +1158,14 @@
                     <div class="flex items-start gap-3">
                         <span class="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-sm shrink-0">A</span>
                         <div>
-                            <p class="font-medium">泡沫继续膨胀 —— 存储芯片继续创新高，AI叙事主导市场</p>
-                            <p class="text-sm text-green-600 mt-1">→ 验证结论：<strong>历史规律部分成立</strong>，AI需求持续验证，长协订单锁定业绩，存储芯片继续享受估值溢价。但上涨越来越依赖"流动性"而非"基本面"。</p>
+                            <p class="font-medium">
+                                <span class="zh">泡沫继续膨胀 —— 存储芯片继续创新高，AI叙事主导市场</span>
+                                <span class="en">Bubble Continues Expanding — Memory chips hit new highs, AI narrative dominates</span>
+                            </p>
+                            <p class="text-sm text-green-600 mt-1">
+                                <span class="zh">→ 验证结论：<strong>历史规律部分成立</strong>，AI需求持续验证，长协订单锁定业绩，存储芯片继续享受估值溢价。但上涨越来越依赖"流动性"而非"基本面"。</span>
+                                <span class="en">→ Validation: <strong>Historical pattern partially holds</strong> — AI demand continues to be validated, long-term contracts lock in earnings, memory chips continue to enjoy valuation premium. But the rally increasingly relies on "liquidity" rather than "fundamentals."</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -950,8 +1174,14 @@
                     <div class="flex items-start gap-3">
                         <span class="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm shrink-0">B</span>
                         <div>
-                            <p class="font-medium">泡沫开始消化 —— 存储芯片高位震荡，资金向其他板块轮动</p>
-                            <p class="text-sm text-blue-600 mt-1">→ 验证结论：<strong>历史规律成立</strong>，存储芯片进入"鱼尾行情"——最后的涨幅最诱人，也最危险。市场从"AI独大"变为"AI+防御"双主线。</p>
+                            <p class="font-medium">
+                                <span class="zh">泡沫开始消化 —— 存储芯片高位震荡，资金向其他板块轮动</span>
+                                <span class="en">Bubble Begins Digesting — Memory chips consolidate at highs, capital rotates to other sectors</span>
+                            </p>
+                            <p class="text-sm text-blue-600 mt-1">
+                                <span class="zh">→ 验证结论：<strong>历史规律成立</strong>，存储芯片进入"鱼尾行情"——最后的涨幅最诱人，也最危险。市场从"AI独大"变为"AI+防御"双主线。</span>
+                                <span class="en">→ Validation: <strong>Historical pattern holds</strong> — Memory chips enter the "fish tail phase" — the final gains are the most tempting and also the most dangerous. The market shifts from "AI dominance" to a dual "AI + defense" mainline.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -960,8 +1190,14 @@
                     <div class="flex items-start gap-3">
                         <span class="w-6 h-6 rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-sm shrink-0">C</span>
                         <div>
-                            <p class="font-medium">泡沫破裂 —— 存储芯片大幅回调，上演"黑色星期一"</p>
-                            <p class="text-sm text-yellow-600 mt-1">→ 验证结论：<strong>历史规律超预期成立</strong>，存储芯片出现踩踏式下跌，单日跌幅超10%。触发因素可能是韩元贬值、央行意外加息或"黑天鹅"事件。</p>
+                            <p class="font-medium">
+                                <span class="zh">泡沫破裂 —— 存储芯片大幅回调，上演"黑色星期一"</span>
+                                <span class="en">Bubble Bursts — Memory chips crash hard, replaying "Black Monday"</span>
+                            </p>
+                            <p class="text-sm text-yellow-600 mt-1">
+                                <span class="zh">→ 验证结论：<strong>历史规律超预期成立</strong>，存储芯片出现踩踏式下跌，单日跌幅超10%。触发因素可能是韩元贬值、央行意外加息或"黑天鹅"事件。</span>
+                                <span class="en">→ Validation: <strong>Historical pattern exceeds expectations</strong> — Memory chips experience a stampede-style crash, with single-day drops exceeding 10%. Triggers could include won depreciation, unexpected central bank rate hikes, or a "black swan" event.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -970,8 +1206,14 @@
                     <div class="flex items-start gap-3">
                         <span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-sm shrink-0">D</span>
                         <div>
-                            <p class="font-medium">估值中枢重构 —— 存储芯片从周期股变为成长股</p>
-                            <p class="text-sm text-red-600 mt-1">→ 验证结论：<strong>历史规律失效</strong>，长协订单模式被市场充分认可，存储芯片完成从"强周期"向"稳定成长"的估值重构，高位整固后继续上涨。</p>
+                            <p class="font-medium">
+                                <span class="zh">估值中枢重构 —— 存储芯片从周期股变为成长股</span>
+                                <span class="en">Valuation Paradigm Shift — Memory chips transform from cyclical to growth stocks</span>
+                            </p>
+                            <p class="text-sm text-red-600 mt-1">
+                                <span class="zh">→ 验证结论：<strong>历史规律失效</strong>，长协订单模式被市场充分认可，存储芯片完成从"强周期"向"稳定成长"的估值重构，高位整固后继续上涨。</span>
+                                <span class="en">→ Validation: <strong>Historical pattern fails</strong> — The long-term contract model is fully recognized by the market, memory chips complete a valuation reset from "strongly cyclical" to "stable growth," consolidating at high levels before continuing higher.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -979,29 +1221,42 @@
 
             <div class="mt-6 text-center">
                 <div class="text-gray-500 text-sm mb-2">
-                    📅 实验揭榜时间：<strong class="text-purple-600">2026年8月16日（1个月后）</strong>
+                    <span class="zh">📅 实验揭榜时间：<strong class="text-purple-600">2026年8月16日（1个月后）</strong></span>
+                    <span class="en">📅 Experiment reveal date: <strong class="text-purple-600">August 16, 2026 (in 1 month)</strong></span>
                 </div>
                 <div class="mt-4 p-3 bg-gradient-to-r from-yellow-100 to-amber-100 rounded-lg inline-block">
-                    <span class="text-amber-700 text-sm">🔓 完成两次投票，解锁你的专属"投资大佬画像"</span>
+                    <span class="text-amber-700 text-sm">
+                        <span class="zh">🔓 完成两次投票，解锁你的专属"投资大佬画像"</span>
+                        <span class="en">🔓 Complete both polls to unlock your personalized "Investor Titan Profile"</span>
+                    </span>
                 </div>
             </div>
         </div>
 
-        <!-- 实验投票结果区 -->
+        <!-- Experiment results area -->
         <div id="exp-result-area" style="display:none;">
             <div class="text-center mt-4 mb-2">
-                <span class="text-green-600 font-medium">✓ 你的预测已记录！</span>
+                <span class="text-green-600 font-medium">
+                    <span class="zh">✓ 你的预测已记录！</span>
+                    <span class="en">✓ Your prediction has been recorded!</span>
+                </span>
             </div>
             <div class="vote-stats-card">
                 <div class="flex items-center justify-between mb-3">
-                    <span class="font-bold text-gray-700">📊 预测投票统计</span>
-                    <span id="exp-total" class="text-sm text-gray-500">加载中...</span>
+                    <span class="font-bold text-gray-700">
+                        <span class="zh">📊 预测投票统计</span>
+                        <span class="en">📊 Prediction Vote Statistics</span>
+                    </span>
+                    <span id="exp-total" class="text-sm text-gray-500">
+                        <span class="zh">加载中...</span>
+                        <span class="en">Loading...</span>
+                    </span>
                 </div>
                 <div id="exp-stats"></div>
             </div>
         </div>
 
-        <!-- 人物画像结果区域 -->
+        <!-- Personality result area -->
         <div id="personality-result"></div>
         <div id="personality-card" style="display:none; margin: 3rem 0;">
             <div class="bg-gradient-to-r from-amber-100 via-yellow-50 to-orange-100 p-8 rounded-2xl text-center shadow-lg">
@@ -1009,98 +1264,165 @@
                 <h3 id="personality-name" class="text-2xl md:text-3xl font-bold serif text-amber-800 mb-4"></h3>
                 <p id="personality-desc" class="text-gray-700 leading-relaxed text-lg"></p>
                 <div class="mt-6 text-sm text-amber-600">
-                    ✨ 感谢你参与本期历史实验室！我们下期再见
+                    <span class="zh">✨ 感谢你参与本期历史实验室！我们下期再见</span>
+                    <span class="en">✨ Thank you for participating in this issue of History Lab! See you next time</span>
                 </div>
             </div>
         </div>
 
-        <div class="divider">📊 上期实验结果</div>
+        <div class="divider">
+            <span class="zh">📊 上期实验结果</span>
+            <span class="en">📊 Previous Episode Results</span>
+        </div>
 
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
-            第1期：沃尔克时刻1979
+            <span class="zh">第1期：沃尔克时刻1979</span>
+            <span class="en">Episode 1: The Volcker Moment 1979</span>
         </h2>
 
         <div class="bg-gray-50 p-5 rounded-lg border border-gray-200 mt-4">
-            <h4 class="font-bold text-gray-800 mb-3">【上一期实验】"通胀粘性→央行强硬→市场误判→超预期紧缩"规律的2026复测</h4>
-            <p class="text-gray-600 text-sm mb-4">实验问题：6月18日FOMC会议后，美联储将释放什么信号？</p>
+            <h4 class="font-bold text-gray-800 mb-3">
+                <span class="zh">【上一期实验】"通胀粘性→央行强硬→市场误判→超预期紧缩"规律的2026复测</span>
+                <span class="en">[Previous Experiment] 2026 Retest of "Sticky Inflation → Hawkish Central Bank → Market Misjudgment → Unexpected Tightening"</span>
+            </h4>
+            <p class="text-gray-600 text-sm mb-4">
+                <span class="zh">实验问题：6月18日FOMC会议后，美联储将释放什么信号？</span>
+                <span class="en">Experimental question: After the June 18 FOMC meeting, what signal will the Fed send?</span>
+            </p>
             
             <div class="space-y-2 mb-4">
                 <div class="flex items-center gap-2">
-                    <span class="text-sm font-medium w-40">A. 鹰派信号</span>
+                    <span class="text-sm font-medium w-40"><span class="zh">A. 鹰派信号</span><span class="en">A. Hawkish Signal</span></span>
                     <div class="flex-1 vote-bar-bg"><div class="vote-bar-fill" style="width:28%;background:#10b981"></div></div>
                     <span class="text-sm text-gray-500 font-bold">28% ✓</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <span class="text-sm font-medium w-40">B. 鸽派暂停</span>
+                    <span class="text-sm font-medium w-40"><span class="zh">B. 鸽派暂停</span><span class="en">B. Dovish Pause</span></span>
                     <div class="flex-1 vote-bar-bg"><div class="vote-bar-fill" style="width:35%;background:#3b82f6"></div></div>
                     <span class="text-sm text-gray-500">35%</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <span class="text-sm font-medium w-40">C. 转向宽松</span>
+                    <span class="text-sm font-medium w-40"><span class="zh">C. 转向宽松</span><span class="en">C. Pivot to Easing</span></span>
                     <div class="flex-1 vote-bar-bg"><div class="vote-bar-fill" style="width:22%;background:#f59e0b"></div></div>
                     <span class="text-sm text-gray-500">22%</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <span class="text-sm font-medium w-40">D. 超预期鹰派</span>
+                    <span class="text-sm font-medium w-40"><span class="zh">D. 超预期鹰派</span><span class="en">D. Surprisingly Hawkish</span></span>
                     <div class="flex-1 vote-bar-bg"><div class="vote-bar-fill" style="width:15%;background:#ef4444"></div></div>
                     <span class="text-sm text-gray-500">15%</span>
                 </div>
             </div>
 
             <div class="bg-green-50 p-4 rounded-lg border border-green-100">
-                <p class="text-green-800 font-bold mb-2">✅ 实验结论：选项A"鹰派信号"正确——且实际比预期更鹰</p>
-                <p class="text-green-700 text-sm mb-3">6月18日凌晨，新任美联储主席沃什（Kevin Warsh）的首秀给出了一份远超市场预期的鹰派答卷：</p>
+                <p class="text-green-800 font-bold mb-2">
+                    <span class="zh">✅ 实验结论：选项A"鹰派信号"正确——且实际比预期更鹰</span>
+                    <span class="en">✅ Experiment Conclusion: Option A "Hawkish Signal" was correct — and the reality was even more hawkish than expected</span>
+                </p>
+                <p class="text-green-700 text-sm mb-3">
+                    <span class="zh">6月18日凌晨，新任美联储主席沃什（Kevin Warsh）的首秀给出了一份远超市场预期的鹰派答卷：</span>
+                    <span class="en">In the early hours of June 18, new Fed Chair Kevin Warsh's debut delivered a far more hawkish outcome than the market expected:</span>
+                </p>
                 <ul class="text-green-700 text-sm space-y-1 ml-4">
-                    <li>• 利率维持3.50%-3.75%不变（连续第四次暂停），12:0全票通过</li>
-                    <li>• 声明从<strong>341词暴砍至130词</strong>，缩水超60%，彻底删除前瞻指引和降息倾向</li>
-                    <li>• 点阵图：18位委员中<strong>9位预计年内加息</strong>（6位预计至少加息2次），仅1人支持降息</li>
-                    <li>• 沃什本人<strong>拒绝提交点阵图预测</strong>——14年来首位不交"作业"的主席，直言点阵图"带着大橡皮擦"，对政策执行"没有帮助"</li>
-                    <li>• PCE通胀预测从2.7%猛升至<strong>3.6%</strong>，核心PCE同步上调至3.3%</li>
-                    <li>• 宣布成立<strong>五大改革工作组</strong>（沟通机制、资产负债表、数据来源、生产率与AI、通胀框架），年底前完成</li>
-                    <li>• 沃什正式宣布<strong>放弃前瞻性指引</strong>，称其"不适合当前政策组合"</li>
+                    <li>
+                        <span class="zh">• 利率维持3.50%-3.75%不变（连续第四次暂停），12:0全票通过</span>
+                        <span class="en">• Rates held at 3.50%–3.75% (fourth consecutive pause), unanimous 12-0 vote</span>
+                    </li>
+                    <li>
+                        <span class="zh">• 声明从<strong>341词暴砍至130词</strong>，缩水超60%，彻底删除前瞻指引和降息倾向</span>
+                        <span class="en">• Statement slashed from <strong>341 words to 130</strong>, cut by over 60%, completely removing forward guidance and rate-cut language</span>
+                    </li>
+                    <li>
+                        <span class="zh">• 点阵图：18位委员中<strong>9位预计年内加息</strong>（6位预计至少加息2次），仅1人支持降息</span>
+                        <span class="en">• Dot plot: of 18 members, <strong>9 expect rate hikes this year</strong> (6 expect at least 2 hikes), only 1 supports cuts</span>
+                    </li>
+                    <li>
+                        <span class="zh">• 沃什本人<strong>拒绝提交点阵图预测</strong>——14年来首位不交"作业"的主席，直言点阵图"带着大橡皮擦"，对政策执行"没有帮助"</span>
+                        <span class="en">• Warsh himself <strong>refused to submit dot plot projections</strong> — first chair in 14 years not to turn in "homework," saying the dot plot "comes with a big eraser" and is "not helpful" for policy execution</span>
+                    </li>
+                    <li>
+                        <span class="zh">• PCE通胀预测从2.7%猛升至<strong>3.6%</strong>，核心PCE同步上调至3.3%</span>
+                        <span class="en">• PCE inflation forecast surged from 2.7% to <strong>3.6%</strong>, core PCE raised to 3.3%</span>
+                    </li>
+                    <li>
+                        <span class="zh">• 宣布成立<strong>五大改革工作组</strong>（沟通机制、资产负债表、数据来源、生产率与AI、通胀框架），年底前完成</span>
+                        <span class="en">• Announced <strong>five major reform working groups</strong> (communication, balance sheet, data sources, productivity & AI, inflation framework), to complete by year-end</span>
+                    </li>
+                    <li>
+                        <span class="zh">• 沃什正式宣布<strong>放弃前瞻性指引</strong>，称其"不适合当前政策组合"</span>
+                        <span class="en">• Warsh officially announced <strong>abandonment of forward guidance</strong>, calling it "unsuitable for the current policy mix"</span>
+                    </li>
                 </ul>
-                <p class="text-green-700 text-sm mt-3"><strong>市场反应：</strong>标普500跌1.21%、纳指跌1.34%；2年期美债收益率跳升15bp至4.22%；黄金暴跌150美元；美元指数飙升至100.4。CME利率期货定价年内加息1.5次，首次加息时点前移至9月。</p>
-                <p class="text-green-800 text-sm mt-2 font-medium">→ 沃尔克规律完美验证：通胀粘性被证实（PCE上调至3.6%），央行果断强硬（废除前瞻指引、半数委员准备加息），市场严重误判（35%的读者选了"鸽派暂停"），"超预期紧缩"正在兑现。</p>
+                <p class="text-green-700 text-sm mt-3">
+                    <span class="zh"><strong>市场反应：</strong>标普500跌1.21%、纳指跌1.34%；2年期美债收益率跳升15bp至4.22%；黄金暴跌150美元；美元指数飙升至100.4。CME利率期货定价年内加息1.5次，首次加息时点前移至9月。</span>
+                    <span class="en"><strong>Market reaction:</strong> S&P 500 fell 1.21%, Nasdaq fell 1.34%; 2-year Treasury yield jumped 15bp to 4.22%; gold plunged $150; dollar index surged to 100.4. CME rate futures priced in 1.5 hikes this year, with the first moved forward to September.</span>
+                </p>
+                <p class="text-green-800 text-sm mt-2 font-medium">
+                    <span class="zh">→ 沃尔克规律完美验证：通胀粘性被证实（PCE上调至3.6%），央行果断强硬（废除前瞻指引、半数委员准备加息），市场严重误判（35%的读者选了"鸽派暂停"），"超预期紧缩"正在兑现。</span>
+                    <span class="en">→ Volcker pattern perfectly validated: sticky inflation confirmed (PCE raised to 3.6%), central bank decisively hawkish (abolished forward guidance, half of committee ready to hike), market severely misjudged (35% of readers chose "dovish pause"), "unexpected tightening" is materializing.</span>
+                </p>
             </div>
         </div>
 
+    </div> <!-- end main content -->
 
-    </div>
-
-
-        <div class="divider">✦ ✦ ✦</div>
+        <div class="divider">
+            <span class="zh">✦ ✦ ✦</span>
+            <span class="en">✦ ✦ ✦</span>
+        </div>
 
         <div class="bg-gradient-to-br from-indigo-900 via-purple-900 to-indigo-800 text-white p-8 md:p-12 rounded-2xl shadow-2xl">
             <div class="text-center max-w-2xl mx-auto">
-                <h3 class="text-2xl md:text-3xl font-bold serif mb-4 leading-tight">在历史的十字路口，<br>做一个清醒的决策者</h3>
-                <p class="text-purple-200 text-sm mb-8">用历史的光芒，照亮当下的迷雾。不贩卖焦虑，不预测未来——只提供思考的框架。</p>
+                <h3 class="text-2xl md:text-3xl font-bold serif mb-4 leading-tight">
+                    <span class="zh">在历史的十字路口，<br>做一个清醒的决策者</span>
+                    <span class="en">At history's crossroads,<br>be a clear-eyed decision-maker</span>
+                </h3>
+                <p class="text-purple-200 text-sm mb-8">
+                    <span class="zh">用历史的光芒，照亮当下的迷雾。不贩卖焦虑，不预测未来——只提供思考的框架。</span>
+                    <span class="en">Illuminating the present fog with history's light. No fear-mongering, no predicting the future — just frameworks for thinking.</span>
+                </p>
 
                 <div class="bg-white/10 backdrop-blur p-5 rounded-xl mb-8">
-                    <p class="font-bold text-purple-200 text-sm mb-3">📚 往期精选</p>
+                    <p class="font-bold text-purple-200 text-sm mb-3">
+                        <span class="zh">📚 往期精选</span>
+                        <span class="en">📚 Past Issues</span>
+                    </p>
                     <a href="https://rosehsuxw.github.io/history-lab/" target="_blank" class="flex items-center gap-4 no-underline group hover:bg-white/10 rounded-lg p-2 -m-2 transition-all duration-300" style="text-decoration:none;">
                         <div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg flex items-center justify-center text-xl font-bold shrink-0 group-hover:scale-110 transition-transform">1</div>
                         <div>
-                            <p class="font-bold text-white group-hover:text-amber-300 transition-colors">第1期：沃尔克时刻1979 ↗</p>
-                            <p class="text-purple-200 text-xs mt-1">当新任美联储主席沃什的首秀震惊全球——通胀粘性、央行强硬、市场误判的三角博弈</p>
+                            <p class="font-bold text-white group-hover:text-amber-300 transition-colors">
+                                <span class="zh">第1期：沃尔克时刻1979 ↗</span>
+                                <span class="en">Episode 1: The Volcker Moment 1979 ↗</span>
+                            </p>
+                            <p class="text-purple-200 text-xs mt-1">
+                                <span class="zh">当新任美联储主席沃什的首秀震惊全球——通胀粘性、央行强硬、市场误判的三角博弈</span>
+                                <span class="en">When the new Fed Chair's debut shocked the world — the triangular game of sticky inflation, central bank resolve, and market misjudgment</span>
+                            </p>
                         </div>
                     </a>
                 </div>
             </div>
         </div>
 
-    <!-- 底部 -->
+    <!-- Footer -->
     <div class="bg-gray-800 text-white text-center py-8 px-4">
-        <p class="text-lg serif font-medium mb-2">历史实验室</p>
-        <p class="text-gray-400 text-sm italic">在历史的十字路口寻找答案</p>
+        <p class="text-lg serif font-medium mb-2">
+            <span class="zh">历史实验室</span>
+            <span class="en">History Lab</span>
+        </p>
+        <p class="text-gray-400 text-sm italic">
+            <span class="zh">在历史的十字路口寻找答案</span>
+            <span class="en">Finding answers at history's crossroads</span>
+        </p>
         <div class="mt-6">
             <button onclick="resetVotes()" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm transition-all">
-                🔄 重置我的投票（重新体验）
+                <span class="zh">🔄 重置我的投票（重新体验）</span>
+                <span class="en">🔄 Reset My Votes (Re-experience)</span>
             </button>
         </div>
     </div>
 
     <script>
-        // ============ Supabase 配置 ============
+        // ============ Supabase Config ============
         const SUPABASE_URL = 'https://vucpxdmipdxyhixofwkn.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_CgD0jiGAgl56bTfW0BBwfw_NIRtY2ZM';
         const EPISODE_ID = 'memory_chip_1987';
@@ -1110,10 +1432,10 @@
         try {
             db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         } catch(e) {
-            console.warn('Supabase SDK 加载失败，将使用纯本地模式', e);
+            console.warn('Supabase SDK failed to load, using local-only mode', e);
         }
 
-        // ============ 本地用户状态 ============
+        // ============ Local User State ============
         let userState = {
             hasVotedChoice: false,
             hasVotedExperiment: false,
@@ -1130,42 +1452,39 @@
             localStorage.setItem(STORAGE_KEY, JSON.stringify(userState));
         }
 
-        // ============ 颜色与标签映射 ============
-        const choiceLabels = { A: 'A · 顺势满仓', B: 'B · 技术减仓', C: 'C · 逆向清仓', D: 'D · 反向对冲' };
-        const expLabels = { A: 'A · 泡沫继续膨胀', B: 'B · 泡沫开始消化', C: 'C · 泡沫破裂', D: 'D · 估值重构' };
+        // ============ Labels (bilingual) ============
+        const isEN = () => document.body.classList.contains('lang-en');
+        const choiceLabelsZH = { A: 'A · 顺势满仓', B: 'B · 技术减仓', C: 'C · 逆向清仓', D: 'D · 反向对冲' };
+        const choiceLabelsEN = { A: 'A · Full Position', B: 'B · Trim 30%', C: 'C · Cash Out', D: 'D · Protective Hedge' };
+        const expLabelsZH = { A: 'A · 泡沫继续膨胀', B: 'B · 泡沫开始消化', C: 'C · 泡沫破裂', D: 'D · 估值重构' };
+        const expLabelsEN = { A: 'A · Bubble Expands', B: 'B · Bubble Digests', C: 'C · Bubble Bursts', D: 'D · Valuation Reset' };
         const barColors = { A: '#10b981', B: '#3b82f6', C: '#f59e0b', D: '#ef4444' };
 
-        // ============ 从 Supabase 加载统计并渲染 ============
+        function getChoiceLabels() { return isEN() ? choiceLabelsEN : choiceLabelsZH; }
+        function getExpLabels() { return isEN() ? expLabelsEN : expLabelsZH; }
+
+        // ============ Load Stats from Supabase ============
         async function loadVoteStats() {
             if (!db) {
-                renderStats('choice-stats', 'choice-total', { A: 0, B: 0, C: 0, D: 0 }, choiceLabels);
-                renderStats('exp-stats', 'exp-total', { A: 0, B: 0, C: 0, D: 0 }, expLabels);
+                renderStats('choice-stats', 'choice-total', { A: 0, B: 0, C: 0, D: 0 }, getChoiceLabels());
+                renderStats('exp-stats', 'exp-total', { A: 0, B: 0, C: 0, D: 0 }, getExpLabels());
                 return;
             }
             try {
-                const { data, error } = await db
-                    .from('votes')
-                    .select('vote_type, option')
-                    .eq('episode_id', EPISODE_ID);
-
+                const { data, error } = await db.from('votes').select('vote_type, option').eq('episode_id', EPISODE_ID);
                 if (error) throw error;
-
-                const stats = {
-                    choice: { A: 0, B: 0, C: 0, D: 0 },
-                    experiment: { A: 0, B: 0, C: 0, D: 0 }
-                };
+                const stats = { choice: { A: 0, B: 0, C: 0, D: 0 }, experiment: { A: 0, B: 0, C: 0, D: 0 } };
                 (data || []).forEach(function(row) {
                     if (stats[row.vote_type] && row.option in stats[row.vote_type]) {
                         stats[row.vote_type][row.option]++;
                     }
                 });
-
-                renderStats('choice-stats', 'choice-total', stats.choice, choiceLabels);
-                renderStats('exp-stats', 'exp-total', stats.experiment, expLabels);
+                renderStats('choice-stats', 'choice-total', stats.choice, getChoiceLabels());
+                renderStats('exp-stats', 'exp-total', stats.experiment, getExpLabels());
             } catch(err) {
-                console.error('加载投票统计失败:', err);
-                renderStats('choice-stats', 'choice-total', { A: 0, B: 0, C: 0, D: 0 }, choiceLabels);
-                renderStats('exp-stats', 'exp-total', { A: 0, B: 0, C: 0, D: 0 }, expLabels);
+                console.error('Failed to load vote stats:', err);
+                renderStats('choice-stats', 'choice-total', { A: 0, B: 0, C: 0, D: 0 }, getChoiceLabels());
+                renderStats('exp-stats', 'exp-total', { A: 0, B: 0, C: 0, D: 0 }, getExpLabels());
             }
         }
 
@@ -1173,172 +1492,162 @@
             var container = document.getElementById(containerId);
             var totalEl = document.getElementById(totalId);
             if (!container) return;
-
             var total = 0;
             ['A','B','C','D'].forEach(function(k){ total += data[k]; });
-            if (totalEl) totalEl.textContent = '共 ' + total + ' 人参与';
-
+            if (totalEl) totalEl.textContent = (isEN() ? 'Total: ' : '共 ') + total + (isEN() ? ' votes' : ' 人参与');
             var html = '';
             ['A','B','C','D'].forEach(function(key) {
                 var pct = total > 0 ? ((data[key] / total) * 100).toFixed(1) : '0.0';
                 html += '<div style="margin-bottom:0.75rem">' +
                     '<div style="display:flex;justify-content:space-between;font-size:0.875rem;margin-bottom:4px">' +
                         '<span style="font-weight:500;color:#374151">' + (labels[key] || key) + '</span>' +
-                        '<span style="color:#6b7280">' + data[key] + '票 · ' + pct + '%</span>' +
+                        '<span style="color:#6b7280">' + data[key] + (isEN() ? ' votes · ' : '票 · ') + pct + '%</span>' +
                     '</div>' +
                     '<div class="vote-bar-bg">' +
                         '<div class="vote-bar-fill" style="width:' + pct + '%;background:' + barColors[key] + '"></div>' +
                     '</div>' +
                 '</div>';
             });
-
             container.innerHTML = html;
         }
 
-        // ============ 提交投票到 Supabase ============
+        // ============ Submit Vote to Supabase ============
         async function submitVote(voteType, option) {
             if (!db) return;
             try {
-                await db
-                    .from('votes')
-                    .insert({ episode_id: EPISODE_ID, vote_type: voteType, option: option });
+                await db.from('votes').insert({ episode_id: EPISODE_ID, vote_type: voteType, option: option });
             } catch(err) {
-                console.error('投票提交失败:', err);
+                console.error('Vote submission failed:', err);
             }
             loadVoteStats();
         }
 
-        // ============ 历史选择投票 ============
+        // ============ Choice Voting ============
         document.querySelectorAll('.option-card').forEach(function(card) {
             card.addEventListener('click', function() {
                 if (userState.hasVotedChoice) return;
-
                 var option = this.dataset.option;
                 userState.hasVotedChoice = true;
                 userState.userChoice = option;
-
-                document.querySelectorAll('.option-card').forEach(function(c) {
-                    c.classList.add('voted');
-                    c.classList.remove('selected');
-                });
+                document.querySelectorAll('.option-card').forEach(function(c) { c.classList.add('voted'); c.classList.remove('selected'); });
                 this.classList.add('selected');
-
                 document.getElementById('vote-result-area').style.display = 'block';
-
                 saveUserState();
                 submitVote('choice', option);
-
                 if (userState.userExperiment) {
                     setTimeout(function() { showPersonality(userState.userChoice, userState.userExperiment); }, 500);
                 } else {
-                    alert('你的历史选择已记录！继续阅读文章，文末还有一次预测投票，完成后解锁你的专属投资大佬画像 🎯');
+                    alert(isEN() ? 'Your choice has been recorded! Keep reading — there\'s one more prediction poll at the end. Complete both to unlock your Investor Titan Profile 🎯' : '你的历史选择已记录！继续阅读文章，文末还有一次预测投票，完成后解锁你的专属投资大佬画像 🎯');
                 }
             });
         });
 
-        // ============ 实验投票 ============
+        // ============ Experiment Voting ============
         document.querySelectorAll('.exp-option').forEach(function(card) {
             card.addEventListener('click', function() {
                 if (userState.hasVotedExperiment) return;
-
                 var option = this.dataset.exp;
                 userState.hasVotedExperiment = true;
                 userState.userExperiment = option;
-
-                document.querySelectorAll('.exp-option').forEach(function(c) {
-                    c.style.cursor = 'default';
-                    c.classList.remove('selected');
-                });
+                document.querySelectorAll('.exp-option').forEach(function(c) { c.style.cursor = 'default'; c.classList.remove('selected'); });
                 this.classList.add('selected');
                 this.style.background = 'rgba(16, 185, 129, 0.1)';
-
                 document.getElementById('exp-result-area').style.display = 'block';
-
                 saveUserState();
                 submitVote('experiment', option);
-
                 if (userState.userChoice) {
                     setTimeout(function() { showPersonality(userState.userChoice, userState.userExperiment); }, 300);
                 } else {
-                    alert('你的预测已记录！回到文章开头，完成历史场景选择投票后，解锁你的投资大佬画像 🔓');
+                    alert(isEN() ? 'Your prediction has been recorded! Go back to the top and complete the historical scenario vote to unlock your Investor Titan Profile 🔓' : '你的预测已记录！回到文章开头，完成历史场景选择投票后，解锁你的投资大佬画像 🔓');
                 }
             });
         });
 
-        // ============ 投资大佬画像（16种组合） ============
+        // ============ Investor Titan Profiles (16 combos) ============
         function showPersonality(choice, exp) {
             var personalities = {
-                'AA': { name: '吉姆·西蒙斯 Jim Simons', desc: '你是"量化之王"！你用数学模型和趋势跟踪来驾驭市场，大奖章基金年化66%的传奇就是你的写照。你不关心叙事，只关心数据。在存储芯片的狂热中，你的模型会精确计算动量因子和波动率——只要趋势还在，你就不会离场；但一旦信号反转，你会比任何人都快地清仓。', emoji: '🔢' },
-                'AB': { name: '杰西·利弗莫尔 Jesse Livermore', desc: '你是"华尔街投机之王"！你顺势而为，但永远保持警觉。你知道"市场可以保持非理性的时间，比你保持不破产的时间更长"——但你同样知道何时离场。在1929年大崩盘中你赚了一亿美元，因为你懂得在别人疯狂时保持冷静。', emoji: '🎰' },
-                'AC': { name: '凯茜·伍德 Cathie Wood', desc: '你是"颠覆性创新女王"！你坚定押注科技革命，相信AI正在重塑世界经济。ARK基金的哲学就是你的信仰：颠覆性创新的回报是非线性的。即使短期暴跌，你也绝不减仓——因为你看到的是10年后的世界。', emoji: '🚀' },
-                'AD': { name: '孙正义 Masayoshi Son', desc: '你是"科技赌神"！All-in科技革命是你的本能。软银 Vision Fund 的千亿美元豪赌就是你的风格。你相信"信息革命将带来300年的繁荣"，存储芯片只是这场革命中的一颗棋子。要么大赢，要么大输——没有中间地带。', emoji: '🎲' },
-                'BA': { name: '沃伦·巴菲特 Warren Buffett', desc: '你是"股神"！价值投资+保留弹药是你的信条。别人贪婪时你恐惧，别人恐惧时你贪婪。你不会追高存储芯片，但当费半指数暴跌50%时，你会带着现金出现——就像1987年黑色星期一后那样。你相信"只有退潮时才知道谁在裸泳"。', emoji: '🦉' },
-                'BB': { name: '雷·达里奥 Ray Dalio', desc: '你是"全天候策略之父"！风险平价+均衡配置是你的核心理念。你不赌单一方向，而是构建一个"无论发生什么都能活下来"的组合。桥水基金的原则就是你的原则：痛苦+反思=进步。在存储芯片热潮中，你会配置50%仓位，留一半应对极端情况。', emoji: '⚖️' },
-                'BC': { name: '约翰·博格 John Bogle', desc: '你是"指数基金之父"！低成本+长期主义是你的信仰。你不相信任何人能持续跑赢市场，包括那些明星基金经理。先锋集团的理念就是你的理念：不要找干草堆里的针，买下整个干草堆。在存储芯片的狂热中，你选择持有全市场指数，不追逐任何单一赛道。', emoji: '📊' },
-                'BD': { name: '霍华德·马克斯 Howard Marks', desc: '你是"周期大师"！你理解钟摆效应，知道市场永远在过度乐观和过度悲观之间摆动。橡树资本的哲学就是你的哲学：我们无法预测周期何时转折，但我们可以知道当前处于周期的哪个位置。在存储芯片暴涨300%之后，你会逆向布局——因为"钟摆不会永远停在一边"。', emoji: '🔄' },
-                'CA': { name: '大卫·德瑞曼 David Dreman', desc: '你是"逆向投资之父"！在恐慌中买入被错杀的优质股是你的专长。1987年黑色星期一时你逆势买入花旗银行，一年后赚了80%。当费半指数暴跌5%时，你的眼中不是恐惧而是机会——你已经开始计算存储芯片龙头的"恐慌折价"有多少。', emoji: '🔮' },
-                'CB': { name: '保罗·都铎·琼斯 Paul Tudor Jones', desc: '你是"宏观对冲之王"！1987年你精准预判黑色星期一崩盘，提前减仓60%。你相信"最好的交易都是在别人还没意识到风险时就已布局"。在存储芯片的狂热中，你已经嗅到了血腥味——费半暴跌就是你的预警信号。你正在悄悄减少多头仓位，准备在崩盘时大赚一笔。', emoji: '🦅' },
-                'CC': { name: '迈克尔·伯里 Michael Burry', desc: '你是"大空头"！2008年次贷危机前做空房地产让你一战成名。你善于在所有人都疯狂时看到泡沫的本质。当"连小区保安都在买存储芯片基金"时，你已经开始了深入调研——分析产能扩张计划、计算供需平衡表、评估估值合理性。你的结论是：泡沫终 will burst。', emoji: '📉' },
-                'CD': { name: '比尔·阿克曼 Bill Ackman', desc: '你是"激进投资者"！重仓押注+activism是你的风格。你不做小仓位试探，要么不上车，上车就是重仓。在存储芯片行情中，你会集中持有2-3只最看好的标的，然后积极参与公司治理，推动回购、分红、战略调整。你相信"集中投资+深度参与"才是超额回报的来源。', emoji: '🎯' },
-                'DA': { name: '斯坦利·德鲁肯米勒 Stan Druckenmiller', desc: '你是"宏观交易之神"！索罗斯的徒弟，1992年做空英镑赚10亿美元。你的交易哲学是"看对的时候下重注，看错的时候快跑"。你不纠结于长期价值判断，而是专注于"当下最强的趋势是什么"。存储芯片的超级周期就是你的猎场——但你比任何人都清楚何时该撤退。', emoji: '⚡' },
-                'DB': { name: '纳西姆·塔勒布 Nassim Taleb', desc: '你是"黑天鹅之父"！尾部风险对冲是你的核心策略。你不预测未来会发生什么，而是为"极端事件"做好准备。你的投资组合90%是极安全的国债，10%是深度虚期权——平时小亏，一旦黑天鹅降临就暴赚。在存储芯片的狂热中，你已经买了大量看跌期权作为"保险"。', emoji: '🦢' },
-                'DC': { name: '菲利普·费舍尔 Philip Fisher', desc: '你是"成长股投资之父"！深度调研+长期持有成长股是你的方法。《怎样选择成长股》是你的圣经。你不关心短期波动，只关心企业的长期竞争力。在存储芯片行业，你会深入研究哪家公司拥有最强的技术壁垒、最好的管理团队、最可持续的竞争优势——然后长期持有。', emoji: '🔬' },
-                'DD': { name: '乔治·索罗斯 George Soros', desc: '你是"金融大鳄"！反身性理论是你的武器。你相信市场参与者的认知会影响现实，现实反过来又影响认知——这种正反馈循环既创造泡沫，也制造崩盘。1992年你做空英镑击垮英国央行，在存储芯片的狂热中，你在观察反身性的转折点——当"共识"变成"信仰"时，就是出手的时刻。', emoji: '🐉' }
+                'AA': { nameZH: '吉姆·西蒙斯 Jim Simons', nameEN: 'Jim Simons', descZH: '你是"量化之王"！你用数学模型和趋势跟踪来驾驭市场，大奖章基金年化66%的传奇就是你的写照。你不关心叙事，只关心数据。在存储芯片的狂热中，你的模型会精确计算动量因子和波动率——只要趋势还在，你就不会离场；但一旦信号反转，你会比任何人都快地清仓。', descEN: 'You are the "Quant King"! You navigate markets with mathematical models and trend-following — the Medallion Fund\'s legendary 66% annual return is your hallmark. You don\'t care about narratives, only data. In the memory chip frenzy, your models precisely calculate momentum factors and volatility — as long as the trend holds, you stay; but the moment the signal reverses, you exit faster than anyone.', emoji: '🔢' },
+                'AB': { nameZH: '杰西·利弗莫尔 Jesse Livermore', nameEN: 'Jesse Livermore', descZH: '你是"华尔街投机之王"！你顺势而为，但永远保持警觉。你知道"市场可以保持非理性的时间，比你保持不破产的时间更长"——但你同样知道何时离场。在1929年大崩盘中你赚了一亿美元，因为你懂得在别人疯狂时保持冷静。', descEN: 'You are the "King of Wall Street Speculation"! You ride the trend but stay eternally vigilant. You know "the market can stay irrational longer than you can stay solvent" — but you also know when to exit. You made $100 million in the 1929 crash because you knew how to stay calm when others panicked.', emoji: '🎰' },
+                'AC': { nameZH: '凯茜·伍德 Cathie Wood', nameEN: 'Cathie Wood', descZH: '你是"颠覆性创新女王"！你坚定押注科技革命，相信AI正在重塑世界经济。ARK基金的哲学就是你的信仰：颠覆性创新的回报是非线性的。即使短期暴跌，你也绝不减仓——因为你看到的是10年后的世界。', descEN: 'You are the "Queen of Disruptive Innovation"! You firmly bet on the tech revolution, believing AI is reshaping the global economy. ARK Invest\'s philosophy is your creed: returns from disruptive innovation are non-linear. Even during short-term crashes, you never trim — because you see the world 10 years out.', emoji: '🚀' },
+                'AD': { nameZH: '孙正义 Masayoshi Son', nameEN: 'Masayoshi Son', descZH: '你是"科技赌神"！All-in科技革命是你的本能。软银 Vision Fund 的千亿美元豪赌就是你的风格。你相信"信息革命将带来300年的繁荣"，存储芯片只是这场革命中的一颗棋子。要么大赢，要么大输——没有中间地带。', descEN: 'You are the "Tech God of Gamblers"! Going all-in on the tech revolution is your instinct. SoftBank Vision Fund\'s hundred-billion-dollar gamble is your style. You believe "the information revolution will bring 300 years of prosperity" — memory chips are just one piece on the board. Big win or big loss — no middle ground.', emoji: '🎲' },
+                'BA': { nameZH: '沃伦·巴菲特 Warren Buffett', nameEN: 'Warren Buffett', descZH: '你是"股神"！价值投资+保留弹药是你的信条。别人贪婪时你恐惧，别人恐惧时你贪婪。你不会追高存储芯片，但当费半指数暴跌50%时，你会带着现金出现——就像1987年黑色星期一后那样。你相信"只有退潮时才知道谁在裸泳"。', descEN: 'You are the "Oracle"! Value investing + keeping powder dry is your creed. Be fearful when others are greedy, greedy when others are fearful. You won\'t chase memory chips higher, but when the SOX crashes 50%, you\'ll show up with cash — just like after Black Monday 1987. You believe "only when the tide goes out do you discover who\'s been swimming naked."', emoji: '🦉' },
+                'BB': { nameZH: '雷·达里奥 Ray Dalio', nameEN: 'Ray Dalio', descZH: '你是"全天候策略之父"！风险平价+均衡配置是你的核心理念。你不赌单一方向，而是构建一个"无论发生什么都能活下来"的组合。桥水基金的原则就是你的原则：痛苦+反思=进步。在存储芯片热潮中，你会配置50%仓位，留一半应对极端情况。', descEN: 'You are the "Father of All-Weather"! Risk parity + balanced allocation is your core philosophy. You don\'t bet on a single direction but build a portfolio that "survives whatever happens." Bridgewater\'s principles are your principles: Pain + Reflection = Progress. In the memory chip frenzy, you\'d allocate 50% and keep half for extreme scenarios.', emoji: '⚖️' },
+                'BC': { nameZH: '约翰·博格 John Bogle', nameEN: 'John Bogle', descZH: '你是"指数基金之父"！低成本+长期主义是你的信仰。你不相信任何人能持续跑赢市场。先锋集团的理念就是你的理念：不要找干草堆里的针，买下整个干草堆。', descEN: 'You are the "Father of Index Funds"! Low cost + long-termism is your faith. You don\'t believe anyone can consistently beat the market. Vanguard\'s philosophy is yours: don\'t look for the needle in the haystack, buy the whole haystack.', emoji: '📊' },
+                'BD': { nameZH: '霍华德·马克斯 Howard Marks', nameEN: 'Howard Marks', descZH: '你是"周期大师"！你理解钟摆效应，知道市场永远在过度乐观和过度悲观之间摆动。橡树资本的哲学就是你的哲学：我们无法预测周期何时转折，但我们可以知道当前处于周期的哪个位置。', descEN: 'You are the "Master of Cycles"! You understand the pendulum effect — markets always swing between excessive optimism and excessive pessimism. Oaktree\'s philosophy is yours: we can\'t predict when the cycle turns, but we can know where we are in it.', emoji: '🔄' },
+                'CA': { nameZH: '大卫·德瑞曼 David Dreman', nameEN: 'David Dreman', descZH: '你是"逆向投资之父"！在恐慌中买入被错杀的优质股是你的专长。1987年黑色星期一时你逆势买入花旗银行，一年后赚了80%。当费半指数暴跌5%时，你的眼中不是恐惧而是机会。', descEN: 'You are the "Father of Contrarian Investing"! Buying unfairly punished quality stocks during panic is your specialty. On Black Monday 1987, you contrarian-bought Citibank and made 80% a year later. When the SOX crashes 5%, you see not fear but opportunity.', emoji: '🔮' },
+                'CB': { nameZH: '保罗·都铎·琼斯 Paul Tudor Jones', nameEN: 'Paul Tudor Jones', descZH: '你是"宏观对冲之王"！1987年你精准预判黑色星期一崩盘，提前减仓60%。你相信"最好的交易都是在别人还没意识到风险时就已布局"。在存储芯片的狂热中，你已经嗅到了血腥味。', descEN: 'You are the "King of Macro Hedging"! In 1987, you precisely predicted the Black Monday crash and reduced positions 60% in advance. You believe "the best trades are positioned before others even recognize the risk." In the memory chip frenzy, you\'ve already smelled blood.', emoji: '🦅' },
+                'CC': { nameZH: '迈克尔·伯里 Michael Burry', nameEN: 'Michael Burry', descZH: '你是"大空头"！2008年次贷危机前做空房地产让你一战成名。你善于在所有人都疯狂时看到泡沫的本质。你的结论是：泡沫终将破裂。', descEN: 'You are "The Big Short"! Shorting real estate before the 2008 subprime crisis made you famous. You excel at seeing bubble essence when everyone else is crazy. Your conclusion: the bubble will burst.', emoji: '📉' },
+                'CD': { nameZH: '比尔·阿克曼 Bill Ackman', nameEN: 'Bill Ackman', descZH: '你是"激进投资者"！重仓押注+activism是你的风格。你不做小仓位试探，要么不上车，上车就是重仓。你相信"集中投资+深度参与"才是超额回报的来源。', descEN: 'You are the "Activist Investor"! Concentrated bets + activism is your style. You don\'t do small exploratory positions — either you\'re all in or not at all. You believe "concentrated investing + deep engagement" is the source of alpha.', emoji: '🎯' },
+                'DA': { nameZH: '斯坦利·德鲁肯米勒 Stan Druckenmiller', nameEN: 'Stan Druckenmiller', descZH: '你是"宏观交易之神"！索罗斯的徒弟，1992年做空英镑赚10亿美元。你的交易哲学是"看对的时候下重注，看错的时候快跑"。存储芯片的超级周期就是你的猎场。', descEN: 'You are the "God of Macro Trading"! Soros\'s protégé, you made $1 billion shorting the pound in 1992. Your philosophy: "bet big when you\'re right, get out fast when you\'re wrong." The memory chip super cycle is your hunting ground.', emoji: '⚡' },
+                'DB': { nameZH: '纳西姆·塔勒布 Nassim Taleb', nameEN: 'Nassim Taleb', descZH: '你是"黑天鹅之父"！尾部风险对冲是你的核心策略。你不预测未来会发生什么，而是为"极端事件"做好准备。你的投资组合90%是极安全的国债，10%是深度虚期权。', descEN: 'You are the "Father of the Black Swan"! Tail risk hedging is your core strategy. You don\'t predict what will happen — you prepare for extreme events. Your portfolio is 90% ultra-safe Treasuries, 10% deep out-of-the-money options.', emoji: '🦢' },
+                'DC': { nameZH: '菲利普·费舍尔 Philip Fisher', nameEN: 'Philip Fisher', descZH: '你是"成长股投资之父"！深度调研+长期持有成长股是你的方法。你不关心短期波动，只关心企业的长期竞争力。你会深入研究哪家公司拥有最强的技术壁垒。', descEN: 'You are the "Father of Growth Investing"! Deep research + long-term holding of growth stocks is your method. You don\'t care about short-term volatility, only long-term competitive advantages. You dive deep to find which company has the strongest technological moat.', emoji: '🔬' },
+                'DD': { nameZH: '乔治·索罗斯 George Soros', nameEN: 'George Soros', descZH: '你是"金融大鳄"！反身性理论是你的武器。你相信市场参与者的认知会影响现实，现实反过来又影响认知。1992年你做空英镑击垮英国央行。在存储芯片的狂热中，你在观察反身性的转折点。', descEN: 'You are the "Financial Titan"! Reflexivity theory is your weapon. You believe market participants\' perceptions shape reality, and reality in turn shapes perceptions. You broke the Bank of England shorting the pound in 1992. In the memory chip frenzy, you\'re watching for the reflexivity turning point.', emoji: '🐉' }
             };
             
             var p = personalities[choice + exp];
             if (p) {
                 document.getElementById('personality-result').scrollIntoView({ behavior: 'smooth' });
                 setTimeout(function() {
-                    document.getElementById('personality-name').textContent = p.emoji + ' 你的投资风格最像：' + p.name;
-                    document.getElementById('personality-desc').textContent = p.desc;
+                    var langEN = document.body.classList.contains('lang-en');
+                    document.getElementById('personality-name').textContent = p.emoji + ' ' + (langEN ? 'Your investment style is most like: ' : '你的投资风格最像：') + (langEN ? p.nameEN : p.nameZH);
+                    document.getElementById('personality-desc').textContent = langEN ? p.descEN : p.descZH;
                     document.getElementById('personality-card').style.display = 'block';
                 }, 600);
             }
         }
 
-
-
-        // ============ 反事实路径树交互 ============
+        // ============ Counterfactual Tree Interaction ============
         function toggleBranch(header) {
             var node = header.closest('.branch-node');
             var details = node.querySelector('.branch-details');
             var isOpen = node.classList.contains('open');
-
-            if (isOpen) {
-                details.style.display = 'none';
-                node.classList.remove('open');
-            } else {
-                details.style.display = 'block';
-                node.classList.add('open');
-            }
+            if (isOpen) { details.style.display = 'none'; node.classList.remove('open'); }
+            else { details.style.display = 'block'; node.classList.add('open'); }
         }
 
-        // ============ 决策落地卡交互 ============
+        // ============ Decision Card Interaction ============
         function toggleDecisionCard(header) {
             var card = header.closest('.decision-card');
             var body = card.querySelector('.decision-card-body');
             var toggle = card.querySelector('.decision-card-toggle');
-
             if (body.style.display === 'none') {
                 body.style.display = 'block';
-                toggle.textContent = '收起 ↑';
+                toggle.innerHTML = isEN() ? '<span class="zh">收起 ↑</span><span class="en">Collapse ↑</span>' : '<span class="zh">收起 ↑</span><span class="en">Collapse ↑</span>';
             } else {
                 body.style.display = 'none';
-                toggle.textContent = '展开 ↓';
+                toggle.innerHTML = isEN() ? '<span class="zh">展开 ↓</span><span class="en">Expand ↓</span>' : '<span class="zh">展开 ↓</span><span class="en">Expand ↓</span>';
             }
         }
 
-        // ============ 重置投票 ============
+        // ============ Reset Votes ============
         function resetVotes() {
-            if (confirm('确定要重置你的投票吗？可以重新体验完整流程！\n（你之前的投票已计入统计，重置后可重新选择）')) {
+            if (confirm(isEN() ? 'Reset your votes? You can re-experience the full flow!\n(Your previous votes remain in statistics; reset allows re-selection)' : '确定要重置你的投票吗？可以重新体验完整流程！\n（你之前的投票已计入统计，重置后可重新选择）')) {
                 localStorage.removeItem(STORAGE_KEY);
                 location.reload();
             }
         }
 
-        // ============ 页面加载 ============
+        // ============ Language Toggle ============
+        function toggleLang() {
+            document.body.classList.toggle('lang-en');
+            var btn = document.getElementById('langToggle');
+            var isEnglish = document.body.classList.contains('lang-en');
+            btn.textContent = isEnglish ? '中' : 'EN';
+            if (isEnglish) { btn.classList.add('active'); } else { btn.classList.remove('active'); }
+            sessionStorage.setItem('lang', isEnglish ? 'en' : 'zh');
+            // Re-render stats with correct language labels
+            loadVoteStats();
+        }
+
+        // ============ Page Load ============
         window.addEventListener('load', function() {
+            // Restore language preference
+            if (sessionStorage.getItem('lang') === 'en') {
+                document.body.classList.add('lang-en');
+                document.getElementById('langToggle').textContent = '中';
+                document.getElementById('langToggle').classList.add('active');
+            }
+
             loadVoteStats();
 
             if (userState.hasVotedChoice) {
