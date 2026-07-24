@@ -1637,6 +1637,10 @@
             sessionStorage.setItem('lang', isEnglish ? 'en' : 'zh');
             // Re-render stats with correct language labels
             loadVoteStats();
+            // Re-render personality card if visible
+            if (userState.userChoice && userState.userExperiment) {
+                showPersonality(userState.userChoice, userState.userExperiment);
+            }
         }
 
         // ============ Page Load ============
