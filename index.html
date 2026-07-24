@@ -6,6 +6,54 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
+        /* ===== Language Switching ===== */
+        .en { display: none !important; }
+        .zh { display: inline !important; }
+        body.lang-en .zh { display: none !important; }
+        body.lang-en .en { display: inline !important; }
+        body.lang-en p.en, body.lang-en h1.en, body.lang-en h2.en, body.lang-en h3.en,
+        body.lang-en h4.en, body.lang-en li.en, body.lang-en div.en,
+        body.lang-en td.en, body.lang-en th.en { display: block !important; }
+        body.lang-en span.en { display: inline !important; }
+        body.lang-en strong.en { display: inline !important; }
+        body.lang-en .en.block { display: block !important; }
+        body.lang-en .en.inline-block { display: inline-block !important; }
+        body.lang-en .en.flex { display: flex !important; }
+        body.lang-en .en.grid { display: grid !important; }
+
+        #langToggle {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 10000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(102,126,234,0.3);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #667eea;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            user-select: none;
+            letter-spacing: 0.3px;
+        }
+        #langToggle:hover {
+            background: #667eea;
+            color: #fff;
+            border-color: #667eea;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(102,126,234,0.3);
+        }
+        #langToggle.active {
+            background: #667eea;
+            color: #fff;
+            border-color: #667eea;
+        }
+    </style>
+    <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
         
         body {
@@ -197,19 +245,32 @@
     </style>
 </head>
 <body>
+    <div id="langToggle" onclick="toggleLang()">EN</div>
+
     <!-- 顶部封面 -->
     <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center py-16 px-4">
-        <div class="lab-tag mb-4">历史实验室 · 定期刊第1期</div>
+        <div class="lab-tag mb-4">
+            <span class="zh">历史实验室 · 定期刊第1期</span>
+            <span class="en">History Lab · Periodical Issue No.1</span>
+        </div>
         <h1 class="text-3xl md:text-4xl font-bold serif leading-tight mb-4">
-            沃尔克时刻1979
+            <span class="zh">沃尔克时刻1979</span>
+            <span class="en">The Volcker Moment 1979</span>
         </h1>
         <p class="text-xl md:text-2xl opacity-90 serif italic">
-            通胀失控vs经济衰退，如果你是美联储主席你会怎么选？
+            <span class="zh">通胀失控vs经济衰退，如果你是美联储主席你会怎么选？</span>
+            <span class="en">Runaway inflation vs. economic recession — if you were the Fed Chair, what would you choose?</span>
         </p>
         <div class="mt-8 flex justify-center gap-6 text-sm opacity-80">
             <span>📅 2026.05.06</span>
-            <span>⏱️ 阅读约12分钟</span>
-            <span>🧪 含互动投票</span>
+            <span>
+                <span class="zh">⏱️ 阅读约12分钟</span>
+                <span class="en">⏱️ 12 min read</span>
+            </span>
+            <span>
+                <span class="zh">🧪 含互动投票</span>
+                <span class="en">🧪 Interactive Polls</span>
+            </span>
         </div>
     </div>
 
@@ -217,41 +278,74 @@
     <div class="max-w-3xl mx-auto py-8 px-4 md:px-8 bg-white min-h-screen">
         
         <p class="first-letter text-lg leading-relaxed text-gray-700">
-            历史不会简单重复，但会押韵。当2026年全球再次面临通胀压力、央行政策左右为难时，我们不妨回到1979年那个决定美国经济未来的夏天——当时，一位名叫保罗·沃尔克的新上任美联储主席，面临着和今天几乎一模一样的困境。
+            <span class="zh">历史不会简单重复，但会押韵。当2026年全球再次面临通胀压力、央行政策左右为难时，我们不妨回到1979年那个决定美国经济未来的夏天——当时，一位名叫保罗·沃尔克的新上任美联储主席，面临着和今天几乎一模一样的困境。</span>
+            <span class="en">History never simply repeats itself, but it does rhyme. As the world once again confronts inflationary pressures in 2026 and central banks struggle with impossible policy choices, let us return to the summer of 1979 that decided America's economic future — when a newly appointed Federal Reserve Chairman named Paul Volcker faced a dilemma almost identical to today's.</span>
         </p>
         
         <p class="mt-4 leading-relaxed text-gray-700">
-            这不仅仅是货币政策的抉择，更是一场关于"短期痛苦"与"长期稳定"的哲学思辨。
+            <span class="zh">这不仅仅是货币政策的抉择，更是一场关于"短期痛苦"与"长期稳定"的哲学思辨。</span>
+            <span class="en">This was not merely a monetary policy decision — it was a philosophical debate about "short-term pain" versus "long-term stability."</span>
         </p>
 
-        <div class="divider">✦ ✦ ✦</div>
+        <div class="divider">
+            <span class="zh">✦ ✦ ✦</span>
+            <span class="en">✦ ✦ ✦</span>
+        </div>
 
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
-            01 那个炎热的夏天
+            <span class="zh">01 那个炎热的夏天</span>
+            <span class="en">01 That Sweltering Summer</span>
         </h2>
 
         <div class="scene-card">
-            <p class="text-lg font-medium mb-4 text-blue-300">📍 1979年8月6日，华盛顿</p>
-            <p class="leading-relaxed mb-4">
-                你是保罗·沃尔克，三天前刚刚被卡特总统任命为美联储主席。你的办公室窗外，华盛顿纪念碑在35度的高温中显得有些扭曲。
+            <p class="text-lg font-medium mb-4 text-blue-300">
+                <span class="zh">📍 1979年8月6日，华盛顿</span>
+                <span class="en">📍 August 6, 1979, Washington D.C.</span>
             </p>
-            <p class="leading-relaxed mb-4">桌上的报告让你冷汗直流：</p>
+            <p class="leading-relaxed mb-4">
+                <span class="zh">你是保罗·沃尔克，三天前刚刚被卡特总统任命为美联储主席。你的办公室窗外，华盛顿纪念碑在35度的高温中显得有些扭曲。</span>
+                <span class="en">You are Paul Volcker, appointed Federal Reserve Chairman by President Carter just three days ago. Outside your office window, the Washington Monument shimmers in the 35°C heat.</span>
+            </p>
+            <p class="leading-relaxed mb-4">
+                <span class="zh">桌上的报告让你冷汗直流：</span>
+                <span class="en">The reports on your desk send chills down your spine:</span>
+            </p>
             <ul class="space-y-2 ml-4 text-yellow-300">
-                <li>• 美国通胀率：<strong>11.2%</strong>（且还在攀升）</li>
-                <li>• 联邦基金利率：<strong>10.5%</strong></li>
-                <li>• 失业率：<strong>5.7%</strong></li>
-                <li>• 美元正在经历自由落体式贬值</li>
-                <li>• 黄金价格刚刚突破了300美元/盎司（10年前才35美元）</li>
+                <li>
+                    <span class="zh">• 美国通胀率：<strong>11.2%</strong>（且还在攀升）</span>
+                    <span class="en">• U.S. inflation rate: <strong>11.2%</strong> (and still climbing)</span>
+                </li>
+                <li>
+                    <span class="zh">• 联邦基金利率：<strong>10.5%</strong></span>
+                    <span class="en">• Federal Funds Rate: <strong>10.5%</strong></span>
+                </li>
+                <li>
+                    <span class="zh">• 失业率：<strong>5.7%</strong></span>
+                    <span class="en">• Unemployment rate: <strong>5.7%</strong></span>
+                </li>
+                <li>
+                    <span class="zh">• 美元正在经历自由落体式贬值</span>
+                    <span class="en">• The U.S. dollar is in freefall</span>
+                </li>
+                <li>
+                    <span class="zh">• 黄金价格刚刚突破了300美元/盎司（10年前才35美元）</span>
+                    <span class="en">• Gold just broke through $300/oz (a decade ago it was only $35)</span>
+                </li>
             </ul>
             <p class="leading-relaxed mt-4">
-                你的货币政策委员会成员们分成两派，争论不休。
+                <span class="zh">你的货币政策委员会成员们分成两派，争论不休。</span>
+                <span class="en">Your FOMC colleagues are split into two factions, locked in endless debate.</span>
             </p>
             <p class="leading-relaxed mt-2 text-lg font-medium text-green-300">
-                现在，你必须做出选择。
+                <span class="zh">现在，你必须做出选择。</span>
+                <span class="en">Now, you must make a choice.</span>
             </p>
         </div>
 
-        <div class="divider">你的选择</div>
+        <div class="divider">
+            <span class="zh">你的选择</span>
+            <span class="en">Your Choice</span>
+        </div>
 
         <!-- 四个选择 -->
         <div id="voting-area">
@@ -259,8 +353,14 @@
                 <div class="flex items-start gap-4">
                     <span class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-lg shrink-0">A</span>
                     <div class="flex-1">
-                        <h3 class="font-bold text-lg text-gray-800">激进加息，不惜一切代价压制通胀</h3>
-                        <p class="text-gray-600 mt-1">立即将利率提高到史无前例的水平，即使这意味着经济衰退、失业率飙升、银行破产潮。</p>
+                        <h3 class="font-bold text-lg text-gray-800">
+                            <span class="zh">激进加息，不惜一切代价压制通胀</span>
+                            <span class="en">Aggressive Hiking — Crush Inflation at Any Cost</span>
+                        </h3>
+                        <p class="text-gray-600 mt-1">
+                            <span class="zh">立即将利率提高到史无前例的水平，即使这意味着经济衰退、失业率飙升、银行破产潮。</span>
+                            <span class="en">Raise interest rates to unprecedented levels immediately, even if it means recession, soaring unemployment, and a wave of bank failures.</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -269,8 +369,14 @@
                 <div class="flex items-start gap-4">
                     <span class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg shrink-0">B</span>
                     <div class="flex-1">
-                        <h3 class="font-bold text-lg text-gray-800">渐进加息，尝试软着陆</h3>
-                        <p class="text-gray-600 mt-1">温和地逐步提高利率，希望在不引发严重衰退的情况下逐步控制通胀。</p>
+                        <h3 class="font-bold text-lg text-gray-800">
+                            <span class="zh">渐进加息，尝试软着陆</span>
+                            <span class="en">Gradual Hiking — Attempt a Soft Landing</span>
+                        </h3>
+                        <p class="text-gray-600 mt-1">
+                            <span class="zh">温和地逐步提高利率，希望在不引发严重衰退的情况下逐步控制通胀。</span>
+                            <span class="en">Raise rates gently and incrementally, hoping to gradually tame inflation without triggering a severe recession.</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -279,8 +385,14 @@
                 <div class="flex items-start gap-4">
                     <span class="w-10 h-10 rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-lg shrink-0">C</span>
                     <div class="flex-1">
-                        <h3 class="font-bold text-lg text-gray-800">暂时按兵不动，观察数据后再决定</h3>
-                        <p class="text-gray-600 mt-1">通胀可能是暂时的（石油危机、粮食价格），再等几个季度看看数据再行动。</p>
+                        <h3 class="font-bold text-lg text-gray-800">
+                            <span class="zh">暂时按兵不动，观察数据后再决定</span>
+                            <span class="en">Hold Steady — Wait and See</span>
+                        </h3>
+                        <p class="text-gray-600 mt-1">
+                            <span class="zh">通胀可能是暂时的（石油危机、粮食价格），再等几个季度看看数据再行动。</span>
+                            <span class="en">Inflation may be transitory (oil crisis, food prices). Wait a few more quarters and see what the data says before acting.</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -289,8 +401,14 @@
                 <div class="flex items-start gap-4">
                     <span class="w-10 h-10 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-lg shrink-0">D</span>
                     <div class="flex-1">
-                        <h3 class="font-bold text-lg text-gray-800">转向宽松，优先保增长和就业</h3>
-                        <p class="text-gray-600 mt-1">通胀虽然高，但失业率也在上升，不能让经济陷入衰退。降息刺激经济。</p>
+                        <h3 class="font-bold text-lg text-gray-800">
+                            <span class="zh">转向宽松，优先保增长和就业</span>
+                            <span class="en">Pivot to Easing — Prioritize Growth and Jobs</span>
+                        </h3>
+                        <p class="text-gray-600 mt-1">
+                            <span class="zh">通胀虽然高，但失业率也在上升，不能让经济陷入衰退。降息刺激经济。</span>
+                            <span class="en">Inflation is high, but unemployment is also rising — we can't let the economy fall into recession. Cut rates to stimulate growth.</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -299,125 +417,240 @@
         <!-- 历史选择投票结果区 -->
         <div id="vote-result-area" style="display:none;">
             <div class="text-center mt-6 mb-4">
-                <span class="text-green-600 font-medium">✓ 你的选择已记录！</span>
-                <span class="text-gray-500 text-sm ml-2">继续阅读，文末还有一次预测投票</span>
+                <span class="text-green-600 font-medium">
+                    <span class="zh">✓ 你的选择已记录！</span>
+                    <span class="en">✓ Your choice has been recorded!</span>
+                </span>
+                <span class="text-gray-500 text-sm ml-2">
+                    <span class="zh">继续阅读，文末还有一次预测投票</span>
+                    <span class="en">Keep reading — there's one more prediction poll at the end</span>
+                </span>
             </div>
             <div class="vote-stats-card">
                 <div class="flex items-center justify-between mb-3">
-                    <span class="font-bold text-gray-700">📊 全员投票统计</span>
-                    <span id="choice-total" class="text-sm text-gray-500">加载中...</span>
+                    <span class="font-bold text-gray-700">
+                        <span class="zh">📊 全员投票统计</span>
+                        <span class="en">📊 All-Vote Statistics</span>
+                    </span>
+                    <span id="choice-total" class="text-sm text-gray-500">
+                        <span class="zh">加载中...</span>
+                        <span class="en">Loading...</span>
+                    </span>
                 </div>
                 <div id="choice-stats"></div>
             </div>
         </div>
 
-        <div class="divider">决策风格诊断</div>
+        <div class="divider">
+            <span class="zh">决策风格诊断</span>
+            <span class="en">Decision-Making Style Diagnosis</span>
+        </div>
 
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
-            02 你是哪种决策者？
+            <span class="zh">02 你是哪种决策者？</span>
+            <span class="en">02 What Kind of Decision-Maker Are You?</span>
         </h2>
 
         <div class="grid md:grid-cols-2 gap-4 mt-6">
             <div class="quote-box">
-                <span class="diagnosis-tag">A选项 · 外科医生型</span>
+                <span class="diagnosis-tag">
+                    <span class="zh">A选项 · 外科医生型</span>
+                    <span class="en">Option A · The Surgeon</span>
+                </span>
                 <p class="text-gray-700 leading-relaxed">
-                    你相信，面对顽疾必须下猛药，即使过程痛苦。这种风格的优势是能够快速建立信誉、根治问题；风险是可能造成不必要的附带伤害，甚至引发系统性危机。
+                    <span class="zh">你相信，面对顽疾必须下猛药，即使过程痛苦。这种风格的优势是能够快速建立信誉、根治问题；风险是可能造成不必要的附带伤害，甚至引发系统性危机。</span>
+                    <span class="en">You believe that stubborn diseases require drastic medicine, however painful the process. The advantage of this style is rapidly building credibility and curing the problem; the risk is causing unnecessary collateral damage or even triggering a systemic crisis.</span>
                 </p>
-                <p class="text-sm text-gray-500 mt-2 italic">你就是市场上的"沃尔克型"投资者——宁愿忍受短期回撤，也要换取长期的结构性机会。</p>
+                <p class="text-sm text-gray-500 mt-2 italic">
+                    <span class="zh">你就是市场上的"沃尔克型"投资者——宁愿忍受短期回撤，也要换取长期的结构性机会。</span>
+                    <span class="en">You are the "Volcker-type" investor in the market — willing to endure short-term drawdowns in exchange for long-term structural opportunities.</span>
+                </p>
             </div>
             
             <div class="quote-box">
-                <span class="diagnosis-tag">B选项 · 领航员型</span>
+                <span class="diagnosis-tag">
+                    <span class="zh">B选项 · 领航员型</span>
+                    <span class="en">Option B · The Navigator</span>
+                </span>
                 <p class="text-gray-700 leading-relaxed">
-                    你倾向于在多个目标之间寻找平衡，通过微调来校准方向。这种风格的优势是平稳、可预测；风险是可能因为动作太慢而错失最佳时机，让问题恶化。
+                    <span class="zh">你倾向于在多个目标之间寻找平衡，通过微调来校准方向。这种风格的优势是平稳、可预测；风险是可能因为动作太慢而错失最佳时机，让问题恶化。</span>
+                    <span class="en">You tend to seek balance among multiple objectives, calibrating direction through fine adjustments. The advantage is steadiness and predictability; the risk is moving too slowly and missing the optimal window, letting the problem worsen.</span>
                 </p>
-                <p class="text-sm text-gray-500 mt-2 italic">你属于"鲍威尔型"——数据依赖、沟通透明、行动谨慎。</p>
+                <p class="text-sm text-gray-500 mt-2 italic">
+                    <span class="zh">你属于"鲍威尔型"——数据依赖、沟通透明、行动谨慎。</span>
+                    <span class="en">You are the "Powell-type" — data-dependent, transparent in communication, cautious in action.</span>
+                </p>
             </div>
             
             <div class="quote-box">
-                <span class="diagnosis-tag">C选项 · 观望者型</span>
+                <span class="diagnosis-tag">
+                    <span class="zh">C选项 · 观望者型</span>
+                    <span class="en">Option C · The Observer</span>
+                </span>
                 <p class="text-gray-700 leading-relaxed">
-                    你极度厌恶在信息不完整时做出不可逆的决策。你相信，许多问题会自行解决，过度干预反而制造新问题。这种风格的优势是避免"好心办坏事"。
+                    <span class="zh">你极度厌恶在信息不完整时做出不可逆的决策。你相信，许多问题会自行解决，过度干预反而制造新问题。这种风格的优势是避免"好心办坏事"。</span>
+                    <span class="en">You deeply dislike making irreversible decisions with incomplete information. You believe many problems resolve themselves, and over-intervention only creates new ones. The advantage is avoiding "the road to hell paved with good intentions."</span>
                 </p>
-                <p class="text-sm text-gray-500 mt-2 italic">风险是在真正的危机面前反应迟钝。</p>
+                <p class="text-sm text-gray-500 mt-2 italic">
+                    <span class="zh">风险是在真正的危机面前反应迟钝。</span>
+                    <span class="en">The risk is being slow to react in the face of a genuine crisis.</span>
+                </p>
             </div>
             
             <div class="quote-box">
-                <span class="diagnosis-tag">D选项 · 救生员型</span>
+                <span class="diagnosis-tag">
+                    <span class="zh">D选项 · 救生员型</span>
+                    <span class="en">Option D · The Lifeguard</span>
+                </span>
                 <p class="text-gray-700 leading-relaxed">
-                    你的第一优先级是"不能死人"，所有其他考虑都要让位于防止系统性崩溃。这种风格的优势是人道主义；风险是道德风险和长期的结构性扭曲。
+                    <span class="zh">你的第一优先级是"不能死人"，所有其他考虑都要让位于防止系统性崩溃。这种风格的优势是人道主义；风险是道德风险和长期的结构性扭曲。</span>
+                    <span class="en">Your top priority is "no casualties" — all other considerations must yield to preventing systemic collapse. The advantage is humanitarianism; the risk is moral hazard and long-term structural distortions.</span>
                 </p>
-                <p class="text-sm text-gray-500 mt-2 italic">你更像"格林斯潘型"——永远在市场最需要的时候提供流动性。</p>
+                <p class="text-sm text-gray-500 mt-2 italic">
+                    <span class="zh">你更像"格林斯潘型"——永远在市场最需要的时候提供流动性。</span>
+                    <span class="en">You are more the "Greenspan-type" — always providing liquidity when the market needs it most.</span>
+                </p>
             </div>
         </div>
 
-        <div class="divider">历史真相</div>
+        <div class="divider">
+            <span class="zh">历史真相</span>
+            <span class="en">Historical Truth</span>
+        </div>
 
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
-            03 沃尔克的选择与代价
+            <span class="zh">03 沃尔克的选择与代价</span>
+            <span class="en">03 Volcker's Choice and Its Price</span>
         </h2>
 
         <div class="quote-box">
             <p class="text-xl font-bold text-purple-700 serif">
-                "我知道会很痛苦。但如果你告诉人们'这药很苦，但能治病'，他们最终会理解的。"
+                <span class="zh">"我知道会很痛苦。但如果你告诉人们'这药很苦，但能治病'，他们最终会理解的。"</span>
+                <span class="en">"I know it will be painful. But if you tell people 'the medicine tastes bitter, but it cures the disease,' they will eventually understand."</span>
             </p>
-            <p class="text-sm text-gray-500 mt-2">—— 保罗·沃尔克</p>
+            <p class="text-sm text-gray-500 mt-2">
+                <span class="zh">—— 保罗·沃尔克</span>
+                <span class="en">— Paul Volcker</span>
+            </p>
         </div>
 
         <p class="leading-relaxed text-gray-700 mt-6">
-            <strong>1979年8月6日，沃尔克上任第一天。</strong>他没有选择渐进主义。
+            <span class="zh"><strong>1979年8月6日，沃尔克上任第一天。</strong>他没有选择渐进主义。</span>
+            <span class="en"><strong>August 6, 1979 — Volcker's first day in office.</strong> He did not choose gradualism.</span>
         </p>
 
         <p class="leading-relaxed text-gray-700 mt-4">
-            <strong>1979年10月6日，一个星期六。</strong>沃尔克召集紧急会议，宣布了被称为"星期六之夜大屠杀"的激进政策：
+            <span class="zh"><strong>1979年10月6日，一个星期六。</strong>沃尔克召集紧急会议，宣布了被称为"星期六之夜大屠杀"的激进政策：</span>
+            <span class="en"><strong>October 6, 1979 — a Saturday.</strong> Volcker called an emergency meeting and announced the radical policy that became known as the "Saturday Night Massacre":</span>
         </p>
 
         <ul class="mt-4 space-y-2 ml-6 text-gray-700">
-            <li>• 联邦基金利率从11%直接飙升到<strong class="text-red-600">17%</strong></li>
-            <li>• 随后在1980年底达到<strong class="text-red-600">20%</strong>的历史峰值</li>
-            <li>• 货币供应量增长率被严格限制</li>
+            <li>
+                <span class="zh">• 联邦基金利率从11%直接飙升到<strong class="text-red-600">17%</strong></span>
+                <span class="en">• The Federal Funds Rate surged from 11% straight to <strong class="text-red-600">17%</strong></span>
+            </li>
+            <li>
+                <span class="zh">• 随后在1980年底达到<strong class="text-red-600">20%</strong>的历史峰值</span>
+                <span class="en">• Then peaked at a historic <strong class="text-red-600">20%</strong> by late 1980</span>
+            </li>
+            <li>
+                <span class="zh">• 货币供应量增长率被严格限制</span>
+                <span class="en">• Money supply growth was strictly constrained</span>
+            </li>
         </ul>
 
-        <p class="leading-relaxed text-gray-700 mt-6 font-medium">代价是惨烈的：</p>
+        <p class="leading-relaxed text-gray-700 mt-6 font-medium">
+            <span class="zh">代价是惨烈的：</span>
+            <span class="en">The price was brutal:</span>
+        </p>
 
         <div class="grid md:grid-cols-2 gap-4 mt-4">
             <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                <p class="text-red-700 font-bold mb-2">📉 经济衰退</p>
-                <p class="text-red-600 text-sm">1980-1982年，美国经历了大萧条以来最严重的衰退</p>
+                <p class="text-red-700 font-bold mb-2">
+                    <span class="zh">📉 经济衰退</span>
+                    <span class="en">📉 Recession</span>
+                </p>
+                <p class="text-red-600 text-sm">
+                    <span class="zh">1980-1982年，美国经历了大萧条以来最严重的衰退</span>
+                    <span class="en">1980–1982, the U.S. endured its worst recession since the Great Depression</span>
+                </p>
             </div>
             <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                <p class="text-red-700 font-bold mb-2">👥 失业率飙升</p>
-                <p class="text-red-600 text-sm">从6%飙升到10.8%，数百万家庭失去收入</p>
+                <p class="text-red-700 font-bold mb-2">
+                    <span class="zh">👥 失业率飙升</span>
+                    <span class="en">👥 Unemployment Soared</span>
+                </p>
+                <p class="text-red-600 text-sm">
+                    <span class="zh">从6%飙升到10.8%，数百万家庭失去收入</span>
+                    <span class="en">Surged from 6% to 10.8%; millions of families lost income</span>
+                </p>
             </div>
             <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                <p class="text-red-700 font-bold mb-2">🏦 银行破产潮</p>
-                <p class="text-red-600 text-sm">超过3000家银行破产或被救助</p>
+                <p class="text-red-700 font-bold mb-2">
+                    <span class="zh">🏦 银行破产潮</span>
+                    <span class="en">🏦 Wave of Bank Failures</span>
+                </p>
+                <p class="text-red-600 text-sm">
+                    <span class="zh">超过3000家银行破产或被救助</span>
+                    <span class="en">Over 3,000 banks failed or were bailed out</span>
+                </p>
             </div>
             <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                <p class="text-red-700 font-bold mb-2">🚜 农民抗议</p>
-                <p class="text-red-600 text-sm">建筑业、汽车业几乎停摆，农民开拖拉机到美联储门口抗议</p>
+                <p class="text-red-700 font-bold mb-2">
+                    <span class="zh">🚜 农民抗议</span>
+                    <span class="en">🚜 Farmers' Protest</span>
+                </p>
+                <p class="text-red-600 text-sm">
+                    <span class="zh">建筑业、汽车业几乎停摆，农民开拖拉机到美联储门口抗议</span>
+                    <span class="en">Construction and auto industries nearly shut down; farmers drove tractors to the Fed's doorstep in protest</span>
+                </p>
             </div>
         </div>
 
-        <p class="leading-relaxed text-gray-700 mt-6 font-medium">但结果是历史性的：</p>
+        <p class="leading-relaxed text-gray-700 mt-6 font-medium">
+            <span class="zh">但结果是历史性的：</span>
+            <span class="en">But the result was historic:</span>
+        </p>
 
         <div class="bg-green-50 p-6 rounded-lg border border-green-100 mt-4">
-            <p class="text-green-700">到1983年，通胀率从13.5%降到了<strong>3.2%</strong>；美元恢复强势；开启了美国历史上最长的"大稳健"时期（Great Moderation）；为里根时代的经济繁荣奠定了基础。</p>
+            <p class="text-green-700">
+                <span class="zh">到1983年，通胀率从13.5%降到了<strong>3.2%</strong>；美元恢复强势；开启了美国历史上最长的"大稳健"时期（Great Moderation）；为里根时代的经济繁荣奠定了基础。</span>
+                <span class="en">By 1983, inflation had fallen from 13.5% to <strong>3.2%</strong>; the dollar regained its strength; the longest period of "Great Moderation" in U.S. history began; and the foundation was laid for the economic boom of the Reagan era.</span>
+            </p>
         </div>
 
-        <div class="divider">当代镜鉴</div>
+        <div class="divider">
+            <span class="zh">当代镜鉴</span>
+            <span class="en">Lessons for Today</span>
+        </div>
 
         <h2 class="section-title text-2xl font-bold serif text-gray-800">
-            04 从沃尔克时刻看2026年
+            <span class="zh">04 从沃尔克时刻看2026年</span>
+            <span class="en">04 From the Volcker Moment to 2026</span>
         </h2>
 
         <div class="bg-blue-50 p-5 rounded-lg border border-blue-100 mt-4">
-            <p class="font-bold text-blue-800 mb-2">📰 【本周新闻】美联储5月FOMC会议释放信号：高利率可能持续更久</p>
+            <p class="font-bold text-blue-800 mb-2">
+                <span class="zh">📰 【本周新闻】美联储5月FOMC会议释放信号：高利率可能持续更久</span>
+                <span class="en">📰 [This Week] Fed's May FOMC Meeting Signal: Higher Rates May Last Longer</span>
+            </p>
             <ul class="text-blue-700 text-sm space-y-1">
-                <li>• 市场原本预期今年会降息2-3次</li>
-                <li>• 但核心PCE通胀连续三个月高于预期</li>
-                <li>• 鲍威尔在发布会上暗示"降息时间可能比预期更晚"</li>
-                <li>• 市场开始重新定价"更高更久"的利率环境</li>
+                <li>
+                    <span class="zh">• 市场原本预期今年会降息2-3次</span>
+                    <span class="en">• Markets had originally expected 2–3 rate cuts this year</span>
+                </li>
+                <li>
+                    <span class="zh">• 但核心PCE通胀连续三个月高于预期</span>
+                    <span class="en">• But core PCE inflation exceeded expectations for three consecutive months</span>
+                </li>
+                <li>
+                    <span class="zh">• 鲍威尔在发布会上暗示"降息时间可能比预期更晚"</span>
+                    <span class="en">• Powell hinted at the press conference that "rate cuts may come later than expected"</span>
+                </li>
+                <li>
+                    <span class="zh">• 市场开始重新定价"更高更久"的利率环境</span>
+                    <span class="en">• Markets began repricing for a "higher for longer" rate environment</span>
+                </li>
             </ul>
         </div>
 
@@ -425,62 +658,117 @@
             <div class="flex gap-4">
                 <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">1</span>
                 <div>
-                    <h4 class="font-bold text-gray-800">市场总是低估央行的决心</h4>
-                    <p class="text-gray-600 mt-1 text-sm">1979年，没有人相信沃尔克真的会把利率加到20%。同样，2022-2023年，也没有人相信鲍威尔会在一年内加息500bp。市场天生倾向于相信"央行会心软"，但这往往是误判。</p>
+                    <h4 class="font-bold text-gray-800">
+                        <span class="zh">市场总是低估央行的决心</span>
+                        <span class="en">Markets Always Underestimate Central Bank Resolve</span>
+                    </h4>
+                    <p class="text-gray-600 mt-1 text-sm">
+                        <span class="zh">1979年，没有人相信沃尔克真的会把利率加到20%。同样，2022-2023年，也没有人相信鲍威尔会在一年内加息500bp。市场天生倾向于相信"央行会心软"，但这往往是误判。</span>
+                        <span class="en">In 1979, no one believed Volcker would actually raise rates to 20%. Similarly, in 2022–2023, no one believed Powell would hike 500bp in a single year. Markets have an innate tendency to believe "the central bank will blink" — but that is often a misjudgment.</span>
+                    </p>
                 </div>
             </div>
             
             <div class="flex gap-4">
                 <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">2</span>
                 <div>
-                    <h4 class="font-bold text-gray-800">"暂时论"的陷阱</h4>
-                    <p class="text-gray-600 mt-1 text-sm">1970年代，美联储一次次认为通胀是"暂时的"（石油、粮食、越南战争），结果酿成了"大通胀"。2021年，我们又一次听到了"通胀暂时论"——历史不会简单重复，但决策者的认知偏差却惊人地相似。</p>
+                    <h4 class="font-bold text-gray-800">
+                        <span class="zh">"暂时论"的陷阱</span>
+                        <span class="en">The "Transitory" Trap</span>
+                    </h4>
+                    <p class="text-gray-600 mt-1 text-sm">
+                        <span class="zh">1970年代，美联储一次次认为通胀是"暂时的"（石油、粮食、越南战争），结果酿成了"大通胀"。2021年，我们又一次听到了"通胀暂时论"——历史不会简单重复，但决策者的认知偏差却惊人地相似。</span>
+                        <span class="en">In the 1970s, the Fed repeatedly deemed inflation "transitory" (oil, food, the Vietnam War) — and ended up breeding the "Great Inflation." In 2021, we heard "transitory inflation" once again. History may not repeat, but policymakers' cognitive biases are strikingly similar.</span>
+                    </p>
                 </div>
             </div>
             
             <div class="flex gap-4">
                 <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">3</span>
                 <div>
-                    <h4 class="font-bold text-gray-800">信誉是央行最宝贵的资产</h4>
-                    <p class="text-gray-600 mt-1 text-sm">沃尔克最伟大的遗产不是战胜了通胀，而是重建了美联储的信誉。一旦市场相信央行会不惜一切代价控制通胀，通胀预期就会自我实现下降。反之，如果市场怀疑决心，通胀就会根深蒂固。</p>
+                    <h4 class="font-bold text-gray-800">
+                        <span class="zh">信誉是央行最宝贵的资产</span>
+                        <span class="en">Credibility Is a Central Bank's Most Precious Asset</span>
+                    </h4>
+                    <p class="text-gray-600 mt-1 text-sm">
+                        <span class="zh">沃尔克最伟大的遗产不是战胜了通胀，而是重建了美联储的信誉。一旦市场相信央行会不惜一切代价控制通胀，通胀预期就会自我实现下降。反之，如果市场怀疑决心，通胀就会根深蒂固。</span>
+                        <span class="en">Volcker's greatest legacy was not defeating inflation but restoring the Fed's credibility. Once markets believe the central bank will do whatever it takes to control inflation, inflation expectations self-fulfillingly decline. Conversely, if markets doubt that resolve, inflation becomes entrenched.</span>
+                    </p>
                 </div>
             </div>
             
             <div class="flex gap-4">
                 <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold shrink-0">4</span>
                 <div>
-                    <h4 class="font-bold text-gray-800">没有无痛的退出</h4>
-                    <p class="text-gray-600 mt-1 text-sm">每一次宽松政策的退出，都没有软着陆的先例。沃尔克制造了衰退，格林斯潘刺破了互联网泡沫，伯南克的加息引发了次贷危机。2026年的我们，能够创造历史吗？</p>
+                    <h4 class="font-bold text-gray-800">
+                        <span class="zh">没有无痛的退出</span>
+                        <span class="en">There Is No Painless Exit</span>
+                    </h4>
+                    <p class="text-gray-600 mt-1 text-sm">
+                        <span class="zh">每一次宽松政策的退出，都没有软着陆的先例。沃尔克制造了衰退，格林斯潘刺破了互联网泡沫，伯南克的加息引发了次贷危机。2026年的我们，能够创造历史吗？</span>
+                        <span class="en">Every exit from easy monetary policy has lacked a soft-landing precedent. Volcker engineered a recession; Greenspan pricked the dot-com bubble; Bernanke's rate hikes triggered the subprime crisis. Can we in 2026 make history?</span>
+                    </p>
                 </div>
             </div>
         </div>
 
         <div class="note-card mt-8">
-            <h3 class="font-bold text-xl mb-4 serif">📌 实验室笔记</h3>
+            <h3 class="font-bold text-xl mb-4 serif">
+                <span class="zh">📌 实验室笔记</span>
+                <span class="en">📌 Lab Notes</span>
+            </h3>
             <ol class="space-y-3 text-sm">
-                <li><strong>1.</strong> 所有重大决策，本质上都是"短期痛苦"与"长期收益"的权衡。历史证明，那些愿意承受短期痛苦的决策者，最终会被历史铭记。</li>
-                <li><strong>2.</strong> 市场的记忆是短暂的。每一代人都需要重新学习"沃尔克教训"——通胀一旦失控，再想制服它，代价会大到难以想象。</li>
-                <li><strong>3.</strong> 2026年的我们，正在重演1979年的剧本吗？唯一的区别是，今天的债务水平是1979年的数倍，高利率的杀伤力可能远超当年。</li>
-                <li><strong>4.</strong> 作为投资者，你的"沃尔克时刻"是什么？是面对泡沫时忍住不追高的定力，还是面对下跌时忍住不抄底的耐心？</li>
+                <li>
+                    <span class="zh"><strong>1.</strong> 所有重大决策，本质上都是"短期痛苦"与"长期收益"的权衡。历史证明，那些愿意承受短期痛苦的决策者，最终会被历史铭记。</span>
+                    <span class="en"><strong>1.</strong> All major decisions are, at their core, a tradeoff between "short-term pain" and "long-term gain." History has shown that those willing to endure short-term pain are ultimately remembered by history.</span>
+                </li>
+                <li>
+                    <span class="zh"><strong>2.</strong> 市场的记忆是短暂的。每一代人都需要重新学习"沃尔克教训"——通胀一旦失控，再想制服它，代价会大到难以想象。</span>
+                    <span class="en"><strong>2.</strong> Markets have short memories. Every generation must relearn the "Volcker Lesson" — once inflation spirals out of control, the cost of taming it becomes almost unimaginable.</span>
+                </li>
+                <li>
+                    <span class="zh"><strong>3.</strong> 2026年的我们，正在重演1979年的剧本吗？唯一的区别是，今天的债务水平是1979年的数倍，高利率的杀伤力可能远超当年。</span>
+                    <span class="en"><strong>3.</strong> Are we in 2026 replaying the 1979 script? The only difference is that today's debt levels are multiples of 1979's, and the destructiveness of high rates may far exceed that era.</span>
+                </li>
+                <li>
+                    <span class="zh"><strong>4.</strong> 作为投资者，你的"沃尔克时刻"是什么？是面对泡沫时忍住不追高的定力，还是面对下跌时忍住不抄底的耐心？</span>
+                    <span class="en"><strong>4.</strong> As an investor, what is your "Volcker Moment"? Is it the discipline to resist chasing highs during a bubble, or the patience to resist bottom-fishing during a crash?</span>
+                </li>
             </ol>
         </div>
 
-        <div class="divider">🧪 样本外检验</div>
+        <div class="divider">
+            <span class="zh">🧪 样本外检验</span>
+            <span class="en">🧪 Out-of-Sample Test</span>
+        </div>
 
         <!-- 样本外检验投票区 -->
         <div class="experiment-box">
-            <h3 class="font-bold text-xl mb-4 serif text-center">沃尔克规律的2026复测</h3>
+            <h3 class="font-bold text-xl mb-4 serif text-center">
+                <span class="zh">沃尔克规律的2026复测</span>
+                <span class="en">The 2026 Retest of the Volcker Rule</span>
+            </h3>
             
             <div class="bg-white/70 p-4 rounded-lg mb-6">
-                <h4 class="font-bold text-gray-700 mb-2">【实验原理】</h4>
+                <h4 class="font-bold text-gray-700 mb-2">
+                    <span class="zh">【实验原理】</span>
+                    <span class="en">[Experimental Principle]</span>
+                </h4>
                 <p class="text-gray-600 text-sm">
-                    我们从1979-1982年沃尔克抗通胀的历史案例中，提炼出了<span class="text-purple-600 font-medium">"通胀粘性→央行强硬→市场误判→超预期紧缩"</span>的规律。现在，我们把这个规律作为"理论模型"，用2026年正在发生的现实作为"样本外数据"，来检验这个历史规律是否仍然有效。
+                    <span class="zh">我们从1979-1982年沃尔克抗通胀的历史案例中，提炼出了<span class="text-purple-600 font-medium">"通胀粘性→央行强硬→市场误判→超预期紧缩"</span>的规律。现在，我们把这个规律作为"理论模型"，用2026年正在发生的现实作为"样本外数据"，来检验这个历史规律是否仍然有效。</span>
+                    <span class="en">From the historical case of Volcker's anti-inflation campaign (1979–1982), we distilled the pattern: <span class="text-purple-600 font-medium">"inflation stickiness → central bank hawkishness → market misjudgment → tighter-than-expected."</span> Now we use this pattern as our "theoretical model" and 2026's unfolding reality as "out-of-sample data" to test whether this historical law still holds.</span>
                 </p>
             </div>
 
             <div class="mb-4">
-                <h4 class="font-bold text-gray-800 text-lg mb-2">【实验问题】</h4>
-                <p class="text-gray-700">基于沃尔克时代的历史镜鉴，你认为6月FOMC会议上，鲍威尔会释放什么信号？</p>
+                <h4 class="font-bold text-gray-800 text-lg mb-2">
+                    <span class="zh">【实验问题】</span>
+                    <span class="en">[Experimental Question]</span>
+                </h4>
+                <p class="text-gray-700">
+                    <span class="zh">基于沃尔克时代的历史镜鉴，你认为6月FOMC会议上，鲍威尔会释放什么信号？</span>
+                    <span class="en">Based on the historical mirror of the Volcker era, what signal do you think Powell will send at the June FOMC meeting?</span>
+                </p>
             </div>
 
             <div class="space-y-3" id="experiment-voting">
@@ -488,8 +776,14 @@
                     <div class="flex items-start gap-3">
                         <span class="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-sm shrink-0">A</span>
                         <div>
-                            <p class="font-medium">鹰派信号（明确今年不降息，甚至保留加息选项）</p>
-                            <p class="text-sm text-green-600 mt-1">→ 验证结论：<strong>沃尔克规律成立</strong>，央行对抗通胀的决心总是被市场低估</p>
+                            <p class="font-medium">
+                                <span class="zh">鹰派信号（明确今年不降息，甚至保留加息选项）</span>
+                                <span class="en">Hawkish Signal (No cuts this year, even keeping hikes on the table)</span>
+                            </p>
+                            <p class="text-sm text-green-600 mt-1">
+                                <span class="zh">→ 验证结论：<strong>沃尔克规律成立</strong>，央行对抗通胀的决心总是被市场低估</span>
+                                <span class="en">→ Verdict: <strong>Volcker Rule holds</strong> — the central bank's resolve against inflation is always underestimated by markets</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -498,8 +792,14 @@
                     <div class="flex items-start gap-3">
                         <span class="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm shrink-0">B</span>
                         <div>
-                            <p class="font-medium">中性偏鸽（维持利率不变，暗示下半年可能降息1-2次）</p>
-                            <p class="text-sm text-blue-600 mt-1">→ 验证结论：<strong>沃尔克规律部分成立</strong>，通胀仍是首要矛盾，但紧缩力度已过峰</p>
+                            <p class="font-medium">
+                                <span class="zh">中性偏鸽（维持利率不变，暗示下半年可能降息1-2次）</span>
+                                <span class="en">Slightly Dovish (Hold rates, hint at 1–2 cuts in H2)</span>
+                            </p>
+                            <p class="text-sm text-blue-600 mt-1">
+                                <span class="zh">→ 验证结论：<strong>沃尔克规律部分成立</strong>，通胀仍是首要矛盾，但紧缩力度已过峰</span>
+                                <span class="en">→ Verdict: <strong>Volcker Rule partially holds</strong> — inflation remains the primary concern, but tightening has peaked</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -508,8 +808,14 @@
                     <div class="flex items-start gap-3">
                         <span class="w-6 h-6 rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-sm shrink-0">C</span>
                         <div>
-                            <p class="font-medium">明确鸽派（宣布开启降息周期，7月首次降息）</p>
-                            <p class="text-sm text-yellow-600 mt-1">→ 验证结论：<strong>沃尔克规律失效</strong>，这轮周期与70年代有本质不同，通胀是暂时的</p>
+                            <p class="font-medium">
+                                <span class="zh">明确鸽派（宣布开启降息周期，7月首次降息）</span>
+                                <span class="en">Clearly Dovish (Announce rate-cut cycle, first cut in July)</span>
+                            </p>
+                            <p class="text-sm text-yellow-600 mt-1">
+                                <span class="zh">→ 验证结论：<strong>沃尔克规律失效</strong>，这轮周期与70年代有本质不同，通胀是暂时的</span>
+                                <span class="en">→ Verdict: <strong>Volcker Rule fails</strong> — this cycle is fundamentally different from the '70s; inflation is transitory</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -518,8 +824,14 @@
                     <div class="flex items-start gap-3">
                         <span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-sm shrink-0">D</span>
                         <div>
-                            <p class="font-medium">意外转向（暗示可能需要再次加息）</p>
-                            <p class="text-sm text-red-600 mt-1">→ 验证结论：<strong>沃尔克规律超预期成立</strong>，历史正在以更极端的方式重演</p>
+                            <p class="font-medium">
+                                <span class="zh">意外转向（暗示可能需要再次加息）</span>
+                                <span class="en">Surprise Pivot (Hint that further hikes may be needed)</span>
+                            </p>
+                            <p class="text-sm text-red-600 mt-1">
+                                <span class="zh">→ 验证结论：<strong>沃尔克规律超预期成立</strong>，历史正在以更极端的方式重演</span>
+                                <span class="en">→ Verdict: <strong>Volcker Rule holds beyond expectations</strong> — history is repeating in even more extreme fashion</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -527,10 +839,14 @@
 
             <div class="mt-6 text-center">
                 <div class="text-gray-500 text-sm mb-2">
-                    📅 实验揭榜时间：<strong class="text-purple-600">2026年6月18日 FOMC会议后</strong>
+                    <span class="zh">📅 实验揭榜时间：<strong class="text-purple-600">2026年6月18日 FOMC会议后</strong></span>
+                    <span class="en">📅 Experiment reveal date: <strong class="text-purple-600">After the June 18, 2026 FOMC meeting</strong></span>
                 </div>
                 <div class="mt-4 p-3 bg-gradient-to-r from-yellow-100 to-amber-100 rounded-lg inline-block">
-                    <span class="text-amber-700 text-sm">🔓 完成两次投票，解锁你的专属"决策风格人物画像"</span>
+                    <span class="text-amber-700 text-sm">
+                        <span class="zh">🔓 完成两次投票，解锁你的专属"决策风格人物画像"</span>
+                        <span class="en">🔓 Complete both polls to unlock your personal "Decision-Maker Profile"</span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -538,12 +854,21 @@
         <!-- 实验投票结果区 -->
         <div id="exp-result-area" style="display:none;">
             <div class="text-center mt-4 mb-2">
-                <span class="text-green-600 font-medium">✓ 你的预测已记录！</span>
+                <span class="text-green-600 font-medium">
+                    <span class="zh">✓ 你的预测已记录！</span>
+                    <span class="en">✓ Your prediction has been recorded!</span>
+                </span>
             </div>
             <div class="vote-stats-card">
                 <div class="flex items-center justify-between mb-3">
-                    <span class="font-bold text-gray-700">📊 预测投票统计</span>
-                    <span id="exp-total" class="text-sm text-gray-500">加载中...</span>
+                    <span class="font-bold text-gray-700">
+                        <span class="zh">📊 预测投票统计</span>
+                        <span class="en">📊 Prediction Poll Statistics</span>
+                    </span>
+                    <span id="exp-total" class="text-sm text-gray-500">
+                        <span class="zh">加载中...</span>
+                        <span class="en">Loading...</span>
+                    </span>
                 </div>
                 <div id="exp-stats"></div>
             </div>
@@ -557,35 +882,55 @@
                 <h3 id="personality-name" class="text-2xl md:text-3xl font-bold serif text-amber-800 mb-4"></h3>
                 <p id="personality-desc" class="text-gray-700 leading-relaxed text-lg"></p>
                 <div class="mt-6 text-sm text-amber-600">
-                    ✨ 感谢你参与本期历史实验室！我们下期再见
+                    <span class="zh">✨ 感谢你参与本期历史实验室！我们下期再见</span>
+                    <span class="en">✨ Thank you for joining this issue of History Lab! See you next time</span>
                 </div>
             </div>
         </div>
 
         <!-- 下期预告 -->
-        <div class="divider">下一期预告</div>
+        <div class="divider">
+            <span class="zh">下一期预告</span>
+            <span class="en">Next Issue Preview</span>
+        </div>
 
         <div class="bg-gradient-to-r from-purple-100 to-pink-100 p-6 rounded-xl text-center">
-            <h3 class="font-bold text-xl text-purple-800 serif mb-3">第2期</h3>
-            <p class="text-purple-700 text-lg">存储芯片泡沫与1987年幽灵</p>
-            <p class="text-purple-600 mt-2">1987年，DRAM价格暴跌70%，一家巨头一夜崩塌。今天，存储芯片股创下历史新高，HBM成为AI淘金热的核心赛道。历史会不会重演？你站在泡沫的哪一侧？</p>
+            <h3 class="font-bold text-xl text-purple-800 serif mb-3">
+                <span class="zh">第2期</span>
+                <span class="en">Issue No.2</span>
+            </h3>
+            <p class="text-purple-700 text-lg">
+                <span class="zh">存储芯片泡沫与1987年幽灵</span>
+                <span class="en">The Memory Chip Bubble and the Ghost of 1987</span>
+            </p>
+            <p class="text-purple-600 mt-2">
+                <span class="zh">1987年，DRAM价格暴跌70%，一家巨头一夜崩塌。今天，存储芯片股创下历史新高，HBM成为AI淘金热的核心赛道。历史会不会重演？你站在泡沫的哪一侧？</span>
+                <span class="en">In 1987, DRAM prices crashed 70% and a giant collapsed overnight. Today, memory chip stocks hit all-time highs, and HBM has become the core track of the AI gold rush. Will history repeat? Which side of the bubble are you on?</span>
+            </p>
         </div>
 
     </div>
 
     <!-- 底部 -->
     <div class="bg-gray-800 text-white text-center py-8 px-4">
-        <p class="text-lg serif font-medium mb-2">历史实验室</p>
-        <p class="text-gray-400 text-sm italic">在历史的十字路口寻找答案</p>
+        <p class="text-lg serif font-medium mb-2">
+            <span class="zh">历史实验室</span>
+            <span class="en">History Lab</span>
+        </p>
+        <p class="text-gray-400 text-sm italic">
+            <span class="zh">在历史的十字路口寻找答案</span>
+            <span class="en">Finding answers at history's crossroads</span>
+        </p>
         <div class="mt-6">
             <button onclick="resetVotes()" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm transition-all">
-                🔄 重置我的投票（重新体验）
+                <span class="zh">🔄 重置我的投票（重新体验）</span>
+                <span class="en">🔄 Reset My Votes (Re-experience)</span>
             </button>
         </div>
     </div>
 
     <script>
-        // ============ Supabase 配置 ============
+        // ============ Supabase Config ============
         const SUPABASE_URL = 'https://vucpxdmipdxyhixofwkn.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_CgD0jiGAgl56bTfW0BBwfw_NIRtY2ZM';
         const EPISODE_ID = 'volcker_1979';
@@ -595,10 +940,10 @@
         try {
             db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         } catch(e) {
-            console.warn('Supabase SDK 加载失败，将使用纯本地模式', e);
+            console.warn('Supabase SDK failed to load, using local-only mode', e);
         }
 
-        // ============ 本地用户状态（只存"我投了什么"，不存统计数字） ============
+        // ============ Local User State ============
         let userState = {
             hasVotedChoice: false,
             hasVotedExperiment: false,
@@ -615,42 +960,39 @@
             localStorage.setItem(STORAGE_KEY, JSON.stringify(userState));
         }
 
-        // ============ 颜色与标签映射 ============
-        const choiceLabels = { A: 'A · 激进加息', B: 'B · 渐进加息', C: 'C · 按兵不动', D: 'D · 转向宽松' };
-        const expLabels = { A: 'A · 鹰派信号', B: 'B · 中性偏鸽', C: 'C · 明确鸽派', D: 'D · 意外转向' };
+        // ============ Labels (bilingual) ============
+        const isEN = () => document.body.classList.contains('lang-en');
+        const choiceLabelsZH = { A: 'A · 激进加息', B: 'B · 渐进加息', C: 'C · 按兵不动', D: 'D · 转向宽松' };
+        const choiceLabelsEN = { A: 'A · Aggressive Hike', B: 'B · Gradual Hike', C: 'C · Hold Steady', D: 'D · Pivot to Ease' };
+        const expLabelsZH = { A: 'A · 鹰派信号', B: 'B · 中性偏鸽', C: 'C · 明确鸽派', D: 'D · 意外转向' };
+        const expLabelsEN = { A: 'A · Hawkish', B: 'B · Slightly Dovish', C: 'C · Clearly Dovish', D: 'D · Surprise Pivot' };
         const barColors = { A: '#10b981', B: '#3b82f6', C: '#f59e0b', D: '#ef4444' };
 
-        // ============ 从 Supabase 加载统计并渲染 ============
+        function getChoiceLabels() { return isEN() ? choiceLabelsEN : choiceLabelsZH; }
+        function getExpLabels() { return isEN() ? expLabelsEN : expLabelsZH; }
+
+        // ============ Load Stats from Supabase ============
         async function loadVoteStats() {
             if (!db) {
-                renderStats('choice-stats', 'choice-total', { A: 0, B: 0, C: 0, D: 0 }, choiceLabels);
-                renderStats('exp-stats', 'exp-total', { A: 0, B: 0, C: 0, D: 0 }, expLabels);
+                renderStats('choice-stats', 'choice-total', { A: 0, B: 0, C: 0, D: 0 }, getChoiceLabels());
+                renderStats('exp-stats', 'exp-total', { A: 0, B: 0, C: 0, D: 0 }, getExpLabels());
                 return;
             }
             try {
-                const { data, error } = await db
-                    .from('votes')
-                    .select('vote_type, option')
-                    .eq('episode_id', EPISODE_ID);
-
+                const { data, error } = await db.from('votes').select('vote_type, option').eq('episode_id', EPISODE_ID);
                 if (error) throw error;
-
-                const stats = {
-                    choice: { A: 0, B: 0, C: 0, D: 0 },
-                    experiment: { A: 0, B: 0, C: 0, D: 0 }
-                };
+                const stats = { choice: { A: 0, B: 0, C: 0, D: 0 }, experiment: { A: 0, B: 0, C: 0, D: 0 } };
                 (data || []).forEach(function(row) {
                     if (stats[row.vote_type] && row.option in stats[row.vote_type]) {
                         stats[row.vote_type][row.option]++;
                     }
                 });
-
-                renderStats('choice-stats', 'choice-total', stats.choice, choiceLabels);
-                renderStats('exp-stats', 'exp-total', stats.experiment, expLabels);
+                renderStats('choice-stats', 'choice-total', stats.choice, getChoiceLabels());
+                renderStats('exp-stats', 'exp-total', stats.experiment, getExpLabels());
             } catch(err) {
-                console.error('加载投票统计失败:', err);
-                renderStats('choice-stats', 'choice-total', { A: 0, B: 0, C: 0, D: 0 }, choiceLabels);
-                renderStats('exp-stats', 'exp-total', { A: 0, B: 0, C: 0, D: 0 }, expLabels);
+                console.error('Failed to load vote stats:', err);
+                renderStats('choice-stats', 'choice-total', { A: 0, B: 0, C: 0, D: 0 }, getChoiceLabels());
+                renderStats('exp-stats', 'exp-total', { A: 0, B: 0, C: 0, D: 0 }, getExpLabels());
             }
         }
 
@@ -658,146 +1000,141 @@
             var container = document.getElementById(containerId);
             var totalEl = document.getElementById(totalId);
             if (!container) return;
-
             var total = 0;
             ['A','B','C','D'].forEach(function(k){ total += data[k]; });
-            if (totalEl) totalEl.textContent = '共 ' + total + ' 人参与';
-
+            if (totalEl) totalEl.textContent = (isEN() ? 'Total: ' : '共 ') + total + (isEN() ? ' votes' : ' 人参与');
             var html = '';
             ['A','B','C','D'].forEach(function(key) {
                 var pct = total > 0 ? ((data[key] / total) * 100).toFixed(1) : '0.0';
                 html += '<div style="margin-bottom:0.75rem">' +
                     '<div style="display:flex;justify-content:space-between;font-size:0.875rem;margin-bottom:4px">' +
                         '<span style="font-weight:500;color:#374151">' + (labels[key] || key) + '</span>' +
-                        '<span style="color:#6b7280">' + data[key] + '票 · ' + pct + '%</span>' +
+                        '<span style="color:#6b7280">' + data[key] + (isEN() ? ' votes · ' : '票 · ') + pct + '%</span>' +
                     '</div>' +
                     '<div class="vote-bar-bg">' +
                         '<div class="vote-bar-fill" style="width:' + pct + '%;background:' + barColors[key] + '"></div>' +
                     '</div>' +
                 '</div>';
             });
-
             container.innerHTML = html;
         }
 
-        // ============ 提交投票到 Supabase ============
+        // ============ Submit Vote to Supabase ============
         async function submitVote(voteType, option) {
             if (!db) return;
             try {
-                var result = await db
-                    .from('votes')
-                    .insert({ episode_id: EPISODE_ID, vote_type: voteType, option: option });
-                // 无论成功失败都刷新统计
+                await db.from('votes').insert({ episode_id: EPISODE_ID, vote_type: voteType, option: option });
             } catch(err) {
-                console.error('投票提交失败:', err);
+                console.error('Vote submission failed:', err);
             }
-            // 刷新统计
             loadVoteStats();
         }
 
-        // ============ 历史选择投票 ============
+        // ============ Choice Voting ============
         document.querySelectorAll('.option-card').forEach(function(card) {
             card.addEventListener('click', function() {
                 if (userState.hasVotedChoice) return;
-
                 var option = this.dataset.option;
                 userState.hasVotedChoice = true;
                 userState.userChoice = option;
-
-                document.querySelectorAll('.option-card').forEach(function(c) {
-                    c.classList.add('voted');
-                    c.classList.remove('selected');
-                });
+                document.querySelectorAll('.option-card').forEach(function(c) { c.classList.add('voted'); c.classList.remove('selected'); });
                 this.classList.add('selected');
-
                 document.getElementById('vote-result-area').style.display = 'block';
-
                 saveUserState();
                 submitVote('choice', option);
-
                 if (userState.userExperiment) {
                     setTimeout(function() { showPersonality(userState.userChoice, userState.userExperiment); }, 500);
                 } else {
-                    alert('你的历史选择已记录！继续阅读文章，文末还有一次预测投票，完成后解锁你的专属决策风格人物画像 🎯');
+                    alert(isEN() ? 'Your choice has been recorded! Keep reading — there\'s one more prediction poll at the end. Complete both to unlock your Decision-Maker Profile 🎯' : '你的历史选择已记录！继续阅读文章，文末还有一次预测投票，完成后解锁你的专属决策风格人物画像 🎯');
                 }
             });
         });
 
-        // ============ 实验投票 ============
+        // ============ Experiment Voting ============
         document.querySelectorAll('.exp-option').forEach(function(card) {
             card.addEventListener('click', function() {
                 if (userState.hasVotedExperiment) return;
-
                 var option = this.dataset.exp;
                 userState.hasVotedExperiment = true;
                 userState.userExperiment = option;
-
-                document.querySelectorAll('.exp-option').forEach(function(c) {
-                    c.style.cursor = 'default';
-                    c.classList.remove('selected');
-                });
+                document.querySelectorAll('.exp-option').forEach(function(c) { c.style.cursor = 'default'; c.classList.remove('selected'); });
                 this.classList.add('selected');
                 this.style.background = 'rgba(16, 185, 129, 0.1)';
-
                 document.getElementById('exp-result-area').style.display = 'block';
-
                 saveUserState();
                 submitVote('experiment', option);
-
                 if (userState.userChoice) {
                     setTimeout(function() { showPersonality(userState.userChoice, userState.userExperiment); }, 300);
                 } else {
-                    alert('你的预测已记录！回到文章开头，完成历史场景选择投票后，解锁你的决策风格人物画像 🔓');
+                    alert(isEN() ? 'Your prediction has been recorded! Go back to the top and complete the historical scenario vote to unlock your Decision-Maker Profile 🔓' : '你的预测已记录！回到文章开头，完成历史场景选择投票后，解锁你的决策风格人物画像 🔓');
                 }
             });
         });
 
-        // ============ 决策风格人物画像 ============
+        // ============ Decision-Maker Profiles (16 combos) ============
         function showPersonality(choice, exp) {
             var personalities = {
-                'AA': { name: '保罗·沃尔克', desc: '你是真正的"通胀斗士"！意志坚定、行动果敢，为了长期目标不惜承受短期痛苦。你相信原则重于权宜，在压力面前从不退缩。历史证明，这样的人最终会被铭记。', emoji: '🦅' },
-                'AB': { name: '朱镕基', desc: '你既有大刀阔斧改革的魄力，又懂务实平衡的艺术。面对复杂局面，你能在坚定方向的同时，灵活把握节奏。这是顶尖决策者的稀有品质！', emoji: '🐯' },
-                'AC': { name: '富兰克林·罗斯福', desc: '你有改革的魄力，更有审时度势的智慧。"大胆试验，错了就改"是你的信条。这种既敢闯又灵活的风格，往往能在危局中开创新局面！', emoji: '🦁' },
-                'AD': { name: '撒切尔夫人', desc: '你是"铁娘子"型人物——目标明确，意志如钢，该转向时毫不犹豫。你不害怕争议，只在乎做正确的事。这种强大的内心力量，注定你不会随波逐流！', emoji: '👑' },
-                'BA': { name: '马里奥·德拉吉', desc: '你外表温和内敛，内心却有"不惜一切代价"的坚定。平时步步为营，关键时刻能爆发出惊人的魄力。这种"静水流深"的风格，往往是成大事者的特质！', emoji: '🌊' },
-                'BB': { name: '格林斯潘', desc: '你是天生的"平衡大师"。在各种矛盾的目标之间，你总能找到微妙的平衡点。语焉不详、行动审慎不是缺点，而是你驾驭复杂局面的智慧。', emoji: '⚖️' },
-                'BC': { name: '伯南克', desc: '你是学者型决策者——数据驱动，逻辑优先，不预设立场，随时准备修正观点。这种开放务实的态度，让你在快速变化的世界中总能做出最优选择。', emoji: '📚' },
-                'BD': { name: '周小川', desc: '你是"渐进式改革"的高手。平时稳扎稳打，该突破时绝不手软。这种"静如处子、动如脱兔"的节奏把控能力，是长期主义者的制胜法宝。', emoji: '🐉' },
-                'CA': { name: '罗伯特·蒙代尔', desc: '你是理论派与行动派的完美结合。不轻易表态，但一旦认定方向就坚定不移。这种深思熟虑后的果断，往往能一击即中！', emoji: '🎯' },
-                'CB': { name: '约翰·梅纳德·凯恩斯', desc: '你相信"形势变了，我的观点也随之改变"。观察、等待、相机抉择是你的风格。这种务实主义让你很少犯大错，总能在合适的时间出现在合适的位置。', emoji: '🧠' },
-                'CC': { name: '易纲', desc: '你是学者型官员的典范——低调、务实、专业、稳健。你不追求轰动效应，只做正确的事。这种"润物细无声"的力量，往往比轰轰烈烈更持久、更可靠。', emoji: '🌿' },
-                'CD': { name: '耶伦', desc: '你是"鸽派中的鹰派"——平时温和耐心，该强硬时也绝不手软。你用学者的严谨看待每一个决策，用女性的细腻感知每一个数据。这种刚柔并济的风格，是这个时代最稀缺的智慧！', emoji: '💎' },
-                'DA': { name: '彭德怀', desc: '你是"谁敢横刀立马"的勇将！平时宽厚待人，关键时刻雷霆出击。你不惹事，但绝不怕事。这种外柔内刚的性格，在关键时刻往往能成为团队的定海神针！', emoji: '⚔️' },
-                'DB': { name: '里根', desc: '你相信"市场的智慧"，也懂政府的边界。你是自由市场的信徒，但也知道何时该出手。这种"有所为有所不为"的分寸感，是顶级政治家的标志。', emoji: '🌟' },
-                'DC': { name: '克林顿', desc: '你是天生的"政治动物"——实用主义至上，没有什么教条不能打破。你关心的只有"什么有效"。这种灵活应变的能力，让你总能在任何环境中找到机会。', emoji: '🎭' },
-                'DD': { name: '安倍晋三', desc: '你是"大胆实验"的倡导者。敢于突破常规，勇于尝试新思路。虽然可能会有争议，但历史往往是由这些敢于第一个吃螃蟹的人书写的！', emoji: '🚀' }
+                'AA': { nameZH: '保罗·沃尔克', nameEN: 'Paul Volcker', descZH: '你是真正的"通胀斗士"！意志坚定、行动果敢，为了长期目标不惜承受短期痛苦。你相信原则重于权宜，在压力面前从不退缩。历史证明，这样的人最终会被铭记。', descEN: 'You are a true "Inflation Fighter"! Steadfast in will, decisive in action, willing to endure short-term pain for long-term goals. You believe principles trump expediency, and you never flinch in the face of pressure. History has shown that such people are ultimately remembered.', emoji: '🦅' },
+                'AB': { nameZH: '朱镕基', nameEN: 'Zhu Rongji', descZH: '你既有大刀阔斧改革的魄力，又懂务实平衡的艺术。面对复杂局面，你能在坚定方向的同时，灵活把握节奏。这是顶尖决策者的稀有品质！', descEN: 'You have both the boldness for sweeping reform and the art of pragmatic balance. Facing complex situations, you maintain a firm direction while flexibly controlling the pace. This is a rare quality among top decision-makers!', emoji: '🐯' },
+                'AC': { nameZH: '富兰克林·罗斯福', nameEN: 'Franklin D. Roosevelt', descZH: '你有改革的魄力，更有审时度势的智慧。"大胆试验，错了就改"是你的信条。这种既敢闯又灵活的风格，往往能在危局中开创新局面！', descEN: 'You have the boldness for reform and the wisdom to read the times. "Bold experiments, and if wrong, correct course" is your creed. This style — daring yet flexible — often forges new paths in times of crisis!', emoji: '🦁' },
+                'AD': { nameZH: '撒切尔夫人', nameEN: 'Margaret Thatcher', descZH: '你是"铁娘子"型人物——目标明确，意志如钢，该转向时毫不犹豫。你不害怕争议，只在乎做正确的事。这种强大的内心力量，注定你不会随波逐流！', descEN: 'You are an "Iron Lady" type — clear goals, will of steel, no hesitation when it\'s time to pivot. You don\'t fear controversy, only care about doing what\'s right. Such inner strength means you\'ll never follow the crowd!', emoji: '👑' },
+                'BA': { nameZH: '马里奥·德拉吉', nameEN: 'Mario Draghi', descZH: '你外表温和内敛，内心却有"不惜一切代价"的坚定。平时步步为营，关键时刻能爆发出惊人的魄力。这种"静水流深"的风格，往往是成大事者的特质！', descEN: 'Outwardly gentle and reserved, inwardly you possess a "whatever it takes" resolve. Methodical in normal times, capable of astonishing decisiveness at critical moments. This "still waters run deep" style is often the mark of great achievers!', emoji: '🌊' },
+                'BB': { nameZH: '格林斯潘', nameEN: 'Alan Greenspan', descZH: '你是天生的"平衡大师"。在各种矛盾的目标之间，你总能找到微妙的平衡点。语焉不详、行动审慎不是缺点，而是你驾驭复杂局面的智慧。', descEN: 'You are a natural "Master of Balance." Among contradictory objectives, you always find the subtle equilibrium. Opacity and cautious action are not flaws — they are your wisdom in navigating complexity.', emoji: '⚖️' },
+                'BC': { nameZH: '伯南克', nameEN: 'Ben Bernanke', descZH: '你是学者型决策者——数据驱动，逻辑优先，不预设立场，随时准备修正观点。这种开放务实的态度，让你在快速变化的世界中总能做出最优选择。', descEN: 'You are a scholarly decision-maker — data-driven, logic-first, no preconceptions, always ready to revise your views. This open, pragmatic approach lets you make optimal choices in a rapidly changing world.', emoji: '📚' },
+                'BD': { nameZH: '周小川', nameEN: 'Zhou Xiaochuan', descZH: '你是"渐进式改革"的高手。平时稳扎稳打，该突破时绝不手软。这种"静如处子、动如脱兔"的节奏把控能力，是长期主义者的制胜法宝。', descEN: 'You are a master of "gradual reform." Steady and methodical in normal times, absolutely decisive when breakthroughs are needed. This "quiet as a maiden, swift as a hare" rhythm control is the long-termist\'s winning formula.', emoji: '🐉' },
+                'CA': { nameZH: '罗伯特·蒙代尔', nameEN: 'Robert Mundell', descZH: '你是理论派与行动派的完美结合。不轻易表态，但一旦认定方向就坚定不移。这种深思熟虑后的果断，往往能一击即中！', descEN: 'You are a perfect blend of theorist and man of action. You don\'t commit lightly, but once direction is set, you are unwavering. This decisiveness born of deep deliberation often strikes true on the first try!', emoji: '🎯' },
+                'CB': { nameZH: '约翰·梅纳德·凯恩斯', nameEN: 'John Maynard Keynes', descZH: '你相信"形势变了，我的观点也随之改变"。观察、等待、相机抉择是你的风格。这种务实主义让你很少犯大错，总能在合适的时间出现在合适的位置。', descEN: 'You believe "when the facts change, I change my mind." Observe, wait, decide when the time is right — that\'s your style. This pragmatism means you rarely make big mistakes, always showing up in the right place at the right time.', emoji: '🧠' },
+                'CC': { nameZH: '易纲', nameEN: 'Yi Gang', descZH: '你是学者型官员的典范——低调、务实、专业、稳健。你不追求轰动效应，只做正确的事。这种"润物细无声"的力量，往往比轰轰烈烈更持久、更可靠。', descEN: 'You are the model scholarly official — low-key, pragmatic, professional, steady. You don\'t chase headlines, only do what\'s right. This "quiet nourishment" approach is often more enduring and reliable than dramatic gestures.', emoji: '🌿' },
+                'CD': { nameZH: '耶伦', nameEN: 'Janet Yellen', descZH: '你是"鸽派中的鹰派"——平时温和耐心，该强硬时也绝不手软。你用学者的严谨看待每一个决策，用女性的细腻感知每一个数据。这种刚柔并济的风格，是这个时代最稀缺的智慧！', descEN: 'You are the "hawk among doves" — gentle and patient normally, but absolutely firm when strength is needed. You approach every decision with scholarly rigor and perceive every data point with细腻 sensitivity. This blend of steel and silk is the rarest wisdom of our era!', emoji: '💎' },
+                'DA': { nameZH: '彭德怀', nameEN: 'Peng Dehuai', descZH: '你是"谁敢横刀立马"的勇将！平时宽厚待人，关键时刻雷霆出击。你不惹事，但绝不怕事。这种外柔内刚的性格，在关键时刻往往能成为团队的定海神针！', descEN: 'You are the valiant commander — "Who dares stand with sword drawn!" Generous in daily life, thunderous at critical moments. You don\'t provoke, but you never flinch. This steel-within-silk character often becomes the team\'s anchor in decisive moments!', emoji: '⚔️' },
+                'DB': { nameZH: '里根', nameEN: 'Ronald Reagan', descZH: '你相信"市场的智慧"，也懂政府的边界。你是自由市场的信徒，但也知道何时该出手。这种"有所为有所不为"的分寸感，是顶级政治家的标志。', descEN: 'You believe in "market wisdom" but also understand the limits of government. A devotee of free markets, yet you know when to intervene. This sense of "when to act and when to refrain" is the hallmark of a top-tier statesman.', emoji: '🌟' },
+                'DC': { nameZH: '克林顿', nameEN: 'Bill Clinton', descZH: '你是天生的"政治动物"——实用主义至上，没有什么教条不能打破。你关心的只有"什么有效"。这种灵活应变的能力，让你总能在任何环境中找到机会。', descEN: 'You are a born "political animal" — pragmatism above all, no doctrine too sacred to break. You care only about "what works." This adaptive ability means you always find opportunity in any environment.', emoji: '🎭' },
+                'DD': { nameZH: '安倍晋三', nameEN: 'Shinzo Abe', descZH: '你是"大胆实验"的倡导者。敢于突破常规，勇于尝试新思路。虽然可能会有争议，但历史往往是由这些敢于第一个吃螃蟹的人书写的！', descEN: 'You are a champion of "bold experiments." You dare to break conventions and venture into new thinking. It may be controversial, but history is often written by those brave enough to be first!', emoji: '🚀' }
             };
             
             var p = personalities[choice + exp];
             if (p) {
                 document.getElementById('personality-result').scrollIntoView({ behavior: 'smooth' });
                 setTimeout(function() {
-                    document.getElementById('personality-name').textContent = p.emoji + ' 你的决策风格最像：' + p.name;
-                    document.getElementById('personality-desc').textContent = p.desc;
+                    var langEN = document.body.classList.contains('lang-en');
+                    document.getElementById('personality-name').textContent = p.emoji + ' ' + (langEN ? 'Your decision-making style is most like: ' : '你的决策风格最像：') + (langEN ? p.nameEN : p.nameZH);
+                    document.getElementById('personality-desc').textContent = langEN ? p.descEN : p.descZH;
                     document.getElementById('personality-card').style.display = 'block';
                 }, 600);
             }
         }
 
-        // ============ 重置投票（只清本地状态，不清远程数据） ============
+        // ============ Reset Votes ============
         function resetVotes() {
-            if (confirm('确定要重置你的投票吗？可以重新体验完整流程！\n（你之前的投票已计入统计，重置后可重新选择）')) {
+            if (confirm(isEN() ? 'Reset your votes? You can re-experience the full flow!\n(Your previous votes remain in statistics; reset allows re-selection)' : '确定要重置你的投票吗？可以重新体验完整流程！\n（你之前的投票已计入统计，重置后可重新选择）')) {
                 localStorage.removeItem(STORAGE_KEY);
                 location.reload();
             }
         }
 
-        // ============ 页面加载 ============
+        // ============ Language Toggle ============
+        function toggleLang() {
+            document.body.classList.toggle('lang-en');
+            var btn = document.getElementById('langToggle');
+            var isEnglish = document.body.classList.contains('lang-en');
+            btn.textContent = isEnglish ? '中' : 'EN';
+            if (isEnglish) { btn.classList.add('active'); } else { btn.classList.remove('active'); }
+            sessionStorage.setItem('lang', isEnglish ? 'en' : 'zh');
+            // Re-render stats with correct language labels
+            loadVoteStats();
+        }
+
+        // ============ Page Load ============
         window.addEventListener('load', function() {
-            // 加载远程统计
+            // Restore language preference
+            if (sessionStorage.getItem('lang') === 'en') {
+                document.body.classList.add('lang-en');
+                document.getElementById('langToggle').textContent = '中';
+                document.getElementById('langToggle').classList.add('active');
+            }
+
             loadVoteStats();
 
-            // 恢复历史选择状态
             if (userState.hasVotedChoice) {
                 var card = document.querySelector('.option-card[data-option="' + userState.userChoice + '"]');
                 if (card) {
@@ -807,7 +1144,6 @@
                 }
             }
 
-            // 恢复实验投票状态
             if (userState.hasVotedExperiment) {
                 var ecard = document.querySelector('.exp-option[data-exp="' + userState.userExperiment + '"]');
                 if (ecard) {
@@ -818,7 +1154,6 @@
                 }
             }
 
-            // 如果两次都投了，显示人物画像
             if (userState.userChoice && userState.userExperiment) {
                 setTimeout(function() { showPersonality(userState.userChoice, userState.userExperiment); }, 800);
             }
