@@ -1089,7 +1089,7 @@
                 'DA': { nameZH: '彭德怀', nameEN: 'Peng Dehuai', descZH: '你是"谁敢横刀立马"的勇将！平时宽厚待人，关键时刻雷霆出击。你不惹事，但绝不怕事。这种外柔内刚的性格，在关键时刻往往能成为团队的定海神针！', descEN: 'You are the valiant commander — "Who dares stand with sword drawn!" Generous in daily life, thunderous at critical moments. You don\'t provoke, but you never flinch. This steel-within-silk character often becomes the team\'s anchor in decisive moments!', emoji: '⚔️' },
                 'DB': { nameZH: '里根', nameEN: 'Ronald Reagan', descZH: '你相信"市场的智慧"，也懂政府的边界。你是自由市场的信徒，但也知道何时该出手。这种"有所为有所不为"的分寸感，是顶级政治家的标志。', descEN: 'You believe in "market wisdom" but also understand the limits of government. A devotee of free markets, yet you know when to intervene. This sense of "when to act and when to refrain" is the hallmark of a top-tier statesman.', emoji: '🌟' },
                 'DC': { nameZH: '克林顿', nameEN: 'Bill Clinton', descZH: '你是天生的"政治动物"——实用主义至上，没有什么教条不能打破。你关心的只有"什么有效"。这种灵活应变的能力，让你总能在任何环境中找到机会。', descEN: 'You are a born "political animal" — pragmatism above all, no doctrine too sacred to break. You care only about "what works." This adaptive ability means you always find opportunity in any environment.', emoji: '🎭' },
-                'DD': { nameZH: '安倍晋三', nameEN: 'Shinzo Abe', descZH: '你是"大胆实验"的倡导者。敢于突破常规，勇于尝试新思路。虽然可能会有争议，但历史往往是由这些敢于第一个吃螃蟹的人书写的！', descEN: 'You are a champion of "bold experiments." You dare to break conventions and venture into new thinking. It may be controversial, but history is often written by those brave enough to be first!', emoji: '🚀' }
+                'DD': { nameZH: '邓小平', nameEN: 'Deng Xiaoping', descZH: '你是"摸着石头过河"的实践大师。不迷信教条，只相信实践出真知——特区先行、试点推广、错了就改。你用最务实的方式做最大胆的事，别人还在争论方向时，你已经蹚出了一条新路！', descEN: 'You are a master practitioner of "crossing the river by feeling the stones." You don\'t worship dogma, only believe in truth through practice — special zones first, pilot then scale, course-correct when wrong. You do the boldest things in the most pragmatic way; while others debate direction, you\'ve already blazed a new path!', emoji: '🐾' }
             };
             
             var p = personalities[choice + exp];
@@ -1122,10 +1122,6 @@
             sessionStorage.setItem('lang', isEnglish ? 'en' : 'zh');
             // Re-render stats with correct language labels
             loadVoteStats();
-            // Re-render personality card if visible
-            if (userState.userChoice && userState.userExperiment) {
-                showPersonality(userState.userChoice, userState.userExperiment);
-            }
         }
 
         // ============ Page Load ============
