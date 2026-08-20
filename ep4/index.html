@@ -1,55 +1,1164 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【历史实验室第4期】40万亿美债的"抢七局"</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* ===== Language Switching ===== */
+        .en { display: none !important; }
+        .zh { display: inline !important; }
+        body.lang-en .zh { display: none !important; }
+        body.lang-en .en { display: inline !important; }
+        body.lang-en p.en, body.lang-en h1.en, body.lang-en h2.en, body.lang-en h3.en,
+        body.lang-en h4.en, body.lang-en li.en, body.lang-en div.en,
+        body.lang-en td.en, body.lang-en th.en { display: block !important; }
+        body.lang-en span.en { display: inline !important; }
+        body.lang-en strong.en { display: inline !important; }
+        body.lang-en .en.block { display: block !important; }
+        body.lang-en .en.inline-block { display: inline-block !important; }
+        body.lang-en .en.flex { display: flex !important; }
+        body.lang-en .en.grid { display: grid !important; }
 
-<!DOCTYPE html><html><head><script>window.gfdatav1={"env":"prod","envName":"prod","runtime":"node","ver":"1.0.1.2407","canary":0,"idc":"lq","region":"cn","vdc":"lq","vregion":"China-North","extra":{"canaryType":null}}</script><script>/*! For license information please see slardar_umd_space_cn.js.LICENSE.txt */
-!function(n,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define("CozeSlardar",[],t):"object"==typeof exports?exports.CozeSlardar=t():n.CozeSlardar=t()}(this,()=>(()=>{"use strict";let n,t,e,r;var o,i,u,a,c,f,s,l,d,v,p={787:function(n,t){var e,r=function(){return(r=Object.assign||function(n){for(var t,e=1,r=arguments.length;e<r;e++)for(var o in t=arguments[e])Object.prototype.hasOwnProperty.call(t,o)&&(n[o]=t[o]);return n}).apply(this,arguments)};function o(n,t){var e="function"==typeof Symbol&&n[Symbol.iterator];if(!e)return n;var r,o,i=e.call(n),u=[];try{for(;(void 0===t||t-- >0)&&!(r=i.next()).done;)u.push(r.value)}catch(n){o={error:n}}finally{try{r&&!r.done&&(e=i.return)&&e.call(i)}finally{if(o)throw o.error}}return u}function i(n,t,e){if(e||2==arguments.length)for(var r,o=0,i=t.length;o<i;o++)!r&&o in t||(r||(r=Array.prototype.slice.call(t,0,o)),r[o]=t[o]);return n.concat(r||Array.prototype.slice.call(t))}var u=function(){return{}};function a(n){return"object"==typeof n&&null!==n}var c=Object.prototype;function f(n){return"[object Array]"===c.toString.call(n)}function s(n){return"function"==typeof n}function l(n){return"string"==typeof n}var d=function(){var n={};return[n,function(t,e){return n[t]=e},function(t){return delete n[t]}]},v=function(n,t){var e,r=f(e=n||[])&&e.length?function(n){for(var t=[],e=n.length,r=0;r<e;r++){var o=n[r];l(o)?t.push(o.replace(/([.*+?^=!:${}()|[\]/\\])/g,"\\$1")):o&&o.source&&t.push(o.source)}return RegExp(t.join("|"),"i")}(e):null;return!!r&&r.test(t)},p=function(n,t,e){return function(){for(var r=[],a=0;a<arguments.length;a++)r[a]=arguments[a];if(!n)return u;var c=n[t],f=e.apply(void 0,i([c],o(r),!1)),l=f;return s(l)&&(l=function(){for(var n=[],t=0;t<arguments.length;t++)n[t]=arguments[t];return f.apply(this,n)}),n[t]=l,function(){l===n[t]?n[t]=c:f=c}}};function h(n,t){return n.initSubject(t)}var g=function(){return Date.now()};function m(){if("object"==typeof window&&a(window))return window}function y(){if("object"==typeof document&&a(document))return document}function _(){if(m()&&s(window.PerformanceObserver))return window.PerformanceObserver}var b=function(n){var t;return{pid:n.pid,view_id:n.viewId,url:(t=m()&&m()&&window.location)?t.href:""}},w=function(n){var t=b(n.config());return t.context=n.context?n.context.toString():{},t},E=function(n,t){void 0===t&&(t=!1);var e=w(n);return t&&(e.timestamp=g()),function(t){n.report(r(r({},t),{overrides:e}))}},x=function(n,t){var e=n&&new n(t);return[function(n,t){e&&n&&e.observe(n,t)},function(){return e&&e.disconnect()}]},S=function(n){var t=n&&n.timing||void 0;return[t,function(){return n&&n.now?n.now():(Date.now?Date.now():+new Date)-(t&&t.navigationStart||0)},function(t){var e=(n||{}).getEntriesByType;return s(e)&&e.call(n,t)||[]},function(){var t=(n||{}).clearResourceTimings;s(t)&&t.call(n)},function(t){var e=(n||{}).getEntriesByName;return s(e)&&e.call(n,t)||[]}]},j=function(){var n=RegExp("\\/monitor_web\\/collect|\\/monitor_browser\\/collect\\/batch","i");return function(t){return n.test(t)}},O=function(n){return function(){for(var t,e=[],r=0;r<arguments.length;r++)e[r]=arguments[r];return t=o(e,2),this._method=t[0],this._url=t[1],n.apply(this,e)}},T=function(n){return function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];this._reqHeaders=this._reqHeaders||{};var r=o(t,2),i=r[0],u=r[1];return this._reqHeaders[i]=u,n&&n.apply(this,t)}},R=function(n,t){var e=j();return function(){for(var r=[],o=0;o<arguments.length;o++)r[o]=arguments[o];if(this._start=g(),this._data=null==r?void 0:r[0],!e(this._url)){var i,u=t([this._method,this._url,this._start,this]);(i=this,p(i,"onreadystatechange",function(n){return function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];return 4===this.readyState&&u(i),n&&n.apply(this,t)}}))()}return n.apply(this,r)}},k=function(n,t){return function(e,r){void 0===r&&(r={});var o=t([e,r]),i=n(e,r);return i.then(function(n){o(n)},function(){o(void 0)}),i}},A=["fetch_0",function(n,t){var e=m();if(e&&fetch){var r=[];r.push(p(e,"fetch",k)(n)),t(function(){r.forEach(function(n){return n()})})}}],C=["resource"],D=["longtask"],L=function(n,t,e){var r=n&&new n(function(n,r){n.getEntries?n.getEntries().forEach(function(n,e,o){return t(n,e,o,r)}):e&&e()});return[function(t){if(!n||!r)return e&&e();try{r.observe({entryTypes:t})}catch(n){return e&&e()}},function(t,o){if(!n||!r)return e&&e();try{var i={type:t,buffered:!0};void 0===o||(i.durationThreshold=o),r.observe(i)}catch(n){return e&&e()}r.observe({type:t,buffered:!1})},function(){return r&&r.disconnect()}]},P=function(n,t,e){var r=o(L(n,t),3),i=r[0],u=r[2];return i(e),u},q=["longtask_0",function(n,t){var e=_();e&&t(P(e,n,D))}],I=["resource_0",function(n,t){var e=_();if(e){var r=j();t(P(e,function(t){r(t.name)||n(t)},C))}}],N="http",B="resource_error",H="resource",M="performance_longtask",z="action",U=["BODY","HTML","HEAD"],W="data-apm-action",F=function(n,t,e,r){var o,i,u=!1,a=function(){n.clearTimeout(o),u&&(o=n.setTimeout(function(){t()},100))};return[function(){u=!0,n.clearTimeout(i),i=n.setTimeout(function(){t(!0),e()},r),a()},a,function(){u=!1,n.clearTimeout(o),n.clearTimeout(i)}]},X=function(n,t,e){void 0===e&&(e=10);for(var r=n,o=0;o<e&&r;o++){if(~U.indexOf(r.nodeName))return;if(r.hasAttribute(t))return r;r=r.parentElement}},G=function(n,t){if(r=(void 0===e?e="closest"in HTMLElement.prototype:e)?n.closest("["+t+"]"):X(n,t)){var r;return r.getAttribute(t).trim()}},J=function(n){for(var t=n,e=!1;t;)"SVG"===t.tagName.toUpperCase()?(t=null,e=!0):t=t.parentElement;return e},V=function(n){var t=n.children;return!t.length||![].slice.call(t).some(function(n){return n.children.length>0})},$=function(n){var t=n.tagName.toUpperCase();return!(1!==n.nodeType||U.includes(t)||J(n))&&(!n.style||"none"!==n.style.display)&&(!!(["A","BUTTON","INPUT","TEXTAREA"].includes(t)||G(n,W))||!!V(n))},Y=function(n,t){return!!(n&&n.length&&t&&v(n,function(n){var t=y();if(!t||!n)return"";var e=t.createElement("a");return e.href=n,e.href}(t)))},K=function(n,t){var e;return t.ev_type===N?e=t.payload.request.url:t.ev_type===H&&"name"in t.payload?e=t.payload.name:t.ev_type===B&&(e=t.payload.url),Y(n,e)},Q=["click"],Z={capture:!0},nn=function(n,t,e,r){var i=o(t,2),a=i[0],c=i[1],f=o(d(),3),s=f[0],l=f[1],v=f[2],p=0;return n.push(a[0](function(n){var t=o(n,2);if(t[0],Y(r,t[1]))return u;var i=p+=1;return l(i,g()),e(),function(){v(i),e()}})),n.push(c[0](function(n){var t=o(n,1)[0];if(Y(r,"string"==typeof t?t:t.url))return u;var i=p+=1;return l(i,g()),e(),function(){v(i),e()}})),s},nt=function(n,t,e,u){var a=o(e,4),c=a[0],s=a[1],d=a[2],v=a[3],p=u.types,h=u.pure,g=u.ignoreUrls,m=null,y=null,_=void 0,b=[],w=0,E=o(S(performance),2)[1],j=function(n){if(m&&(h||Object.keys(m.metrics).length)&&(!Object.keys(D).length||n)){m.metrics[M]&&(m.metrics[M].duration=w);var t=b.length>0?Math.max.apply(Math,i([],o(b),!1))-Math.min.apply(Math,i([],o(b),!1)):0;m.metrics[N]&&(m.metrics[N].duration=t);var e=E()-m.start_time;_&&_({ev_type:z,payload:r(r({},m),{duration:e,frontend_time:e-t})}),O()}},O=function(){C(),m&&(y={start_time:m.start_time,id:m.id}),m=null,b=[],w=0},T=function(n){var t,e;m&&(m.metrics[n]={count:(null!=(e=null==(t=m.metrics[n])?void 0:t.count)?e:0)+1})},R=o(F(window,j,O,1e4),3),k=R[0],A=R[1],C=R[2],D=nn(t,[c,s],A,g),L=o(x(MutationObserver,A),2),P=L[0],q=L[1];P(),t.push(q),t.push(C),t.push(d[0](function(n){var t=n.startTime,e=n.duration;A(),m&&m.start_time<=t+50&&(w+=e,T(M))})),t.push(v[0](function(n){var t=n.name,e=n.startTime,r=n.duration,o=n.initiatorType;!Y(g,t)&&(A(),m&&m.start_time<e&&(["xmlhttprequest","fetch"].includes(o)&&(b.push(e,e+r),T(N)),["xmlhttprequest","fetch","beacon"].includes(o)||T(H)))}));var I=function(t,e){var r=function(){var n=function(){for(var n=Array(16),t=0,e=0;e<16;e++)(3&e)==0&&(t=0x100000000*Math.random()),n[e]=t>>>((3&e)<<3)&255;return n}();n[6]=15&n[6]|64,n[8]=63&n[8]|128;for(var t=[],e=0;e<256;++e)t[e]=(e+256).toString(16).substr(1);var r=0;return""+t[n[r++]]+t[n[r++]]+t[n[r++]]+t[n[r++]]+"-"+t[n[r++]]+t[n[r++]]+"-"+t[n[r++]]+t[n[r++]]+"-"+t[n[r++]]+t[n[r++]]+"-"+t[n[r++]]+t[n[r++]]+t[n[r++]]+t[n[r++]]+t[n[r++]]+t[n[r++]]}();m={start_time:(0,o(S(performance),2)[1])(),id:r,type:e,target:t,metrics:{}},_=n(),k()},U=function(n){if(j(!0),O(),n.target instanceof HTMLElement&&$(n.target)){var t,e=G(t=n.target,W)||t.innerText;e&&I({name:e,path:function(n){try{for(var t=n,e=[],r=0,o=0,i=void 0;t&&r++<5&&(i=function(n){var t,e,r,o,i,u,a=[];if(!n||!n.tagName)return"";if(a.push(n.tagName.toLowerCase()),n.id)return"#"+n.id;var c=n.className;if(c&&l(c))for(u=0,r=c.split(/\s+/);u<r.length;u++)a.push("."+r[u]);var f=["type","name","title","alt"];for(u=0;u<f.length;u++)o=f[u],(i=n.getAttribute(o))&&a.push("["+o+'="'+i+'"]');for(var s=n,d=1,v=!0;s=s.previousElementSibling;)(null==(t=s.tagName)?void 0:t.toLowerCase())===(null==(e=n.tagName)?void 0:e.toLowerCase())&&(s.className===n.className&&f.every(function(t){return n.getAttribute(t)===(null==s?void 0:s.getAttribute(t))})&&(v=!1),d++);return d>1&&!v&&a.push(":nth-of-type("+d+")"),a.join("")}(t),"html"!==i&&(!(r>1)||!(o+3*e.length+i.length>=256)));)e.push(i),o+=i.length,t=t.parentNode;return e.reverse().join(" > ")}catch(n){return"<unknown>"}}(n.target)},n.type)}};return p&&p.forEach(function(n){var e,r;(function(n,t){if(!f(n)||0===n.length)return!1;for(var e=0;e<n.length;){if(n[e]===t)return!0;e++}return!1})(Q,n)&&t.push((e=document,void 0===(r=Z)&&(r=!1),e.addEventListener(n,U,r),function(){e.removeEventListener(n,U,r)}))}),[function(n){if(!K(g,n)){if("pageview"===n.ev_type){j(!0),O();return}if(n.ev_type===N){var t=n.payload.response.timing&&n.payload.response.timing.startTime;return t?m&&t>m.start_time?m.id:y&&t>y.start_time?y.id:void 0:void 0}if(n.ev_type===M){var t=n.payload.longtasks.length&&n.payload.longtasks[0].startTime+50;return m&&t&&t>m.start_time?m.id:void 0}if(m)return("js_error"===n.ev_type||n.ev_type===B)&&T(n.ev_type),m.id}},function(n,t){j(!0),O(),I({name:n},t)}]},ne="action",nr={types:["click"],pure:!0};t.actionPlugin=function(n){return{name:ne,setup:function(t){!function(n,t){void 0===t&&(t=nr);var e=[],r=y(),i=m();if(r&&i){var u,a=o(nt(function(){return E(n,!0)},e,[h(n,["xhr_0",(u=XMLHttpRequest&&XMLHttpRequest.prototype,function(n,t){if(u){var e=[];e.push(p(u,"open",O)()),e.push(p(u,"setRequestHeader",T)()),e.push(p(u,"send",R)(n)),t(function(){e.forEach(function(n){return n()})})}})]),h(n,A),h(n,q),h(n,I)],t),2),c=a[0],f=a[1],s=function(n){var t=c(n);return t&&n.extra&&(n.extra.action_id=t),n};n.on("report",s),e.push(function(){n.off("report",s)}),n.provide("startAction",f),n.destroyAgent.set(ne,z,e)}}(t,n)}}}},583:function(n,t){var e=function(){return(e=Object.assign||function(n){for(var t,e=1,r=arguments.length;e<r;e++)for(var o in t=arguments[e])Object.prototype.hasOwnProperty.call(t,o)&&(n[o]=t[o]);return n}).apply(this,arguments)};function r(n,t){var e="function"==typeof Symbol&&n[Symbol.iterator];if(!e)return n;var r,o,i=e.call(n),u=[];try{for(;(void 0===t||t-- >0)&&!(r=i.next()).done;)u.push(r.value)}catch(n){o={error:n}}finally{try{r&&!r.done&&(e=i.return)&&e.call(i)}finally{if(o)throw o.error}}return u}var o=function(){return{}};function i(n){return"object"==typeof n&&null!==n}function u(n){return"function"==typeof n}function a(n,t){return n.initSubject(t)}var c=function(){return Date.now()};function f(){if("object"==typeof window&&i(window))return window}function s(){if("object"==typeof document&&i(document))return document}function l(){if(f()&&u(window.PerformanceObserver))return window.PerformanceObserver}var d=function(n,t){var e=n&&new n(t);return[function(n,t){e&&n&&e.observe(n,t)},function(){return e&&e.disconnect()}]},v=function(n){var t=n&&n.timing||void 0;return[t,function(){return n&&n.now?n.now():(Date.now?Date.now():+new Date)-(t&&t.navigationStart||0)},function(t){var e=(n||{}).getEntriesByType;return u(e)&&e.call(n,t)||[]},function(){var t=(n||{}).clearResourceTimings;u(t)&&t.call(n)},function(t){var e=(n||{}).getEntriesByName;return u(e)&&e.call(n,t)||[]}]},p=function(n,t,e,r){return void 0===r&&(r=!1),n.addEventListener(t,e,r),function(){n.removeEventListener(t,e,r)}},h=function(n){var t=!1;return[function(e){!t&&(t=!0,n&&n(e))}]},g=function(n,t){return i(n)?e(e({},t),n):!!n&&t},m=function(){var n=RegExp("\\/monitor_web\\/collect|\\/monitor_browser\\/collect\\/batch","i");return function(t){return n.test(t)}},y=["resource"],_=["longtask"],b=function(n,t,e){var r=n&&new n(function(n,r){n.getEntries?n.getEntries().forEach(function(n,e,o){return t(n,e,o,r)}):e&&e()});return[function(t){if(!n||!r)return e&&e();try{r.observe({entryTypes:t})}catch(n){return e&&e()}},function(t,o){if(!n||!r)return e&&e();try{var i={type:t,buffered:!0};void 0===o||(i.durationThreshold=o),r.observe(i)}catch(n){return e&&e()}r.observe({type:t,buffered:!1})},function(){return r&&r.disconnect()}]},w=function(n,t,e){var o=r(b(n,t),3),i=o[0],u=o[2];return i(e),u},E=["longtask_0",function(n,t){var e=l();e&&t(w(e,n,_))}],x=["resource_0",function(n,t){var e=l();if(e){var r=m();t(w(e,function(t){r(t.name)||n(t)},y))}}],S="js_error",j="http",O="resource_error",T="blank_screen",R=["unload_0",function(n,t){var e=f();if(e){var o=r(h(n),1)[0],i=function(){o()},u=[];["unload","beforeunload","pagehide"].forEach(function(n){u.push((e.addEventListener(n,i,!1),function(){e.removeEventListener(n,i,!1)}))}),t(function(){u.forEach(function(n){return n()})})}}],k=["domLoad_1",function(n,t){var e=f(),r=s();if(e&&r){var i=!1,u=o,a=function(){setTimeout(function(){n(),i=!0},0)};"loading"!==r.readyState?a():u=p(r,"DOMContentLoaded",a,!1),t(function(){u()},function(n){i&&n()})}}],A=["activated_0",function(n,t){var e=s();if(e){var r=!1,i=o,u=function(){n(),r=!0};e&&e.prerendering?i=p(e,"prerenderingchange",u,!0):u(),t(function(){i()},function(n){r&&n()})}}],C=["SCRIPT","STYLE","META","HEAD"],D=[S,j,O],L=["performance","performance_longtask","performance_timing","custom"],P=function(n,t){if(-1===D.indexOf(t.ev_type)||t.ev_type===j&&t.payload.response.status<400||n&&D.indexOf(n.type)<D.indexOf(t.ev_type))return n;var e="";switch(t.ev_type){case S:e=t.payload.error.message;break;case j:e=t.payload.request.url;break;case O:e=t.payload.url}return{type:t.ev_type,message:e,timestamp:c()}},q=function(n,t){return~C.indexOf(n.tagName)||t>4},I=function(n){var t=n.getBoundingClientRect();return{width:t.width,height:t.height,top:t.top}},N=function(n){return n?document.querySelector(n):document.body},B=function(n,t,e,r){if(void 0===t&&(t=0),void 0===e&&(e=0),void 0===r&&(r=1.5),!n||q(n,t)||e>=r)return e;var o=function(){if(!t)return 0;var e=I(n),r=e.top,o=e.height;return r>innerHeight||o<=0?0:1/(1<<t-1)}();return[].reduceRight.call(n.children,function(n,e){return B(e,t+1,n,r)},e+o)},H=function(n){var t,e=n.cb,r=n.screenshotUrl,o=n.window,i=n.document,u=n.mask,a=n.partialShot,c=n.quality,s=n.rootSelector;if(function(){if(f()&&"Promise"in window)return Promise}()&&o&&i){if(o.html2canvas)return d();var l=i.createElement("script");l.src=r,l.crossOrigin="anonymous",l.onload=d,l.onerror=function(){e()},null==(t=i.head)||t.appendChild(l)}function d(){(o.requestIdleCallback||function(n){return o.setTimeout(n,1)})(function(){o.html2canvas&&o.html2canvas(a&&s&&i.querySelector(s)||i.body,{scale:360/o.innerWidth,mask:u,useCROS:!0}).then(function(n){var t;e("data:image"===(t=n.toDataURL("image/jpeg",c)).slice(0,10)?t:M())}).catch(function(){e(M())})})}};function M(n,t){void 0===n&&(n=192),void 0===t&&(t=108);var e=document.createElement("canvas");e.width=n,e.height=t;var r=e.getContext("2d");return r&&(r.fillStyle="#ffffff",r.fillRect(0,0,n,t)),e.toDataURL("image/jpeg")}var z=function(n,t,i,a){var l,p,h,g,m,y,_,b=r(i,5),w=b[0],E=b[1],x=b[2],S=b[3],j=b[4],O=a.threshold,R=a.screenshot,k=a.rootSelector,A=a.autoDetect,C=a.ssUrl,D=a.quality,M=a.mask,z=a.partialShot,U=a.initDetTime,W=a.runDetTime,F=f(),X=s(),G=F.requestAnimationFrame||o,J=F.cancelAnimationFrame||o,V=r(v(performance),2)[1],$=0,Y=!1,K=!R,Q=function(){var n=N(k);if(n){var t=B(n,0,0,O);if(t<O)return[c(),t]}},Z=function(r,o){Y||(h=Q())&&(Y=!0,t.forEach(function(n){return n()}),t.length=0,n({ev_type:T,payload:{timestamp:h[0],score:h[1],screenshot:o,error:g,serialized_dom:function n(t,r,o){if(void 0===r&&(r=0),void 0===o&&(o=!0),!t||q(t,r))return"";var i=e(e({},I(t)),{id:t.getAttribute("id"),class:t.getAttribute("class")}),u=Object.keys(i).reduce(function(n,t){return""+n+("number"==typeof i[t]||i[t]?" "+t+'="'+i[t]+'"':"")},""),a=t.tagName.toLowerCase(),c=[].reduce.call(t.children,function(t,e){return t+n(e,r+1,!1)},"");return"<"+a+u+(o?' innerHeight="'+innerHeight+'" visibilityState="'+document.visibilityState+'"':"")+">"+c+"</"+a+">"}(N(k))},overrides:{timestamp:r||h[0]}}))},nn=function(){_&&clearTimeout(_),m&&clearTimeout(m),m=F.setTimeout(function(){y=G(function(){(h=Q())&&nt()})},1e3)},nt=(l=function(){h&&!Y&&(K?Z():(K=!0,H({cb:Z.bind(null,c()),screenshotUrl:C,window:F,document:X,mask:M,partialShot:z,quality:D,rootSelector:k})))},function(){_&&clearTimeout(_),p=c(),_=F.setTimeout(function(){$>p?nn():l()},V()>1e4?W:U)});return t.push(j[0](function(){g&&Z()})),A&&t.push(w[0](function(){var n=E();t.push(n[0](function(){var n,e=r(d(function(){if(f()&&u(window.MutationObserver))return window.MutationObserver}(),nn),2),o=e[0],i=e[1];t.push(function(){clearTimeout(m),clearTimeout(_),J(y),i&&i()}),o(null==(n=s())?void 0:n.body,{subtree:!0,childList:!0}),t.push(x()[0](function(){m&&nn()})),t.push(S()[0](function(){m&&nn()})),nn()}))})),[function(n){Y||~L.indexOf(n.ev_type)||($=c(),g&&$-g.timestamp>1e4&&(g=void 0),g=P(g,n))},nn]},U="blankScreen";t.blankScreenPlugin=function(n){return void 0===n&&(n={}),{name:U,setup:function(t){var e;e=n,t.on("init",function(){var n,o={autoDetect:!0,threshold:1.5,screenshot:!0,mask:!1,ssUrl:t.config().pluginPathPrefix+"/screenshot.min.js",partialShot:!0,quality:.1,initDetTime:8e3,runDetTime:4e3},i=e?g(e,o):g(null==(n=t.config())?void 0:n.plugins[U],o);i&&function(n,t){var e=s(),o=f();if(e&&o){var i=[],u=r(z(n.report.bind(n),i,[a(n,A),function(){return a(n,k)},function(){return a(n,E)},function(){return a(n,x)},a(n,R)],t),2),c=u[0],l=u[1],d=function(n){return c(n),n};n.on("report",d),i.push(function(){n.off("report",d)}),n.destroyAgent.set(U,T,i),n.provide("detectBlankScreen",l)}}(t,i)})}}}},91:function(n,t){function e(n,t){var e="function"==typeof Symbol&&n[Symbol.iterator];if(!e)return n;var r,o,i=e.call(n),u=[];try{for(;(void 0===t||t-- >0)&&!(r=i.next()).done;)u.push(r.value)}catch(n){o={error:n}}finally{try{r&&!r.done&&(e=i.return)&&e.call(i)}finally{if(o)throw o.error}}return u}function r(n,t,e){if(e||2==arguments.length)for(var r,o=0,i=t.length;o<i;o++)!r&&o in t||(r||(r=Array.prototype.slice.call(t,0,o)),r[o]=t[o]);return n.concat(r||Array.prototype.slice.call(t))}var o=function(n){var t=!1;return[function(e){!t&&(t=!0,n&&n(e))}]},i=["unload_0",function(n,t){var r=function(){var n;if("object"==typeof window&&"object"==typeof(n=window)&&null!==n)return window}();if(r){var i=e(o(n),1)[0],u=function(){i()},a=[];["unload","beforeunload","pagehide"].forEach(function(n){a.push((r.addEventListener(n,u,!1),function(){r.removeEventListener(n,u,!1)}))}),t(function(){a.forEach(function(n){return n()})})}}],u=function(n,t,e,r){return void 0===r&&(r={}),e&&n.report({ev_type:"custom",payload:{name:t,metrics:e,categories:r,type:"event",level:"info"}})};function a(n){var t=null,e=0,r=0,o=function(n){if("resource"===n.ev_type){var o=n.payload,i=o.decodedBodySize,u=o.encodedBodySize,a=o.transferSize,c=o.duration,f=o.workerStart;i&&u&&(t.decodedBodySize+=i,t.encodedBodySize+=u,t.transferSize+=a,t.resourceCount++,(0===a||void 0===a&&0===c)&&e++,f&&r++,t.cacheRate=parseFloat((e/t.resourceCount).toFixed(2)),t.serviceWorkerRate=parseFloat((r/t.resourceCount).toFixed(2)))}};return[function(){t={decodedBodySize:0,encodedBodySize:0,resourceCount:0,transferSize:0,cacheRate:0,serviceWorkerRate:0},e=0,r=0,n.on("send",o)},function(){n.off("send",o)},function(){return t&&t.resourceCount?t:null},function(){t=null}]}t.resourceAnalyzer=function(n){void 0===n&&(n={initialScreen:!0,pageview:!0,session:!0});var t=[];return{name:"resourceAnalyzer",setup:function(o){var c,f,s,l,d,v,p,h,g,m,y,_,b,w,E,x,S,j,O,T,R,k,A,C,D,L;n.initialScreen&&t.push.apply(t,r([],e((f=[],l=(s=e(a(c=o),4))[0],d=s[1],v=s[2],p=s[3],l(),h=function(n){"performance"===n.ev_type&&"tti"===n.payload.name&&(d(),u(c,"initial_screen_resource_analyzer",v(),{relevant_pid:n.common.pid||""}),f.forEach(function(n){return n()}))},c.on("send",h),f.push(function(){d(),p(),c.off("send",h)}),f)),!1)),n.pageview&&t.push.apply(t,r([],e((m=[],_=(y=e(a(g=o),4))[0],b=y[1],w=y[2],E=y[3],x=g.initSubject(i),_(),S=void 0,j=function(n){if("pageview"===n.ev_type){var t=n.payload,e=t.pid,r=t.source;if(!S)return S={relevant_pid:e,relevant_source:r};b(),u(g,"pageview_resource_analyzer",w(),S),_(),S={relevant_pid:e,relevant_source:r}}},g.on("send",j),m.push(x[0](function(){b(),u(g,"pageview_resource_analyzer",w(),S||{}),E()})),m.push(function(){b(),E(),g.off("send",j)}),m)),!1)),n.session&&t.push.apply(t,r([],e((T=[],R=(O=o).initSubject(i),A=(k=e(a(O),4))[0],C=k[1],D=k[2],L=k[3],A(),T.push(R[0](function(){C(),u(O,"session_resource_analyzer",D()),L()})),T.push(function(){C(),L()}),T)),!1))},tearDown:function(){return t.length&&t.forEach(function(n){return n()})}}}},615:function(n,t){var e=function(){return(e=Object.assign||function(n){for(var t,e=1,r=arguments.length;e<r;e++)for(var o in t=arguments[e])Object.prototype.hasOwnProperty.call(t,o)&&(n[o]=t[o]);return n}).apply(this,arguments)};function r(n,t){var e="function"==typeof Symbol&&n[Symbol.iterator];if(!e)return n;var r,o,i=e.call(n),u=[];try{for(;(void 0===t||t-- >0)&&!(r=i.next()).done;)u.push(r.value)}catch(n){o={error:n}}finally{try{r&&!r.done&&(e=i.return)&&e.call(i)}finally{if(o)throw o.error}}return u}var o=function(){return{}};function i(n){return"object"==typeof n&&null!==n}var u=Object.prototype;function a(n){return"[object Array]"===u.toString.call(n)}function c(n){return"function"==typeof n}var f=function(n,t){if(!a(n))return n;var e=n.indexOf(t);if(e>=0){var r=n.slice();return r.splice(e,1),r}return n},s=function(){var n={};return[n,function(t,e){return n[t]=e},function(t){return delete n[t]}]},l=function(n,t){var e,r=a(e=n||[])&&e.length?function(n){for(var t=[],e=n.length,r=0;r<e;r++){var o=n[r];"string"==typeof o?t.push(o.replace(/([.*+?^=!:${}()|[\]/\\])/g,"\\$1")):o&&o.source&&t.push(o.source)}return RegExp(t.join("|"),"i")}(e):null;return!!r&&r.test(t)},d=function(n,t,e){return function(){for(var i=[],u=0;u<arguments.length;u++)i[u]=arguments[u];if(!n)return o;var a=n[t],f=e.apply(void 0,function(n,t,e){if(e||2==arguments.length)for(var r,o=0,i=t.length;o<i;o++)!r&&o in t||(r||(r=Array.prototype.slice.call(t,0,o)),r[o]=t[o]);return n.concat(r||Array.prototype.slice.call(t))}([a],r(i),!1)),s=f;return c(s)&&(s=function(){for(var n=[],t=0;t<arguments.length;t++)n[t]=arguments[t];return f.apply(this,n)}),n[t]=s,function(){s===n[t]?n[t]=a:f=a}}},v=function(n,t,e){var r=0;return -1===e?o:function(){if(n()){r&&clearTimeout(r),r=0;return}0===r&&(r=setTimeout(t,e))}},p=function(n,t){var e=[];try{e=t.reduce(function(t,e){try{var r=e(n);"function"==typeof r&&t.push(r)}catch(n){}return t},[])}catch(n){}return function(n){return p(n,e)}},h=function(n){void 0===n&&(n=3e5);var t,e=[],r=[],o=!1,i=v(function(){return!!e.length},function(){o=!0,t&&t[0](),r.forEach(function(n){return n()}),r.length=0,t=void 0},n),u=function(n){e=f(e,n),o||i()};return{next:function(n){return p(n,e)},complete:function(n){r.push(n)},attach:function(n,e){t=[n,e]},subscribe:function(n){if(o)throw Error("Observer is closed");return e.push(n),t&&t[1]&&t[1](n),i(),function(){return u(n)}},unsubscribe:u}},g=function(n,t,e){var r=h(e);try{n(r.next,r.attach),t&&r.complete(t)}catch(n){}return[r.subscribe,r.unsubscribe]};function m(n,t){return n.initSubject(t)}var y=function(){return Date.now()};function _(){if("object"==typeof window&&i(window))return window}function b(){if("object"==typeof document&&i(document))return document}function w(){if(_()&&c(window.PerformanceObserver))return window.PerformanceObserver}var E=function(n){var t;return{pid:n.pid,view_id:n.viewId,url:(t=_()&&_()&&window.location)?t.href:""}},x=function(n){var t=E(n.config());return t.context=n.context?n.context.toString():{},t},S=function(n,t){var e=n&&new n(t);return[function(n,t){e&&n&&e.observe(n,t)},function(){return e&&e.disconnect()}]},j=function(){var n=RegExp("\\/monitor_web\\/collect|\\/monitor_browser\\/collect\\/batch","i");return function(t){return n.test(t)}},O=function(n){return function(){for(var t,e=[],o=0;o<arguments.length;o++)e[o]=arguments[o];return t=r(e,2),this._method=t[0],this._url=t[1],n.apply(this,e)}},T=function(n){return function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];this._reqHeaders=this._reqHeaders||{};var o=r(t,2),i=o[0],u=o[1];return this._reqHeaders[i]=u,n&&n.apply(this,t)}},R=function(n,t){var e=j();return function(){for(var r=[],o=0;o<arguments.length;o++)r[o]=arguments[o];if(this._start=y(),this._data=null==r?void 0:r[0],!e(this._url)){var i,u=t([this._method,this._url,this._start,this]);(i=this,d(i,"onreadystatechange",function(n){return function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];return 4===this.readyState&&u(i),n&&n.apply(this,t)}}))()}return n.apply(this,r)}},k=function(n,t){return function(e,r){void 0===r&&(r={});var o=t([e,r]),i=n(e,r);return i.then(function(n){o(n)},function(){o(void 0)}),i}},A=["fetch_0",function(n,t){var e=_();if(e&&fetch){var r=[];r.push(d(e,"fetch",k)(n)),t(function(){r.forEach(function(n){return n()})})}}],C=["resource"],D=["longtask"],L=function(n,t,e){var r=n&&new n(function(n,r){n.getEntries?n.getEntries().forEach(function(n,e,o){return t(n,e,o,r)}):e&&e()});return[function(t){if(!n||!r)return e&&e();try{r.observe({entryTypes:t})}catch(n){return e&&e()}},function(t,o){if(!n||!r)return e&&e();try{var i={type:t,buffered:!0};void 0===o||(i.durationThreshold=o),r.observe(i)}catch(n){return e&&e()}r.observe({type:t,buffered:!1})},function(){return r&&r.disconnect()}]},P=function(n,t,e){var o=r(L(n,t),3),i=o[0],u=o[2];return i(e),u},q=["longtask_0",function(n,t){var e=w();e&&t(P(e,n,D))}],I=["resource_0",function(n,t){var e=w();if(e){var r=j();t(P(e,function(t){r(t.name)||n(t)},C))}}],N="click",B=[N+"_0",function(n,t){var e=b();if(e){var r=(e.addEventListener(N,n,!0),function(){e.removeEventListener(N,n,!0)});t(function(){r()})}}],H={isSupport:!0,isPolyfill:!1,isBounced:!1,isCustom:!1,type:"perf"},M=function(n,t,e,r){var o,i,u=!1,a=function(){n.clearTimeout(o),u&&(o=n.setTimeout(function(){t()},100))};return[function(){u=!0,n.clearTimeout(i),i=n.setTimeout(function(){t(!0),e()},r),a()},a,function(){u=!1,n.clearTimeout(o),n.clearTimeout(i)}]},z=function(n,t){return!!(n&&n.length&&t&&l(n,function(n){var t=b();if(!t||!n)return"";var e=t.createElement("a");return e.href=n,e.href}(t)))},U=function(n,t,e,i){var u=r(t,2),a=u[0],c=u[1],f=r(s(),3),l=f[0],d=f[1],v=f[2],p=0;return n.push(a[0](function(n){var t=r(n,2);if(t[0],z(i,t[1]))return o;var u=p+=1;return d(u,y()),e(),function(){v(u),e()}})),n.push(c[0](function(n){var t=r(n,1)[0];if(z(i,"string"==typeof t?t:t.url))return o;var u=p+=1;return d(u,y()),e(),function(){v(u),e()}})),l},W=function(n,t,i,u){var a=r(i,7),c=a[0],f=a[1],s=a[2],l=a[3],d=a[4],v=a[5],p=a[6],h=u.ignoreUrls,g=0,m=function(t,e){n({ev_type:"performance",payload:t,overrides:e})},_=function(){g=y(),k(document,{childList:!0,subtree:!0}),x()},b=function(n){if(g&&(!Object.keys(T).length||n)){var t;m((t=y()-g,e({name:"spa_load",value:t},H))),w()}},w=function(){O(),g=0},E=r(M(window,b,o,3e4),3),x=E[0],j=E[1],O=E[2],T=U(t,[s,l],j,h);t.push(d[0](function(n){z(h,n.name)||j()})),t.push(v[0](j));var R=r(S(p,j),2),k=R[0],A=R[1];t.push(A);var C=!0;t.push(c[0](function(){if(C){C=!1;return}b(!0),w(),_()})),t.push(f[0](function(){b(!0),w()})),t.push(w)};t.SPALoadPlugin=function(n){return{name:"spa_load",setup:function(t){var o;void 0===(o=n)&&(o={}),t.on("init",function(){var n,i,u,a,f,s=[],l=b(),v=function(){if(_()&&c(window.MutationObserver))return window.MutationObserver}();l&&v&&(W(t.report.bind(t),s,[(i=(n=r(["view_0",function(n,r){var o=x(t),i=function(r){var i;r.viewId&&r.viewId!==(null==(i=t.config())?void 0:i.viewId)&&(n(o),o=e(e({},x(t)),E(r)))};t.on("beforeConfig",i),r(function(){t.off("beforeConfig",i)})}],2))[0],u=n[1],(a=t.privateSubject||{})[i]||(a[i]=g(u,function(){a[i]=void 0},void 0)),a[i]),m(t,B),m(t,["xhr_0",(f=XMLHttpRequest&&XMLHttpRequest.prototype,function(n,t){if(f){var e=[];e.push(d(f,"open",O)()),e.push(d(f,"setRequestHeader",T)()),e.push(d(f,"send",R)(n)),t(function(){e.forEach(function(n){return n()})})}})]),m(t,A),m(t,I),m(t,q),v],o),t.on("beforeDestroy",function(){s.forEach(function(n){return n()})}))})}}}},314:function(n,t){var e,r=function(){return(r=Object.assign||function(n){for(var t,e=1,r=arguments.length;e<r;e++)for(var o in t=arguments[e])Object.prototype.hasOwnProperty.call(t,o)&&(n[o]=t[o]);return n}).apply(this,arguments)};function o(n,t){var e="function"==typeof Symbol&&n[Symbol.iterator];if(!e)return n;var r,o,i=e.call(n),u=[];try{for(;(void 0===t||t-- >0)&&!(r=i.next()).done;)u.push(r.value)}catch(n){o={error:n}}finally{try{r&&!r.done&&(e=i.return)&&e.call(i)}finally{if(o)throw o.error}}return u}function i(n,t,e){if(e||2==arguments.length)for(var r,o=0,i=t.length;o<i;o++)!r&&o in t||(r||(r=Array.prototype.slice.call(t,0,o)),r[o]=t[o]);return n.concat(r||Array.prototype.slice.call(t))}var u=function(n){return JSON.stringify({ev_type:"batch",list:n})},a=["init","start","config","beforeDestroy","provide","beforeReport","report","beforeBuild","build","beforeSend","send","beforeConfig"],c=function(){return{}};function f(n){return n}function s(n){return"object"==typeof n&&null!==n}var l=Object.prototype;function d(n){if(s(n)){if("function"==typeof Object.getPrototypeOf){var t=Object.getPrototypeOf(n);return t===l||null===t}return"[object Object]"===l.toString.call(n)}return!1}function v(n){return"[object Array]"===l.toString.call(n)}function p(n){return"function"==typeof n}function h(n){return"number"==typeof n}function g(n){return"string"==typeof n}function m(n,t){if(!v(n)||0===n.length)return!1;for(var e=0;e<n.length;){if(n[e]===t)return!0;e++}return!1}var y=function(n,t){if(!v(n))return n;var e=n.indexOf(t);if(e>=0){var r=n.slice();return r.splice(e,1),r}return n},_=function(n,t,e){for(var r,i=o(t.split(".")),u=i[0],a=i.slice(1);n&&a.length>0;)n=n[u],u=(r=o(a))[0],a=r.slice(1);if(n)return e(n,u)},b=function(n,t){var e,r=v(e=n||[])&&e.length?function(n){for(var t=[],e=n.length,r=0;r<e;r++){var o=n[r];g(o)?t.push(o.replace(/([.*+?^=!:${}()|[\]/\\])/g,"\\$1")):o&&o.source&&t.push(o.source)}return RegExp(t.join("|"),"i")}(e):null;return!!r&&r.test(t)};function w(n){try{return g(n)?n:JSON.stringify(n)}catch(n){return"[FAILED_TO_STRINGIFY]:"+String(n)}}var E=function(n,t,e,r){return void 0===r&&(r=!0),function(){for(var u=[],a=0;a<arguments.length;a++)u[a]=arguments[a];if(!n)return c;var f=n[t],s=e.apply(void 0,i([f],o(u),!1)),l=s;return p(l)&&r&&(l=function(){for(var n=[],t=0;t<arguments.length;t++)n[t]=arguments[t];try{return s.apply(this,n)}catch(t){return p(f)&&f.apply(this,n)}}),n[t]=l,function(e){e||(l===n[t]?n[t]=f:s=f)}}},x=function(n,t,e){return function(){for(var r=[],u=0;u<arguments.length;u++)r[u]=arguments[u];if(!n)return c;var a=n[t],f=e.apply(void 0,i([a],o(r),!1)),s=f;return p(s)&&(s=function(){for(var n=[],t=0;t<arguments.length;t++)n[t]=arguments[t];return f.apply(this,n)}),n[t]=s,function(){s===n[t]?n[t]=a:f=a}}},S="".padStart?function(n,t){return void 0===t&&(t=8),n.padStart(t," ")}:function(n){return n},j=0,O=function(){for(var n=[],t=0;t<arguments.length;t++)n[t]=arguments[t];console.error.apply(console,i(["[SDK]",Date.now(),S(""+j++)],o(n),!1))},T=0,R=function(){for(var n=[],t=0;t<arguments.length;t++)n[t]=arguments[t];console.warn.apply(console,i(["[SDK]",Date.now(),S(""+T++)],o(n),!1))},k=function(n){return Math.random()<Number(n)},A=function(n,t){return n<Number(t)},C=function(n){return function(t){for(var e=t,r=0;r<n.length;r++)if(e)try{e=n[r](e)}catch(n){O(n)}else break;return e}};function D(){var n=function(){for(var n=Array(16),t=0,e=0;e<16;e++)(3&e)==0&&(t=0x100000000*Math.random()),n[e]=t>>>((3&e)<<3)&255;return n}();n[6]=15&n[6]|64,n[8]=63&n[8]|128;for(var t=[],e=0;e<256;++e)t[e]=(e+256).toString(16).substr(1);var r=0;return""+t[n[r++]]+t[n[r++]]+t[n[r++]]+t[n[r++]]+"-"+t[n[r++]]+t[n[r++]]+"-"+t[n[r++]]+t[n[r++]]+"-"+t[n[r++]]+t[n[r++]]+"-"+t[n[r++]]+t[n[r++]]+t[n[r++]]+t[n[r++]]+t[n[r++]]+t[n[r++]]}var L=function(n,t,e){var r=0;return -1===e?c:function(){if(n()){r&&clearTimeout(r),r=0;return}0===r&&(r=setTimeout(t,e))}},P=function(n,t){var e=[];try{e=t.reduce(function(t,e){try{var r=e(n);"function"==typeof r&&t.push(r)}catch(n){}return t},[])}catch(n){}return function(n){return P(n,e)}},q=function(n){void 0===n&&(n=3e5);var t,e=[],r=[],o=!1,i=L(function(){return!!e.length},function(){o=!0,t&&t[0](),r.forEach(function(n){return n()}),r.length=0,t=void 0},n),u=function(n){e=y(e,n),o||i()};return{next:function(n){return P(n,e)},complete:function(n){r.push(n)},attach:function(n,e){t=[n,e]},subscribe:function(n){if(o)throw Error("Observer is closed");return e.push(n),t&&t[1]&&t[1](n),i(),function(){return u(n)}},unsubscribe:u}},I=function(n,t,e){var r=q(e);try{n(r.next,r.attach),t&&r.complete(t)}catch(n){}return[r.subscribe,r.unsubscribe]},N=function(n,t){var e=o(n,1)[0];return function(n,r){var o=e(function(e){return function(n){for(var e=!0,r=0;r<t.length;r++)if(e)try{e=t[r](n)}catch(n){O(n)}else break;return e}(e)?n(e):c});r(function(){o()})}},B=function(n,t,e,r){return n.destroyAgent.set(t,e,r)},H=function(n){var t,e,o,i=(t={},e={},o={set:function(n,r){return t[n]=r,e[n]=w(r),o},merge:function(n){return t=r(r({},t),n),Object.keys(n).forEach(function(t){e[t]=w(n[t])}),o},delete:function(n){return delete t[n],delete e[n],o},clear:function(){return t={},e={},o},get:function(n){return e[n]},toString:function(){return r({},e)}});n.provide("context",i),n.on("report",function(n){return n.extra||(n.extra={}),n.extra.context=i.toString(),n})},M=function(n,t,e){var r={},u=function(){for(var e,a=[],c=0;c<arguments.length;c++)a[c]=arguments[c];var f=a[0];if(f){var s,l=f.split(".")[0];if(!(l in u)){var d=r[l]||[],v=null!=(e=null==t?void 0:t(n))?e:{};d.push(i([v],o(a),!1)),r[l]=d;return}return s=[].slice.call(a,1),_(u,f,function(n,t){if(n&&t in n&&p(n[t]))try{return n[t].apply(n,s)}catch(n){return}})}};for(var a in E(n,"provide",function(t){return function(e,r){u[e]=r,t.call(n,e,r)}})(),n)Object.prototype.hasOwnProperty.call(n,a)&&(u[a]=n[a]);return n.on("provide",function(t){r[t]&&(r[t].forEach(function(t){var r=o(t),i=r[0],u=r.slice(1);null==e||e(n,i,u)}),r[t]=null)}),u};function z(n,t){return n.initSubject(t)}function U(n,t,e){var r=o(t,2),i=r[0],u=r[1],a=n.privateSubject||{};return a[i]||(a[i]=I(u,function(){a[i]=void 0},e)),a[i]}var W=function(){return Date.now()};function F(){if("object"==typeof window&&s(window))return window}function X(){if("object"==typeof document&&s(document))return document}function G(){return F()&&window.location}function J(n){var t=X();if(!t||!n)return"";var e=t.createElement("a");return e.href=n,e.href}function V(n){var t=X();if(!t||!n)return{url:n,protocol:"",domain:"",query:"",path:"",hash:""};var e=t.createElement("a");e.href=n;var r=e.pathname||"/";return"/"!==r[0]&&(r="/"+r),{url:e.href,protocol:e.protocol.slice(0,-1),domain:e.hostname,query:e.search.substring(1),path:r,hash:e.hash}}function $(){var n=F()&&G();return n?n.href:""}var Y=function(n){var t,e={pid:(t=n.config()).pid,view_id:t.viewId,url:$()};return e.context=n.context?n.context.toString():{},e},K=function(n,t){void 0===t&&(t=!1);var e=Y(n);return t&&(e.timestamp=W()),function(t){n.report(r(r({},t),{overrides:e}))}},Q=function(n){if(n)return n.__SLARDAR_REGISTRY__||(n.__SLARDAR_REGISTRY__={Slardar:{plugins:[],errors:[],subject:{}}}),n.__SLARDAR_REGISTRY__.Slardar},Z=function(){for(var n=[],t=0;t<arguments.length;t++)n[t]=arguments[t];var e=Q(F());e&&(e.errors||(e.errors=[]),e.errors.push(n))},nn=function(n){var t={url:$(),timestamp:W()},e=n.config();return(null==e?void 0:e.pid)&&(t.pid=e.pid),(null==n?void 0:n.context)&&(t.context=n.context.toString()),t},nt=function(n,t){return function(e){var r=function(n){return n.overrides=t,n};n.on("report",r),e(),n.off("report",r)}},ne=function(n,t,e,r){return void 0===r&&(r=!1),n.addEventListener(t,e,r),function(){n.removeEventListener(t,e,r)}},nr=function(n,t,e,r){return void 0===r&&(r=!1),n.addEventListener(t,e,r),function(){n.removeEventListener(t,e,r)}},no=function(n){var t=!1;return[function(e){!t&&(t=!0,n&&n(e))}]},ni=function(n){var t=F();if(t){var e=o(no(n),1)[0];["unload","beforeunload","pagehide"].forEach(function(n){ne(t,n,e,!1)})}},nu=function(n){var t=X(),e=F();if(t&&e){var r=c;r=nr(t,"visibilitychange",function(){"visible"===t.visibilityState&&(n(),r())},!0)}},na=function(n,t){var e,r=X();if(r){var o=r.createElement("script");o.src=n,o.crossOrigin="anonymous",o.onload=t,null==(e=r.head)||e.appendChild(o)}},nc=function(n,t){return s(n)?r(r({},t),n):!!n&&t},nf=function(){return!!btoa&&!!atob},ns=function(n){try{var t=localStorage.getItem(n),e=t;t&&"string"==typeof t&&(e=JSON.parse(nf()?decodeURI(atob(t)):t));var r=e,o=r.expires,i=function(n,t){var e={};for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&0>t.indexOf(r)&&(e[r]=n[r]);if(null!=n&&"function"==typeof Object.getOwnPropertySymbols)for(var o=0,r=Object.getOwnPropertySymbols(n);o<r.length;o++)0>t.indexOf(r[o])&&Object.prototype.propertyIsEnumerable.call(n,r[o])&&(e[r[o]]=n[r[o]]);return e}(r,["expires"]);return o>=W()?i:void 0}catch(n){return}},nl=function(n,t,e){if(!(e<=0))try{var o;localStorage.setItem(n,(o=JSON.stringify(r(r({},t),{expires:W()+e})),nf()?btoa(encodeURI(o)):o))}catch(n){}},nd=function(n){return!1===n?0:!0!==n&&void 0!==n&&h(n)?n:7776e6},nv=function(n){if("object"==typeof window&&window.__perfsee__){var t,e={};return null==(t=Error.captureStackTrace)||t.call(Error,e,n),e.stack}},np=function(){var n=RegExp("\\/monitor_web\\/collect|\\/monitor_browser\\/collect\\/batch","i");return function(t){return n.test(t)}},nh=function(n){return function(){for(var t,e=[],r=0;r<arguments.length;r++)e[r]=arguments[r];return t=o(e,2),this._method=t[0],this._url=t[1],n.apply(this,e)}},ng=function(n){return function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];this._reqHeaders=this._reqHeaders||{};var r=o(t,2),i=r[0],u=r[1];return this._reqHeaders[i]=u,n&&n.apply(this,t)}},nm=function(n,t){var e=np();return function(){for(var r=[],o=0;o<arguments.length;o++)r[o]=arguments[o];if(this._start=W(),this._data=null==r?void 0:r[0],!e(this._url)){var i,u=t([this._method,this._url,this._start,this]);(i=this,x(i,"onreadystatechange",function(n){return function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];return 4===this.readyState&&u(i),n&&n.apply(this,t)}}))()}return n.apply(this,r)}},ny=function(n){return function(t,e){if(n){var r=[];r.push(x(n,"open",nh)()),r.push(x(n,"setRequestHeader",ng)()),r.push(x(n,"send",nm)(t)),e(function(){r.forEach(function(n){return n()})})}}},n_=function(n,t){return function(e,r){void 0===r&&(r={});var o=t([e,r]),i=n(e,r);return i.then(function(n){o(n)},function(){o(void 0)}),i}},nb=["fetch_0",function(n,t){var e=F();if(e&&fetch){var r=[];r.push(x(e,"fetch",n_)(n)),t(function(){r.forEach(function(n){return n()})})}}],nw=["resource"],nE=function(n,t,e){var r=n&&new n(function(n,r){n.getEntries?n.getEntries().forEach(function(n,e,o){return t(n,e,o,r)}):e&&e()});return[function(t){if(!n||!r)return e&&e();try{r.observe({entryTypes:t})}catch(n){return e&&e()}},function(t,o){if(!n||!r)return e&&e();try{var i={type:t,buffered:!0};void 0===o||(i.durationThreshold=o),r.observe(i)}catch(n){return e&&e()}r.observe({type:t,buffered:!1})},function(){return r&&r.disconnect()}]},nx=function(n,t,e){var r=o(nE(n,t),3),i=r[0],u=r[2];return i(e),u},nS=["resource_0",function(n,t){var e=function(){if(F()&&p(window.PerformanceObserver))return window.PerformanceObserver}();if(e){var r=np();t(nx(e,function(t){r(t.name)||n(t)},nw))}}],nj="pageview",nO="session",nT="js_error",nR="http",nk="custom",nA="action",nC={sampleRate:1,origins:[]},nD=function(){var n=window&&(window.crypto||window.msCrypto);if(void 0!==n&&n.getRandomValues){var t=new Uint16Array(8);n.getRandomValues(t);var e=function(n){for(var t=n.toString(16);t.length<4;)t="0"+t;return t};return e(t[0])+e(t[1])+e(t[2])+e(t[3])+e(t[4])+e(t[5])+e(t[6])+e(t[7])}return"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx".replace(/[x]/g,function(){return(16*Math.random()|0).toString(16)})},nL=function(n){var t=nc(n,nC);if(t&&k(t.sampleRate))return function(n,e){var r=t.origins;r.length&&b(r,n)&&e("traceparent","03-"+nD()+"-"+nD().substring(16)+"-01")}},nP=RegExp("(cookie|auth|jwt|token|key|ticket|secret|credential|session|password)","i"),nq=RegExp("(bearer|session)","i"),nI=function(n,t){return!n||!t||nP.test(n)||nq.test(t)},nN=function(n){var t=!1;return function(e){t||(t=!0,n(e))}},nB=function(n,t){try{if(t){var e=n.request.url;n.request.url=t(e),n.extra=r(r({},n.extra),{original_url:e})}}catch(n){}},nH=function(n,t,e){var r=o(t,2),i=r[0],u=r[1],a=e.setTraceHeader,f=e.ignoreUrls,s=e.setContextAtReq,l=e.extractUrl;n.push(i[0](function(n){var t=o(n,4);t[0];var r=t[1];t[2];var i=t[3];if(!r)return c;var d=J(r);if(b(f,d))return c;a&&a(d,function(n,t){return i.setRequestHeader(n,t)});var v=s(),p=void 0,h=u()[0](function(n){d!==n.name||p||(p=n)});return function(n){var t=nM(n,e);setTimeout(function(){p&&(t.response.timing=p),nB(t,l),v&&v({ev_type:nR,payload:t}),h()},100)}}))},nM=function(n,t){var e,r=n._method,i=n._reqHeaders,u=n._url,a=n._start,c=n._data,f={api:"xhr",request:{url:J(u),method:(r||"").toLowerCase(),headers:i&&Object.keys(i).reduce(function(n,t){return nI(t,i[t])||(n[t.toLowerCase()]=i[t]),n},{}),timestamp:a},response:{status:n.status||0,is_custom_error:!1,timestamp:W()},duration:W()-a};"function"==typeof n.getAllResponseHeaders&&(f.response.headers=g(e=n.getAllResponseHeaders())&&e?e.split("\r\n").reduce(function(n,t){if(g(t)){var e=o(t.split(": "),2),r=e[0],i=e[1];nI(r,i)||(n[r.toLowerCase()]=i)}return n},{}):{});var s=f.response.status,l=t.collectBodyOnError,d=t.extraExtractor;try{var v=null==d?void 0:d(n.response,f,c);v&&(f.extra=v),v&&(f.response.is_custom_error=!0),l&&(v||s>=400)&&(f.request.body=c?""+c:void 0,f.response.body=n.response?""+n.response:void 0)}catch(n){}return f},nz="ajax",nU={autoWrap:!0,setContextAtReq:function(){return f},ignoreUrls:[],collectBodyOnError:!1},nW=function(n,t,e){var r=o(t,2),i=r[0],u=r[1],a=e.setTraceHeader,f=e.ignoreUrls,s=e.setContextAtReq,l=e.extractUrl,d=window.Headers,v=window.Request;v&&d&&n.push(i[0](function(n){var t=o(n,2),r=t[0],i=t[1],p=J(r instanceof v?r.url:r);if(!nF(p)||b(f,p))return c;a&&a(p,function(n,t){return nG(n,t,r,i,v,d)});var h=s(),g=W(),m=void 0,y=u()[0](function(n){p!==n.name||m||(m=n)});return function(n){var t=nY(r,i,n,v,d,e,g),o=nN(function(n){m&&(n.response.timing=m),nB(n,l),h&&h({ev_type:nR,payload:n}),y()});setTimeout(function(){o(t)},1e3)}}))},nF=function(n){if(!g(n))return!1;var t=o(n.split(":"),2),e=t[0];return!t[1]||"http"===e||"https"===e},nX=function(n,t){return n instanceof t},nG=function(n,t,e,o,i,u){var a;nX(e,i)?e.headers.set(n,t):o.headers instanceof u?o.headers.set(n,t):o.headers=r(r({},o.headers),((a={})[n]=t,a))},nJ=function(n,t,e){var r=t&&t.method||"get";return nX(n,e)&&(r=n.method||r),r.toLowerCase()},nV=function(n){for(var t=[],e=1;e<arguments.length;e++)t[e-1]=arguments[e];try{return t.reduce(function(t,e){return new n(e||{}).forEach(function(n,e){return!nI(e,n)&&(t[e]=n)}),t},{})}catch(n){return{}}},n$=function(n,t,e){return nX(n,e)?n.body:null==t?void 0:t.body},nY=function(n,t,e,r,o,i,u){var a={api:"fetch",request:{method:nJ(n,t,r),timestamp:u,url:J(n instanceof r?n.url:n),headers:nV(o,n.headers,t.headers)},response:{status:e&&e.status||0,is_custom_error:!1,timestamp:W()},duration:W()-u},f=i.collectBodyOnError,s=i.extraExtractor,l=function(){var e;f&&(a.request.body=null==(e=n$(n,t,r))?void 0:e.toString())};if(e)try{var d=nV(o,e.headers);a.response.headers=d;try{-1!==(d["content-type"]||"").indexOf("application/json")&&s&&e.clone().json().then(function(e){var o,i=s(e,a,null==(o=n$(n,t,r))?void 0:o.toString());i&&(a.extra=i,a.response.is_custom_error=!0,l())}).catch(c)}catch(n){}e.status>=400&&l()}catch(n){}else l();return a},nK="fetch",nQ={autoWrap:!0,setContextAtReq:function(){return f},ignoreUrls:[],collectBodyOnError:!1},nZ=["name","message","stack","filename","lineno","colno"],n0=function(n){var t;return!function(n){switch(Object.prototype.toString.call(n)){case"[object Error]":case"[object Exception]":case"[object DOMError]":case"[object DOMException]":return!0;default:return n instanceof Error}}(n)?(d(n)||"undefined"!=typeof Event&&function(n,t){try{return n instanceof t}catch(n){return!1}}(n,Event)||g(n))&&(t={message:w(n)}):t=n&&s(n)?nZ.reduce(function(t,e){return t[e]=n[e],t},{}):n,t},n1=function(n){var t=n0(n.error);if(!t)return t;var e=n.colno,r=n.lineno,o=n.filename;return e&&!t.colno&&(t.colno=String(e)),r&&!t.lineno&&(t.lineno=String(r)),o&&!t.filename&&(t.filename=o),t},n2=function(n){var t;try{var e=void 0;if("reason"in n?e=n.reason:"detail"in n&&"reason"in n.detail&&(e=n.detail.reason),e){var o=n0(e);return r(r({},o),{name:null!=(t=o&&o.name)?t:"UnhandledRejection"})}}catch(n){}},n3=function(n){return"[object ErrorEvent]"===Object.prototype.toString.call(n)?n1(n):"[object PromiseRejectionEvent]"===Object.prototype.toString.call(n)?n2(n):n0(n)},n4="jsError",n5=function(n){return"hidden"===n.visibilityState},n6=["hidden_3",function(n,t){var e=X(),r=F();if(e&&r){var o=function(t){n("pagehide"===t.type||n5(e))},i=nr(e,"visibilitychange",o,!0),u=ne(r,"pagehide",o,!0);t(function(){i(),u()},function(n){n(n5(e))})}}],n8=["unload_0",function(n,t){var e=F();if(e){var r=o(no(n),1)[0],i=function(){r()},u=[];["unload","beforeunload","pagehide"].forEach(function(n){u.push(ne(e,n,i,!1))}),t(function(){u.forEach(function(n){return n()})})}}],n7=["hash_0",function(n,t){var e=F();if(e){var r=ne(e,"hashchange",function(){return n(location.href)},!0);t(function(){r()})}}],n9=["history_0",function(n,t){var e=F()&&window.history,r=F();if(e&&r){var o=[],i=function(){return n(location.href)},u=function(n){return function(){for(var t=[],r=0;r<arguments.length;r++)t[r]=arguments[r];try{n.apply(e,t)}finally{i()}}};o.push(E(e,"pushState",u)(),E(e,"replaceState",u)()),o.push(ne(r,"popstate",i,!0)),t(function(){o.forEach(function(n){return n()})})}}],tn=function(n){return tt(n,W())},tt=function(n,t){return n+"_"+t},te=function(n,t,e,r){var o=e,i=t;return r&&r(t),[function(t,e,u){"user_set"!==t&&e!==o?(o=e,i=null!=u?u:o,r&&r(i),n(t,i)):"user_set"===t&&e!==i&&(i=e,r&&r(i),n(t,i))},function(){t&&n("init",t)}]},tr=function(n,t){var e=t;return[function(t,r){r!==e&&n(t,e=r)}]},to=function(n){return"manual"===n},ti="error_weight",tu="duration_apdex",ta="perf_apdex",tc=function(){var n;return(n={error_count:[0,0,0,0],duration_count:[0,0,0]})[ta]={},n},tf=function(n,t){var e=n[0]+n[1]+n[2],r=n[0]/e;return n[2]/e>t.frustrating_threshold?2:r>t.satisfying_threshold||0===e?0:1},ts=function(){var n=0,t=void 0;return[function(e){e?t&&(n+=W()-t,t=void 0):t=W()},function(){t&&(n+=W()-t);var e=n;return n=0,t=W(),e}]},tl=function(n,t){return function(e,r){var o=e.payload;switch(e.ev_type){case"performance":var i=o.name;o.isSupport&&n(r[ta],i,o.value);break;case nA:n(r[ta],"action",o.duration||0);break;case nT:t(r[ti],0);break;case nR:if(o.response.is_custom_error||o.response.status>=400)t(r[ti],1);else{var u=o.response.timing;u&&n(r[tu],0,u.duration)}break;case"resource_error":t(r[ti],2);break;case"blank_screen":t(r[ti],3);break;case"resource":n(r[tu],1,o.duration);break;case"performance_longtask":o.longtasks.forEach(function(t){n(r[tu],2,t.duration)})}}},td=function(){var n,t,e=function(){n=[0,0,0],t=tc()};return e(),[function(e,r,o){var i=e&&e[r];if(i&&!(o<=0)){var u=o<(i[0].threshold||0)?0:o>(i[1].threshold||0)?2:1;if(n[u]+=i[u].weight,"string"==typeof r){var a=tt(r,u),c=t[ta][a];t[ta][a]=(c||0)+1}else 2===u&&(t.duration_count[r]+=1)}},function(e,r){e&&(n[2]+=e[r],t.error_count[r]+=1)},function(){return[n,t]},e]},tv=function(){var n={start:W(),end:0,time_spent:0,is_bounced:!1,entry:"",exit:"",p_count:0,a_count:0};return[function(t,e){var r=o(t,3),i=r[0],u=r[1],a=r[2];n.end=W(),n.time_spent+=e&&e.time_spent||0,n.last_page=e,n.p_count+=1,n.rank=i,n.apdex=u,n.apdex_detail=a;var c=X();c&&(n.is_bounced="complete"!==c.readyState)},function(t,e){n.time_spent+=t.time_spent,n.p_count+=1,n.exit=e},function(){n.a_count+=1},function(t){n.entry=t,n.exit=t},function(){return n}]},tp=function(n,t,e,r){var i,u,a=r.sendInit,c=r.initPid,f=r.routeMode,s=r.extractPid,l=r.onPidUpdate,d=to(f)?function(){return""}:function(n){var t;return"hash"===f?(null==(t=V(n).hash)?void 0:t.replace(/^#/,""))||"/":V(n).path},v=s||function(){},p=o(te(function(t,e){n({ev_type:nj,payload:{pid:e,source:t}})},c||(null!=(u=v(i=location.href))?u:d(i)),d(location.href),l),2),h=p[0],g=p[1];if(!to(f)){var m=o(tr(function(n,t){return h(n,d(t),v(t))},""),1)[0];e.length&&e.forEach(function(n){return t.push(n[0](function(n){return m(f,n)}))})}return a&&g(),[h.bind(null,"user_set")]},th=function(n,t,e,r){var i=o(e,2),u=i[0],a=i[1],c=2===r.apdex,f=void 0,s=void 0,l=void 0,d=!1,v=o(td(),4),p=v[0],h=v[1],g=v[2],m=v[3],y=o(td(),4),_=y[0],b=y[1],w=y[2],E=y[3],x=o(tv(),5),S=x[0],j=x[1],O=x[2],T=x[3],R=x[4],k=o(ts(),2),A=k[0],C=k[1];t.push(u[0](A)),c||t.push(a[0](function(){if(d){var t=o(w(),2),e=t[0],r=t[1];S([tf(e,l),e,r],P()),n({ev_type:nO,payload:R()}),E()}}));var D=tl(p,h),L=tl(_,b),P=function(){var n=o(g(),2),t=n[0],e=n[1];return{start:f[0],pid:f[1],view_id:f[2],end:W(),time_spent:C(),apdex:t,rank:tf(t,l),detail:e}};return t.push(function(){d=!1}),[function(n,t){if(!f){f=[W(),n,t],T(n),d=!!(l&&f);return}d&&j(s=P(),n),f=[W(),n,t],m()},function(n){d&&(c||(L(n,l),n.ev_type===nA&&O()),n.common.pid===f[1]&&D(n,l))},function(t){d&&(t.payload.last=s),n(t)},function(n){if(!n){t.forEach(function(n){return n()}),t.length=0;return}d=!!((l=n)&&f)}]},tg="pageview",tm={sendInit:!0,routeMode:"history",apdex:2},ty=function(n){if(n&&s(n)&&n.name&&g(n.name)){var t={name:n.name,type:"event"};if("metrics"in n&&s(n.metrics)){var e=n.metrics,r={};for(var o in e)h(e[o])&&(r[o]=e[o]);t.metrics=r}if("categories"in n&&s(n.categories)){var i=n.categories,u={};for(var o in i)u[o]=w(i[o]);t.categories=u}return"attached_log"in n&&g(n.attached_log)&&(t.attached_log=n.attached_log),t}},t_=function(n){if(n&&s(n)&&n.content&&g(n.content)){var t={content:w(n.content),type:"log",level:"info"};if("level"in n&&(t.level=n.level),"extra"in n&&s(n.extra)){var e=n.extra,r={},o={};for(var i in e)h(e[i])?r[i]=e[i]:o[i]=w(e[i]);t.metrics=r,t.categories=o}return"attached_log"in n&&g(n.attached_log)&&(t.attached_log=n.attached_log),t}},tb=function(n){var t=function(e){var r=ty(e);if(r){var o=nv(t);o&&(r.stacks=o),n.report({ev_type:nk,payload:r,extra:{timestamp:W()}})}};n.provide("sendEvent",t),n.provide("sendLog",function(t){var e=t_(t);e&&n.report({ev_type:nk,payload:e,extra:{timestamp:W()}})})};function tw(n){return(null==n?void 0:n.effectiveType)||(null==n?void 0:n.type)||""}var tE=function(n){var t=function(){var n=function(){if(F()&&"navigator"in window)return window.navigator}();if(n)return n.connection||n.mozConnection||n.webkitConnection}(),e=tw(t);t&&(t.onchange=function(){e=tw(t)}),n.on("report",function(n){return r(r({},n),{extra:r(r({},n.extra||{}),{network_type:e})})})},tx=function(n,t){var e=n.common||{};return e.sample_rate=t,n.common=e,n},tS=function(n,t,e,r,o){var i;return n?(i=o(r,t),function(){return i}):function(){return e(t)}},tj=function(n,t,e){switch(e){case"eq":return m(t,n);case"neq":return!m(t,n);case"gt":return n>t[0];case"gte":return n>=t[0];case"lt":return n<t[0];case"lte":return n<=t[0];case"regex":return!!n.match(new RegExp(t.join("|")));case"not_regex":return!n.match(new RegExp(t.join("|")));default:return!1}},tO=function(n,t,e,r){var o=_(n,t,function(n,t){return n[t]});if(void 0===o)return!1;var i="boolean"==typeof o?"bool":h(o)?"number":"string";return tj(o,r.map(function(n){switch(i){case"number":return Number(n);case"boolean":return"1"===n;default:return String(n)}}),e)},tT=function(n,t){try{return"rule"===t.type?tO(n,t.field,t.op,t.values):"and"===t.type?t.children.every(function(t){return tT(n,t)}):t.children.some(function(t){return tT(n,t)})}catch(n){return Z(n),!1}},tR=function(n,t,e,r,o,i){var u={};return Object.keys(n).forEach(function(a){var c=n[a],f=c.enable,s=c.sample_rate,l=c.conditional_sample_rules;f?(u[a]={enable:f,sample_rate:s,effectiveSampleRate:s*e,hit:tS(t,s,r,o,i)},l&&(u[a].conditional_hit_rules=l.map(function(n){var u=n.sample_rate,a=n.filter;return{sample_rate:u,hit:tS(t,u,r,o,i),effectiveSampleRate:u*e,filter:a}}))):u[a]={enable:f,hit:function(){return!1},sample_rate:0,effectiveSampleRate:0}}),u},tk=function(n,t,e,r,o){if(!t)return f;var i=t.sample_rate,u=t.include_users,a=t.sample_granularity,c=t.rules,s=t.r,l=void 0===s?Math.random():s;if(m(u,n))return function(n){return tx(n,1)};var d="session"===a,v=tS(d,i,e,l,r),p=tR(c,d,i,e,l,r);return function(n){if(!v())return d&&o[0](),!1;if(!(n.ev_type in p))return tx(n,i);if(!p[n.ev_type].enable)return d&&o[1](n.ev_type),!1;if(null==(t=n.common)?void 0:t.sample_rate)return n;var t,e=p[n.ev_type],r=e.conditional_hit_rules;if(r){for(var u=0;u<r.length;u++)if(tT(n,r[u].filter)){if(r[u].hit())return tx(n,r[u].effectiveSampleRate);return!1}}return e.hit()?tx(n,e.effectiveSampleRate):(!(r&&r.length)&&d&&o[1](n.ev_type),!1)}},tA=function(n){n.on("start",function(){var t=n.config(),e=tk(t.userId,t.sample,k,A,[function(){n.destroy()},function(t){n.destroyAgent.removeByEvType(t)}]);n.on("build",e)})},tC=function(){var n=F();return n&&n.navigator.sendBeacon?{get:function(){},post:function(t,e){n.navigator.sendBeacon(t,e)}}:{get:c,post:c}},tD=function(n,t,e){var r=t.url,o=t.data,i=t.success,u=void 0===i?c:i,a=t.fail,f=void 0===a?c:a,s=t.getResponseText,l=void 0===s?c:s,d=t.withCredentials,v=new e;v.withCredentials=void 0!==d&&d,v.open(n,r,!0),v.setRequestHeader("Content-Type","application/json"),v.onload=function(){null==l||l(this.responseText);try{if(this.status>=400)f(Error(this.responseText||this.statusText));else if(this.responseText){var n=JSON.parse(this.responseText);u(n)}else u({})}catch(n){f(n)}},v.onerror=function(){f(Error("Network request failed"))},v.onabort=function(){f(Error("Network request aborted"))},v.send(o)},tL=function(){var n=function(){if("function"==typeof XMLHttpRequest&&p(XMLHttpRequest))return XMLHttpRequest}();return n?{useBeacon:!0,get:function(t){tD("GET",t,n)},post:function(t){tD("POST",t,n)}}:{get:c,post:c}},tP="1.14.4",tq="/monitor_web/settings/browser-settings",tI="/monitor_browser/collect/batch/",tN=["/log/sentry/",tI,tq],tB="session",tH=["blankScreen","action"],tM={sample_rate:1,include_users:[],sample_granularity:tB,rules:{}},tz=function(n,t,e,r){void 0===r&&(r=tF);var o=t.config(),i=o.plugins,u=o.pluginBundle,a=n.filter(function(n){return i[n]&&!t.destroyAgent.has(n)}),c=function(){return a.forEach(function(n){return tX(t,n,e)})};a.every(function(n){return tJ(n,e)})?c():r(t,{name:u.name},c)},tU=function(n,t,e,r){void 0===r&&(r=tF);var o=t.config().plugins;n.filter(function(n){return o[n]&&!t.destroyAgent.has(n)}).forEach(function(n){tJ(n,e)?tX(t,n,e):r(t,{name:n,config:o[n]},function(){return tX(t,n,e)})})};function tW(n,t,e){void 0===e&&(e=tF);var o=n.config().pluginBundle;tz(o?o.plugins:[],n,t,e),tU(tH,n,t,e),n.provide("reloadPlugin",function(t,e){var o,i=n.config().pluginBundle;n.destroyAgent.has(t)&&n.destroyAgent.remove(t),void 0!==e&&n.set({plugins:r(r({},n.config().plugins),((o={})[t]=e,o))}),i&&~i.plugins.indexOf(t)?tz([t],n):tU([t],n)})}function tF(n,t,e,r){var o,i,u,a,c=t.name,f=t.config;void 0===r&&(r=na),r((o=n,i=c,null!=(a=null==(u=f)?void 0:u.path)?a:o.config().pluginPathPrefix+"/"+i.replace(/([a-z])([A-Z])/g,function(n,t,e){return t+"-"+e.toLowerCase()})+"."+tP+".js"),function(){e()})}function tX(n,t,e){if(void 0===e&&(e=Q(F())),e){var r=tG(e,t);if(!r)return void R("[loader].applyPlugin not found",t);try{if(n.destroyAgent.has(t))return;r.apply(n)}catch(n){Z(n),R("[loader].applyPlugin failed",t,n)}}}function tG(n,t){return n.plugins.filter(function(n){return n.name===t&&n.version===tP})[0]}function tJ(n,t){return void 0===t&&(t=Q(F())),!!t&&!!t.plugins&&!!tG(t,n)}function tV(n,t,e){void 0===e&&(e=Q(F())),e&&e.plugins&&(tG(e,n)||e.plugins.push({name:n,version:tP,apply:t}))}function t$(n){var t,e;try{for(var r=function(n){var t="function"==typeof Symbol&&Symbol.iterator,e=t&&n[t],r=0;if(e)return e.call(n);if(n&&"number"==typeof n.length)return{next:function(){return n&&r>=n.length&&(n=void 0),{value:n&&n[r++],done:!n}}};throw TypeError(t?"Object is not iterable.":"Symbol.iterator is not defined.")}(["userId","deviceId","sessionId","env"]),o=r.next();!o.done;o=r.next()){var i=o.value;n[i]||delete n[i]}}catch(n){t={error:n}}finally{try{o&&!o.done&&(e=r.return)&&e.call(r)}finally{if(t)throw t.error}}return n}function tY(n){var t=n.plugins||{};for(var e in t)t[e]&&!s(t[e])&&(t[e]={});return t$(r(r({},n),{plugins:t}))}function tK(n){return s(n)&&"bid"in n}function tQ(n){return t$(r({},n))}var tZ=function(n){var t=[];return n.observe=function(n){t.push(n)},n.push=function(){for(var e,r=[],u=0;u<arguments.length;u++)r[u]=arguments[u];return r.forEach(function(n){t.forEach(function(t){return t(n)})}),(e=[].push).call.apply(e,i([n],o(r),!1))},n},t0=function(n){return"SLARDAR"+n},t1=function(n,t){try{var e=localStorage.getItem(n);if(!e||!nf()||"{"!==e[0])return;nl(n,JSON.parse(e),t)}catch(n){}},t2=function(n,t){void 0===n&&(n="");var e={userId:D(),deviceId:D()};if(t<=0)return e;var r=t0(n);t1(r,t);var o=ns(r);return{userId:(null==o?void 0:o.userId)||e.userId,deviceId:(null==o?void 0:o.deviceId)||e.deviceId}},t3=function(n){var t=n.bid,e=n.userId,r=n.deviceId,o=n.storageExpires;nl(t0(t),{userId:e,deviceId:r},nd(o))},t4={get:function(){return this.__SLARDAR__REPALCE__HOLDER__}},t5=function(n){var t,e,o=n,i={},u=t4.get(),a=c,f=c;return{getConfig:function(){return o},setConfig:function(n){return i=r(r({},i),n||{}),l(),t||(t=n,o.useLocalConfig||!o.bid?(e={},a()):u?p():function(n,t,e,r){var o,i;n.get({withCredentials:!0,url:(o=t,void 0===i&&(i=tq),(o&&o.indexOf("//")>=0?"":"https://")+o+i+"?bid="+e+"&store=1"),success:function(n){r(n.data||{})},fail:function(){r({sample:{sample_rate:.001}})}})}(o.transport,o.domain,o.bid,function(n){u=n,p()})),o},onChange:function(n){f=n},onReady:function(n){a=function(){t3(o),n()},e&&a()}};function l(){var t=r(r(r({},n),e||{}),i);t.plugins=function(){for(var n=[],t=0;t<arguments.length;t++)n[t]=arguments[t];for(var e={},o=0;o<n.length;)e=function n(t,e){var o=r({},t);for(var i in e)Object.prototype.hasOwnProperty.call(e,i)&&void 0!==e[i]&&(s(e[i])&&d(e[i])?o[i]=n(s(t[i])?t[i]:{},e[i]):v(e[i])&&v(t[i])?o[i]=function t(e,r){var o=v(e)?e:[],i=v(r)?r:[];return Array.prototype.concat.call(o,i).map(function(e){return e instanceof RegExp?e:s(e)&&d(e)?n({},e):v(e)?t([],e):e})}(t[i],e[i]):o[i]=e[i]);return o}(e,n[o++]);return e}(n.plugins,(null==e?void 0:e.plugins)||{},i.plugins||{}),t.sample=t6(t6(n.sample,null==e?void 0:e.sample),i.sample),o=t,f()}function p(){e=function(n){if(!n)return{};var t,e=n.sample,r=n.plugins,o=n.timestamp,i=n.quota_rate,u=n.apdex;if(!e)return{};var a=e.sample_rate,c=e.sample_granularity,f=e.include_users,s=e.rules;return{sample:{include_users:f,sample_rate:a*(void 0===i?1:i),sample_granularity:void 0===c?tB:c,rules:(void 0===s?[]:s).reduce(function(n,t){var e=t.name,r=t.enable,o=t.sample_rate,i=t.conditional_sample_rules;return n[e]={enable:r,sample_rate:o,conditional_sample_rules:i},n},{})},plugins:{heatmap:null!=(t=null==r?void 0:r.heatmap)&&t},apdex:u,serverTimestamp:o}}(u),l(),a()}};function t6(n,t){if(!n||!t)return n||t;var e=r(r({},n),t);return e.include_users=i(i([],o(n.include_users||[]),!1),o(t.include_users||[]),!1),e.rules=i(i([],o(Object.keys(n.rules||{})),!1),o(Object.keys(t.rules||{})),!1).reduce(function(e,u){var a,c;return u in e||(u in(n.rules||{})&&u in(t.rules||{})?(e[u]=r(r({},n.rules[u]),t.rules[u]),e[u].conditional_sample_rules=i(i([],o(n.rules[u].conditional_sample_rules||[]),!1),o(t.rules[u].conditional_sample_rules||[]),!1)):e[u]=(null==(a=n.rules)?void 0:a[u])||(null==(c=t.rules)?void 0:c[u])),e},{}),e}var t8={build:function(n){return{ev_type:n.ev_type,payload:n.payload,common:r(r({},n.extra||{}),n.overrides||{})}}},t7=function(n,t){var e=t||{},o=e.pid,i=e.viewId,u={url:$(),timestamp:W(),sdk_version:tP,sdk_name:"SDK_SLARDAR_WEB",pid:void 0===o?"":o,view_id:void 0===i?"":i};return r(r({},n),{extra:r(r({},u),n.extra||{})})},t9=function(n){n.on("report",function(t){return t7(t,n.config())}),n.on("init",function(){var t=n.config(),e=t.pid,o=t.viewId,i=n.getPreStartQueue();i.forEach(function(n,t){var u=n.extra||{};i[t]=r(r({},n),{extra:r(r({},u),{pid:u.pid||e,view_id:u.view_id||o})})})})},en={sri:"reportSri",st:"reportResourceError",err:"captureException",reject:"captureException"},et=function(n,t){return"err"===t?!1!==_(n,"plugins."+n4+".onerror",function(n,t){return n[t]}):"reject"!==t||!1!==_(n,"plugins."+n4+".onunhandledrejection",function(n,t){return n[t]})},ee=function(n,t){void 0===t&&(t=en);var e,i,u,a,c,f,s,l,d=Object.keys(t).reduce(function(n,t){return n[t]=[],n},{}),v=Object.keys(a=t).reduce(function(n,t){return n[a[t]]?n[a[t]].push(t):n[a[t]]=[t],n},{}),p=(c=n,f=d,s=t,function(n,t,e,o){void 0===e&&(e=W()),void 0===o&&(o=location.href);var i,u=r(r({},nn(c)),{url:o,timestamp:e});f[n]&&(c[s[n]]?nt(c,u)(function(){c[s[n]](t)}):null==(i=f[n])||i.push([t,u]))});(null==(l=n.p)?void 0:l.a)&&"observe"in n.p.a&&n.p.a.observe(function(t){var e=o(t,5);e[0];var r=e[1],i=e[2],u=e[3],a=e[4];et(n.config(),r)&&p(r,i,u,a)}),n.on("init",function(){var t,e=n.config();null==(t=n.p)||t.a.forEach(function(n){var t=o(n,5);t[0];var r=t[1],i=t[2],u=t[3],a=t[4];et(e,r)&&p(r,i,u,a)}),n.p&&n.p.a&&(n.p.a.length=0),n.provide("precollect",function(n,t,r,o){void 0===r&&(r=W()),void 0===o&&(o=location.href),et(e,n)&&p(n,t,r,o)})}),n.on("provide",(e=n,i=d,u=v,function(n){n in u&&u[n].forEach(function(t){var r;null==(r=i[t])||r.forEach(function(t){var r=o(t,2),i=r[0];nt(e,r[1])(function(){e[n](i)})}),i[t]=null})}))},er=function(n){var t=o(n,2),e=t[0],r=t[1];return{ev_type:nT,payload:{error:n3(e),breadcrumbs:[],extra:r||{}},extra:{bid:"slardar_sdk"}}},eo=function(n,t){void 0===t&&(t=.001);var e=Q(F());!e||(e.errors||(e.errors=[]),"observe"in e.errors||k(t)&&(e.errors=tZ(e.errors),e.errors.forEach(function(t){n.report(er(t))}),e.errors.observe(function(t){n.report(er(t))})))},ei=function(n){var t,e=!1;n.on("init",function(){t=new Date().getTime(),n.on("config",function(){var o,i=null==(o=n.config())?void 0:o.serverTimestamp;if(!(isNaN(i)||0>=Number(i))&&!e){e=!0;var u=new Date().getTime();if(u-t<700&&i){var a=i-(u+t)/2;!isNaN(a)&&(a>0||a<-6e5)&&n.on("beforeBuild",function(n){var t;return r(r({},n),{extra:r(r({},null!=(t=n.extra)?t:{}),{sdk_offset:null!=a?a:0})})})}}})})},eu=function(n,t){var e={};return e.bid=t.bid,e.user_id=t.userId,e.device_id=t.deviceId,e.session_id=t.sessionId,e.release=t.release,e.env=t.env,r(r({},n),{extra:r(r({},e),n.extra||{})})},ea=function(n){n.on("beforeBuild",function(t){return eu(t,n.config())})},ec=function(n){n.on("start",function(){var t=n.config().bid,e=n.getSender();e.setEndpoint(e.getEndpoint()+"?biz_id="+t)})},ef=function(n){var t=nd(n.storageExpires),e=t2(n.bid,t);return{bid:"",pid:"",viewId:tn("_"),userId:e.userId,deviceId:e.deviceId,storageExpires:t,sessionId:D(),domain:"mon.zijieapi.com",pluginBundle:{name:"commonMonitors",plugins:["breadcrumb","jsError","performance","resourceError","resource"]},pluginPathPrefix:"https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/plugins",plugins:{ajax:{ignoreUrls:tN},fetch:{ignoreUrls:tN},breadcrumb:{},pageview:{},jsError:{},resource:{},resourceError:{},performance:{},tti:{},fmp:{},blankScreen:!1,heatmap:!1},release:"",env:"production",sample:tM,transport:tL()}},es=function(n){var t,e,r=void 0===n?{}:n,c=r.createSender,f=void 0===c?function(n){var t,e,r,o,i;return r=(e=function(n){var t,e=n.transport,r=n.endpoint,o=n.size,i=void 0===o?10:o,a=n.wait,c=void 0===a?1e3:a,f=[],s=0;function l(){if(f.length){var n=this.getBatchData();e.post({url:r,data:n,fail:function(e){t&&t(e,n)}}),f=[]}}return{getSize:function(){return i},getWait:function(){return c},setSize:function(n){i=n},setWait:function(n){c=n},getEndpoint:function(){return r},setEndpoint:function(n){r=n},send:function(n){f.push(n),f.length>=i&&l.call(this),clearTimeout(s),s=setTimeout(l.bind(this),c)},flush:function(){clearTimeout(s),l.call(this)},getBatchData:function(){return f.length?u(f):""},clear:function(){clearTimeout(s),f=[]},fail:function(n){t=n}}}(t={size:20,endpoint:(o=n.domain,void 0===i&&(i=tI),(o&&o.indexOf("//")>=0?"":"https://")+o+i),transport:n.transport})).send,ni(function(){if(t.transport.useBeacon){var n=tC(),o=e.getBatchData();o&&(n.post(e.getEndpoint(),o),e.clear()),e.send=function(t){n.post(e.getEndpoint(),u([t]))},nu(function(){e.send=r})}else e.flush()}),e}:c,l=r.builder,d=r.createDefaultConfig,v=function(n){var t,e,r,u,c,f,l=n.builder,d=n.createSender,v=n.createDefaultConfig,p=n.createConfigManager,h=n.userConfigNormalizer,g=n.initConfigNormalizer,_=n.validateInitConfig,b={};a.forEach(function(n){return b[n]=[]});var w=!1,E=!1,x=!1,S=[],j=[],O=(t=!1,e={},r=function(n){n.length&&n.forEach(function(n){try{n()}catch(n){}}),n.length=0},{set:function(n,o,i){e[n]?e[n].push([o,i]):e[n]=[[o,i]],t&&r(i)},has:function(n){return!!e[n]},remove:u=function(n){e[n]&&e[n].forEach(function(n){r(n[1])}),e[n]=void 0},removeByEvType:function(n){Object.keys(e).forEach(function(t){e[t]&&e[t].forEach(function(t){t[0]===n&&r(t[1])})})},clear:function(){t=!0,Object.keys(e).forEach(function(n){u(n)})}}),T={getBuilder:function(){return l},getSender:function(){return c},getPreStartQueue:function(){return S},init:function(n){if(w)return void R("already inited");if(n&&s(n)&&_(n)){var t=v(n);if(!t)throw Error("defaultConfig missing");var e=g(n);if((f=p(t)).setConfig(e),f.onChange(function(){k("config")}),!(c=d(f.getConfig())))throw Error("sender missing");w=!0,k("init",!0)}else throw Error("invalid InitConfig, init failed")},set:function(n){w&&n&&s(n)&&(k("beforeConfig",!1,n),null==f||f.setConfig(n))},config:function(n){if(w)return n&&s(n)&&(k("beforeConfig",!1,n),null==f||f.setConfig(h(n))),null==f?void 0:f.getConfig()},provide:function(n,t){m(j,n)?R("cannot provide "+n+", reserved"):(T[n]=t,k("provide",!1,n))},start:function(){var n=this;!w||E||null==f||f.onReady(function(){E=!0,k("start",!0),S.forEach(function(t){return n.build(t)}),S.length=0})},report:function(n){if(n){var t=C(b.beforeReport)(n);if(t){var e=C(b.report)(t);e&&(E?this.build(e):S.push(e))}}},build:function(n){if(!E)return;var t=C(b.beforeBuild)(n);if(t){var e=l.build(t);if(e){var r=C(b.build)(e);r&&this.send(r)}}},send:function(n){if(E){var t=C(b.beforeSend)(n);t&&(c.send(t),k("send",!1,t))}},destroy:function(){O.clear(),x=!0,S.length=0,k("beforeDestroy",!0)},on:function(n,t){if("init"===n&&w||"start"===n&&E||"beforeDestroy"===n&&x)try{t()}catch(n){}else b[n]&&b[n].push(t)},off:function(n,t){b[n]&&(b[n]=y(b[n],t))},destroyAgent:O};return j=Object.keys(T),T;function k(n,t){void 0===t&&(t=!1);for(var e=[],r=2;r<arguments.length;r++)e[r-2]=arguments[r];b[n].forEach(function(n){try{n.apply(void 0,i([],o(e),!1))}catch(n){}}),t&&(b[n].length=0)}}({validateInitConfig:tK,initConfigNormalizer:tY,userConfigNormalizer:tQ,createSender:f,builder:void 0===l?t8:l,createDefaultConfig:void 0===d?ef:d,createConfigManager:t5});eo(v),H(v);var p=Q(F());t=p&&p.subject||{},e={},v.provide("setFilter",function(n,t){e[n]||(e[n]=[]),e[n].push(t)}),v.provide("initSubject",function(n){var r=o(n,2),i=r[0],u=r[1],a=i.split("_")[0],c=!!a&&e[a];return(t[i]||(t[i]=I(u,function(){t[i]=void 0})),c)?U(v,[i,N(t[i],c)]):t[i]}),v.provide("getSubject",function(n){return t[n]}),v.provide("privateSubject",{}),ei(v),ea(v),t9(v),tE(v),ec(v);var h=M(v,nn,function(n,t,e){return nt(n,t)(function(){var n=o(e),t=n[0],r=n.slice(1);v[t].apply(v,i([],o(r),!1))})});return h.on("init",function(){var n=[],t=function(t){t.forEach(function(t){var e=t.name;m(n,e)||(n.push(e),t.setup(h),tV&&tV(e,t.setup),h.destroyAgent.set(e,e,[function(){n=y(n,e),t.tearDown&&t.tearDown()}]))})};h.provide("applyIntegrations",t);var e=h.config();e&&e.integrations&&t(e.integrations)}),h},el=((e={})[tg]=function(n){n.on("init",function(){var t,e=null==(t=n.config())?void 0:t.plugins[tg];!function(n,t){var e,i=nc(t,tm);if(i&&G()){var u=i.routeMode,a=i.apdex,f=n.report.bind(n),s=c;if(a){var l=[],d=o(th(n.report.bind(n),l,[z(n,n6),z(n,n8)],i),4),v=d[0],p=d[1],h=d[2],g=d[3];f=h,s=v,n.on("send",p),l.push(function(){return n.off("send",p)}),n.on("start",function(){g(n.config().apdex)}),B(n,tg,nO,l)}var m=[],y=o(tp(f,m,to(u)?[]:[n.initSubject(n7),n.initSubject(n9)],r(r({},i),{initPid:null==(e=n.config())?void 0:e.pid,onPidUpdate:function(t){var e=tn(t);s(t,e),n.set({pid:t,viewId:e,actionId:void 0})}})),1)[0];U(n,["f_view_0",function(t,e){var r=Y(n);e(c,function(n){r&&n(r)})}],-1);var _=function(){y(n.config().pid)};n.on("config",_),m.push(function(){return n.off("config",_)}),B(n,tg,nj,m),n.provide("sendPageview",y)}}(n,e)})},e[nz]=function(n){n.on("init",function(){var t,e=null==(t=n.config())?void 0:t.plugins[nz],o=nc(e,nU);if(o){var i=[],u=r(r({},o),{setContextAtReq:function(){return K(n,!0)},setTraceHeader:nL(o.trace)}),a=function(){return z(n,nS)};u.autoWrap&&nH(i,[z(n,["xhr_0",ny(XMLHttpRequest&&XMLHttpRequest.prototype)]),a],u),B(n,nz,nR,i),n.provide("wrapXhr",function(n){function t(){var t=new n;return nH(i,[I(ny(t)),a],u),t}return t.prototype=new n,["DONE","HEADERS_RECIEVED","LOADING","OPENED","UNSENT"].forEach(function(e){t[e]=n[e]}),t})}})},e[nK]=function(n){n.on("init",function(){var t,e=null==(t=n.config())?void 0:t.plugins[nK],o=nc(e,nQ);if(o){var i=[],u=r(r({},o),{setContextAtReq:function(){return K(n,!0)},setTraceHeader:nL(o.trace)}),a=function(){return z(n,nS)};u.autoWrap&&nW(i,[z(n,nb),a],u),B(n,nK,nR,i),n.provide("wrapFetch",function(n){var t=void 0;return nW(i,[I(function(e){t=n_(n,e)}),a],u),t})}})},e),ed=function(n){void 0===n&&(n={});var t,e,r=es(n);return tA(r),ee(r),tb(r),Object.keys(el).forEach(function(n){tV(n,el[n]),el[n](r)}),t=r,void 0===e&&(e=tW),function(n){var t=F(),e=X();if(t&&e){if("complete"===e.readyState)return n();ne(t,"load",function(){setTimeout(function(){n()},0)},!1)}}(function(){t.on("init",function(){e(t,void 0)})}),r.provide("create",ed),r},ev="precollect",ep=ed(),eh=F();eh&&function(n,t){if("addEventListener"in n){t.pcErr=function(e){var r=(e=e||n.event).target||e.srcElement||{};r instanceof Element||r instanceof HTMLElement?t(ev,"st",{tagName:r.tagName,url:r.getAttribute("href")||r.getAttribute("src")}):t(ev,"err",e.error)},t.pcRej=function(e){t(ev,"reject",(e=e||n.event).reason||e.detail&&e.detail.reason)};var e=[];e.push(ne(n,"error",t.pcErr,!0)),e.push(ne(n,"unhandledrejection",t.pcRej,!0)),setTimeout(function(){e.forEach(function(n){return n()})},3e5)}"PerformanceObserver"in n&&"PerformanceLongTaskTiming"in n&&(t.pp={entries:[]},t.pp.observer=new PerformanceObserver(function(n){t.pp.entries=t.pp.entries.concat(n.getEntries())}),t.pp.observer.observe({entryTypes:["longtask"]}),setTimeout(function(){t.pp.observer.disconnect()},3e5))}(eh,ep),t.default=ep}},h={};function g(n){var t=h[n];if(void 0!==t)return t.exports;var e=h[n]={exports:{}};return p[n](e,e.exports,g),e.exports}g.d=(n,t)=>{for(var e in t)g.o(t,e)&&!g.o(n,e)&&Object.defineProperty(n,e,{enumerable:!0,get:t[e]})},g.o=(n,t)=>Object.prototype.hasOwnProperty.call(n,t);var m={};return g.d(m,{default:()=>r}),o=g(314),i=g(615),u=g(91),a=g(583),c=g(787),n=n=>{if(n.response&&!n.response.timing){let{url:t}=n.request,e=performance.getEntriesByType("resource").find(n=>n instanceof PerformanceResourceTiming&&(n.name===t||n.name.startsWith(`${t}`)));e&&(n.response.timing=e)}},t=n=>{let{tearDown:t}=n;return{name:n.name,setup:t=>{Reflect.apply(n.setup,n,[t])},...t?{tearDown:()=>{Reflect.apply(t,n,[])}}:{}}},e={bid:"coze_space",release:"1.0.1.2407",env:["cn-release",window.gfdatav1&&(null==(f=window.gfdatav1)?void 0:f.canary)!==0&&(null==(l=window.gfdatav1)||null==(s=l.extra)?void 0:s.canaryType)!==3?"ppe":"production"].join("-"),integrations:[t((0,a.blankScreenPlugin)({rootSelector:"#root",autoDetect:!0,threshold:1.5,screenshot:!0,mask:!0,quality:.1})),t((0,i.SPALoadPlugin)({ignoreUrls:[/zijieapi\.com/,/clarity\.ms/,/bat\.bing\.com/]})),t((0,c.actionPlugin)()),t((0,u.resourceAnalyzer)())],plugins:{pageview:{routeMode:"history",extractPid(n){var t;let e=(null==(t=(n.split("?")[0]??"").split("#")[0])?void 0:t.replace(/\/[0-9]+/g,"/:id"))??"";return e.endsWith("/")&&(e=e.slice(0,-1)),e}},jsError:{onerror:!0,ignoreErrors:["time out"],onunhandledrejection:!1},fetch:{extraExtractor:(t,e)=>{var r;return n(e),null!=(r=t.data)&&!!r.code&&{code:t.data.code}}},ajax:{trace:{sampleRate:1,origins:["*"]},extraExtractor:(t,e)=>{var r,o;if(n(e),"string"==typeof t){let n=function(n,t,e){var r,o;let i,u;if(2==arguments.length?t&&"object"==typeof t&&("onError"in t||"validate"in t||"throwOnValidationError"in t)?(u=t,i=void 0):(i=t,u=void 0):3==arguments.length&&(i=t,u=e),"object"==typeof n&&null!==n)return n;try{let t=JSON.parse(String(n));if(null==u?void 0:u.validate)if(u.validate(t));else{let t=Error("JSON validation failed");if(null==(r=u.onError)||r.call(u,t,n),u.throwOnValidationError)throw t;return i}return t}catch(t){if(t instanceof Error&&"JSON validation failed"===t.message&&(null==u?void 0:u.throwOnValidationError))throw t;return null==u||null==(o=u.onError)||o.call(u,t,n),i}}(t);if(null==n||null==(o=n.data)?void 0:o.code)return{code:n.data.code}}else if(null==t||null==(r=t.data)?void 0:r.code)return{code:t.data.code};return!1}}}},requestAnimationFrame(()=>{let[n,t]=(()=>{let n,t;try{let e=document.createElement("canvas"),r=e.getContext("webgl2")||e.getContext("webgl")||e.getContext("experimental-webgl"),o=r.getExtension("WEBGL_debug_renderer_info");n=o?r.getParameter(o.UNMASKED_VENDOR_WEBGL):"not_support",t=o?r.getParameter(o.UNMASKED_RENDERER_WEBGL):"not_support"}catch{n="not_support",t="not_support"}return[n,t]})();(0,o.default)("context.set","gpu_vender",n),(0,o.default)("context.set","gpu_renderer",t)}),(0,o.default)("context.set","language",navigator.language),(0,o.default)("context.set","env_name",null==(v=window)||null==(d=v.gfdatav1)?void 0:d.envName),(0,o.default)("init",e),(0,o.default)("start"),r=o.default,m=m.default})());</script><script>function initTTWID(aid) {
-  const webId = new window.TTWidInstance.TtWid({
-    aid,
-    service: location.hostname,
-    unionHost: '',
-    union: false,
-    needFid: false
-  });
+        #langToggle {
+            position: fixed; top: 16px; right: 16px; z-index: 10000;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(7,193,96,0.3); border-radius: 20px;
+            padding: 6px 14px; font-size: 13px; font-weight: 600; color: #07c160;
+            cursor: pointer; transition: all 0.25s ease;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08); user-select: none; letter-spacing: 0.3px;
+        }
+        #langToggle:hover { background: #07c160; color: #fff; border-color: #07c160; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(7,193,96,0.3); }
+        #langToggle.active { background: #07c160; color: #fff; border-color: #07c160; }
 
-  window.__coze_ttwid_promise__ = new Promise((r) => {
-    webId.
-    checkWebId().
-    then((checkRes) => {
-      if (
-      [TtwidErrorCode.NeedRefresh, TtwidErrorCode.NotExist].includes(
-        checkRes.status_code
-      ))
-      {
-        webId.
-        registerOpenWebId().
-        then(() => {
-          r(true);
-        }).
-        catch(() => {
-          r(false);
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', 'Segoe UI', sans-serif; background: #fafafa; color: #2c2c2c; line-height: 1.8; }
+        .serif { font-family: 'Noto Serif SC', Georgia, serif; }
+        .first-letter::first-letter { float: left; font-size: 3.5em; font-weight: 700; line-height: 1; margin-right: 0.1em; color: #07c160; font-family: 'Noto Serif SC', serif; }
+        .quote-box { border-left: 4px solid #07c160; background: linear-gradient(90deg, rgba(7,193,96,0.08) 0%, transparent 100%); padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
+        .scene-card { background: linear-gradient(135deg, #0f2f1e 0%, #0a1628 100%); color: #e0e0e0; padding: 2rem; border-radius: 12px; margin: 2rem 0; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+        .option-card { border: 2px solid #e5e7eb; border-radius: 12px; padding: 1.2rem; margin: 1rem 0; cursor: pointer; transition: all 0.3s ease; background: #fff; }
+        .option-card:hover { border-color: #07c160; background: rgba(7,193,96,0.03); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(7,193,96,0.15); }
+        .option-card.selected { border-color: #07c160; background: rgba(7,193,96,0.05); box-shadow: 0 4px 20px rgba(7,193,96,0.2); }
+        .option-card.voted { cursor: default; }
+        .option-card.voted:hover { transform: none; box-shadow: none; border-color: #e5e7eb; background: #fff; }
+        .option-card.voted.selected:hover { border-color: #07c160; background: rgba(7,193,96,0.05); box-shadow: 0 4px 20px rgba(7,193,96,0.2); }
+        .exp-option { border: 2px solid transparent; background: white; border-radius: 8px; padding: 1rem; margin: 0.75rem 0; cursor: pointer; transition: all 0.3s ease; }
+        .exp-option:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .exp-option.selected { border-color: #10b981; background: rgba(16,185,129,0.05); }
+        .diagnosis-tag { display: inline-block; background: linear-gradient(135deg, #07c160 0%, #0d8bd9 100%); color: white; padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.5rem; }
+        .lab-tag { display: inline-block; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 0.25rem 0.8rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; }
+        .divider { text-align: center; margin: 3rem 0; color: #999; font-size: 0.9rem; }
+        .divider::before, .divider::after { content: ''; display: inline-block; width: 30%; height: 1px; background: linear-gradient(90deg, transparent, #ddd, transparent); vertical-align: middle; margin: 0 1rem; }
+        .note-card { background: linear-gradient(135deg, #d4fcda 0%, #a8e6cf 100%); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; color: #1a4d2e; }
+        .experiment-box { background: linear-gradient(135deg, #a8edea 0%, #d4fcda 100%); padding: 2rem; border-radius: 16px; margin: 2rem 0; }
+        .section-title { position: relative; padding-left: 1rem; margin: 2.5rem 0 1.5rem; }
+        .section-title::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, #07c160 0%, #0d8bd9 100%); border-radius: 2px; }
+        .vote-stats-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px; padding: 1.2rem; margin-top: 1rem; }
+        .vote-bar-bg { background: #f3f4f6; border-radius: 999px; height: 10px; overflow: hidden; }
+        .vote-bar-fill { height: 10px; border-radius: 999px; transition: width 0.8s ease; }
+        .analogy-tree { position: relative; }
+        .branch-node { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; transition: all 0.3s ease; }
+        .branch-node:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .branch-header { display: flex; align-items: center; gap: 1rem; padding: 1.2rem 1.5rem; cursor: pointer; transition: background 0.2s; }
+        .branch-header:hover { background: rgba(7,193,96,0.04); }
+        .branch-icon { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #07c160 0%, #0d8bd9 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+        .branch-content { flex: 1; }
+        .branch-toggle { color: #9ca3af; font-size: 0.8rem; transition: transform 0.3s; }
+        .branch-node.open .branch-toggle { transform: rotate(180deg); }
+        .branch-connector { width: 3px; height: 24px; background: linear-gradient(180deg, #07c160, #0d8bd9); margin: 0 auto; border-radius: 2px; }
+        .branch-details { padding: 0 1.5rem 1.5rem; }
+        .branch-tennis, .branch-finance { padding: 1rem; border-radius: 8px; margin-top: 0.75rem; }
+        .branch-tennis { background: rgba(7,193,96,0.06); border-left: 3px solid #07c160; }
+        .branch-finance { background: rgba(13,139,217,0.06); border-left: 3px solid #0d8bd9; }
+        .branch-label { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .branch-label.tennis { background: #d1fae5; color: #065f46; }
+        .branch-label.finance { background: #dbeafe; color: #1e40af; }
+        .branch-logic { padding: 1rem; border-radius: 8px; margin-top: 0.75rem; background: rgba(245,158,11,0.06); border-left: 3px solid #f59e0b; }
+        .branch-label.logic { background: #fef3c7; color: #92400e; }
+        .decision-card { border-radius: 16px; margin-bottom: 1rem; overflow: hidden; transition: all 0.3s ease; }
+        .decision-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+        .decision-card-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; cursor: pointer; }
+        .decision-card-toggle { font-size: 0.8rem; color: #6b7280; white-space: nowrap; }
+        .decision-card-body { padding: 0 1.5rem 1.5rem; }
+    </style>
+</head>
+<body>
+    <div id="langToggle" onclick="toggleLang()">EN</div>
+
+    <!-- Cover -->
+    <div class="bg-gradient-to-r from-green-700 via-emerald-700 to-blue-800 text-white text-center py-16 px-4">
+        <div class="lab-tag mb-4">
+            <span class="zh">历史实验室 · 定期刊第4期</span>
+            <span class="en">History Lab · Periodical Issue No.4</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold serif leading-tight mb-4">
+            <span class="zh">40万亿美债的"抢七局"</span>
+            <span class="en">The 40 Trillion Tiebreak</span>
+        </h1>
+        <p class="text-xl md:text-2xl opacity-90 serif italic">
+            <span class="zh">当债务越过赛点——一场没有裁判的网球决赛</span>
+            <span class="en">When Debt Crosses Match Point — A Tennis Final With No Umpire</span>
+        </p>
+        <div class="mt-8 flex justify-center gap-6 text-sm opacity-80">
+            <span>📅 2026.08.20</span>
+            <span>
+                <span class="zh">⏱️ 阅读约18分钟</span>
+                <span class="en">⏱️ 18 min read</span>
+            </span>
+            <span>
+                <span class="zh">🎾 含互动投票</span>
+                <span class="en">🎾 Interactive Polls</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-3xl mx-auto py-8 px-4 md:px-8 bg-white min-h-screen">
+
+        <p class="first-letter text-lg leading-relaxed text-gray-700">
+            <span class="zh">2026年8月的一个普通交易日，美国国债总额悄然突破了40万亿美元。这个数字太大了——大到让人麻木。40万亿，相当于全球GDP的40%，相当于每个美国人负债12万美元。但真正令人不安的不是数字本身，而是它的增长速度：2020年还只有27万亿，六年时间涨了近50%。</span>
+            <span class="en">On an ordinary trading day in August 2026, the U.S. national debt quietly crossed 40 trillion dollars. The number is so large it numbs the mind. Forty trillion — 40% of global GDP, $120,000 for every American. But what\'s truly unsettling isn\'t the number itself — it\'s the speed: only $27 trillion in 2020, nearly 50% growth in six years.</span>
+        </p>
+        
+        <p class="mt-4 leading-relaxed text-gray-700">
+            <span class="zh">更要命的是利息。美联储加息周期把联邦融资成本推到了5%以上。年利息支出突破1万亿美元——超过了国防预算，成为联邦第一大支出项。每收5美元税，就有1美元用来付利息。这还不是终点：债务上限41.1万亿，只剩约1.05万亿空间，按当前赤字率，预计2027年初就会触及。</span>
+            <span class="en">Worse still is the interest. The Fed\'s hiking cycle pushed federal borrowing costs above 5%. Annual interest payments have broken through $1 trillion — exceeding the defense budget to become the largest federal expenditure. For every $5 in tax revenue, $1 goes to interest. And this isn\'t the end: with the debt ceiling at $41.1 trillion, only ~$1.05 trillion of room remains. At current deficit rates, the ceiling will be hit in early 2027.</span>
+        </p>
+
+        <p class="mt-4 leading-relaxed text-gray-700">
+            <span class="zh">这像极了一场网球比赛打到了"抢七"。正常的发球轮换、盘分规则全部失效，变成了"一分千金"的特殊对决。每一分都可能是赛点，每一次失误都可能致命。</span>
+            <span class="en">This is strikingly similar to a tennis match that has reached a "tiebreak." The normal serving rotation and set scoring rules cease to apply, replaced by a special duel where every point carries enormous weight. Each point could be match point; every mistake could be fatal.</span>
+        </p>
+
+        <div class="divider">
+            <span class="zh">· 🎾 ·</span>
+            <span class="en">· 🎾 ·</span>
+        </div>
+
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            <span class="zh">01 抉择时刻</span>
+            <span class="en">01 The Moment of Decision</span>
+        </h2>
+
+        <div class="scene-card">
+            <p class="text-lg font-medium mb-4 text-green-300">
+                <span class="zh">📍 2026年8月，华盛顿，美国财政部</span>
+                <span class="en">📍 August 2026, Washington D.C., U.S. Treasury</span>
+            </p>
+            <p class="leading-relaxed mb-4">
+                <span class="zh">你是美国财政部长。刚走进办公室，桌上摊着三份报告：债务时钟跳到了40.05万亿美元；30年期收益率破了5.2%；利息支出正式超过国防预算。你的经济顾问团队在会议室等着你。距离41.1万亿的债务上限只剩不到1.1万亿空间。国会的共和党人拒绝无条件提高上限，要求削减支出。市场开始紧张。</span>
+                <span class="en">You are the U.S. Treasury Secretary. Walking into your office, three reports lie on the desk: the debt clock has hit $40.05 trillion; the 30-year yield has broken 5.2%; interest payments have officially surpassed the defense budget. Your economic team is waiting in the conference room. Less than $1.1 trillion of room remains before the $41.1 trillion debt ceiling. Congressional Republicans refuse to raise it unconditionally, demanding spending cuts. The market is getting nervous.</span>
+            </p>
+            <p class="leading-relaxed mb-4 text-yellow-300 font-medium">
+                <span class="zh">你面前的局面：</span>
+                <span class="en">The situation before you:</span>
+            </p>
+            <ul class="space-y-2 ml-4 text-yellow-300">
+                <li>
+                    <span class="zh">• 美债总额<strong>40.05万亿美元</strong>，债务上限<strong>41.1万亿</strong>，剩余空间约<strong>1.05万亿</strong></span>
+                    <span class="en">• Total debt <strong>$40.05T</strong>, ceiling <strong>$41.1T</strong>, ~<strong>$1.05T</strong> room remaining</span>
+                </li>
+                <li>
+                    <span class="zh">• 30年期国债收益率<strong>5.2%+</strong>，创2007年以来新高</span>
+                    <span class="en">• 30-year yield <strong>5.2%+</strong>, highest since 2007</span>
+                </li>
+                <li>
+                    <span class="zh">• 年利息支出<strong>1万亿美元+</strong>，已超国防预算，占财政收入约<strong>19%</strong></span>
+                    <span class="en">• Annual interest <strong>$1T+</strong>, exceeds defense budget, ~<strong>19%</strong> of fiscal revenue</span>
+                </li>
+                <li>
+                    <span class="zh">• 财政部为规避长端高利率，大幅增加短债发行占比——<strong>"不敢发一发，全发二发"</strong></span>
+                    <span class="en">• Treasury, avoiding high long rates, has drastically increased short-term debt — <strong>"daring no first serves, all second serves"</strong></span>
+                </li>
+                <li>
+                    <span class="zh">• 中国、日本等主要持有国持续减持美债，需求端承压</span>
+                    <span class="en">• China, Japan and other major holders continue reducing Treasury holdings — demand-side pressure</span>
+                </li>
+                <li>
+                    <span class="zh">• 国会共和党拒绝无条件提高债务上限，要求削减支出</span>
+                    <span class="en">• Congressional Republicans refuse unconditional ceiling raise, demand spending cuts</span>
+                </li>
+                <li>
+                    <span class="zh">• 按当前赤字率预计<strong>2027年初</strong>触及上限——留给你的时间不到一年</span>
+                    <span class="en">• At current deficit rates, ceiling hit expected <strong>early 2027</strong> — less than a year left</span>
+                </li>
+                <li>
+                    <span class="zh">• 美元全球储备占比缓慢但持续下降，信用地基正在悄悄松动</span>
+                    <span class="en">• Dollar\'s global reserve share declines slowly but steadily — the credit foundation is quietly shifting</span>
+                </li>
+            </ul>
+            <p class="leading-relaxed mt-4 text-lg font-medium text-green-300">
+                <span class="zh">此刻，你必须决定接下来的债务管理策略。</span>
+                <span class="en">At this moment, you must decide your debt management strategy.</span>
+            </p>
+        </div>
+
+        <div class="divider">
+            <span class="zh">你的选择</span>
+            <span class="en">Your Choice</span>
+        </div>
+
+        <!-- Four choices -->
+        <div id="voting-area">
+            <div class="option-card" data-option="A">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-lg shrink-0">A</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">
+                            <span class="zh">大力发球（发长债锁长期）</span>
+                            <span class="en">Big Serve (Lock in Long-Term Debt)</span>
+                        </h3>
+                        <p class="text-gray-600 mt-1">
+                            <span class="zh">"趁当前还有市场需求，大量发行30年期长债，锁定长期资金。虽然利率高达5.2%，但至少消除了再融资风险——相当于一发全力，哪怕失误率高。如果利率继续上升，现在的5.2%反而是'便宜'的。抢七局里，一发得分率决定胜负。"</span>
+                            <span class="en">"While there\'s still market demand, issue massive amounts of 30-year bonds to lock in long-term funding. Even at 5.2%, at least refinancing risk is eliminated — like a full-power first serve, even with higher fault risk. If rates keep rising, today\'s 5.2% will look 'cheap.' In a tiebreak, first-serve win percentage decides everything."</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-card" data-option="B">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg shrink-0">B</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">
+                            <span class="zh">底线相持（全发短债赌降息）</span>
+                            <span class="en">Baseline Rally (All Short Debt, Bet on Rate Cuts)</span>
+                        </h3>
+                        <p class="text-gray-600 mt-1">
+                            <span class="zh">"只发短债（2年以内），用低利率撑住，赌美联储未来会降息，到时候再换长债。相当于二发稳拉，等对手失误。5.2%的长债利率太贵了，每多付一个百分点就是每年多4000亿利息。只要把球打回去，对手总会有失误的时候。"</span>
+                            <span class="en">"Only issue short-term debt (under 2 years), sustain with lower rates, and bet the Fed will cut — then switch to long bonds. Like a steady second serve, waiting for the opponent\'s error. 5.2% long rates are too expensive; each extra percentage point costs $400B more per year. Just keep getting the ball back, and eventually the opponent will make a mistake."</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-card" data-option="C">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-lg shrink-0">C</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">
+                            <span class="zh">上网截击（推动财政整固）</span>
+                            <span class="en">Serve-and-Volley (Push Fiscal Consolidation)</span>
+                        </h3>
+                        <p class="text-gray-600 mt-1">
+                            <span class="zh">"推动国会通过削减支出法案，从根本上降低赤字增速，逐步降低债务/GDP比率。相当于主动上网，冒险但一旦成功就直接得分。靠发新债还旧息是死路一条，只有从源头减少赤字，才能真正走出债务陷阱。"</span>
+                            <span class="en">"Push Congress to pass spending cuts, fundamentally reducing deficit growth and gradually lowering the debt-to-GDP ratio. Like rushing the net — risky, but successful volley ends the point immediately. Borrowing to pay interest is a dead end; only reducing the deficit at its source can truly escape the debt trap."</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-card" data-option="D">
+                <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-lg shrink-0">D</span>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-gray-800">
+                            <span class="zh">放小球（容忍通胀稀释）</span>
+                            <span class="en">Drop Shot (Tolerate Inflation Dilution)</span>
+                        </h3>
+                        <p class="text-gray-600 mt-1">
+                            <span class="zh">"默许美联储维持较高通胀目标（3%左右），用通胀逐步稀释债务实际价值。相当于放小球，不追求直接得分，而是慢慢消耗对手。债务是名义的，通胀是真实的——只要通胀持续，40万亿的实际购买力会一年比一年轻。"</span>
+                            <span class="en">"Tacitly allow the Fed to maintain a higher inflation target (~3%), using inflation to gradually dilute the real value of debt. Like a drop shot — not going for winners, but slowly wearing down the opponent. Debt is nominal; inflation is real. With persistent inflation, the real burden of $40 trillion lightens year by year."</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historical vote results area -->
+        <div id="vote-result-area" style="display:none;">
+            <div class="text-center mt-6 mb-4">
+                <span class="text-green-600 font-medium">
+                    <span class="zh">✓ 你的选择已记录！</span>
+                    <span class="en">✓ Your choice has been recorded!</span>
+                </span>
+                <span class="text-gray-500 text-sm ml-2">
+                    <span class="zh">继续阅读，文末还有一次预测投票</span>
+                    <span class="en">Keep reading — there\'s one more prediction poll at the end</span>
+                </span>
+            </div>
+            <div class="vote-stats-card">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="font-bold text-gray-700">
+                        <span class="zh">📊 全员投票统计</span>
+                        <span class="en">📊 All-Vote Statistics</span>
+                    </span>
+                    <span id="choice-total" class="text-sm text-gray-500">
+                        <span class="zh">加载中...</span>
+                        <span class="en">Loading...</span>
+                    </span>
+                </div>
+                <div id="choice-stats"></div>
+            </div>
+        </div>
+
+        <div class="divider">
+            <span class="zh">决策风格诊断</span>
+            <span class="en">Decision-Making Style Diagnosis</span>
+        </div>
+
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            <span class="zh">02 你是哪种球手？</span>
+            <span class="en">02 What Kind of Player Are You?</span>
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-4 mt-6">
+            <div class="quote-box">
+                <span class="diagnosis-tag">
+                    <span class="zh">A选项 · 锁定型打法</span>
+                    <span class="en">Option A · Lock-in Player</span>
+                </span>
+                <p class="text-gray-700 leading-relaxed">
+                    <span class="zh">你相信"一鸟在手胜过双鸟在林"。在投资中，你偏好锁定长期收益；在管理中，你善于消除不确定性；在人生中，你信奉"确定性本身就是价值"。你的优势是在动荡中拥有最大的安全感；你的风险是——如果环境变得对你更有利，你会发现自己锁定在了一个"次优解"上。</span>
+                    <span class="en">You believe "a bird in the hand is worth two in the bush." In investing, you prefer locking in long-term returns; in management, you excel at eliminating uncertainty; in life, you believe "certainty itself has value." Your advantage is maximum security in turbulence; your risk is — when conditions turn more favorable, you may find yourself locked into a suboptimal solution.</span>
+                </p>
+                <p class="text-sm text-gray-500 mt-2 italic">
+                    <span class="zh">投资风格：锁定收益型。消除再投资风险。人生哲学："抢七局里，一发不进才是最大的失误。"</span>
+                    <span class="en">Investment style: Lock-in yield. Eliminating reinvestment risk. Life philosophy: "In a tiebreak, a missed first serve is the biggest mistake."</span>
+                </p>
+            </div>
+            
+            <div class="quote-box">
+                <span class="diagnosis-tag">
+                    <span class="zh">B选项 · 相持型打法</span>
+                    <span class="en">Option B · Rally Player</span>
+                </span>
+                <p class="text-gray-700 leading-relaxed">
+                    <span class="zh">你是耐心的底线选手。你相信时间站在你这边，只要把球打回去，对手总会失误。在投资中，你偏好短久期灵活配置；在管理中，你走一步看一步；你的优势是灵活性强，总能适应变化；你的风险是——当对手突然打出制胜分时，你可能来不及反应。</span>
+                    <span class="en">You are a patient baseline player. You believe time is on your side — just keep getting the ball back, and eventually the opponent will make a mistake. In investing, you prefer short-duration flexible allocation; in management, you take it step by step. Your advantage is flexibility and adaptability; your risk is — when the opponent hits a sudden winner, you may not have time to react.</span>
+                </p>
+                <p class="text-sm text-gray-500 mt-2 italic">
+                    <span class="zh">投资风格：灵活配置型。保持流动性等待机会。人生哲学："二发不求打死对手，但求不失误。"</span>
+                    <span class="en">Investment style: Flexible allocation. Maintaining liquidity while waiting for opportunities. Life philosophy: "A second serve doesn\'t need to be a winner — just don\'t double-fault."</span>
+                </p>
+            </div>
+            
+            <div class="quote-box">
+                <span class="diagnosis-tag">
+                    <span class="zh">C选项 · 进攻型打法</span>
+                    <span class="en">Option C · Serve-Volleyer</span>
+                </span>
+                <p class="text-gray-700 leading-relaxed">
+                    <span class="zh">你信奉"最好的防守是进攻"。你不满足于被动应对，而是主动改变比赛节奏。在投资中，你是逆向投资者；在管理中，你是改革派；你的优势是能从根本上解决问题；你的风险是——如果进攻时机不对，你会在网前被穿越。</span>
+                    <span class="en">You believe "the best defense is offense." Unsatisfied with passive response, you proactively change the match\'s rhythm. In investing, you are a contrarian; in management, a reformer. Your advantage is solving problems at their root; your risk is — if you attack at the wrong moment, you\'ll get passed at the net.</span>
+                </p>
+                <p class="text-sm text-gray-500 mt-2 italic">
+                    <span class="zh">投资风格：改革进攻型。主动出击改变格局。人生哲学："站在底线永远赢不了，你得主动上网。"</span>
+                    <span class="en">Investment style: Reform-offensive. Proactively changing the game. Life philosophy: "You can\'t win from the baseline forever — you have to come to the net."</span>
+                </p>
+            </div>
+            
+            <div class="quote-box">
+                <span class="diagnosis-tag">
+                    <span class="zh">D选项 · 消耗型打法</span>
+                    <span class="en">Option D · Grinder</span>
+                </span>
+                <p class="text-gray-700 leading-relaxed">
+                    <span class="zh">你是红土场上的磨王。你不追求一拍打死，而是每一分都跟对手耗，直到对手体能耗尽自己犯错。在投资中，你偏好通胀保值资产；在管理中，你是渐进主义者；你的优势是韧性极强，几乎不会被打倒；你的风险是——消耗战的代价是双方都受损，而且美元信用可能在消耗中悄悄流失。</span>
+                    <span class="en">You are the clay-court grinder. You don\'t go for one-shot winners; instead, you grind every point until your opponent runs out of energy and makes mistakes. In investing, you prefer inflation-protected assets; in management, an incrementalist. Your advantage is extreme resilience; your risk is — a war of attrition damages both sides, and dollar credibility may quietly erode in the process.</span>
+                </p>
+                <p class="text-sm text-gray-500 mt-2 italic">
+                    <span class="zh">投资风格：渐进消耗型。韧性第一，稳中求胜。人生哲学："放小球的精髓是——对手够得到，但跑不到位。"</span>
+                    <span class="en">Investment style: Incremental attrition. Resilience first, winning through stability. Life philosophy: "The essence of the drop shot — the opponent can reach it, but never gets there in good position."</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="divider">
+            <span class="zh">· 🎾 ·</span>
+            <span class="en">· 🎾 ·</span>
+        </div>
+
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            <span class="zh">🎾 四大网球-金融类比：为什么这场"抢七"不只是比喻</span>
+            <span class="en">🎾 Four Tennis-Finance Analogies: Why This "Tiebreak" Is More Than Metaphor</span>
+        </h2>
+
+        <p class="text-gray-600 mb-6">
+            <span class="zh">网球比赛的运行机制和债务危机的结构有着惊人的对应关系。下面四个类比，每一个都经得起推敲——不是牵强的修辞，而是底层逻辑的同构。</span>
+            <span class="en">The mechanics of tennis and the structure of debt crises share a surprising correspondence. Below are four analogies, each rigorously defensible — not forced rhetoric, but isomorphic underlying logic.</span>
+        </p>
+
+        <div class="analogy-tree">
+            <div class="branch-node">
+                <div class="branch-header" onclick="toggleBranch(this)">
+                    <div class="branch-icon">①</div>
+                    <div class="branch-content">
+                        <h4 class="font-bold text-gray-800">
+                            <span class="zh">抢七决胜 → 债务上限</span>
+                            <span class="en">Tiebreak → Debt Ceiling</span>
+                        </h4>
+                        <p class="text-xs text-gray-500 mt-1">
+                            <span class="zh">当常规规则失效时，特殊规则接管一切</span>
+                            <span class="en">When normal rules fail, special rules take over</span>
+                        </p>
+                    </div>
+                    <div class="branch-toggle">▼</div>
+                </div>
+                <div class="branch-details" style="display:none">
+                    <div class="branch-tennis">
+                        <span class="branch-label tennis"><span class="zh">🎾 网球概念</span><span class="en">🎾 Tennis Concept</span></span>
+                        <p class="text-sm text-green-700">
+                            <span class="zh"><strong>打到6-6进入抢七。</strong>正常的发球轮换和盘分规则全部失效，变成"一分千金"的特殊赛制。抢七里没有盘末休息，没有换边后的发球优势调整，每一分都同等重要。Mini break（破对手的发球分）在抢七里的价值远大于正常盘。</span>
+                            <span class="en"><strong>At 6-6, a tiebreak begins.</strong> Normal serving rotation and set scoring rules all cease to apply, replaced by a special format where every point carries enormous weight. No set-end rest, no service advantage adjustments after changeovers — every point matters equally. A mini break (breaking the opponent\'s serve point) is far more valuable in a tiebreak than in a normal set.</span>
+                        </p>
+                    </div>
+                    <div class="branch-logic">
+                        <span class="branch-label logic"><span class="zh">🔗 逻辑连接点</span><span class="en">🔗 Logical Connection</span></span>
+                        <p class="text-sm text-amber-700">
+                            <span class="zh"><strong>规则失效 → 特殊博弈。</strong>网球打到6-6时，正常的"保发-破发"节奏被打破，进入一种高度紧张的"每分必争"状态。美债接近上限时，正常的财政运转规则被打破，进入政治博弈主导的特殊状态。两者的共同特征是：正常时期的边际变化，在特殊规则下变成了决定胜负的关键。</span>
+                            <span class="en"><strong>Rule failure → special game theory.</strong> When tennis reaches 6-6, the normal "hold-break" rhythm breaks, entering a highly tense "every point counts" state. When U.S. debt approaches the ceiling, normal fiscal rules break down, entering a state dominated by political博弈. The shared feature: marginal changes in normal times become decisive under special rules.</span>
+                        </p>
+                    </div>
+                    <div class="branch-finance">
+                        <span class="branch-label finance"><span class="zh">💵 金融对应物</span><span class="en">💵 Financial Counterpart</span></span>
+                        <p class="text-sm text-blue-700">
+                            <span class="zh"><strong>美债接近债务上限时。</strong>正常的国债发行节奏被打破，每一次国会投票都像抢七的mini break——直接影响市场信心和评级。当前美债40.05万亿，债务上限41.1万亿，剩余空间约1.05万亿。按当前赤字率预计2027年初触及上限。届时，政府关门、信用降级、市场恐慌都有可能发生。</span>
+                            <span class="en"><strong>When U.S. debt approaches the ceiling.</strong> The normal Treasury issuance rhythm breaks. Every congressional vote is like a tiebreak mini break — directly impacting market confidence and ratings. Current debt: $40.05T; ceiling: $41.1T; ~$1.05T room remaining. At current deficit rates, the ceiling hits in early 2027. Government shutdown, credit downgrade, market panic — all possible.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="branch-connector"></div>
+
+            <div class="branch-node">
+                <div class="branch-header" onclick="toggleBranch(this)">
+                    <div class="branch-icon">②</div>
+                    <div class="branch-content">
+                        <h4 class="font-bold text-gray-800">
+                            <span class="zh">一发/二发 → 长债/短债发行策略</span>
+                            <span class="en">First/Second Serve → Long/Short Debt Strategy</span>
+                        </h4>
+                        <p class="text-xs text-gray-500 mt-1">
+                            <span class="zh">进攻性与稳定性的永恒权衡</span>
+                            <span class="en">The eternal trade-off between aggression and stability</span>
+                        </p>
+                    </div>
+                    <div class="branch-toggle">▼</div>
+                </div>
+                <div class="branch-details" style="display:none">
+                    <div class="branch-tennis">
+                        <span class="branch-label tennis"><span class="zh">🎾 网球概念</span><span class="en">🎾 Tennis Concept</span></span>
+                        <p class="text-sm text-green-700">
+                            <span class="zh"><strong>一发全力进攻，得分率高但失误率也高；二发求稳，旋转多但容易被对手进攻。</strong>顶级选手一发得分率通常在70-80%，但一发成功率只有60%左右。二发成功率接近100%，但得分率骤降到50%左右——"二发是网球的命根子"，因为二发失误就直接丢分（双误）。</span>
+                            <span class="en"><strong>First serve: full power, high win rate but high fault rate. Second serve: conservative, more spin, but easier for the opponent to attack.</strong> Top players win 70-80% of first-serve points but only get ~60% of first serves in. Second serves land ~100% but win only ~50% of points — "the second serve is the backbone of tennis" because a second-serve fault means losing the point outright (double fault).</span>
+                        </p>
+                    </div>
+                    <div class="branch-logic">
+                        <span class="branch-label logic"><span class="zh">🔗 逻辑连接点</span><span class="en">🔗 Logical Connection</span></span>
+                        <p class="text-sm text-amber-700">
+                            <span class="zh"><strong>风险-收益的不对称权衡。</strong>一发=高收益+高风险（失误就丢发球权）；二发=低收益+低风险（稳但被动）。长债=锁定长期资金+高利率成本；短债=低利率成本+再融资风险。两者的选择逻辑完全一致：你愿意为了消除未来的不确定性付出多大代价？</span>
+                            <span class="en"><strong>Asymmetric risk-reward trade-off.</strong> First serve = high reward + high risk (fault = lose serve). Second serve = low reward + low risk (safe but passive). Long bonds = locked long-term funding + high interest cost. Short bonds = low interest cost + refinancing risk. The decision logic is identical: how much are you willing to pay to eliminate future uncertainty?</span>
+                        </p>
+                    </div>
+                    <div class="branch-finance">
+                        <span class="branch-label finance"><span class="zh">💵 金融对应物</span><span class="en">💵 Financial Counterpart</span></span>
+                        <p class="text-sm text-blue-700">
+                            <span class="zh"><strong>财政部发长债（30年）= 一发；发短债（2年以内）= 二发。</strong>当前美国财政部为规避5.2%的长端利率，大幅增加短债发行占比——相当于"不敢发一发、全发二发"。把久期风险换成了再融资风险。短债到期快，需要不断滚动续发，一旦利率上升就会被"破发"——再融资成本飙升。这是当前美债最大的结构性风险之一。</span>
+                            <span class="en"><strong>Issuing long bonds (30yr) = first serve; short bonds (&lt;2yr) = second serve.</strong> Currently the U.S. Treasury, avoiding 5.2% long rates, has drastically increased short-term issuance — effectively "daring no first serves, all second serves." Trading duration risk for refinancing risk. Short debt matures quickly, requiring constant rollover; if rates rise, you get "broken" — refinancing costs explode. This is one of today\'s biggest structural risks in U.S. debt.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="branch-connector"></div>
+
+            <div class="branch-node">
+                <div class="branch-header" onclick="toggleBranch(this)">
+                    <div class="branch-icon">③</div>
+                    <div class="branch-content">
+                        <h4 class="font-bold text-gray-800">
+                            <span class="zh">关键分 → 利息支出</span>
+                            <span class="en">Key Points → Interest Expense</span>
+                        </h4>
+                        <p class="text-xs text-gray-500 mt-1">
+                            <span class="zh">不是所有的分都一样重</span>
+                            <span class="en">Not all points carry equal weight</span>
+                        </p>
+                    </div>
+                    <div class="branch-toggle">▼</div>
+                </div>
+                <div class="branch-details" style="display:none">
+                    <div class="branch-tennis">
+                        <span class="branch-label tennis"><span class="zh">🎾 网球概念</span><span class="en">🎾 Tennis Concept</span></span>
+                        <p class="text-sm text-green-700">
+                            <span class="zh"><strong>费德勒职业生涯只赢了约54%的总分，但赢了80%的比赛。</strong>赢不在得分多，而在关键分的转化率。破发点、盘点、赛点——这些"关键分"的权重远大于普通分。顶级选手和普通选手的差距，往往不在总得分率，而在关键分表现。</span>
+                            <span class="en"><strong>Federer won only ~54% of total points in his career, but won 80% of his matches.</strong> Victory doesn\'t come from winning more points — it comes from converting key points. Break points, set points, match points — these "key points" carry far more weight than ordinary points. The gap between top players and average ones often isn\'t in total point win rate, but in performance on big points.</span>
+                        </p>
+                    </div>
+                    <div class="branch-logic">
+                        <span class="branch-label logic"><span class="zh">🔗 逻辑连接点</span><span class="en">🔗 Logical Connection</span></span>
+                        <p class="text-sm text-amber-700">
+                            <span class="zh"><strong>权重不均等的结构性差异。</strong>网球比赛不是"每分等价"的线性竞争，而是有关键节点的非线性系统。财政支出同样不是线性分配的——有些支出是弹性的（可以削减），有些是刚性的、复利增长的（必须支付，而且越滚越大）。利息支出就是财政的"关键分"——它挤占其他所有支出空间，而且具有自我放大的特性。</span>
+                            <span class="en"><strong>Structural inequality of weights.</strong> Tennis isn\'t a linear competition where every point is equal; it\'s a nonlinear system with critical nodes. Fiscal spending is similarly nonlinear — some expenditures are elastic (cuttable), others are rigid and compounding (must be paid, and they grow). Interest expense is the fiscal "key point" — it crowds out all other spending and has self-amplifying characteristics.</span>
+                        </p>
+                    </div>
+                    <div class="branch-finance">
+                        <span class="branch-label finance"><span class="zh">💵 金融对应物</span><span class="en">💵 Financial Counterpart</span></span>
+                        <p class="text-sm text-blue-700">
+                            <span class="zh"><strong>美国联邦年利息支出已突破1万亿美元，超过国防预算，成为联邦第一大支出项。</strong>占财政收入约19%——每收5美元税就有1美元付利息。更可怕的是复利效应：利息本身也要靠发债来支付，形成"发新债还旧息"的结构。这就是为什么利息支出是"关键分"——它不是静态的支出项，而是动态增长的债务加速器。</span>
+                            <span class="en"><strong>U.S. federal annual interest expense has exceeded $1 trillion, surpassing the defense budget to become the largest federal expenditure.</strong> It accounts for ~19% of fiscal revenue — for every $5 in tax, $1 goes to interest. Even scarier is the compounding effect: interest itself is paid by issuing more debt, creating a "issue new debt to pay old interest" structure. This is why interest is the "key point" — it\'s not a static expense line, but a dynamically growing debt accelerator.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="branch-connector"></div>
+
+            <div class="branch-node">
+                <div class="branch-header" onclick="toggleBranch(this)">
+                    <div class="branch-icon">④</div>
+                    <div class="branch-content">
+                        <h4 class="font-bold text-gray-800">
+                            <span class="zh">非受迫性失误 → 主动政策选择</span>
+                            <span class="en">Unforced Errors → Active Policy Choices</span>
+                        </h4>
+                        <p class="text-xs text-gray-500 mt-1">
+                            <span class="zh">有些球，真的是自己打丢的</span>
+                            <span class="en">Some shots, you really did miss yourself</span>
+                        </p>
+                    </div>
+                    <div class="branch-toggle">▼</div>
+                </div>
+                <div class="branch-details" style="display:none">
+                    <div class="branch-tennis">
+                        <span class="branch-label tennis"><span class="zh">🎾 网球概念</span><span class="en">🎾 Tennis Concept</span></span>
+                        <p class="text-sm text-green-700">
+                            <span class="zh"><strong>非受迫性失误（Unforced Error）：在没有对手压迫的情况下自己打丢的球。</strong>比如在空位时打飞一个简单的正手，或者二发直接出界。这些失误是完全可以避免的，不应该发生。统计非受迫性失误数量，是衡量一个选手当天状态的重要指标。</span>
+                            <span class="en"><strong>Unforced Error: missing a shot without opponent pressure.</strong> Like shanking an easy forehand from an open position, or a second serve going long. These mistakes are entirely avoidable — they shouldn\'t happen. Counting unforced errors is a key metric for judging a player\'s form on any given day.</span>
+                        </p>
+                    </div>
+                    <div class="branch-logic">
+                        <span class="branch-label logic"><span class="zh">🔗 逻辑连接点</span><span class="en">🔗 Logical Connection</span></span>
+                        <p class="text-sm text-amber-700">
+                            <span class="zh"><strong>可控 vs 不可控的分界。</strong>网球中，对手打出制胜分→你丢分=受迫性（可以接受）；自己打丢→丢分=非受迫性（不应该发生）。债务增长中，战争、金融危机、疫情→支出增加=受迫性（外部冲击下的应对）；和平时期主动减税→收入减少=非受迫性（自己选择的）。区分"受迫"和"非受迫"，是判断债务可持续性的关键。</span>
+                            <span class="en"><strong>The boundary between controllable and uncontrollable.</strong> In tennis, opponent hits a winner → you lose point = forced (acceptable). You miss → lose point = unforced (shouldn\'t happen). In debt growth, war/financial crisis/pandemic → spending increase = forced (response to external shocks). Peace-time tax cuts → revenue reduction = unforced (self-chosen). Distinguishing "forced" from "unforced" is key to judging debt sustainability.</span>
+                        </p>
+                    </div>
+                    <div class="branch-finance">
+                        <span class="branch-label finance"><span class="zh">💵 金融对应物</span><span class="en">💵 Financial Counterpart</span></span>
+                        <p class="text-sm text-blue-700">
+                            <span class="zh"><strong>美债增长中，有相当一部分是"非受迫"的——在经济增长、和平时期主动选择的减税政策。</strong>小布什减税（约3.3万亿美元）、特朗普减税（约1.5万亿美元）等，都是在非危机时期主动做出的财政选择。相当于在没有对手压迫的情况下，自己打丢了唾手可得的分。这些政策选择，而不是外部冲击，才是当前40万亿债务的主要构成部分。</span>
+                            <span class="en"><strong>A significant portion of U.S. debt growth is "unforced" — tax cuts actively chosen during periods of economic growth and peace.</strong> Bush tax cuts (~$3.3T), Trump tax cuts (~$1.5T) — all active fiscal choices made during non-crisis periods. The equivalent of missing easy shots with no opponent pressure. These policy choices, not external shocks, are the main contributors to the current $40T debt.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quote-box mt-6">
+            <p class="text-sm text-gray-600 italic">
+                <span class="zh">💡 点击每个类比卡片，展开详细的对应关系分析。网球和金融看起来风马牛不相及，但底层的博弈逻辑——规则失效、风险权衡、关键节点权重、可控与不可控的分界——是完全同构的。</span>
+                <span class="en">💡 Click each analogy card to explore the detailed correspondence analysis. Tennis and finance may seem unrelated, but their underlying game theory logic — rule failure, risk-reward tradeoffs, critical node weights, the controllable/uncontrollable boundary — are fully isomorphic.</span>
+            </p>
+        </div>
+
+        <div class="divider">
+            <span class="zh">· 🎾 ·</span>
+            <span class="en">· 🎾 ·</span>
+        </div>
+
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            <span class="zh">📉 抢七局的比分板</span>
+            <span class="en">03 The Tiebreak Scoreboard</span>
+        </h2>
+
+        <div class="quote-box">
+            <p class="text-xl font-bold text-green-700 serif">
+                <span class="zh">"利息支出是比赛的关键分。而关键分的特点是——你越输，越难赢回来。"</span>
+                <span class="en">"Interest expense is the match\'s key point. And the thing about key points is — the more you lose, the harder it is to win them back."</span>
+            </p>
+        </div>
+
+        <p class="leading-relaxed text-gray-700 mt-6">
+            <span class="zh"><strong>1980年，美国联邦债务还不到1万亿美元。</strong>那是一个你可以用一个"万亿"来形容整个国家债务的时代。46年后的今天，这个数字翻了40倍。</span>
+            <span class="en"><strong>In 1980, U.S. federal debt was less than $1 trillion.</strong> Back when you could describe the entire national debt with a single "trillion." Forty-six years later, that number has multiplied 40 times.</span>
+        </p>
+
+        <p class="leading-relaxed text-gray-700 mt-4">
+            <span class="zh"><strong>利息支出的爆发是最近的事。</strong>2020年，联邦年利息支出还只有约5000亿美元。短短六年翻了一倍。原因很简单：美联储把利率从零加到了5%以上，而债务总量同时增长了50%。两个因子相乘，就是利息支出的指数级增长。</span>
+            <span class="en"><strong>The explosion of interest expense is recent.</strong> In 2020, annual federal interest was only ~$500 billion. It has doubled in just six years. The reason is simple: the Fed raised rates from zero to 5%+, while total debt grew 50% simultaneously. Multiply those two factors, and you get exponential growth in interest payments.</span>
+        </p>
+
+        <p class="leading-relaxed text-gray-700 mt-4">
+            <span class="zh"><strong>更危险的是债务的平均久期在缩短。</strong>由于财政部大量发行短债以规避长端高利率，当前美债的平均剩余期限只有约6年。这意味着：如果利率维持在当前水平，未来6年内几乎所有债务都要以更高的利率重新定价。利息支出还会继续攀升——哪怕今天就停止增加新债。</span>
+            <span class="en"><strong>Even more dangerous: the average maturity of debt is shortening.</strong> Because the Treasury has issued massive amounts of short-term debt to avoid high long rates, the average remaining maturity of U.S. debt is only about 6 years. This means: if rates stay at current levels, nearly all debt will be repriced at higher rates within 6 years. Interest spending will keep climbing — even if no new debt were added today.</span>
+        </p>
+
+        <div class="bg-red-50 p-5 rounded-lg border border-red-100 mt-6">
+            <p class="text-red-800 font-bold mb-3">
+                <span class="zh">📉 当前比分</span>
+                <span class="en">📉 Current Score</span>
+            </p>
+            <ul class="text-red-700 space-y-1">
+                <li><span class="zh">• 债务总额：<strong class="text-red-600">40.05万亿美元</strong>（约占GDP的120%）</span><span class="en">• Total debt: <strong class="text-red-600">$40.05T</strong> (~120% of GDP)</span></li>
+                <li><span class="zh">• 债务上限：<strong class="text-red-600">41.1万亿</strong>，剩余空间约<strong class="text-red-600">1.05万亿</strong></span><span class="en">• Debt ceiling: <strong class="text-red-600">$41.1T</strong>, ~<strong class="text-red-600">$1.05T</strong> room left</span></li>
+                <li><span class="zh">• 年利息支出：<strong class="text-red-600">1万亿美元+</strong>，已超国防预算</span><span class="en">• Annual interest: <strong class="text-red-600">$1T+</strong>, surpassed defense budget</span></li>
+                <li><span class="zh">• 利息/财政收入比：约<strong class="text-red-600">19%</strong>（每5美元税有1美元付利息）</span><span class="en">• Interest/revenue ratio: ~<strong class="text-red-600">19%</strong> ($1 of every $5 in tax goes to interest)</span></li>
+            </ul>
+        </div>
+
+        <div class="bg-green-50 p-5 rounded-lg border border-green-100 mt-6">
+            <p class="text-green-800 font-bold mb-3">
+                <span class="zh">🌱 但比赛还没有结束</span>
+                <span class="en">🌱 But the Match Isn\'t Over</span>
+            </p>
+            <p class="text-green-700">
+                <span class="zh">历史上，很多国家都经历过更高的债务/GDP比率。英国在拿破仑战争后债务/GDP超过250%，二战后超过200%，最终都通过经济增长和财政整固逐步降了下来。美国在二战后债务/GDP也超过120%，但随后几十年的经济增长让这个比率稳步下降。债务问题从来不是数学问题，而是政治问题和增长问题。</span>
+                <span class="en">Historically, many countries have experienced far higher debt-to-GDP ratios. Britain exceeded 250% after the Napoleonic Wars and over 200% after WWII, yet both times it gradually reduced the ratio through growth and fiscal consolidation. The U.S. also exceeded 120% after WWII, but decades of economic growth steadily brought it down. Debt is never a mathematical problem — it\'s a political problem and a growth problem.</span>
+            </p>
+        </div>
+
+        <div class="divider"><span class="zh">当代镜鉴</span><span class="en">Mirror to the Present</span></div>
+
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            <span class="zh">04 从网球场到国债市场的四个底层逻辑</span>
+            <span class="en">04 Four Underlying Logics: From Tennis Court to Treasury Market</span>
+        </h2>
+
+        <div class="mt-6 space-y-6">
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold shrink-0">1</span>
+                <div>
+                    <h4 class="font-bold text-gray-800"><span class="zh">"规则失效"时刻最危险</span><span class="en">"Rule Failure" Moments Are Most Dangerous</span></h4>
+                    <p class="text-gray-600 mt-1 text-sm"><span class="zh">网球打到抢七时，正常的发球轮换和盘分规则失效，变成高度紧张的特殊博弈。债务触及上限时，正常的财政运转规则失效，变成政治博弈主导的危机。两者的共同点是：系统从"可预测的正常状态"进入"不可预测的特殊状态"，而市场最怕的就是不确定性。</span><span class="en">When tennis reaches a tiebreak, normal serving and scoring rules fail, replaced by high-tension special game theory. When debt hits the ceiling, normal fiscal operations fail, replaced by politically-driven crisis. The common thread: the system shifts from "predictable normal" to "unpredictable special state" — and what markets fear most is uncertainty.</span></p>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold shrink-0">2</span>
+                <div>
+                    <h4 class="font-bold text-gray-800"><span class="zh">久期选择是永恒的权衡</span><span class="en">Duration Choice Is an Eternal Trade-off</span></h4>
+                    <p class="text-gray-600 mt-1 text-sm"><span class="zh">网球选手在一发和二发之间权衡——进攻性vs稳定性。财政部长在长债和短债之间权衡——锁定成本vs再融资风险。没有完美答案，只有根据环境做出的最优选择。当前财政部选择"全发二发"（短债），本质上是把今天的高利率成本推迟到了未来——赌未来会降息。</span><span class="en">Tennis players trade off between first and second serves — aggression vs stability. Treasury secretaries trade off between long and short bonds — locking in costs vs refinancing risk. No perfect answer exists — only optimal choices based on circumstances. Today\'s Treasury choosing "all second serves" (short debt) essentially postpones today\'s high interest costs into the future — betting on future rate cuts.</span></p>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold shrink-0">3</span>
+                <div>
+                    <h4 class="font-bold text-gray-800"><span class="zh">关键分决定比赛</span><span class="en">Key Points Decide the Match</span></h4>
+                    <p class="text-gray-600 mt-1 text-sm"><span class="zh">费德勒赢了54%的总分，却赢了80%的比赛——因为他赢了更多关键分。财政支出中，利息支出就是关键分——刚性、复利、挤占其他所有支出。利息支出从5000亿涨到1万亿只用了6年，从1万亿涨到2万亿可能更快。因为利息本身也要付利息，这是复利的可怕之处。</span><span class="en">Federer won 54% of total points but 80% of matches — because he won more key points. In fiscal spending, interest is the key point — rigid, compounding, crowding out everything else. Interest grew from $500B to $1T in just 6 years; from $1T to $2T may happen even faster. Because interest itself bears interest — that\'s the terror of compounding.</span></p>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <span class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold shrink-0">4</span>
+                <div>
+                    <h4 class="font-bold text-gray-800"><span class="zh">警惕"非受迫性失误"</span><span class="en">Beware of "Unforced Errors"</span></h4>
+                    <p class="text-gray-600 mt-1 text-sm"><span class="zh">40万亿债务中，有相当一部分是可以避免的——和平时期的减税、无必要的支出扩张。这些不是"受迫"的应对，而是主动的选择。区分受迫性支出和非受迫性支出，是判断一个国家债务可持续性的核心。一个经常出现非受迫性失误的选手，迟早会输掉比赛。</span><span class="en">Of the $40T debt, a significant portion was avoidable — peacetime tax cuts, unnecessary spending expansions. These aren\'t "forced" responses but active choices. Distinguishing between forced and unforced spending is central to judging a country\'s debt sustainability. A player who makes frequent unforced errors will eventually lose the match.</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="note-card mt-8">
+            <h3 class="font-bold text-xl mb-4 serif"><span class="zh">📌 实验室笔记</span><span class="en">📌 Lab Notes</span></h3>
+            <ol class="space-y-3 text-sm">
+                <li><span class="zh"><strong>1.</strong> <strong>债务危机从来不是数学问题，而是政治问题。</strong>40万亿这个数字本身不意味着什么——关键是增长预期、利率走向和政治意愿。</span><span class="en"><strong>1.</strong> <strong>Debt crises are never mathematical problems — they\'re political ones.</strong> The $40T number means nothing on its own — what matters is growth expectations, interest rate trajectory, and political will.</span></li>
+                <li><span class="zh"><strong>2.</strong> <strong>"全发二发"是当前最大的结构性风险。</strong>短债占比过高意味着再融资频率高，利率稍有上升，利息支出就会加速恶化。</span><span class="en"><strong>2.</strong> <strong>"All second serves" is today\'s biggest structural risk.</strong> Too much short-term debt means high refinancing frequency. Any rate increase accelerates interest expense deterioration.</span></li>
+                <li><span class="zh"><strong>3.</strong> <strong>利息支出是复利机器。</strong>一旦利息支出的增速超过经济增速，债务就进入了自我加速的轨道。</span><span class="en"><strong>3.</strong> <strong>Interest expense is a compounding machine.</strong> Once interest growth exceeds economic growth, debt enters a self-accelerating trajectory.</span></li>
+                <li><span class="zh"><strong>4.</strong> <strong>非受迫性失误最不可原谅。</strong>战争、金融危机、疫情——这些是受迫性的。和平时期的减税是主动选择的。</span><span class="en"><strong>4.</strong> <strong>Unforced errors are the least forgivable.</strong> Wars, financial crises, pandemics — these are forced. Peacetime tax cuts are choices.</span></li>
+                <li><span class="zh"><strong>5.</strong> <strong>抢七局的胜负往往取决于心理。</strong>技术到了这个水平差距不大，关键是谁先绷不住。债务上限博弈也是一样——谁先让步，谁就输了。</span><span class="en"><strong>5.</strong> <strong>Tiebreaks are often won mentally.</strong> At this level, technique differences are small — it comes down to who cracks first. The debt ceiling game is the same — whoever blinks first loses.</span></li>
+            </ol>
+        </div>
+
+        <div class="divider"><span class="zh">· 🎾 ·</span><span class="en">· 🎾 ·</span></div>
+
+        <h2 class="section-title text-2xl font-bold serif text-gray-800"><span class="zh">📋 决策落地卡：从网球场到投资决策</span><span class="en">📋 Decision Action Cards: From Tennis Court to Investment Decisions</span></h2>
+        <p class="text-gray-600 mb-6"><span class="zh">四个网球-金融类比，对应四张投资决策卡片。点击展开每张卡片，把抢七局的思维应用到你的资产配置中。</span><span class="en">Four tennis-finance analogies, four investment decision cards. Click to expand each card, applying tiebreak thinking to your asset allocation.</span></p>
+
+        <div class="decision-cards">
+            <div class="decision-card" style="background: linear-gradient(135deg, #d4fcda 0%, #a8e6cf 100%);">
+                <div class="decision-card-header" onclick="toggleDecisionCard(this)">
+                    <div><h4 class="font-bold text-lg text-gray-800"><span class="zh">🎾 抢七风险清单</span><span class="en">🎾 Tiebreak Risk Checklist</span></h4>
+                    <p class="text-xs text-gray-600 mt-1"><span class="zh">5个信号判断债务"抢七"烈度</span><span class="en">5 signals to judge debt "tiebreak" intensity</span></p></div>
+                    <span class="decision-card-toggle"><span class="zh">展开 ↓</span><span class="en">Expand ↓</span></span>
+                </div>
+                <div class="decision-card-body" style="display:none">
+                    <div class="space-y-3 mt-4">
+                        <div class="p-3 bg-white/60 rounded-lg"><p class="text-sm text-gray-700"><span class="zh"><strong>信号1：</strong>债务上限剩余空间小于年度赤字（约1.5万亿）→ 一年内将触及上限。</span><span class="en"><strong>Signal 1:</strong> Debt ceiling room less than annual deficit (~$1.5T) → ceiling hit within a year.</span></p></div>
+                        <div class="p-3 bg-white/60 rounded-lg"><p class="text-sm text-gray-700"><span class="zh"><strong>信号2：</strong>利息支出/财政收入比率超过15%，且持续上升。</span><span class="en"><strong>Signal 2:</strong> Interest/revenue ratio exceeds 15% and keeps rising.</span></p></div>
+                        <div class="p-3 bg-white/60 rounded-lg"><p class="text-sm text-gray-700"><span class="zh"><strong>信号3：</strong>外国央行持续减持美债，季度净卖出超过500亿美元。</span><span class="en"><strong>Signal 3:</strong> Foreign central banks reduce holdings, net quarterly sales exceed $50B.</span></p></div>
+                        <div class="p-3 bg-white/60 rounded-lg"><p class="text-sm text-gray-700"><span class="zh"><strong>信号4：</strong>短债占比超过70%，再融资压力集中在3年内。</span><span class="en"><strong>Signal 4:</strong> Short-term debt exceeds 70%, refinancing pressure concentrated within 3 years.</span></p></div>
+                        <div class="p-3 bg-white/60 rounded-lg"><p class="text-sm text-gray-700"><span class="zh"><strong>信号5：</strong>国会两党在债务上限问题上陷入僵局，距违约日不足30天。</span><span class="en"><strong>Signal 5:</strong> Congressional deadlock on debt ceiling, default day within 30 days.</span></p></div>
+                    </div>
+                    <div class="mt-4 p-3 bg-white/50 rounded-lg"><p class="text-xs text-gray-600"><span class="zh"><strong>判断：</strong>勾3个以上→抢七进入白热化；5个全部→系统性风险临界点。</span><span class="en"><strong>Criteria:</strong> 3+ checked → tiebreak heating up; all 5 → systemic risk critical point.</span></p></div>
+                </div>
+            </div>
+
+            <div class="decision-card" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">
+                <div class="decision-card-header" onclick="toggleDecisionCard(this)">
+                    <div><h4 class="font-bold text-lg text-gray-800"><span class="zh">⏱️ 久期配置信号灯</span><span class="en">⏱️ Duration Allocation Signals</span></h4>
+                    <p class="text-xs text-gray-600 mt-1"><span class="zh">红黄绿三色：长债vs短债的动态选择</span><span class="en">Red-Yellow-Green: dynamic long vs short bond selection</span></p></div>
+                    <span class="decision-card-toggle"><span class="zh">展开 ↓</span><span class="en">Expand ↓</span></span>
+                </div>
+                <div class="decision-card-body" style="display:none">
+                    <div class="space-y-4 mt-4">
+                        <div class="p-3 bg-white/60 rounded-lg">
+                            <div class="flex items-center gap-2 mb-2"><span class="w-4 h-4 rounded-full bg-green-500"></span><span class="font-bold text-green-800 text-sm"><span class="zh">🟢 绿灯 — 锁定长债（大力发球）</span><span class="en">🟢 Green — Lock Long Bonds (Big Serve)</span></div>
+                            <ul class="text-sm text-gray-700 space-y-1 ml-6">
+                                <li><span class="zh">• 收益率曲线倒挂严重（长端利率相对短端偏低）</span><span class="en">• Yield curve deeply inverted (long rates relatively low vs short)</span></li>
+                                <li><span class="zh">• 市场对长期通胀预期低（低于2.5%）</span><span class="en">• Market long-term inflation expectations low (below 2.5%)</span></li>
+                                <li><span class="zh">• 经济周期见顶信号明显，降息预期升温</span><span class="en">• Clear economic cycle peak signals, rate cut expectations rising</span></li>
+                            </ul>
+                        </div>
+                        <div class="p-3 bg-white/60 rounded-lg">
+                            <div class="flex items-center gap-2 mb-2"><span class="w-4 h-4 rounded-full bg-yellow-500"></span><span class="font-bold text-yellow-800 text-sm"><span class="zh">🟡 黄灯 — 均衡配置（相持打法）</span><span class="en">🟡 Yellow — Balanced Allocation (Rally Style)</span></div>
+                            <ul class="text-sm text-gray-700 space-y-1 ml-6">
+                                <li><span class="zh">• 收益率曲线正常，长短期利差合理（100-200bp）</span><span class="en">• Normal yield curve, reasonable spread (100-200bp)</span></li>
+                                <li><span class="zh">• 通胀预期稳定在2-3%区间</span><span class="en">• Inflation expectations stable in 2-3% range</span></li>
+                                <li><span class="zh">• 经济增长平稳，利率走向不明朗</span><span class="en">• Steady growth, unclear rate direction</span></li>
+                            </ul>
+                        </div>
+                        <div class="p-3 bg-white/60 rounded-lg">
+                            <div class="flex items-center gap-2 mb-2"><span class="w-4 h-4 rounded-full bg-red-500"></span><span class="font-bold text-red-800 text-sm"><span class="zh">🔴 红灯 — 短债为主（等待机会）</span><span class="en">🔴 Red — Short Debt Focus (Waiting for Opportunities)</span></div>
+                            <ul class="text-sm text-gray-700 space-y-1 ml-6">
+                                <li><span class="zh">• 收益率曲线陡峭化，长端利率快速上升</span><span class="en">• Yield curve steepening, long rates rising fast</span></li>
+                                <li><span class="zh">• 通胀预期上行（超过3.5%）</span><span class="en">• Inflation expectations rising (above 3.5%)</span></li>
+                                <li><span class="zh">• 央行加息周期明确，长债利率还有上行空间</span><span class="en">• Central bank hiking cycle clear, long rates have room to rise</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="decision-card" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
+                <div class="decision-card-header" onclick="toggleDecisionCard(this)">
+                    <div><h4 class="font-bold text-lg text-gray-800"><span class="zh">🌡️ 信用温度计</span><span class="en">🌡️ Credit Thermometer</span></h4>
+                    <p class="text-xs text-gray-600 mt-1"><span class="zh">5个问题自测：你对美元信用的担忧程度</span><span class="en">5 self-check questions: your level of concern about dollar credit</span></p></div>
+                    <span class="decision-card-toggle"><span class="zh">展开 ↓</span><span class="en">Expand ↓</span></span>
+                </div>
+                <div class="decision-card-body" style="display:none">
+                    <div class="space-y-3 mt-4">
+                        <div class="p-3 bg-white/60 rounded-lg"><p class="text-sm text-gray-700"><span class="zh"><strong>1.</strong> 你是否认为"美债无风险"的说法已经过时？</span><span class="en"><strong>1.</strong> Do you think "risk-free Treasuries" is outdated?</span></p>
+                            <div class="flex gap-2 mt-2"><span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded"><span class="zh">不认同</span><span class="en">Disagree</span></span><span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded"><span class="zh">部分认同</span><span class="en">Partially</span></span><span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded"><span class="zh">完全认同</span><span class="en">Fully agree</span></span></div></div>
+                        <div class="p-3 bg-white/60 rounded-lg"><p class="text-sm text-gray-700"><span class="zh"><strong>2.</strong> 你是否在配置中增加了黄金/大宗商品的比例？</span><span class="en"><strong>2.</strong> Have you increased gold/commodities allocation?</span></p>
+                            <div class="flex gap-2 mt-2"><span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded"><span class="zh">没有</span><span class="en">No</span></span><span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded"><span class="zh">少量</span><span class="en">Some</span></span><span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded"><span class="zh">大幅</span><span class="en">Significantly</span></span></div></div>
+                        <div class="p-3 bg-white/60 rounded-lg"><p class="text-sm text-gray-700"><span class="zh"><strong>3.</strong> 你是否认为美元的全球储备地位会在10年内明显下降？</span><span class="en"><strong>3.</strong> Do you think dollar reserve status will decline significantly within 10 years?</span></p>
+                            <div class="flex gap-2 mt-2"><span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded"><span class="zh">不会</span><span class="en">No</span></span><span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded"><span class="zh">不确定</span><span class="en">Uncertain</span></span><span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded"><span class="zh">肯定会</span><span class="en">Definitely</span></span></div></div>
+                        <div class="p-3 bg-white/60 rounded-lg"><p class="text-sm text-gray-700"><span class="zh"><strong>4.</strong> 你是否担心债务上限危机引发技术性违约？</span><span class="en"><strong>4.</strong> Worried about technical default from debt ceiling crisis?</span></p>
+                            <div class="flex gap-2 mt-2"><span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded"><span class="zh">不担心</span><span class="en">Not worried</span></span><span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded"><span class="zh">有些</span><span class="en">Somewhat</span></span><span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded"><span class="zh">非常担心</span><span class="en">Very worried</span></span></div></div>
+                        <div class="p-3 bg-white/60 rounded-lg"><p class="text-sm text-gray-700"><span class="zh"><strong>5.</strong> 你是否认为美国会通过通胀来"稀释"债务？</span><span class="en"><strong>5.</strong> Do you think the U.S. will "dilute" debt through inflation?</span></p>
+                            <div class="flex gap-2 mt-2"><span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded"><span class="zh">不会</span><span class="en">No</span></span><span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded"><span class="zh">可能</span><span class="en">Maybe</span></span><span class="text-xs px-2 py-1 bg-red-100 text-red-700 rounded"><span class="zh">一定会</span><span class="en">Definitely</span></span></div></div>
+                    </div>
+                    <div class="mt-4 p-3 bg-white/50 rounded-lg"><p class="text-xs text-gray-600"><span class="zh"><strong>解读：</strong>3题以上红色→信用焦虑严重，考虑增加实物资产配置。</span><span class="en"><strong>Read:</strong> 3+ red → severe credit anxiety, consider increasing real asset allocation.</span></p></div>
+                </div>
+            </div>
+
+            <div class="decision-card" style="background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);">
+                <div class="decision-card-header" onclick="toggleDecisionCard(this)">
+                    <div><h4 class="font-bold text-lg text-gray-800"><span class="zh">📊 历史对照速查表</span><span class="en">📊 Historical Comparison</span></h4>
+                    <p class="text-xs text-gray-600 mt-1"><span class="zh">历史上的高债务时期vs今天</span><span class="en">Historical high-debt periods vs today</span></p></div>
+                    <span class="decision-card-toggle"><span class="zh">展开 ↓</span><span class="en">Expand ↓</span></span>
+                </div>
+                <div class="decision-card-body" style="display:none">
+                    <div class="mt-4 overflow-x-auto">
+                        <table class="w-full text-sm border-collapse">
+                            <thead><tr class="bg-white/50">
+                                <th class="text-left p-2 font-bold border-b"><span class="zh">指标</span><span class="en">Indicator</span></th>
+                                <th class="text-center p-2 font-bold border-b"><span class="zh">二战后美国</span><span class="en">Post-WWII U.S.</span></th>
+                                <th class="text-center p-2 font-bold border-b"><span class="zh">90年代日本</span><span class="en">90s Japan</span></th>
+                                <th class="text-center p-2 font-bold border-b">2026 美国</th>
+                            </tr></thead>
+                            <tbody>
+                                <tr class="bg-white/30"><td class="p-2 border-b"><span class="zh">债务/GDP</span><span class="en">Debt/GDP</span></td><td class="p-2 text-center border-b">~120%</td><td class="p-2 text-center border-b">~230%</td><td class="p-2 text-center border-b">~120%</td></tr>
+                                <tr><td class="p-2 border-b"><span class="zh">通胀环境</span><span class="en">Inflation</span></td><td class="p-2 text-center border-b"><span class="zh">战后高通胀</span><span class="en">Post-war high</span></td><td class="p-2 text-center border-b"><span class="zh">通缩</span><span class="en">Deflation</span></td><td class="p-2 text-center border-b"><span class="zh">粘性通胀</span><span class="en">Sticky inflation</span></td></tr>
+                                <tr class="bg-white/30"><td class="p-2 border-b"><span class="zh">增长前景</span><span class="en">Growth</span></td><td class="p-2 text-center border-b"><span class="zh">战后繁荣</span><span class="en">Post-war boom</span></td><td class="p-2 text-center border-b"><span class="zh">低速增长</span><span class="en">Low growth</span></td><td class="p-2 text-center border-b"><span class="zh">AI驱动?</span><span class="en">AI-driven?</span></td></tr>
+                                <tr><td class="p-2 border-b"><span class="zh">人口结构</span><span class="en">Demographics</span></td><td class="p-2 text-center border-b"><span class="zh">婴儿潮</span><span class="en">Baby boom</span></td><td class="p-2 text-center border-b"><span class="zh">老龄化</span><span class="en">Aging</span></td><td class="p-2 text-center border-b"><span class="zh">老龄化</span><span class="en">Aging</span></td></tr>
+                                <tr class="bg-white/30"><td class="p-2 border-b"><span class="zh">储备货币地位</span><span class="en">Reserve currency</span></td><td class="p-2 text-center border-b"><span class="zh">上升期</span><span class="en">Rising</span></td><td class="p-2 text-center border-b"><span class="zh">非储备</span><span class="en">Non-reserve</span></td><td class="p-2 text-center border-b"><span class="zh">缓慢下降</span><span class="en">Slowly declining</span></td></tr>
+                                <tr><td class="p-2 border-b"><span class="zh">最终结局</span><span class="en">Outcome</span></td><td class="p-2 text-center border-b text-green-600 font-bold"><span class="zh">✅ 成功降杠杆</span><span class="en">✅ Deleveraged</span></td><td class="p-2 text-center border-b text-yellow-600 font-bold"><span class="zh">⚠️ 长期停滞</span><span class="en">⚠️ Stagnation</span></td><td class="p-2 text-center border-b text-blue-600 font-bold"><span class="zh">❓ 待定</span><span class="en">❓ TBD</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-3 bg-white/50 rounded-lg"><p class="text-xs text-gray-600"><span class="zh"><strong>结论：</strong>历史上有成功降杠杆的案例（二战后美国），也有长期停滞的案例（日本）。关键变量是增长和通胀。</span><span class="en"><strong>Conclusion:</strong> History has both successful deleveraging (post-WWII U.S.) and long stagnation (Japan). The key variables are growth and inflation.</span></p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"><span class="zh">🧪 样本外检验</span><span class="en">🧪 Out-of-Sample Test</span></div>
+
+        <div class="experiment-box">
+            <h3 class="font-bold text-xl mb-4 serif text-center">
+                <span class="zh">美债"抢七律"的2026复测</span>
+                <span class="en">2026 Retest of the "U.S. Debt Tiebreak Law"</span>
+            </h3>
+            
+            <div class="bg-white/70 p-4 rounded-lg mb-6">
+                <h4 class="font-bold text-gray-700 mb-2"><span class="zh">【实验原理】</span><span class="en">[Experimental Principle]</span></h4>
+                <p class="text-gray-600 text-sm">
+                    <span class="zh">我们从网球比赛的结构中提炼出<span class="text-green-600 font-medium">"债务抢七律"</span>：当债务接近上限时，正常规则失效→政治博弈主导→每一次投票都可能成为mini break→利息支出作为"关键分"持续放大→最终以某种形式的"赛点"结束比赛。2026年8月，美债40万亿，距上限仅1.05万亿，利息支出超1万亿。这场抢七局已经开打，但赛点会以什么形式到来？</span>
+                    <span class="en">From tennis match structure we distilled the <span class="text-green-600 font-medium">"Debt Tiebreak Law"</span>: when debt approaches the ceiling, normal rules fail → political game theory dominates → every vote could be a mini break → interest expense as "key points" keeps amplifying → eventually the match ends with some form of "match point." In August 2026, U.S. debt is $40T, only $1.05T from ceiling, interest exceeds $1T. The tiebreak has begun. But in what form will match point arrive?</span>
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h4 class="font-bold text-gray-800 text-lg mb-2"><span class="zh">【实验问题】</span><span class="en">[Experimental Question]</span></h4>
+                <p class="text-gray-700"><span class="zh">基于当前40.05万亿债务、5.2%的30年期收益率、1万亿美元+的年利息支出、以及2027年初触及债务上限的预期，你认为美债"抢七局"的赛点，会以什么形式到来？</span><span class="en">Based on $40.05T debt, 5.2% 30-year yield, $1T+ annual interest, and the expected early-2027 ceiling hit — in what form do you think the U.S. debt "tiebreak" match point will arrive?</span></p>
+            </div>
+
+            <div class="space-y-3" id="experiment-voting">
+                <div class="exp-option" data-exp="A">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-sm shrink-0">A</span>
+                        <div>
+                            <p class="font-medium"><span class="zh">对手接发越来越凶（外国央行持续减持）</span><span class="en">Opponent\'s Returns Get Fiercer (Foreign Central Banks Keep Selling)</span></p>
+                            <p class="text-sm text-green-600 mt-1"><span class="zh">→ 赛点形式：<strong>需求端恶化推高利率</strong>。中国、日本等主要持有国持续减持美债，需求端萎缩推高融资成本，迫使财政部承担更高的利率——相当于对手的接发越来越凶，你的发球越来越难得分。</span><span class="en">→ Match point form: <strong>Demand-side deterioration pushing rates higher.</strong> China, Japan and other major holders keep reducing holdings; demand atrophy pushes up financing costs, forcing the Treasury to bear higher rates — like the opponent\'s returns getting fiercer, your serve harder to win.</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="exp-option" data-exp="B">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm shrink-0">B</span>
+                        <div>
+                            <p class="font-medium"><span class="zh">自己非受迫性失误送分（利息支出螺旋）</span><span class="en">Self-Inflicted Unforced Errors (Interest Expense Spiral)</span></p>
+                            <p class="text-sm text-blue-600 mt-1"><span class="zh">→ 赛点形式：<strong>利息支出的自我加速</strong>。高利率环境下利息持续攀升，挤占更多财政空间，迫使财政部发更多债来付息——形成"发新债还旧息"的庞氏结构。相当于自己连续打丢关键分，把赛点拱手送人。</span><span class="en">→ Match point form: <strong>Self-accelerating interest expense.</strong> In a high-rate environment, interest keeps climbing, crowding out more fiscal space, forcing the Treasury to issue more debt just to pay interest — creating a "borrow to pay interest" Ponzi structure. Like continuously missing key points, handing match point to the opponent.</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="exp-option" data-exp="C">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-sm shrink-0">C</span>
+                        <div>
+                            <p class="font-medium"><span class="zh">裁判抢戏（债务上限政治危机）</span><span class="en">The Umpire Steals the Show (Debt Ceiling Political Crisis)</span></p>
+                            <p class="text-sm text-yellow-600 mt-1"><span class="zh">→ 赛点形式：<strong>政治博弈引发的市场冲击</strong>。2027年初触及债务上限，国会两党陷入僵局，信用评级再度下调，市场恐慌抛售。相当于裁判突然介入改判，打乱了比赛节奏——不是球手输的，是规则输的。</span><span class="en">→ Match point form: <strong>Market shock from political game theory.</strong> Early 2027 ceiling hit, congressional deadlock, another credit downgrade, panic selling. Like the umpire suddenly intervening with a controversial call — not that the players lost, but the rules did.</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="exp-option" data-exp="D">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-sm shrink-0">D</span>
+                        <div>
+                            <p class="font-medium"><span class="zh">多拍耗死（美元霸权缓慢侵蚀）</span><span class="en">Worn Down in Long Rallies (Dollar Hegemony Slow Erosion)</span></p>
+                            <p class="text-sm text-red-600 mt-1"><span class="zh">→ 赛点形式：<strong>没有单一的"雷曼时刻"</strong>。美元在全球储备中的占比缓慢但持续下降，美债的需求基础逐步弱化——像一场漫长的五盘大战，最终在体力耗尽时输掉。不是突然崩盘，而是慢性失血。</span><span class="en">→ Match point form: <strong>No single "Lehman moment."</strong> The dollar\'s global reserve share declines slowly but steadily; the demand foundation for Treasuries gradually weakens — like a long five-set match, eventually losing when stamina runs out. Not a sudden crash, but chronic bleeding.</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <div class="text-gray-500 text-sm mb-2"><span class="zh">📅 实验揭榜时间：<strong class="text-green-600">2026年9月20日</strong></span><span class="en">📅 Reveal date: <strong class="text-green-600">September 20, 2026</strong></span></div>
+                <div class="mt-4 p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-lg inline-block">
+                    <span class="text-green-700 text-sm"><span class="zh">🔓 完成两次投票，解锁你的专属"球手-投资者画像"</span><span class="en">🔓 Complete both polls to unlock your "Player-Investor Profile"</span></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="exp-result-area" style="display:none;">
+            <div class="text-center mt-4 mb-2"><span class="text-green-600 font-medium"><span class="zh">✓ 你的预测已记录！</span><span class="en">✓ Your prediction has been recorded!</span></span></div>
+            <div class="vote-stats-card">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="font-bold text-gray-700"><span class="zh">📊 预测投票统计</span><span class="en">📊 Prediction Vote Statistics</span></span>
+                    <span id="exp-total" class="text-sm text-gray-500"><span class="zh">加载中...</span><span class="en">Loading...</span></span>
+                </div>
+                <div id="exp-stats"></div>
+            </div>
+        </div>
+
+        <div id="personality-result"></div>
+        <div id="personality-card" style="display:none; margin: 3rem 0;">
+            <div class="bg-gradient-to-r from-green-100 via-emerald-50 to-teal-100 p-8 rounded-2xl text-center shadow-lg">
+                <div class="text-5xl mb-4">🎾</div>
+                <h3 id="personality-name" class="text-2xl md:text-3xl font-bold serif text-green-800 mb-4"></h3>
+                <p id="personality-desc" class="text-gray-700 leading-relaxed text-lg"></p>
+                <div class="mt-6 text-sm text-green-600"><span class="zh">✨ 感谢你参与本期历史实验室！我们下期再见</span><span class="en">✨ Thank you for participating in History Lab! See you next time</span></div>
+            </div>
+        </div>
+
+        <div class="divider"><span class="zh">📊 上期实验结果</span><span class="en">📊 Previous Experiment Results</span></div>
+
+        <h2 class="section-title text-2xl font-bold serif text-gray-800">
+            <span class="zh">第3期：算力军备竞赛的1846年镜像</span>
+            <span class="en">Episode 3: The 1846 Mirror of the Compute Arms Race</span>
+        </h2>
+
+        <div class="bg-gray-50 p-5 rounded-lg border border-gray-200 mt-4">
+            <div class="mb-4">
+                <h4 class="font-bold text-gray-800"><span class="zh">实验假设："基建狂热物理瓶颈律"</span><span class="en">Experiment Hypothesis: "Infrastructure Frenzy Physical Bottleneck Law"</span></h4>
+                <p class="text-gray-600 text-sm mt-1"><span class="zh">将1845年铁路狂热的物理瓶颈模式映射到2026年算力军备竞赛，预测未来4周算力板块走势。</span><span class="en">Mapping the physical bottleneck pattern of 1845 railway mania onto the 2026 compute arms race, predicting the compute sector\'s trajectory over the next 4 weeks.</span></p>
+            </div>
+            <div class="mt-4 p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg text-center">
+                <p class="text-green-700 text-sm font-medium"><span class="zh">📅 揭榜时间：2026年8月20日</span><span class="en">📅 Reveal Date: August 20, 2026</span></p>
+                <p class="text-green-500 text-xs mt-1"><span class="zh">🔗 <a href="https://rosehsuxw.github.io/history-lab/ep3/" target="_blank" class="underline hover:text-green-900">前往第3期参与投票 →</a></span><span class="en">🔗 <a href="https://rosehsuxw.github.io/history-lab/ep3/" target="_blank" class="underline hover:text-green-900">Go to Ep.3 to Vote →</a></span></p>
+            </div>
+        </div>
+
+        <div class="divider"><span class="zh">· 🎾 ·</span><span class="en">· 🎾 ·</span></div>
+
+        <!-- Subscription Guide -->
+        <div class="bg-gradient-to-br from-green-900 via-emerald-800 to-blue-900 text-white p-8 md:p-12 rounded-2xl shadow-2xl">
+            <div class="text-center max-w-2xl mx-auto">
+                <h3 class="text-2xl md:text-3xl font-bold serif mb-4 leading-tight">
+                    <span class="zh">在历史的赛点上，<br>做一个清醒的决策者</span>
+                    <span class="en">At history\'s match point,<br>be a clear-eyed decision-maker</span>
+                </h3>
+                <p class="text-green-200 text-sm mb-8">
+                    <span class="zh">用历史的光芒，照亮当下的迷雾。不贩卖焦虑，不预测未来——只提供思考的框架。</span>
+                    <span class="en">Illuminating the present fog with history\'s light. No fear-mongering, no predicting — just frameworks for thinking.</span>
+                </p>
+                <div class="bg-white/10 backdrop-blur p-5 rounded-xl mb-8">
+                    <p class="font-bold text-green-200 text-sm mb-3"><span class="zh">📚 往期精选</span><span class="en">📚 Past Issues</span></p>
+                    <a href="https://rosehsuxw.github.io/history-lab/" target="_blank" class="flex items-center gap-4 no-underline group hover:bg-white/10 rounded-lg p-2 -m-2 transition-all duration-300" style="text-decoration:none;">
+                        <div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg flex items-center justify-center text-xl font-bold shrink-0 group-hover:scale-110 transition-transform">1</div>
+                        <div>
+                            <p class="font-bold text-white group-hover:text-amber-300 transition-colors"><span class="zh">第1期：沃尔克时刻1979 ↗</span><span class="en">Ep.1: The Volcker Moment 1979 ↗</span></p>
+                            <p class="text-green-200 text-xs mt-1"><span class="zh">通胀粘性、央行强硬、市场误判的三角博弈</span><span class="en">Sticky inflation, central bank resolve, market misjudgment</span></p>
+                        </div>
+                    </a>
+                    <a href="https://rosehsuxw.github.io/history-lab/ep2/" target="_blank" class="flex items-center gap-4 no-underline group hover:bg-white/10 rounded-lg p-2 -m-2 transition-all duration-300 mt-3" style="text-decoration:none;">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-lg flex items-center justify-center text-xl font-bold shrink-0 group-hover:scale-110 transition-transform">2</div>
+                        <div>
+                            <p class="font-bold text-white group-hover:text-blue-300 transition-colors"><span class="zh">第2期：存储芯片泡沫与1987年幽灵 ↗</span><span class="en">Ep.2: Memory Chip Bubble & Ghost of 1987 ↗</span></p>
+                            <p class="text-green-200 text-xs mt-1"><span class="zh">流动性驱动泡沫周期律的样本外检验</span><span class="en">Out-of-sample test of the liquidity-driven bubble cycle law</span></p>
+                        </div>
+                    </a>
+                    <a href="https://rosehsuxw.github.io/history-lab/ep3/" target="_blank" class="flex items-center gap-4 no-underline group hover:bg-white/10 rounded-lg p-2 -m-2 transition-all duration-300 mt-3" style="text-decoration:none;">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-500 rounded-lg flex items-center justify-center text-xl font-bold shrink-0 group-hover:scale-110 transition-transform">3</div>
+                        <div>
+                            <p class="font-bold text-white group-hover:text-purple-300 transition-colors"><span class="zh">第3期：算力军备竞赛的1846年镜像 ↗</span><span class="en">Ep.3: The 1846 Mirror of the Compute Arms Race ↗</span></p>
+                            <p class="text-green-200 text-xs mt-1"><span class="zh">基建狂热物理瓶颈律的当代验证</span><span class="en">Contemporary validation of the infrastructure frenzy bottleneck law</span></p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- end main content -->
+
+    <!-- Footer -->
+    <div class="bg-gray-800 text-white text-center py-8 px-4">
+        <p class="text-lg serif font-medium mb-2"><span class="zh">历史实验室</span><span class="en">History Lab</span></p>
+        <p class="text-gray-400 text-sm italic"><span class="zh">在历史的十字路口寻找答案</span><span class="en">Finding answers at history\'s crossroads</span></p>
+        <div class="mt-6">
+            <button onclick="resetVotes()" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm transition-all">
+                <span class="zh">🔄 重置我的投票（重新体验）</span>
+                <span class="en">🔄 Reset My Votes (Re-experience)</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ============ Supabase Config ============
+        const SUPABASE_URL = 'https://vucpxdmipdxyhixofwkn.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_CgD0jiGAgl56bTfW0BBwfw_NIRtY2ZM';
+        const EPISODE_ID = 'us_debt_tiebreak_2026';
+        const STORAGE_KEY = 'history_lab_us_debt_tiebreak_2026';
+
+        let db = null;
+        try { db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch(e) { console.warn('Supabase SDK failed to load', e); }
+
+        let userState = { hasVotedChoice: false, hasVotedExperiment: false, userChoice: null, userExperiment: null };
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) { try { userState = JSON.parse(saved); } catch(e) {} }
+        function saveUserState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(userState)); }
+
+        const isEN = () => document.body.classList.contains('lang-en');
+        const choiceLabelsZH = { A: 'A · 大力发球', B: 'B · 底线相持', C: 'C · 上网截击', D: 'D · 放小球' };
+        const choiceLabelsEN = { A: 'A · Big Serve', B: 'B · Baseline Rally', C: 'C · Serve-Volley', D: 'D · Drop Shot' };
+        const expLabelsZH = { A: 'A · 对手接发凶', B: 'B · 利息螺旋', C: 'C · 裁判抢戏', D: 'D · 多拍耗死' };
+        const expLabelsEN = { A: 'A · Fierce Returns', B: 'B · Interest Spiral', C: 'C · Umpire Drama', D: 'D · Attrition Win' };
+        const barColors = { A: '#10b981', B: '#3b82f6', C: '#f59e0b', D: '#ef4444' };
+
+        function getChoiceLabels() { return isEN() ? choiceLabelsEN : choiceLabelsZH; }
+        function getExpLabels() { return isEN() ? expLabelsEN : expLabelsZH; }
+
+        async function loadVoteStats() {
+            if (!db) { renderStats('choice-stats', 'choice-total', {A:0,B:0,C:0,D:0}, getChoiceLabels()); renderStats('exp-stats', 'exp-total', {A:0,B:0,C:0,D:0}, getExpLabels()); return; }
+            try {
+                const { data, error } = await db.from('votes').select('vote_type, option').eq('episode_id', EPISODE_ID);
+                if (error) throw error;
+                const stats = { choice: {A:0,B:0,C:0,D:0}, experiment: {A:0,B:0,C:0,D:0} };
+                (data || []).forEach(function(row) { if (stats[row.vote_type] && row.option in stats[row.vote_type]) stats[row.vote_type][row.option]++; });
+                renderStats('choice-stats', 'choice-total', stats.choice, getChoiceLabels());
+                renderStats('exp-stats', 'exp-total', stats.experiment, getExpLabels());
+            } catch(err) { console.error('Failed to load stats:', err); renderStats('choice-stats', 'choice-total', {A:0,B:0,C:0,D:0}, getChoiceLabels()); renderStats('exp-stats', 'exp-total', {A:0,B:0,C:0,D:0}, getExpLabels()); }
+        }
+
+        function renderStats(containerId, totalId, data, labels) {
+            var container = document.getElementById(containerId); var totalEl = document.getElementById(totalId); if (!container) return;
+            var total = 0; ['A','B','C','D'].forEach(function(k){ total += data[k]; });
+            if (totalEl) totalEl.textContent = (isEN() ? 'Total: ' : '共 ') + total + (isEN() ? ' votes' : ' 人参与');
+            var html = '';
+            ['A','B','C','D'].forEach(function(key) {
+                var pct = total > 0 ? ((data[key] / total) * 100).toFixed(1) : '0.0';
+                html += '<div style="margin-bottom:0.75rem"><div style="display:flex;justify-content:space-between;font-size:0.875rem;margin-bottom:4px"><span style="font-weight:500;color:#374151">' + (labels[key] || key) + '</span><span style="color:#6b7280">' + data[key] + (isEN() ? ' votes · ' : '票 · ') + pct + '%</span></div><div class="vote-bar-bg"><div class="vote-bar-fill" style="width:' + pct + '%;background:' + barColors[key] + '"></div></div></div>';
+            });
+            container.innerHTML = html;
+        }
+
+        async function submitVote(voteType, option) {
+            if (!db) return;
+            try { await db.from('votes').insert({ episode_id: EPISODE_ID, vote_type: voteType, option: option }); } catch(err) { console.error('Vote submission failed:', err); }
+            loadVoteStats();
+        }
+
+        // Choice Voting
+        document.querySelectorAll('.option-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+                if (userState.hasVotedChoice) return;
+                var option = this.dataset.option;
+                userState.hasVotedChoice = true; userState.userChoice = option;
+                document.querySelectorAll('.option-card').forEach(function(c) { c.classList.add('voted'); c.classList.remove('selected'); });
+                this.classList.add('selected');
+                document.getElementById('vote-result-area').style.display = 'block';
+                saveUserState(); submitVote('choice', option);
+                if (userState.userExperiment) { setTimeout(function() { showPersonality(userState.userChoice, userState.userExperiment); }, 500); }
+                else { alert(isEN() ? 'Your choice recorded! Keep reading for the prediction poll at the end.' : '你的选择已记录！继续阅读，文末还有一次预测投票 🎯'); }
+            });
         });
-      } else {
-        r(true);
-      }
-    }).
-    catch(() => {
-      r(false);
-    });
-  });
-}
-function loadTTWID(aid, src) {
-  const script = document.createElement('script');
-  script.src = src;
-  script.defer = true;
-  script.crossOrigin = 'anonymous';
-  script.addEventListener('load', () => {
-    initTTWID(aid);
-  });
-  document.head.appendChild(script);
-}
-loadTTWID(751148, "//lf-coze-web-cdn.coze.cn/obj/unpkg/byted-ucenter/ttwid/4.1.1/dist/pure.umd.production.js");</script><script data-rsbuild-assets-retry="inline">(()=>{function e(e,t){let n=t.domain;for(let t=0;t<n.length;t++){let r=n[t];if(-1!==e.indexOf(r))return r}return window.origin}let t=/[?#].*$/,n={link:HTMLLinkElement,script:HTMLScriptElement,img:HTMLImageElement};function r(t,r){let i=r.target,o=i.tagName.toLocaleLowerCase(),s=i instanceof HTMLScriptElement||i instanceof HTMLImageElement?i.src:i instanceof HTMLLinkElement?i.href:null;if(!s)return!1;let a=Number(i.dataset.rbRuleI||"-1"),l=t[a]||function(t,n,r){for(let i=0;i<r.length;i++){let o=r[i],s=o.test,a=!0;if(s instanceof RegExp?a=s.test(t):"string"==typeof s?a=new RegExp(s).test(t):"function"==typeof s&&(a=s(t)),o.domain&&o.domain.length>0){let n=e(t,o);o.domain.includes(n)||(a=!1)}if(o.type&&o.type.length>0&&!o.type.includes(n)&&(a=!1),a)return o}return null}(s,o,t);if(!l)return!1;a=t.indexOf(l);let c=l.type;return!!o&&-1!==c.indexOf(o)&&!!n[o]&&i instanceof n[o]&&{target:i,tagName:o,url:s,rule:l,ruleIndex:a}}function i(e,t,n){e instanceof HTMLScriptElement&&(n.isAsync?document.body.appendChild(t):console.warn("[@rsbuild/plugin-assets-retry] ","load sync script failed, for security only async/defer script can be retried",e)),e instanceof HTMLLinkElement&&document.getElementsByTagName("head")[0].appendChild(t),e instanceof HTMLImageElement&&(e.src=n.url,e.dataset.rbRetryTimes=n.times+"",e.dataset.rbOriginalQuery=n.originalQuery+"")}"u">typeof window&&!window.__RB_ASYNC_CHUNKS__&&(window.__RB_ASYNC_CHUNKS__={});try{let n=[{"max":3,"type":["link","script","img"],"domain":[],"crossOrigin":false,"delay":1000,"addQuery":true}];"u">typeof window&&void 0!==window.document&&(document.addEventListener("error",o=>{if(o&&o.target instanceof Element)try{!function(n,o){var s,a;let l,c,u,d,f=r(n,o);if(!1===f)return;let{target:y,tagName:m,url:g,rule:p,ruleIndex:_}=f;if("u">typeof window&&Object.keys(window.__RB_ASYNC_CHUNKS__||{}).some(e=>-1!==g.indexOf(e)))return;let E=e(g,p),b=Number(y.dataset.rbRetryTimes)||0;if(b===p.max){"function"==typeof p.onFail&&p.onFail({times:b,domain:E,url:g,tagName:m,isAsyncChunk:!1});return}let T=(l=p.domain,c=e(E,p),u=l.indexOf(c),-1===u?c:l[(u+1)%l.length]),w=null!=(s=y.dataset.rbOriginalQuery)?s:(d=g.split("?")[1])?"?"+d.split("#")[0]:"",L=!!y.dataset.rbAsync||y.async||y.defer,O={url:g.replace(E,T).replace(t,"")+(a=b+1,!0===p.addQuery?""!==w?`${w}&retry=${a}`:"?retry="+a:"function"==typeof p.addQuery?p.addQuery({times:a,originalQuery:w}):""),times:b+1,originalQuery:w,ruleIndex:_,crossOrigin:p.crossOrigin,isAsync:L},h=function(e,t){let n=!0===t.crossOrigin?"anonymous":t.crossOrigin;if(e instanceof HTMLScriptElement){let e=document.createElement("script");return e.src=t.url,n&&(e.crossOrigin=n),t.times&&(e.dataset.rbRetryTimes=t.times+""),t.isAsync&&(e.dataset.rbAsync=""),void 0!==t.originalQuery&&(e.dataset.rbOriginalQuery=t.originalQuery),t.ruleIndex>=0&&(e.dataset.rbRuleI=t.ruleIndex+""),e}if(e instanceof HTMLLinkElement){let r=document.createElement("link");return r.rel=e.rel||"stylesheet",e.as&&(r.as=e.as),r.href=t.url,n&&(r.crossOrigin=n),t.times&&(r.dataset.rbRetryTimes=t.times+""),void 0!==t.originalQuery&&(r.dataset.rbOriginalQuery=t.originalQuery),r}}(y,O),R={times:b,domain:E,url:g,tagName:m,isAsyncChunk:!1};"function"==typeof p.onRetry&&p.onRetry(R);let H="function"==typeof p.delay?p.delay(R):p.delay;H>0?setTimeout(()=>{i(y,h,O)},H):i(y,h,O)}(n,o)}catch(e){console.error("retry error captured",e)}},!0),document.addEventListener("load",t=>{if(t&&t.target instanceof Element)try{!function(t,n){let i=r(t,n);if(!1===i)return;let{target:o,tagName:s,url:a,rule:l}=i,c=e(a,l),u=Number(o.dataset.rbRetryTimes)||0;0!==u&&"function"==typeof l.onSuccess&&l.onSuccess({times:u,domain:c,url:a,tagName:s,isAsyncChunk:!1})}(n,t)}catch(e){console.error("load error captured",e)}},!0))}catch(e){console.error("monitor error captured",e)}})();</script><link rel="icon" href="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/favicon2.ico"><title>扣子 - AI办公助手一站式平台 - 扣子提供AI写作|PPT|表格|设计|播客|生图</title><meta name="description" content="扣子是强大的AI办公助手，基于Agent技术，集成了AI写作、AI PPT生成、AI表格处理、AI设计、AI播客、AI生图与AI视频等全功能。扣子助力财经分析、市场营销等多场景办公任务自动化，全面提升工作效率。"><meta name="keywords" content="扣子空间, AI助手, AI办公, Agent, AI写作, AI PPT, AI表格, AI设计, AI播客, AI生图, AI视频"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="baidu-site-verification" content="codeva-7XEh5u0XTX"><meta name="360-site-verification" content="2d2d76f0831547f3f05aa966d89e6280"><meta name="sogou_site_verification" content="xmsuOIFxW6"><meta name="google-site-verification" content="RMDxluezyK90a0eJjkaX7CG3MEi9nYZ7PUwEZMbnpFo"><meta name="msvalidate.01" content="F956553E6F11CC5EB027D0DEEDD87A27"><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/argus-builder-strategy.c7a076ee9a.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/lib-react.9c3cd1b11e.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/lib-router.8781f014de.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/40205.e9ee310d0f.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/17567.1c27aecce3.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/85422.caee901b53.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/46815.42381a96dd.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/55501.ce041b39c2.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/32975.4f48478a68.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/54204.3586873e27.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/54841.d926c0bb1d.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/32287.cf67f82c95.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/65075.a40308c651.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/30149.d6ade2a1a0.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/96979.ac04404f82.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/94771.3589e38a7c.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/66753.73ff25af67.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/14273.36853b354a.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/18322.cbafbd435f.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/15853.5cd6758c0d.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/51402.b08774a1df.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/21043.6b617a80ab.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/32075.33f0d33702.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/61273.cb1e0a4d07.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/69123.852f8f2f27.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/41872.ba7a300596.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/83354.eaa3e6cb02.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/98525.ad021b9b8a.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/58364.2fe828a8f6.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/5468.97db4e4d4c.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/55561.8e13b1981b.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/75591.f55e26062e.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/45049.f5187a520a.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/74227.7c308576ca.js"></script><script defer src="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/js/index.39bacbc4e4.js"></script><link href="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/css/4945.64d74b9ffe.css" rel="stylesheet"><link href="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/css/69123.c921e92efe.css" rel="stylesheet"><link href="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/css/5468.d1f9cab18f.css" rel="stylesheet"><link href="//lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/static/css/index.d716ad991f.css" rel="stylesheet"><script data-sdk-glue-default="pre-handler">
-  !function(){var e="751148",t="38406";function n(){try{var n="gfkadpd",o=e+","+t,i=function(e){for(var t=document.cookie.split(";"),n=0;n<t.length;n++){var o=t[n].trim();if(o.startsWith(e+"="))return o.substring(e.length+1)}return null}(n);if(i){if(-1!=i.indexOf(o))return;o+="|"+i}document.cookie=n+"="+o+"; expires="+new Date((new Date).getTime()+3*24*60*60*1e3).toUTCString()+"; path=/; SameSite=None; Secure;"}catch(e){}}var o=function(n,o,i,a){if(Math.ceil(100*Math.random())<=100*o){var r={ev_type:"batch",list:[{ev_type:"custom",payload:{name:"sdk_glue_load",type:"event",metrics:{},categories:{sdk_glue_load_status:n,sdk_glue_load_err_src:i,payload_bdms_aid:e,payload_bdms_page_id:t,duration:a}},common:{context:{ctx_bdms_aid:e,ctx_bdms_page_id:t},bid:"web_bdms_cn",pid:window.location.pathname,view_id:"/_1",user_id:"",session_id:"0-a-1-2-c",release:"",env:"production",url:window.location.href,timestamp:+new Date,sdk_version:"1.6.1",sdk_name:"SDK_SLARDAR_WEB"}}]},d=new XMLHttpRequest;d.open("POST","https://mon.zijieapi.com/monitor_browser/collect/batch/?biz_id=web_bdms_cn",!0),d.setRequestHeader("Content-type","application/json"),d.send(JSON.stringify(r))}};!function(){try{n(),document.cookie="wdglgl=; expires=Mon, 20 Sep 2010 00:00:00 UTC; path=/;",o("before_load",.001,"","")}catch(e){}var e=performance.now();window.addEventListener("error",(function(t){try{var n=t.target||t.srcElement;if(n instanceof HTMLElement&&"SCRIPT"==n.nodeName)if(-1!=(n.src||"").indexOf("sdk-glue")){var i=(performance.now()-e).toFixed(2);a=i,document.cookie="wdglgl=; expires=Mon, 20 Sep 2010 00:00:00 UTC; path=/;",document.cookie="wdglgl="+a+"; expires="+new Date((new Date).getTime()+3*24*60*60*1e3).toUTCString()+"; path=/; SameSite=None; Secure;",o("load_error",1,n.src,i)}}catch(e){}var a}),!0),window.__glue_t=+new Date}()}();
-  // </script><script data-sdk-glue-default="load" crossorigin="anonymous" src="https://lf-c-flwb.bytetos.com/obj/rc-client-security/web/glue/1.0.0.66/sdk-glue.js"></script><script data-sdk-glue-default="init">
-   ;(function (){
-    if (window._SdkGlueInit) {window._SdkGlueInit({self:{aid:751148,pageId:38406},bdms:{"paths":{"include":["^/api","^/passport"]},"ddrt":3,"aid":751148,"pageId":38406},});
-    }
-    })()
-  </script><link rel="canonical" href="https://www.coze.cn"></head><body><div id="root"></div></body></html>
+
+        // Experiment Voting
+        document.querySelectorAll('.exp-option').forEach(function(card) {
+            card.addEventListener('click', function() {
+                if (userState.hasVotedExperiment) return;
+                var option = this.dataset.exp;
+                userState.hasVotedExperiment = true; userState.userExperiment = option;
+                document.querySelectorAll('.exp-option').forEach(function(c) { c.style.cursor = 'default'; c.classList.remove('selected'); });
+                this.classList.add('selected'); this.style.background = 'rgba(16, 185, 129, 0.1)';
+                document.getElementById('exp-result-area').style.display = 'block';
+                saveUserState(); submitVote('experiment', option);
+                if (userState.userChoice) { setTimeout(function() { showPersonality(userState.userChoice, userState.userExperiment); }, 300); }
+                else { alert(isEN() ? 'Prediction recorded! Go back and complete the first vote to unlock your profile.' : '你的预测已记录！回到文章开头完成历史场景选择后解锁球手画像 🔓'); }
+            });
+        });
+
+        // ============ 16 Player-Investor Profiles ============
+        function showPersonality(choice, exp) {
+            var personalities = {
+                'AA': { nameZH: '麦肯罗式的债券守夜人', nameEN: 'McEnroe-Style Bond Vigilante', emoji: '🎾',
+                    descZH: '你是"发球上网的债券守夜人"！你认为外国央行的持续减持会让需求端快速恶化，所以现在必须全力发球——锁定长期债务，趁还有买家的时候把债券发出去。你就像约翰·麦肯罗：发球凶猛、网前果断、脾气火爆，从不给对手喘息机会。在债务管理中，你信奉"先发制人"——等对手的接发越来越凶时再想发力，就晚了。',
+                    descEN: 'You are the "Serve-Volley Bond Vigilante"! You believe foreign central bank selling will rapidly deteriorate demand, so you must go all-in on first serves now — lock in long-term debt while there are still buyers. Like John McEnroe: ferocious serve, decisive net play, fiery temper — never giving the opponent a breather. In debt management, you believe in "strike first" — by the time the opponent\'s returns get fiercer, it\'s already too late.' },
+                'AB': { nameZH: '费德勒式的优雅悲观派', nameEN: 'Federer-Style Elegant Pessimist', emoji: '🎩',
+                    descZH: '你是"优雅的锁定派"！你相信债务的终结不是来自外部冲击，而是来自内部的利息螺旋——就像费德勒的比赛，不是被对手打死的，是自己失误送分输掉的。你选择发长债锁定成本，但你内心清楚：利息的复利效应是所有网球选手都害怕的对手——它不会失误，不会疲倦，只会一分一分地累积，直到你扛不住。',
+                    descEN: 'You are the "Elegant Lock-In Pessimist"! You believe debt won\'t end from external shocks, but from the internal interest spiral — like Federer\'s matches, not beaten by the opponent, but lost through unforced errors. You choose long bonds to lock in costs, but deep down you know: the compounding effect of interest is the opponent all tennis players fear — it never faults, never tires, just accumulates point by point until you can\'t take it anymore.' },
+                'AC': { nameZH: '桑普拉斯式的危机预言家', nameEN: 'Sampras-Style Crisis Prophet', emoji: '🏆',
+                    descZH: '你是"发球大炮+危机预言家"！你锁定长期债务，同时坚信债务上限的政治危机会成为赛点。就像皮特·桑普拉斯——发球势大力沉，但真正致命的是他在关键时刻的稳定性。你发长债是为了抵御政治动荡的冲击，但你也知道：当裁判（国会）开始抢戏时，再好的发球也没用。',
+                    descEN: 'You are the "Serve Cannon + Crisis Prophet"! You lock in long-term debt while firmly believing the debt ceiling political crisis will be match point. Like Pete Sampras — a thunderous serve, but what\'s truly deadly is his clutch stability. You issue long bonds to withstand political turmoil, but you also know: when the umpire (Congress) starts stealing the show, even the best serve won\'t help.' },
+                'AD': { nameZH: '阿加西式的长期主义者', nameEN: 'Agassi-Style Long-Termist', emoji: '🔥',
+                    descZH: '你是"底线型锁定派"！你发长债锁定成本，但你认为最终的赛点不是突然崩盘，而是美元霸权的缓慢侵蚀——就像安德烈·阿加西的底线相持，一拍一拍地消耗对手，直到对手机能耗尽。你相信：40万亿不会在一夜之间爆炸，但会在一代人的时间里慢慢失去信用基础。锁定长期，是你对慢性消耗的防御。',
+                    descEN: 'You are the "Baseline Lock-In Player"! You issue long bonds to lock in costs, but you believe the final match point won\'t be a sudden crash — it\'ll be the slow erosion of dollar hegemony. Like Andre Agassi\'s baseline rallies, wearing down the opponent shot by shot until their energy runs out. You believe: $40T won\'t explode overnight, but over a generation it will gradually lose its credit foundation. Locking long-term is your defense against chronic attrition.' },
+                'BA': { nameZH: '纳芙拉蒂洛娃式的灵活派', nameEN: 'Navratilova-Style Flex Player', emoji: '🏃',
+                    descZH: '你是"全能型底线选手"！你选择短债保持灵活性，同时密切关注外国央行的减持动向。就像玛蒂娜·纳芙拉蒂洛娃——左手持拍、全能打法、既能底线相持又能上网截击。你相信：在对手接发越来越凶的时候，保持灵活性比锁定收益更重要。短债给你随时调整的空间——如果局势恶化，你可以快速转向。',
+                    descEN: 'You are the "All-Court Baseline Player"! You choose short debt for flexibility while closely monitoring foreign central bank selling. Like Martina Navratilova — left-handed, all-court game, equally comfortable at baseline or net. You believe: when the opponent\'s returns get fiercer, maintaining flexibility matters more than locking yield. Short debt gives you room to adjust — if things deteriorate, you can pivot quickly.' },
+                'BB': { nameZH: '纳达尔式的红土磨王', nameEN: 'Nadal-Style Clay-Court Grinder', emoji: '🐂',
+                    descZH: '你是"最顽强的底线选手"！你只发短债，相信时间站在你这边——但同时你也清楚，利息螺旋是最磨人的对手。就像拉菲尔·纳达尔——红土场上的战神，每一分都跟你死磕，直到你体力耗尽。你的策略是：用短债的低利率撑住，等降息周期到来再换长债。但你也做好了准备——如果降息不来，你就跟它耗到底。',
+                    descEN: 'You are the "Toughest Baseline Player"! You only issue short debt, believing time is on your side — but you also know the interest spiral is the most grinding opponent. Like Rafael Nadal — the clay-court warrior, fighting for every point until your opponent runs out of energy. Your strategy: sustain with low short rates, wait for the cutting cycle to switch to long bonds. But you\'re prepared too — if cuts don\'t come, you\'ll just keep grinding.' },
+                'BC': { nameZH: '德约科维奇式的弹性防守者', nameEN: 'Djokovic-Style Elastic Defender', emoji: '🐍',
+                    descZH: '你是"弹性极限的底线魔术师"！你选择短债保持流动性，同时警惕债务上限的政治风险。就像诺瓦克·德约科维奇——防守能力惊人，看似被动但总能把球打回去，让对手在多拍中失误。你相信：政治危机是暂时的，市场反应是过度的。只要你能把球打回去（维持短债滚动），对手（国会）总会有失误的时候。',
+                    descEN: 'You are the "Elastic-Limit Baseline Magician"! You choose short debt to maintain liquidity while staying alert to debt ceiling political risk. Like Novak Djokovic — astonishing defensive ability, seemingly passive but always getting the ball back, making opponents miss in long rallies. You believe: political crises are temporary, market reactions are excessive. As long as you can keep getting the ball back (maintaining short-debt rollovers), the opponent (Congress) will eventually make a mistake.' },
+                'BD': { nameZH: '小威式的力量相持者', nameEN: 'Serena Williams-Style Power Rallier', emoji: '💪',
+                    descZH: '你是"力量型底线磨王"！你选择短债灵活配置，但你相信最终的赛点是一场漫长的消耗战——美元霸权的缓慢侵蚀。就像塞雷娜·威廉姆斯——力量惊人、意志顽强，每一拍都带着重量，对手赢一分要付出巨大代价。你知道美元不会一夜崩塌，但会在长期消耗中慢慢失去力量。你的策略是：保持灵活，在消耗中寻找机会。',
+                    descEN: 'You are the "Power Baseline Grinder"! You choose short debt for flexible allocation, but you believe the final match point is a long war of attrition — slow erosion of dollar hegemony. Like Serena Williams — immense power, indomitable will, every shot carries weight, opponents pay a huge price for each point won. You know the dollar won\'t collapse overnight, but will gradually lose strength in long-term attrition. Your strategy: stay flexible, find opportunities in the grind.' },
+                'CA': { nameZH: '麦肯罗式的财政改革派', nameEN: 'McEnroe-Style Fiscal Reformer', emoji: '⚡',
+                    descZH: '你是"上网型改革者"！你选择主动削减支出，从根本上解决问题——因为你看到了外国央行减持带来的需求端恶化，再不改就来不及了。就像约翰·麦肯罗的发球上网——果断、激进、不给对手留余地。你信奉：最好的防守是进攻。与其等对手把你打死，不如主动上网终结这一分。',
+                    descEN: 'You are the "Net-Rushing Reformer"! You choose active spending cuts, solving the problem at its root — because you see demand-side deterioration from foreign central bank selling, and if you don\'t change now it\'ll be too late. Like McEnroe\'s serve-and-volley — decisive, aggressive, leaving no room for the opponent. You believe: the best defense is offense. Better to rush the net and end the point than wait for the opponent to hit a winner.' },
+                'CB': { nameZH: '费德勒式的优雅改革派', nameEN: 'Federer-Style Elegant Reformer', emoji: '👑',
+                    descZH: '你是"优雅的进攻型选手"！你推动财政整固，但你认为真正的危险不是外部冲击，而是内部的利息螺旋——如果不削减赤字，利息支出会自己滚成雪球。就像费德勒——动作优雅、节奏流畅，但每一拍都精准致命。你相信：最好的改革不是疾风暴雨，而是精准的、有节奏的、让对手无法适应的持续进攻。',
+                    descEN: 'You are the "Elegant Aggressive Player"! You push fiscal consolidation, but you believe the real danger isn\'t external shocks — it\'s the internal interest spiral. Without deficit reduction, interest expense will snowball on its own. Like Federer — elegant movement, fluid rhythm, but every shot is precise and deadly. You believe: the best reform isn\'t a storm, but precise, rhythmic, continuous attack that the opponent can\'t adapt to.' },
+                'CC': { nameZH: '桑普拉斯式的危机终结者', nameEN: 'Sampras-Style Crisis Terminator', emoji: '🎯',
+                    descZH: '你是"危机中的发球大炮"！你推动财政整固，因为你知道债务上限的政治危机是最大的风险——只有从根本上降低赤字，才能在国会博弈中占据主动。就像桑普拉斯在关键时刻的ACE球——直接、有力、不可阻挡。你相信：当裁判（国会）开始抢戏时，唯一的赢法是让比赛在裁判介入前就结束。',
+                    descEN: 'You are the "Crisis Serve Cannon"! You push fiscal consolidation because you know the debt ceiling political crisis is the biggest risk — only by fundamentally reducing deficits can you seize the initiative in congressional博弈. Like Sampras\' clutch aces — direct, powerful, unstoppable. You believe: when the umpire (Congress) starts stealing the show, the only way to win is to end the match before the umpire intervenes.' },
+                'CD': { nameZH: '阿加西式的底线改革家', nameEN: 'Agassi-Style Baseline Reformer', emoji: '🔄',
+                    descZH: '你是"持久战的改革者"！你推动财政整固，但你认为最终的胜负不是由某个危机决定的，而是由长期的信用消耗决定的。就像阿加西的职业生涯——从叛逆少年到网球传奇，靠的不是某一场比赛的胜利，而是长期的坚持和进化。你相信：美元霸权的衰落是缓慢的，但财政整固越早开始，美国就越有可能在这场消耗战中笑到最后。',
+                    descEN: 'You are the "Protracted-War Reformer"! You push fiscal consolidation, but you believe the final outcome isn\'t decided by any single crisis — it\'s decided by long-term credit attrition. Like Agassi\'s career — from rebellious teen to tennis legend, not through one match win, but through long-term persistence and evolution. You believe: dollar hegemony will decline slowly, but the earlier fiscal consolidation begins, the more likely America is to outlast this war of attrition.' },
+                'DA': { nameZH: '康纳斯式的通胀斗士', nameEN: 'Connors-Style Inflation Fighter', emoji: '💥',
+                    descZH: '你是"放小球的战略家"！你选择用通胀稀释债务，但你密切关注外国央行的反应——如果减持加速，通胀策略可能反噬。就像吉米·康纳斯——左手持拍、斗志顽强、从不按常理出牌。你相信：放小球是最高级的战术——对手知道你要放，但就是跑不到位。通胀稀释也是一样——市场知道美元在贬值，但没有更好的替代选择。',
+                    descEN: 'You are the "Drop Shot Strategist"! You choose inflation to dilute debt, but closely monitor foreign central bank reactions — if selling accelerates, the inflation strategy could backfire. Like Jimmy Connors — left-handed, tenacious, never playing by the book. You believe: the drop shot is the most sophisticated tactic — the opponent knows it\'s coming, but still can\'t get there in position. Inflation dilution is the same — markets know the dollar is depreciating, but there\'s no better alternative.' },
+                'DB': { nameZH: '博格式的冰人通胀派', nameEN: 'Borg-Style Ice-Man Inflationist', emoji: '🧊',
+                    descZH: '你是"冷静的消耗战大师"！你选择容忍通胀来稀释债务，同时你也清楚——利息螺旋是通胀策略最大的敌人。就像比约·博格——冰人般冷静、五夺法网、红土场上的王者。你相信：通胀稀释是一场漫长的红土战役，需要极大的耐心和纪律。不能急，不能躁，一分一分地耗，直到债务的实际价值被磨掉足够多。',
+                    descEN: 'You are the "Cool Attrition Master"! You choose to tolerate inflation to dilute debt, while also knowing — the interest spiral is the inflation strategy\'s greatest enemy. Like Björn Borg — ice-cold calm, five-time French Open champion, king of clay. You believe: inflation dilution is a long clay-court battle requiring immense patience and discipline. No rushing, no frenzy — grinding point by point, until enough of the debt\'s real value has been worn away.' },
+                'DC': { nameZH: '穆雷式的防守反击派', nameEN: 'Murray-Style Counter-Puncher', emoji: '🛡️',
+                    descZH: '你是"防守反击的战术家"！你选择用通胀策略作为防守手段，但你最警惕的是债务上限的政治危机——这是通胀策略最怕的对手。就像安迪·穆雷——防守出色、反击犀利、善于把对手的进攻转化为自己的得分。你相信：通胀是缓慢的消耗，但政治危机会突然加速一切。你必须在防守中保持警惕，随时准备反击。',
+                    descEN: 'You are the "Defensive Counter-Punch Tactician"! You choose inflation strategy as a defensive tool, but what you fear most is the debt ceiling political crisis — the inflation strategy\'s worst enemy. Like Andy Murray — excellent defense, sharp counterattacks, adept at turning opponent aggression into your own points. You believe: inflation is slow attrition, but political crisis can suddenly accelerate everything. You must stay alert in defense, always ready to counter.' },
+                'DD': { nameZH: '纳达尔式的终极磨王', nameEN: 'Nadal-Style Ultimate Grinder', emoji: '🏅',
+                    descZH: '你是"最纯粹的消耗战信徒"！你选择用通胀稀释债务，同时你相信最终的结局是美元霸权的缓慢侵蚀——没有雷曼时刻，只有漫长的五盘大战。就像纳达尔——红土之王、14座法网奖杯、靠的就是比对手多跑一步、多打一拍、多扛一分。你相信：美元不会突然死亡，只会在漫长的消耗中慢慢失去霸权。而通胀，就是你最好的磨拍。',
+                    descEN: 'You are the "Purest Attrition Believer"! You choose inflation to dilute debt, while believing the final outcome is slow erosion of dollar hegemony — no Lehman moment, just a long five-set match. Like Nadal — the King of Clay, 14 French Open titles, achieved by running one step more, hitting one shot more, enduring one point more than the opponent. You believe: the dollar won\'t die suddenly, it will slowly lose hegemony through prolonged attrition. And inflation is your best grinding racket.' }
+            };
+            
+            var p = personalities[choice + exp];
+            if (p) {
+                document.getElementById('personality-result').scrollIntoView({ behavior: 'smooth' });
+                setTimeout(function() {
+                    var langEN = document.body.classList.contains('lang-en');
+                    document.getElementById('personality-name').textContent = p.emoji + ' ' + (langEN ? 'Your player-investor style is most like: ' : '你的球手-投资者画像：') + (langEN ? p.nameEN : p.nameZH);
+                    document.getElementById('personality-desc').textContent = langEN ? p.descEN : p.descZH;
+                    document.getElementById('personality-card').style.display = 'block';
+                }, 600);
+            }
+        }
+
+        // ============ Analogy Branch Toggle ============
+        function toggleBranch(header) {
+            var node = header.closest('.branch-node');
+            var details = node.querySelector('.branch-details');
+            var isOpen = node.classList.contains('open');
+            if (isOpen) { details.style.display = 'none'; node.classList.remove('open'); }
+            else { details.style.display = 'block'; node.classList.add('open'); }
+        }
+
+        // ============ Decision Card ============
+        function toggleDecisionCard(header) {
+            var card = header.closest('.decision-card');
+            var body = card.querySelector('.decision-card-body');
+            var toggle = card.querySelector('.decision-card-toggle');
+            if (body.style.display === 'none') {
+                body.style.display = 'block';
+                toggle.innerHTML = '<span class="zh">收起 ↑</span><span class="en">Collapse ↑</span>';
+            } else {
+                body.style.display = 'none';
+                toggle.innerHTML = '<span class="zh">展开 ↓</span><span class="en">Expand ↓</span>';
+            }
+        }
+
+        // ============ Reset ============
+        function resetVotes() {
+            if (confirm(isEN() ? 'Reset your votes? You can re-experience the full flow!\n(Previous votes remain in statistics)' : '确定要重置你的投票吗？可以重新体验完整流程！\n（你之前的投票已计入统计，重置后可重新选择）')) {
+                localStorage.removeItem(STORAGE_KEY);
+                location.reload();
+            }
+        }
+
+        // ============ Language Toggle ============
+        function toggleLang() {
+            document.body.classList.toggle('lang-en');
+            var btn = document.getElementById('langToggle');
+            var isEnglish = document.body.classList.contains('lang-en');
+            btn.textContent = isEnglish ? '中' : 'EN';
+            if (isEnglish) { btn.classList.add('active'); } else { btn.classList.remove('active'); }
+            sessionStorage.setItem('lang', isEnglish ? 'en' : 'zh');
+            loadVoteStats();
+            if (userState.userChoice && userState.userExperiment) {
+                showPersonality(userState.userChoice, userState.userExperiment);
+            }
+        }
+
+        // ============ Page Load ============
+        window.addEventListener('load', function() {
+            if (sessionStorage.getItem('lang') === 'en') {
+                document.body.classList.add('lang-en');
+                document.getElementById('langToggle').textContent = '中';
+                document.getElementById('langToggle').classList.add('active');
+            }
+            loadVoteStats();
+            if (userState.hasVotedChoice) {
+                var card = document.querySelector('.option-card[data-option="' + userState.userChoice + '"]');
+                if (card) {
+                    card.classList.add('selected');
+                    document.querySelectorAll('.option-card').forEach(function(c) { c.classList.add('voted'); });
+                    document.getElementById('vote-result-area').style.display = 'block';
+                }
+            }
+            if (userState.hasVotedExperiment) {
+                var ecard = document.querySelector('.exp-option[data-exp="' + userState.userExperiment + '"]');
+                if (ecard) {
+                    ecard.classList.add('selected');
+                    ecard.style.background = 'rgba(16, 185, 129, 0.1)';
+                    document.querySelectorAll('.exp-option').forEach(function(c) { c.style.cursor = 'default'; });
+                    document.getElementById('exp-result-area').style.display = 'block';
+                }
+            }
+            if (userState.userChoice && userState.userExperiment) {
+                setTimeout(function() { showPersonality(userState.userChoice, userState.userExperiment); }, 800);
+            }
+        });
+    </script>
+</body>
+</html>
